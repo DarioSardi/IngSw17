@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Card {
 	private String cardName;
 	private int cardEra;
-	private ArrayList<Resource> instantBonus;
+	private ArrayList<Resource> instantBonus;  //SAMUEL Pensare alla gestione bonus
 
 	public Card(String cardName,int cardEra){
 		this.cardName = cardName;
 		this.cardEra = cardEra;
-		this.instantBonus = new ArrayList<Resource>();
+		this.instantBonus = new ArrayList<Resource>(); //SAMUEL Pensare alla gestione bonus
 	}
 
 	public String getCardName() {
