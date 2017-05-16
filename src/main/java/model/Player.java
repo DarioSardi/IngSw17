@@ -11,7 +11,16 @@ public class Player {
 	private int militaryPoints;
 	private int faithPoints;
 	private ArrayList<boolean> excommunications;
+	private PlayerCards playerCards;
 	
+	public PlayerCards getPlayerCards() {
+		return playerCards;
+	}
+
+	public void setPlayerCards(PlayerCards playerCards) {
+		this.playerCards = playerCards;
+	}
+
 	public Player(String name){
 		this.playerName = name;
 	}
