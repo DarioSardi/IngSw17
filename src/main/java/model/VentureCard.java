@@ -1,6 +1,6 @@
 package model;
 
-public class VentureCard{
+public class VentureCard extends Card{
 	private int endVictoryPoints;
 	private boolean doubleCost;
 }

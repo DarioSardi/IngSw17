@@ -7,6 +7,11 @@ public class Board {
     //CONFIGURATION SETTINGS
     public static final int numberOfTowers= 4;
     public static final int excommunicationRound=2;
+    public static final int totalNumberOfCardsPerSet=24;
+    public static final int towerCardsPerRound=4;
+
+
+    private int turnNumber;
     private int round;
     private int era;
 
@@ -47,7 +52,7 @@ public Board(){
         this.faithArea = new FaithArea();
 
         createTowers();
-
+        createCards();
         //maybe to set something form controller input
 
     }
@@ -56,7 +61,25 @@ public Board(){
 
 
 
-    private void createTowers() {
+    private void createCards() {
+    	this.buildingCardPool = new ArrayList<Card>();
+    	this.ventureCardPool = new ArrayList<Card>();
+    	this.territoryCardPool= new ArrayList<Card>();
+    	this.characterCardPool = new ArrayList<Card>();
+    	for(int i=0; i<totalNumberOfCardsPerSet;i++){
+        	this.buildingCardPool.add(new BuildingCard()); 
+        	this.ventureCardPool.add(new VentureCard());
+        	this.territoryCardPool.add(new TerritoryCard());
+        	this.characterCardPool.add(new CharacterCard());
+    	}
+    	//FRANCESCO bordello in creazione carte, da capire !!!!
+    }
+
+
+
+
+
+	private void createTowers() {
         //FRANCESCO-DARIO da decidere se tower distinti da colori o da altro (passo intero al construttore, strebbe per colore)
         this.towers = new ArrayList<Tower>();
         for(int i=0 ; i < numberOfTowers; i++){
@@ -103,12 +126,18 @@ public Board(){
 
         }
     }
+    
+    //SET CARDS READY IN THE TOWERS
     private void setTowerCards() {
-        getCards();
+    //    getCards();
+    	int startingCardToDraw = this.round*this.towerCardsPerRound;
+        for(int index=0 ; index < this.towerCardsPerRound; index++){
+            this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw));
+    	
+    	
 
     }
-    private void getCards(){
-    }
+
 
     private void createAndRollDice() {
 

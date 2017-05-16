@@ -28,5 +28,11 @@ public class Tower {
 	public String toString(){
 		return "";		//DARIO compilare codice
 	}
+	public ArrayList<Floor> getFloors() {
+		return floors;
+	}
+	public void setFloors(ArrayList<Floor> floors) {
+		this.floors = floors;
+	}
 	
 }
