@@ -21,20 +21,14 @@ public class Card {
 		return cardEra;
 	}
 
-	public ArrayList<Resource> getInstantBonus() {
-		return instantBonus;
-	}
-
-	public void generateInstantBonus(Resource resource) {
-		this.instantBonus.add(resource);
+	public boolean canIBuy(FamilyMember familiar, boolean towerTax){
+		//SAMUEL da fare
+		return false;
 	}
 	
-	public void cardBought(Player p){
-		int i=0;
-		while (i<this.instantBonus.size()){
-			p.addRisorsa(this.instantBonus.get(i).getTipoRisorsa(), this.instantBonus.get(i).getValue());
-			i++;
-		}
+	public boolean Buy(FamilyMember familiar, boolean towerTax){
+		//SAMUEL da fare
+		return false;
 	}
 	
 	
