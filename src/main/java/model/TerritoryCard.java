@@ -1,9 +1,10 @@
 package model;
 
-<<<<<<< HEAD
-public class VentureCard{
-=======
-public class TerritoryCard{
->>>>>>> branch 'master' of https://github.com/DarioSardi/IngSw17.git
+public class TerritoryCard extends Card{
+	public TerritoryCard(String cardName, int cardEra) {
+		super(cardName, cardEra);
+		// TODO Auto-generated constructor stub
+	}
+
 	private int minDiceValue;
 }
