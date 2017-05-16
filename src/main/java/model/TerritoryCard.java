@@ -1,5 +1,5 @@
 package model;
 
-public class VentureCard{
+public class TerritoryCard{
 	private int minDiceValue;
 }

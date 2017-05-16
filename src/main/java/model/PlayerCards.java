@@ -1,13 +1,16 @@
 package model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class PlayerCards{
 	private Array[] militaryPointsRequirements;
-	private ArraList<Card> buildingCards;
-	private ArraList<Card> ventureCards;
-	private ArraList<Card> characterCards;
-	private ArraList<Card> territoryCards;
-	private ArraList<Bonus> defaultBonusHarvest;
-	private ArraList<Bonus> defaultBonusBuildings;
+	private ArrayList<Card> buildingCards;
+	private ArrayList<Card> ventureCards;
+	private ArrayList<Card> characterCards;
+	private ArrayList<Card> territoryCards;
+	private ArrayList<Bonus> defaultBonusHarvest;
+	private ArrayList<Bonus> defaultBonusBuildings;
 	
 	public PlayerCards (){
 		//SAMUEL Capire a cosa servano defaultBonusHarvest e Buildings
@@ -21,11 +24,11 @@ public class PlayerCards{
 		//SAMUEL Capire a cosa serva metodo buildingProduction
 	}
 	
-	public Array[] getMilitaryPointsRequirements(Array[] requirements){
+	public void setMilitaryPointsRequirements(Array[] requirements){
 		this.militaryPointsRequirements = requirements;
 	}
 	
-	public void setMilitaryPointsRequirements(){
+	public Array[] getMilitaryPointsRequirements(){
 		return this.militaryPointsRequirements;
 	}
 
