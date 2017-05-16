@@ -4,11 +4,11 @@ public abstract class ActionSpace {
 	private int minDiceValue;
 
 	public boolean check() {
-		return false; //DARIO corretto?
+		return false; //DARIO compilare codice
 	}
 
 	public boolean execute() {
-		return false; //DARIO corretto?
+		return false; //DARIO compilare codice
 	}
 
 	public int getMinDiceValue() {
