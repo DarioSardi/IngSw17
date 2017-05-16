@@ -10,7 +10,7 @@ public class Tower {
 	
 	/**
 	 * generate a empty tower 
-	 * @param towerColor define the tower color
+	 * @param towerColor define the tower colors
 	 */
 	public Tower(String towerColor) {
 		super();
