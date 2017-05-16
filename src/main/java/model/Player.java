@@ -49,7 +49,7 @@ public class Player {
 	}
 	
 	public void setExcommunications(ArrayList<boolean> excommunications){
-		this.excommunications = excommunications;
+		this.
 	}
 	
 	public void printFamiliars(){
