@@ -2,6 +2,7 @@ package model;
 
 
 
+
 public class FamilyMember{
     //TODO generata per risolvere le dipendenze
     private int color;
@@ -69,3 +70,4 @@ public class FamilyMember{
 
 
 
+>>>>>>> branch 'master' of https://github.com/DarioSardi/IngSw17.git

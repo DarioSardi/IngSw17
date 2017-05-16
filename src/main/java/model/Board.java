@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
+
     //CONFIGURATION SETTINGS
     public static final int numberOfTowers= 4;
     public static final int excommunicationRound=2;
@@ -292,4 +293,3 @@ public Board(){
         this.players = players;
     }
 }
-
