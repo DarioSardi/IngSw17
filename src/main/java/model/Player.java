@@ -6,11 +6,43 @@ import decorator3.Resource;
 
 public class Player {
 	private String playerName;
+	private ArrayList<Resource> playerResouces;
+	private int victoryPoints;
+	private int militaryPoints;
+	private int faithPoints;
 	private ArrayList<boolean> excommunications;
 	
 	public Player(String name){
 		this.playerName = name;
 	}
+	
+	public void setPlayerResources(){
+		//SAMUEL setPlayerResources
+	}
+	
+	public int getVictoryPoints(){
+		return this.victoryPoints;
+	}
+	
+	public void setVictoryPoints(int points){
+		this.victoryPoints;
+	}
+	
+	public int getMilitaryPoints(){
+		return this.militaryPoints;
+	}
+	
+	public void setMilitaryPoints(int points){
+		this.militaryPoints;
+	}
+	
+	public int getFaithPoints(){
+		return this.faithPoints;
+	}
+	
+	public void setFaithPoints(int points){
+		this.faithPoints;
+	}	
 	
 	public ArrayList<boolean> getExcommunications(){
 		return this.excommunications;
