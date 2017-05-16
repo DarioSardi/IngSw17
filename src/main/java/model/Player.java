@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import decorator3.Resource;
 
 public class Player {
 	private String playerName;
@@ -14,6 +13,11 @@ public class Player {
 	
 	public Player(String name){
 		this.playerName = name;
+		
+	}
+	
+	public String getPlayer(){
+		return this.playerName;
 	}
 	
 	public void setPlayerResources(){
@@ -25,7 +29,7 @@ public class Player {
 	}
 	
 	public void setVictoryPoints(int points){
-		this.victoryPoints;
+		this.victoryPoints = points;
 	}
 	
 	public int getMilitaryPoints(){
