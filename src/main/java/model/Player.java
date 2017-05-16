@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import decorator3.Resource;
 
 public class Player {
 	private String playerName;
@@ -10,23 +11,9 @@ public class Player {
 	private int militaryPoints;
 	private int faithPoints;
 	private ArrayList<boolean> excommunications;
-	private PlayerCards playerCards;
 	
-	public PlayerCards getPlayerCards() {
-		return playerCards;
-	}
-
-	public void setPlayerCards(PlayerCards playerCards) {
-		this.playerCards = playerCards;
-	}
-
 	public Player(String name){
 		this.playerName = name;
-		
-	}
-	
-	public String getPlayer(){
-		return this.playerName;
 	}
 	
 	public void setPlayerResources(){
@@ -38,7 +25,7 @@ public class Player {
 	}
 	
 	public void setVictoryPoints(int points){
-		this.victoryPoints = points;
+		this.victoryPoints;
 	}
 	
 	public int getMilitaryPoints(){

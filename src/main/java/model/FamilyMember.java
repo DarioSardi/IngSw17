@@ -8,21 +8,7 @@ public class FamilyMember {
 	private Player player;
 	int diceValue;
 	
-	public FamilyMember(Player player,int color){
-		this.color=color;
-		this.alreadyPlaced=false;
-		this.familyMemberPosition=null;
-		this.player= player;		
-	}
 	
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
 	public int getColor() {
 		return color;
 	}
