@@ -5,7 +5,10 @@ public class Die {
 	private int dieColor;
 	private int range=6;
 
-	
+	public Die(int color){
+		this.dieColor= color;
+		this.rollDie();
+	}
 	
 	public int getDieValue() {
 		return dieValue;
@@ -26,17 +29,13 @@ public class Die {
 		this.range = range;
 	}
 	
-	//TODO fare tutta la funzione su un unica riga di codice
+	//FRANCESCO fare tutta la funzione su un unica riga di codice
 	public void rollDie(){
 		double Dvalue = Math.random()*this.range;
 		int value = (int)Dvalue+1;
 		this.setDieValue(value);	
 	}
 
-	public static void main(String args[]){
-		Die d = new Die();
-		d.rollDie();
-		System.out.println(d.dieValue);
-	}
+
 	
 }
