@@ -74,17 +74,19 @@ public class Player {
 		//SAMUEL da fare printFamiliars
 	}
 	
+	@Override
 	public String toString(){
 		//SAMUEL toString per stampare le risorse
 		return "";
 	}
 	
 	//SAMUEL pensare al reinitialize dei familiari
-	/* public void reinitializeTurn(){
-	 * 		int i=0;
-			while(i < this.familyMembers.size()){
-				callVariniFunction();
-			}
+	public void callToReinitializeFamilyMember(){		//SAMUEL per mettere posizioni a null
+		int i=0;
+		while(i < GlobalVariables.numberOfFamilyMembers){
+			this.familyMembers.get(i).reinitializeFamilyMember();
+			i++;
 		}
-	*/
+	}
+	
 }
