@@ -43,9 +43,9 @@ public Board(){
         int numberOfPlayers= players.size();
 
         this.councilPalace = new CouncilPalace();
-        this.market = new Market(numberOfPlayers);
-        this.productionArea=new ProductionArea(numberOfPlayers);
-        this.harvestArea= new HarvestArea(numberOfPlayers);
+        this.market = new Market();
+        this.productionArea=new ProductionArea();
+        this.harvestArea= new HarvestArea();
         this.faithArea = new FaithArea();
         this.dice= new ArrayList<Die>();
 
@@ -64,7 +64,7 @@ public Board(){
     	this.ventureCardPool = new ArrayList<Card>();
     	this.territoryCardPool= new ArrayList<Card>();
     	this.characterCardPool = new ArrayList<Card>();
-    	for(int i=0; i<totalNumberOfCardsPerSet;i++){
+    	for(int i=0; i<GlobalVariables.totalNumberOfCardsPerSet;i++){
         //FRANCESCO bordello in creazione carte,come le ricevo e elaboro? da capire !!!!
 
         	this.buildingCardPool.add(new BuildingCard(null,this.getEra())); 
@@ -146,19 +146,17 @@ public Board(){
 
 
     private void createAndRollDice() {
-    	for(int index=0; index<numberOfDice; index++)
+    	for(int index=0; index<GlobalVariables.numberOfDice;index++)
     		this.dice.add(new Die(index));		
-
-    }
     private void RollDice() {
-    	for(int index=0; index<numberOfDice; index++)
+    	for(int index=0; index<GlobalVariables.numberOfDice; index++)
     		this.dice.get(index).rollDie();		
     }
     
     
     
     public void nextTurn(){
-        if(this.round == excommunicationRound){
+        if(this.round == GlobalVariables.excommunicationRound){
 
         }
 
