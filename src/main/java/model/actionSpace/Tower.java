@@ -1,10 +1,13 @@
-package model;
+package model.actionSpace;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+import model.Bonus;
+import model.FamilyMember;
+
 public class Tower {
-	private String towerColor;//TODO tipo string?
+	private String towerColor;//TODO tipo enum!da camabiare! (TERRITORY_TOWER)
 	private boolean towerOccupied;
 	private ArrayList<Floor> floors;
 	

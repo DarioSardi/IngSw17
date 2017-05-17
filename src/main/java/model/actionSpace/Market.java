@@ -1,4 +1,4 @@
-package model;
+package model.actionSpace;
 
 import java.util.ArrayList;
 

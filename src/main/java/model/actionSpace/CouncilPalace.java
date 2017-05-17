@@ -1,6 +1,9 @@
-package model;
+package model.actionSpace;
 
 import java.util.ArrayList;
+
+import model.Bonus;
+import model.FamilyMember;
 
 public class CouncilPalace extends ActionSpace{
 	private ArrayList<FamilyMember>  familiarIn;

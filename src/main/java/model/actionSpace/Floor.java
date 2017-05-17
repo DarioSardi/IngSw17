@@ -1,4 +1,8 @@
-package model;
+package model.actionSpace;
+
+import model.Bonus;
+import model.Card;
+import model.FamilyMember;
 
 public class Floor extends ActionSpace{
 private boolean floorOccupied;

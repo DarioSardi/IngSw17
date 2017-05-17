@@ -1,4 +1,6 @@
-package model;
+package model.actionSpace;
+
+import model.FamilyMember;
 
 public class ProductionArea extends ActionSpace {
 	public class HarvestArea extends ActionSpace{

@@ -3,6 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.actionSpace.CouncilPalace;
+import model.actionSpace.HarvestArea;
+import model.actionSpace.Market;
+import model.actionSpace.ProductionArea;
+import model.actionSpace.Tower;
+
 public class Board {
 
     //CONFIGURATION SETTINGS
