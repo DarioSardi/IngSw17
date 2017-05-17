@@ -2,10 +2,9 @@ package model;
 
 
 import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import decorator3.Resource;
 
 public class PlayerCards{
 	private int maxNumCards;

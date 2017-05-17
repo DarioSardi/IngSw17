@@ -1,23 +1,34 @@
 package model;
 
 import java.util.ArrayList;
-
-import decorator3.Resource;
+import java.util.List;
 
 public class Player {
 	private String playerName;
+	private int color;
 	private ArrayList<Resource> playerResouces;
 	private int victoryPoints;
 	private int militaryPoints;
 	private int faithPoints;
-	private ArrayList<boolean> excommunications;
+	private List<FamilyMember> familyMembers;
+	private ArrayList<Boolean> excommunications;
 	
 	public Player(String name){
 		this.playerName = name;
+    	this.excommunications = new ArrayList<Boolean>();
+    	
+    	//FRANCESCO-SAMUEL Crearle durante l'inizializzazione o inizializzarli così????
+    	this.excommunications.add(false);
+    	this.excommunications.add(false);
+    	this.excommunications.add(false);
+    	this.familyMembers.add(new FamilyMember(this, this.color));
+    	this.familyMembers.add(new FamilyMember(this, this.color));
+    	this.familyMembers.add(new FamilyMember(this, this.color));
+    	this.familyMembers.add(new FamilyMember(this, this.color));
 	}
 	
 	public void setPlayerResources(){
-		//SAMUEL setPlayerResources
+		//SAMUEL setPlayerResources Pensare all'hashmap
 	}
 	
 	public int getVictoryPoints(){
@@ -25,7 +36,7 @@ public class Player {
 	}
 	
 	public void setVictoryPoints(int points){
-		this.victoryPoints;
+		this.victoryPoints = points;
 	}
 	
 	public int getMilitaryPoints(){
@@ -33,7 +44,7 @@ public class Player {
 	}
 	
 	public void setMilitaryPoints(int points){
-		this.militaryPoints;
+		this.militaryPoints = points;
 	}
 	
 	public int getFaithPoints(){
@@ -41,22 +52,23 @@ public class Player {
 	}
 	
 	public void setFaithPoints(int points){
-		this.faithPoints;
+		this.faithPoints = points;
 	}	
 	
-	public ArrayList<boolean> getExcommunications(){
-		return this.excommunications;
+	public boolean getExcommunications(int era){
+		return this.excommunications.get(era-1);
 	}
 	
-	public void setExcommunications(ArrayList<boolean> excommunications){
-		this.
+	public void setExcommunications(int era, boolean control){
+		this.excommunications.set(era-1, control);
 	}
 	
 	public void printFamiliars(){
 		//SAMUEL da fare printFamiliars
 	}
 	
-	public void toString(){
-		//SAMUEL
+	public String toString(){
+		//SAMUEL toString per stampare le risorse
+		return "";
 	}
 }
