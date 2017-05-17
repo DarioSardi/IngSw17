@@ -1,14 +1,14 @@
-package model;
+package model.actionSpace;
 
 public abstract class ActionSpace {
 	private int minDiceValue;
 
 	public boolean check() {
-		return false; //DARIO corretto?
+		return false; //default se non passo il familiare
 	}
 
 	public boolean execute() {
-		return false; //DARIO corretto?
+		return false; // default se non passo il familiare
 	}
 
 	public int getMinDiceValue() {

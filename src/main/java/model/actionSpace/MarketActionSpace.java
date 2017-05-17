@@ -1,4 +1,7 @@
-package model;
+package model.actionSpace;
+
+import model.Bonus;
+import model.FamilyMember;
 
 public class MarketActionSpace extends ActionSpace {
 	private FamilyMember familiarIn;

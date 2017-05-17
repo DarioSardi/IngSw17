@@ -1,6 +1,9 @@
-package model;
+package model.actionSpace;
 
 import java.util.ArrayList;
+
+import model.Bonus;
+import model.FamilyMember;
 
 public class CouncilPalace extends ActionSpace{
 	private ArrayList<FamilyMember>  familiarIn;
@@ -33,8 +36,8 @@ public class CouncilPalace extends ActionSpace{
 	 * get the bonuses and add the family member to the array (set the current position of the family member)
 	 */
 	public boolean execute(FamilyMember f) {
-		if(this.check(f)){			//DARIO aggiornare inserendo f.getPlayer()
-			this.bonus.earnBonus(f.getPlayer()); //SAMUEL-DARIO getters di player nella classe FamilyMember! (bestia)
+		if(this.check(f)){			
+			this.bonus.earnBonus(f.getPlayer()); 
 			this.familiarIn.add(f);
 			f.setAlreadyPlaced(true);
 			f.setFamilyMemberPosition(this);

@@ -1,7 +1,6 @@
 package model;
 
-
-
+import model.actionSpace.ActionSpace;
 
 public class FamilyMember{
     //TODO generata per risolvere le dipendenze

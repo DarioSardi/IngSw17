@@ -1,4 +1,8 @@
-package model;
+package model.actionSpace;
+
+import model.Bonus;
+import model.Card;
+import model.FamilyMember;
 
 public class Floor extends ActionSpace{
 private boolean floorOccupied;
@@ -7,12 +11,12 @@ private Bonus bonus;
 private Card card;
 private Tower tower;
 //TODO diamo un valore anche al piano? tipo primo,secondo ecc...?
+//DARIO metodo addCard() / removeCard()
 
-public Floor(Bonus bonus, Card card,Tower tower, Integer minDiceValue) {
+public Floor(Bonus bonus,Tower tower, Integer minDiceValue) {
 	super();
 	this.setMinDiceValue(minDiceValue);
 	this.bonus = bonus;
-	this.card = card;
 	this.tower = tower;
 }
 public boolean isFloorOccupied() {
@@ -55,18 +59,21 @@ public void setTower(Tower tower) {
 	this.tower = tower;
 }
 public boolean check(FamilyMember f) {
-	return f.getDiceValue()>=this.getMinDiceValue(); //DARIO && aggiungere metodo di controllo acquisto carta
+	return f.getDiceValue()>=this.getMinDiceValue(); //DARIO necessaria logica buycard
 }
 
 public boolean execute(FamilyMember f) {
 	if(this.check(f)){
-		return true;			//DARIO compilare codice
+		return true;			//DARIO necessaria logica buycard
 	}
 	else {return false;} 
 }
-
+/*
+ * print floor info
+ *@return print floor cost,floor bonus,floor card
+ */
 public String toString(){
-	return "";		//DARIO compilare codice
+	return "foor cost: "+ String.valueOf(this.getMinDiceValue())+ "floor bonus: "+this.bonus.toString()+" floor Card: "+ this.card.toString();
 }
 
 }
