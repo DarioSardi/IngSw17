@@ -17,14 +17,20 @@ public class FamilyMember{
         this.player= player;
     }
 
+    
+    
+    
+    public void reinitializeFamilyMember{
+    	
+    }
     public Player getPlayer() {
         return player;
     }
-
+    
     public void setPlayer(Player player) {
         this.player = player;
     }
-
+    
     public int getColor() {
         return color;
     }
@@ -52,8 +58,8 @@ public class FamilyMember{
     }
     public void setFamilyMemberPosition(ActionSpace actionSpace) {
         this.familyMemberPosition = actionSpace;
-        
-    }
+     }
+    
 
 
 }
