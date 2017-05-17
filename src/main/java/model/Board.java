@@ -1,26 +1,16 @@
 package model;
+import .staticParameter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.actionSpace.CouncilPalace;
-import model.actionSpace.HarvestArea;
-import model.actionSpace.Market;
-import model.actionSpace.ProductionArea;
-import model.actionSpace.Tower;
-
 public class Board {
 
     //CONFIGURATION SETTINGS
-    public static final int numberOfTowers= 4;
-    public static final int excommunicationRound=2;
-    public static final int totalNumberOfCardsPerSet=24;
-    public static final int towerCardsPerRound=4;
 
-
-    private int turnNumber;
-    private int round;
-    private int era;
+   private static int round;
+   private static int turnNumber;
+   private static int era;
 
     //CARDPOOLS
     private List territoryCardPool;
@@ -28,8 +18,9 @@ public class Board {
     private List characterCardPool;
     private List ventureCardPool;
 
-    private List<Die> Dice;
-
+    private List<Die> dice;
+    
+    
     //AREAS
     private Market market;
     private CouncilPalace councilPalace;
@@ -49,7 +40,6 @@ public class Board {
 public Board(){
         createPlayers(); //magari implementeremo la scelta bonus Base Risorse e Leader Card piu avanti da passare in parametro
 
-        //FRANCESCO-DARIO Devo passarti il numero giocatori int per i costruttori delle aree per sapere cosa abilitare
         int numberOfPlayers= players.size();
 
         this.councilPalace = new CouncilPalace();
@@ -57,10 +47,11 @@ public Board(){
         this.productionArea=new ProductionArea(numberOfPlayers);
         this.harvestArea= new HarvestArea(numberOfPlayers);
         this.faithArea = new FaithArea();
+        this.dice= new ArrayList<Die>();
 
         createTowers();
         createCards();
-        //maybe to set something form controller input
+        //maybe to set something from controller input
 
     }
 
@@ -74,12 +65,13 @@ public Board(){
     	this.territoryCardPool= new ArrayList<Card>();
     	this.characterCardPool = new ArrayList<Card>();
     	for(int i=0; i<totalNumberOfCardsPerSet;i++){
-        	this.buildingCardPool.add(new BuildingCard()); 
-        	this.ventureCardPool.add(new VentureCard());
-        	this.territoryCardPool.add(new TerritoryCard());
-        	this.characterCardPool.add(new CharacterCard());
+        //FRANCESCO bordello in creazione carte,come le ricevo e elaboro? da capire !!!!
+
+        	this.buildingCardPool.add(new BuildingCard(null,this.getEra())); 
+        	this.ventureCardPool.add(new VentureCard(null, this.getEra()));
+        	this.territoryCardPool.add(new TerritoryCard(null, this.getEra()));
+        	this.characterCardPool.add(new CharacterCard(null, this.getEra()));
     	}
-    	//FRANCESCO bordello in creazione carte, da capire !!!!
     }
 
 
@@ -87,7 +79,7 @@ public Board(){
 
 
 	private void createTowers() {
-        //FRANCESCO-DARIO da decidere se tower distinti da colori o da altro (passo intero al construttore, strebbe per colore)
+		
         this.towers = new ArrayList<Tower>();
         for(int i=0 ; i < numberOfTowers; i++){
             this.getTowers().add(new Tower(i));
@@ -97,7 +89,7 @@ public Board(){
 
 
 
-    //Controller ask for addPlayers giving ID as input
+    // REQUIREMENTS : Controller ask for addPlayers giving ID as input
     public void addPlayerID(String playerID){
         if (playersID == null)
             playersID= new ArrayList <String>();
@@ -108,8 +100,10 @@ public Board(){
 
 
     public void initialize(){
-
+    	
+    	
         setTowerCards();
+        
 //		setExcommunicationCards();
 
 
@@ -129,26 +123,40 @@ public Board(){
             players = new ArrayList<Player>();
         }
         for (int i=0; i<this.playersID.size(); i++){
-            players.add(new Player(playersID.get(i)));
+        	//SAMUEL-FRANCESCO Da modificare costruttore di player con input dati;
+            players.add(new Player(playersID.get(i),this.numberOfFamilyMember,this.totalNumberOfEras));
 
         }
     }
     
-    //SET CARDS READY IN THE TOWERS
+    //SET CARDS READY IN THE TOWERS, REQUIREMENTS: CARDS ORDERED BY ERA FROM BOTTOM TO TOP
+    
     private void setTowerCards() {
     //    getCards();
     	int startingCardToDraw = this.round*this.towerCardsPerRound;
-        for(int index=0 ; index < this.towerCardsPerRound; index++){
-            this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw));
-    	
-    	
-
+        for(int index=0 ; index < this.towerCardsPerRound; index++)
+            this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));
+        for(int index=0 ; index < this.towerCardsPerRound; index++)
+            this.getTowers().get(0).getFloors().get(index).setCard(this.buildingCardPool.get(startingCardToDraw+index));
+        for(int index=0 ; index < this.towerCardsPerRound; index++)
+            this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));
+        for(int index=0 ; index < this.towerCardsPerRound; index++)
+            this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));   
     }
 
 
     private void createAndRollDice() {
+    	for(int index=0; index<numberOfDice; index++)
+    		this.dice.add(new Die(index));		
 
     }
+    private void RollDice() {
+    	for(int index=0; index<numberOfDice; index++)
+    		this.dice.get(index).rollDie();		
+    }
+    
+    
+    
     public void nextTurn(){
         if(this.round == excommunicationRound){
 
@@ -162,12 +170,7 @@ public Board(){
 
 
 
-
-
-
-
-
-    //getters and setters
+    //GETTERS AND SETTERS
 
     public int getRound() {
         return round;

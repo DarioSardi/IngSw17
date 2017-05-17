@@ -50,9 +50,11 @@ public class FamilyMember{
     public ActionSpace getFamilyMemberPosition() {
         return familyMemberPosition;
     }
-    public void setFamilyMemberPosition(ActionSpace familyMemberPosition) {
-        this.familyMemberPosition = familyMemberPosition;
+    public void setFamilyMemberPosition(ActionSpace actionSpace) {
+        this.familyMemberPosition = actionSpace;
+        
     }
+
 
 }
 
