@@ -6,7 +6,7 @@ import model.Bonus;
 import model.FamilyMember;
 
 public abstract class MultipleActionSpace extends ActionSpace {
-	private ArrayList<FamilyMember> familiarsIn;
+	protected ArrayList<FamilyMember> familiarsIn;
 	private Bonus bonus;
 	
 	public ArrayList<FamilyMember> getFamiliarsIn() {
@@ -20,8 +20,8 @@ public abstract class MultipleActionSpace extends ActionSpace {
 		this.familiarsIn.clear();
 	}
 	
-	public void earnBonus() {
-		//DARIO implementare logica bonus
+	public Bonus getBonus() {
+		return this.bonus;
 	}
 	public void setBonus(Bonus bonus) {
 		this.bonus = bonus;

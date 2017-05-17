@@ -4,7 +4,7 @@ import model.Bonus;
 import model.FamilyMember;
 
 public abstract class SingleActionSpace extends ActionSpace{
-	private FamilyMember familiarIn;
+	protected FamilyMember familiarIn;
 	private Bonus bonus;
 	public FamilyMember getFamiliarIn() {
 		return familiarIn;

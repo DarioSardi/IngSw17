@@ -3,28 +3,29 @@ package model.actionSpace;
 import model.FamilyMember;
 
 public class HarvestMultipleActionSpace extends MultipleActionSpace {
-private FamilyMember familiarIn;
+private HarvestArea harvestArea;
 	
 	/**
 	 * create a multiplayer harvest space with a standard harvest bonus (and clear the array of playerIn);
 	 * @param minDiceValue to define the min value of the familiar
+	 * @param harvestArea to define the harvestArea
 	 */
-	public HarvestMultipleActionSpace(int minDiceValue) {
+	public HarvestMultipleActionSpace(int minDiceValue,HarvestArea harvestArea) {
 		this.setBonus(null); //DARIO inserire bonus produzione
 		this.setMinDiceValue(minDiceValue);
-		this.getFamiliarsIn().clear();
+		this.familiarsIn.clear();
+		this.harvestArea=harvestArea;
 	}
 	
 	/**
-	 * check if the space is empty and if the familiar have enough points to enter the space
+	 * check if the player can enter and if the familiar have enough points to enter the space
 	 * @param f
 	 * @return true if action can be performed
 	 */
 	public boolean check(FamilyMember f){
-		return familiarIn==null && this.familiarValueCheck(f); //DARIO logica bonus produzione
+		return this.familiarValueCheck(f) && this.harvestArea.havePlayerInCheck(f); 
 	}
 	
-	//DARIO FERMATO QUI A PROGRAMMARE!
 	/**
 	 * check if the action is possible, if it is give the player the bonus 
 	 * @param f
@@ -33,12 +34,16 @@ private FamilyMember familiarIn;
 	public boolean execute(FamilyMember f){
 		if(check(f)){
 			this.getBonus().earnBonus(f);
-			this.familiarIn=f;
+			this.familiarsIn.add(f);
 			f.setAlreadyPlaced(true);
 			f.setFamilyMemberPosition(this);
 			return true;
 		}
 		else return false;
+	}
+	
+	public boolean familiarValueCheck(FamilyMember f){
+		return f.getDiceValue()+f.getPlayer().getPlayerBounusMalus().getBonusProductionArea()>=this.getMinDiceValue(); 
 	}
 	
 	

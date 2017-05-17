@@ -11,5 +11,6 @@ public class GlobalVariables {
 	   public static final int maxNumberPlayerCards = 6;
 	   public static final int minDiceValueHarvestArea = 1;
 	   public static final int mindDiceValueProductionArea = 1;
+	   
 
 }

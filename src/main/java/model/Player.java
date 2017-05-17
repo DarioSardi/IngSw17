@@ -59,6 +59,15 @@ public class Player {
 	}
 	
 	
+	
+	public PlayerBonusMalus getPlayerBounusMalus() {
+		return playerBounusMalus;
+	}
+
+	public void setPlayerBounusMalus(PlayerBonusMalus playerBounusMalus) {
+		this.playerBounusMalus = playerBounusMalus;
+	}
+
 	public void initializeExcommunication(){
 		int i=0;
 		while(i<GlobalVariables.totalNumberOfEras){
