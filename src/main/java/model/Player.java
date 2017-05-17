@@ -16,15 +16,7 @@ public class Player {
 	public Player(String name){
 		this.playerName = name;
     	this.excommunications = new ArrayList<Boolean>();
-    	
-    	//FRANCESCO-SAMUEL Crearle durante l'inizializzazione o inizializzarli così????
-    	this.excommunications.add(false);
-    	this.excommunications.add(false);
-    	this.excommunications.add(false);
-    	this.familyMembers.add(new FamilyMember(this, this.color));
-    	this.familyMembers.add(new FamilyMember(this, this.color));
-    	this.familyMembers.add(new FamilyMember(this, this.color));
-    	this.familyMembers.add(new FamilyMember(this, this.color));
+    	this.familyMembers = new ArrayList<FamilyMember>();    	
 	}
 	
 	public void setPlayerResources(){
@@ -63,6 +55,21 @@ public class Player {
 		this.excommunications.set(era-1, control);
 	}
 	
+	
+	public void initializeExcommunication(){
+		int i=0;
+		while(i<GlobalVariables.totalNumberOfEras){
+			this.excommunications.add(false);
+		}
+	}
+	
+	public void initializeFamilyMembers(){
+		int i=0;
+		while(i < GlobalVariables.numberOfFamilyMembers){
+			this.familyMembers.add(new FamilyMember(this, this.color));
+		}
+	}
+	
 	public void printFamiliars(){
 		//SAMUEL da fare printFamiliars
 	}
@@ -71,4 +78,13 @@ public class Player {
 		//SAMUEL toString per stampare le risorse
 		return "";
 	}
+	
+	//SAMUEL pensare al reinitialize dei familiari
+	/* public void reinitializeTurn(){
+	 * 		int i=0;
+			while(i < this.familyMembers.size()){
+				callVariniFunction();
+			}
+		}
+	*/
 }

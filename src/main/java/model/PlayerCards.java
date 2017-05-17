@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerCards{
-	private int maxNumCards;
 	private Array[] militaryPointsRequirements;
 	private List<Card> buildingCards;
 	private List<Card> ventureCards;
@@ -55,7 +54,7 @@ public class PlayerCards{
 	}
 	
 	public boolean canIAdd(int actualNumCards){
-		if(actualNumCards <= this.maxNumCards) return true;
+		if(actualNumCards <= GlobalVariables.maxNumberPlayerCards) return true;
 		else return false;
 	}
 	
