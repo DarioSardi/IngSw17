@@ -27,6 +27,15 @@ public abstract class MultipleActionSpace extends ActionSpace {
 		this.bonus = bonus;
 	}
 	
+	public String familiarsInToString(){
+		StringBuilder sb = new StringBuilder();
+		for (FamilyMember f : familiarsIn) { 		//SAMUEL-DARIO aggiungere metodo toString di familyMember
+			sb.append(f.toString());
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+	
 	
 
 }

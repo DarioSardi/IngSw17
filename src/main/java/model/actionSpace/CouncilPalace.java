@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import model.Bonus;
 import model.FamilyMember;
 
-public class CouncilPalace extends ActionSpace{
-	private ArrayList<FamilyMember>  familiarIn;
+public class CouncilPalace extends MultipleActionSpace{
 	private Bonus bonus; //TODO bonus di tipo pergamena+coin
 	
 	public CouncilPalace(Bonus bonus,Integer minDiceValue) {
 		super();
 		this.setMinDiceValue(minDiceValue);
-		this.familiarIn= new ArrayList<FamilyMember>();
+		this.familiarsIn= new ArrayList<FamilyMember>();
 		this.bonus = bonus;
 	}
 
@@ -38,7 +37,7 @@ public class CouncilPalace extends ActionSpace{
 	public boolean execute(FamilyMember f) {
 		if(this.check(f)){			
 			this.bonus.earnBonus(f); 
-			this.familiarIn.add(f);
+			this.addFamiliarsIn(f);;
 			f.setAlreadyPlaced(true);
 			f.setFamilyMemberPosition(this);
 			return true;
@@ -49,6 +48,6 @@ public class CouncilPalace extends ActionSpace{
 	 * print the bonus and the list of the player already in the council
 	 */
 	public String toString(){
-		return bonus.toString()+familiarIn.toString();		//DARIO metodo tostring di familiarIn
+		return bonus.toString()+familiarsIn.toString();		//DARIO metodo tostring di familiarIn
 	}
 }
