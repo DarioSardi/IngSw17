@@ -1,26 +1,16 @@
 package model;
+import .staticParameter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.actionSpace.CouncilPalace;
-import model.actionSpace.HarvestArea;
-import model.actionSpace.Market;
-import model.actionSpace.ProductionArea;
-import model.actionSpace.Tower;
-
 public class Board {
 
     //CONFIGURATION SETTINGS
-    public static final int numberOfTowers= 4;
-    public static final int excommunicationRound=2;
-    public static final int totalNumberOfCardsPerSet=24;
-    public static final int towerCardsPerRound=4;
-    public static final int numberOfDice=3;
 
-    private static int round;
-    private static int turnNumber;
-    private static int era;
+   private static int round;
+   private static int turnNumber;
+   private static int era;
 
     //CARDPOOLS
     private List territoryCardPool;
@@ -29,7 +19,8 @@ public class Board {
     private List ventureCardPool;
 
     private List<Die> dice;
-
+    
+    
     //AREAS
     private Market market;
     private CouncilPalace councilPalace;
@@ -88,6 +79,7 @@ public Board(){
 
 
 	private void createTowers() {
+		
         this.towers = new ArrayList<Tower>();
         for(int i=0 ; i < numberOfTowers; i++){
             this.getTowers().add(new Tower(i));
@@ -131,7 +123,8 @@ public Board(){
             players = new ArrayList<Player>();
         }
         for (int i=0; i<this.playersID.size(); i++){
-            players.add(new Player(playersID.get(i)));
+        	//SAMUEL-FRANCESCO Da modificare costruttore di player con input dati;
+            players.add(new Player(playersID.get(i),this.numberOfFamilyMember,this.totalNumberOfEras));
 
         }
     }
