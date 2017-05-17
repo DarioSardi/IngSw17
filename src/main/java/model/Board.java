@@ -1,8 +1,8 @@
 package model;
-import .staticParameter;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.actionSpace.*;
 
 public class Board {
 
@@ -124,7 +124,7 @@ public Board(){
         }
         for (int i=0; i<this.playersID.size(); i++){
         	//SAMUEL-FRANCESCO Da modificare costruttore di player con input dati;
-            players.add(new Player(playersID.get(i),this.numberOfFamilyMember,this.totalNumberOfEras));
+            players.add(new Player(playersID.get(i)));
 
         }
     }
@@ -133,14 +133,14 @@ public Board(){
     
     private void setTowerCards() {
     //    getCards();
-    	int startingCardToDraw = this.round*this.towerCardsPerRound;
-        for(int index=0 ; index < this.towerCardsPerRound; index++)
+    	int startingCardToDraw = this.round*GlobalVariables.towerCardsPerRound;
+        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));
-        for(int index=0 ; index < this.towerCardsPerRound; index++)
+        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(0).getFloors().get(index).setCard(this.buildingCardPool.get(startingCardToDraw+index));
-        for(int index=0 ; index < this.towerCardsPerRound; index++)
+        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));
-        for(int index=0 ; index < this.towerCardsPerRound; index++)
+        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));   
     }
 
