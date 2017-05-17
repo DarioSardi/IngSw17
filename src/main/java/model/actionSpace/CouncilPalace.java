@@ -37,7 +37,7 @@ public class CouncilPalace extends ActionSpace{
 	 */
 	public boolean execute(FamilyMember f) {
 		if(this.check(f)){			
-			this.bonus.earnBonus(f.getPlayer()); 
+			this.bonus.earnBonus(f); 
 			this.familiarIn.add(f);
 			f.setAlreadyPlaced(true);
 			f.setFamilyMemberPosition(this);

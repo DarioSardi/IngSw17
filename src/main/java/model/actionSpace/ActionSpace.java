@@ -1,5 +1,7 @@
 package model.actionSpace;
 
+import model.FamilyMember;
+
 public abstract class ActionSpace {
 	private int minDiceValue;
 
@@ -9,6 +11,10 @@ public abstract class ActionSpace {
 
 	public boolean execute() {
 		return false; // default se non passo il familiare
+	}
+	
+	public boolean familiarValueCheck(FamilyMember f){
+		return f.getDiceValue()/*+bonus dice*/>=minDiceValue;
 	}
 
 	public int getMinDiceValue() {

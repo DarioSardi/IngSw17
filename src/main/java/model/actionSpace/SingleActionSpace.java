@@ -19,6 +19,5 @@ public abstract class SingleActionSpace extends ActionSpace{
 		this.bonus = bonus;
 	}
 	
-	
 
 }
