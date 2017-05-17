@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Player {
 	private String playerName;
+	private PlayerBonusMalus playerBounusMalus;
 	private int color;
 	private ArrayList<Resource> playerResouces;
 	private int victoryPoints;
@@ -16,7 +17,9 @@ public class Player {
 	public Player(String name){
 		this.playerName = name;
     	this.excommunications = new ArrayList<Boolean>();
-    	this.familyMembers = new ArrayList<FamilyMember>();    	
+    	this.familyMembers = new ArrayList<FamilyMember>();   
+    	this.playerBounusMalus= new PlayerBonusMalus();
+    	
 	}
 	
 	public void setPlayerResources(){
