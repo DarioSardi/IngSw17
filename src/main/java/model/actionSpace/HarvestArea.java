@@ -1,16 +1,17 @@
 package model.actionSpace;
 
 import model.FamilyMember;
+import model.GlobalVariables;
 
 public class HarvestArea{
 	private FamilyMember FamiliarIn;
 	private SingleActionSpace baseZone;
 	private MultipleActionSpace extraZone;
-	//FRANCESCO-DARIO serve una variabile globale per il mindicevalue delle production areas!
+	
 	public HarvestArea(boolean enoughPlayers) {
 		super();
-		this.baseZone = new HarvestSingleActionSpace();
-		this.extraZone = new HarvestMultipleActionSpace();
+		this.baseZone = new HarvestSingleActionSpace(GlobalVariables.minDiceValueHarvestArea, this);
+		this.extraZone = new HarvestMultipleActionSpace(GlobalVariables.minDiceValueHarvestArea, this);
 	}
 	//DARIO DA RIFARE D:
 	//DARIO generare costruttore
@@ -29,6 +30,15 @@ public class HarvestArea{
 
 	public boolean execute() {
 		return true; //DARIO compilare codice
+	}
+	
+	/**
+	 * check if the player is already in one of the area
+	 * @param f family member that is trying  to enter
+	 * @return true if there are no conflicts (no other familar of the same color)
+	 */
+	public boolean havePlayerInCheck(FamilyMember f){
+		return false; //DARIO compilare codice tenendo conto del familiare neutro
 	}
 
 

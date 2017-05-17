@@ -3,16 +3,18 @@ package model.actionSpace;
 import model.FamilyMember;
 
 public class HarvestSingleActionSpace extends SingleActionSpace{
-	private FamilyMember familiarIn;
+	private HarvestArea harvestArea;
 	
 	/**
 	 * create a single harvest space with a standard harvest bonus;
 	 * @param minDiceValue to define the min value of the familiar
+	 * @param harvestArea to define the harvestArea
 	 */
-	public HarvestSingleActionSpace(int minDiceValue) {
+	public HarvestSingleActionSpace(int minDiceValue,HarvestArea harvestArea) {
 		this.setBonus(null); //DARIO inserire bonus produzione
 		this.setMinDiceValue(minDiceValue);
 		this.setFamiliarIn(null);
+		this.harvestArea=harvestArea;
 	}
 	
 	/**
@@ -21,7 +23,7 @@ public class HarvestSingleActionSpace extends SingleActionSpace{
 	 * @return true if action can be performed
 	 */
 	public boolean check(FamilyMember f){
-		return familiarIn==null && this.familiarValueCheck(f); //DARIO logica bonus produzione
+		return getFamiliarIn()==null && this.familiarValueCheck(f) && this.harvestArea.havePlayerInCheck(f);
 	}
 	
 	/**
@@ -38,6 +40,9 @@ public class HarvestSingleActionSpace extends SingleActionSpace{
 			return true;
 		}
 		else return false;
+	}
+	public boolean familiarValueCheck(FamilyMember f){
+		return f.getDiceValue()+f.getPlayer().getPlayerBounusMalus().getBonusProductionArea()>=this.getMinDiceValue();
 	}
 	
 	

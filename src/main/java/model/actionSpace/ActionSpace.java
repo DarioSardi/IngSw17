@@ -5,16 +5,16 @@ import model.FamilyMember;
 public abstract class ActionSpace {
 	private int minDiceValue;
 
-	public boolean check() {
-		return false; //default se non passo il familiare
+	public boolean check(FamilyMember f) {
+		return false; //default se non faccio override
 	}
 
-	public boolean execute() {
-		return false; // default se non passo il familiare
+	public boolean execute(FamilyMember f) {
+		return false; //default se non faccio override
 	}
 	
 	public boolean familiarValueCheck(FamilyMember f){
-		return f.getDiceValue()/*+bonus dice*/>=minDiceValue;
+		return false; //default se non faccio override
 	}
 
 	public int getMinDiceValue() {
