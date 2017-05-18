@@ -13,6 +13,7 @@ public class GlobalVariables {
 	   public static final int initialServants = 3;
 	   public static final int minDiceValueHarvestArea = 1;
 	   public static final int mindDiceValueProductionArea = 1;
+	   public static final int mindDiceValueCouncilPalace= 1;
 	   
 
 }

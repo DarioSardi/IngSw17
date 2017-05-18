@@ -1,22 +1,17 @@
 package model.actionSpace;
 
-import java.util.ArrayList;
-import java.util.stream.IntStream;
-
 import model.Bonus;
 import model.FamilyMember;
+import model.Player;
 
-public class Tower {
+public class Tower extends ActionArea{
 	private String towerColor;//TODO tipo enum!da camabiare! (TERRITORY_TOWER)
-	private boolean towerOccupied;
-	private ArrayList<Floor> floors;
-	
+	private boolean towerOccupied;	
 	/**
 	 * generate a empty tower 
 	 * @param towerColor define the tower colors
 	 */
-	public Tower(String towerColor) {
-		super();
+	public Tower(String towerColor,int floors) {
 		this.towerColor = towerColor;	
 		this.towerOccupied= false;
 	}
@@ -30,30 +25,23 @@ public class Tower {
 		this.towerColor = towerColor;
 	}
 
-	public boolean isTowerOccupied() {
-		return towerOccupied;
-	}
-
-	public void setTowerOccupied(boolean towerOccupied) {
-		this.towerOccupied = towerOccupied;
-	}
-
-	public ArrayList<Floor> getFloors() {
-		return floors;
-	}
-
-	public void setFloors(ArrayList<Floor> floors) {
-		this.floors = floors;
-	}
-
+	/**
+	 * check if the tower have already the player in
+	 * @param f
+	 * @return true if has not the player in
+	 */
 	public boolean hasPlayerIn(FamilyMember f) {
-		return false; //DARIO array di boolean per vedere? 
+		if(f.getColor()==0){return true;}
+		else{for(ActionSpace floor: this.getSpaces()){
+			if(f.getColor()==floor.getFamiliarIn().get(0).getColor()){return false;}
+		}
+		return true;}
 	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (Floor f : floors) {
-			sb.append(f.toString());
+		for (ActionSpace floor: this.getSpaces()) {
+			sb.append(floor.toString());
 			sb.append("\n");
 		}
 		return sb.toString();
@@ -67,8 +55,22 @@ public class Tower {
 	 * @param minDiceValue
 	 */
 	public void addFloor(Bonus bonus, Integer minDiceValue) {
-		this.floors.add(new Floor(bonus, this, minDiceValue));
+		this.getSpaces().add(new Floor(bonus, this, minDiceValue));
 
+	}
+	
+	/**
+	 * check if the tower is occupied
+	 */
+	@Override
+	public boolean check(FamilyMember f) {
+		return towerOccupied;
+	}
+
+	@Override
+	public int getBonusOfArea(Player p) {
+		// DARIO come divido i bonus torre?
+		return 0;
 	}
 
 }

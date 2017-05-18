@@ -1,53 +1,26 @@
 package model.actionSpace;
 
-import java.util.ArrayList;
-
 import model.Bonus;
 import model.FamilyMember;
+import model.GlobalVariables;
+import model.Player;
 
-public class CouncilPalace extends MultipleActionSpace{
-	private Bonus bonus; //TODO bonus di tipo pergamena+coin
-	
-	public CouncilPalace(Bonus bonus,Integer minDiceValue) {
-		super();
-		this.setMinDiceValue(minDiceValue);
-		this.familiarsIn= new ArrayList<FamilyMember>();
-		this.bonus = bonus;
+public class CouncilPalace extends ActionArea{
+
+	public CouncilPalace(Bonus b) {
+		this.getSpaces().add(new CouncilPalaceSpace(GlobalVariables.mindDiceValueCouncilPalace, this,b));
 	}
 
-	
-	public Bonus getBonus() {
-		return bonus;
-	}
-
-	public void setBonus(Bonus bonus) {
-		this.bonus = bonus;
-	}
-	
-	/**
-	 * check if is possible to enter the Council palace (no malus checked)
-	 * @return true if is possible to enter this zone
-	 */
+	@Override
 	public boolean check(FamilyMember f) {
-		return f.getDiceValue()>=this.getMinDiceValue();	
+		return true;
 	}
-	/**
-	 * get the bonuses and add the family member to the array (set the current position of the family member)
-	 */
-	public boolean execute(FamilyMember f) {
-		if(this.check(f)){			
-			this.bonus.earnBonus(f); 
-			this.addFamiliarsIn(f);;
-			f.setAlreadyPlaced(true);
-			f.setFamilyMemberPosition(this);
-			return true;
-		}
-		else {return false;} //DARIO aggiungere eccezione?
+
+	@Override
+	public int getBonusOfArea(Player p) {
+		return 0;  //nessun bonus utile
 	}
-	/**
-	 * print the bonus and the list of the player already in the council
-	 */
-	public String toString(){
-		return bonus.toString()+familiarsIn.toString();		//DARIO metodo tostring di familiarIn
-	}
+	
+	
+	
 }
