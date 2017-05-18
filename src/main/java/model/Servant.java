@@ -1,7 +1,7 @@
 package model;
 
 public class Servant extends Resource{
-	private String tipoRisorsa = "servant";
+	private String tipoRisorsa = "servants";
 	private int value;
 	
 	public Servant (int value){
