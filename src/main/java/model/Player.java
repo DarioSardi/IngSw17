@@ -8,8 +8,7 @@ public class Player {
 	private String playerName;
 	private PlayerBonusMalus playerBounusMalus;
 	private int color;
-	private PlayerBonusMalus playerBounusMalus;
-	private HashMap<String, Integer> resources;
+	private HashMap<String, Integer> playerResources;
 	private int victoryPoints;
 	private int militaryPoints;
 	private int faithPoints;
@@ -27,24 +26,34 @@ public class Player {
 	}
 	
 	public void generateHashmapResources(int coins){
-		this.resources= new HashMap<String, Integer>();
-		this.resources.put("coins", coins);
-		this.resources.put("servants", GlobalVariables.initialServants);
-		this.resources.put("stones", GlobalVariables.initialStones);
-		this.resources.put("woods", GlobalVariables.initialWoods);
-		this.resources.put("victoryPoints", GlobalVariables.initialWoods);
-		this.resources.put("militaryPoints", GlobalVariables.initialWoods);
-		this.resources.put("faithPoints", GlobalVariables.initialWoods);
+		this.playerResources= new HashMap<String, Integer>();
+		this.playerResources.put("coin", coins);
+		this.playerResources.put("servant", GlobalVariables.initialServants);
+		this.playerResources.put("stone", GlobalVariables.initialStones);
+		this.playerResources.put("wood", GlobalVariables.initialWoods);
+		this.playerResources.put("victoryPoint", 0);
+		this.playerResources.put("militaryPoint", 0);
+		this.playerResources.put("faithPoint", 0);
 		
 		//SAMUEL Gestione delle monete iniziali
 	}
 	
-	public int getPlayerResource(String resource){
-		this.resources.get(resource);
+	
+	
+	public HashMap<String, Integer> getPlayerResources() {
+		return playerResources;
 	}
+
+	public void setPlayerResources(HashMap<String, Integer> resources) {
+		this.playerResources = resources;
+	}
+
+/*	public int getPlayerResources(String resource){
+		this.playerResources.get(resource);
+	}*/
 	
 	public void setPlayerResource(String resource, int value){
-		this.resources.put(resource, value);
+		this.playerResources.put(resource, value);
 	}
 	
 	public boolean getExcommunications(int era){

@@ -20,7 +20,7 @@ public class FamilyMember{
     
     
     
-    public void reinitializeFamilyMember{
+    public void reinitializeFamilyMember(){
     	
     }
     public Player getPlayer() {
