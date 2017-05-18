@@ -1,21 +1,20 @@
 package model.actionSpace;
 
+import java.util.ArrayList;
+
+import model.Bonus;
 import model.FamilyMember;
 
 public abstract class ActionSpace {
 	private int minDiceValue;
-
-	public boolean check(FamilyMember f) {
-		return false; //default se non faccio override
-	}
-
-	public boolean execute(FamilyMember f) {
-		return false; //default se non faccio override
-	}
+	private ArrayList<FamilyMember> familiarIn;
+	private Bonus bonus;
 	
-	public boolean familiarValueCheck(FamilyMember f){
-		return false; //default se non faccio override
-	}
+	public abstract boolean check(FamilyMember f);
+
+	public abstract boolean familiarValueCheck(FamilyMember f);
+	
+	public abstract boolean checkColor(FamilyMember f);
 
 	public int getMinDiceValue() {
 		return minDiceValue;
@@ -24,4 +23,42 @@ public abstract class ActionSpace {
 	public void setMinDiceValue(int minDiceValue) {
 		this.minDiceValue = minDiceValue;
 	}
+
+	public ArrayList<FamilyMember> getFamiliarIn() {
+		return familiarIn;
+	}
+
+	public void setFamiliarIn(ArrayList<FamilyMember> familiarIn) {
+		this.familiarIn = familiarIn;
+	}
+
+	public Bonus getBonus() {
+		return bonus;
+	}
+
+	public void setBonus(Bonus bonus) {
+		this.bonus = bonus;
+	}
+	
+	/**
+	 * check if the action is possible, if it is give the player the bonus 
+	 * @param f
+	 * @return
+	 */
+	public boolean execute(FamilyMember f){
+		if(check(f)){
+			this.getBonus().earnBonus(f);
+			this.getFamiliarIn().add(f);
+			f.setAlreadyPlaced(true);
+			f.setFamilyMemberPosition(this);
+			return true;
+		}
+		else return false;
+	}
+	
+	
+	
+	
+
+	
 }
