@@ -5,24 +5,20 @@ import model.FamilyMember;
 import model.Player;
 
 public class Tower extends ActionArea{
-	private String towerColor;//TODO tipo enum!da camabiare! (TERRITORY_TOWER)
+	private TowerColors towerColor;
 	private boolean towerOccupied;	
 	/**
 	 * generate a empty tower 
 	 * @param towerColor define the tower colors
 	 */
-	public Tower(String towerColor,int floors) {
+	public Tower(TowerColors towerColor,int floors) {
 		this.towerColor = towerColor;	
 		this.towerOccupied= false;
 	}
 
 	// getters and setters
-	public String getTowerColor() {
+	public TowerColors getTowerColor() {
 		return towerColor;
-	}
-
-	public void setTowerColor(String towerColor) {
-		this.towerColor = towerColor;
 	}
 
 	/**
