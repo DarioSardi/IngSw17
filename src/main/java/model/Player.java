@@ -1,13 +1,15 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Player {
 	private String playerName;
 	private PlayerBonusMalus playerBounusMalus;
 	private int color;
-	private ArrayList<Resource> playerResouces;
+	private PlayerBonusMalus playerBounusMalus;
+	private HashMap<String, Integer> resources;
 	private int victoryPoints;
 	private int militaryPoints;
 	private int faithPoints;
@@ -17,13 +19,28 @@ public class Player {
 	public Player(String name){
 		this.playerName = name;
     	this.excommunications = new ArrayList<Boolean>();
-    	this.familyMembers = new ArrayList<FamilyMember>();   
+    	this.familyMembers = new ArrayList<FamilyMember>();  
     	this.playerBounusMalus= new PlayerBonusMalus();
-    	
+    	generateHashmapResources();
+
 	}
 	
-	public void setPlayerResources(){
-		//SAMUEL setPlayerResources Pensare all'hashmap
+	public void generateHashmapResources(int coins){
+		this.resources= new HashMap<String, Integer>();
+		this.resources.put("Coins", coins);
+		this.resources.put("Servants", GlobalVariables.initialServants);
+		this.resources.put("Stones", GlobalVariables.initialStones);
+		this.resources.put("Woods", GlobalVariables.initialWoods);
+		
+		//SAMUEL Gestione delle monete iniziali
+	}
+	
+	public int getPlayerResource(String resource){
+		this.resources.get(resource);
+	}
+	
+	public void setPlayerResource(String resource, int value){
+		this.resources.put(resource, value);
 	}
 	
 	public int getVictoryPoints(){
@@ -86,19 +103,18 @@ public class Player {
 		//SAMUEL da fare printFamiliars
 	}
 	
+	//SAMUEL pensare al reinitialize dei familiari
+	public void callToReinitializeFamilyMember(){		//SAMUEL per mettere posizioni a null
+		int i=0;
+		while(i < GlobalVariables.numberOfFamilyMembers){
+			this.familyMembers.get(i).reinitializeFamilyMember(); //SAMUEL creare metodo in FamilyMember
+			i++;
+		}
+	}
+	
 	@Override
 	public String toString(){
 		//SAMUEL toString per stampare le risorse
 		return "";
 	}
-	
-	//SAMUEL pensare al reinitialize dei familiari
-	public void callToReinitializeFamilyMember(){		//SAMUEL per mettere posizioni a null
-		int i=0;
-		while(i < GlobalVariables.numberOfFamilyMembers){
-			this.familyMembers.get(i).reinitializeFamilyMember();
-			i++;
-		}
-	}
-	
 }

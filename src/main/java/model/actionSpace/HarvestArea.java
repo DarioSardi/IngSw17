@@ -12,7 +12,6 @@ public class HarvestArea{
 		this.extraZone = new HarvestMultipleActionSpace(GlobalVariables.minDiceValueHarvestArea, this);
 	}
 	
-
 	/**
 	 * check if the player is already in one of the area
 	 * @param f family member that is trying  to enter
