@@ -10,6 +10,6 @@ public class ResourceEffect extends Effect {
 	
 	
 	public void ExecuteEffect(){
-		
+		//Esta
 	}
 }
