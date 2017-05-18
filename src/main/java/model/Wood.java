@@ -1,7 +1,7 @@
 package model;
 
 public class Wood extends Resource{
-	private String tipoRisorsa = "wood";
+	private String tipoRisorsa = "woods";
 	private int value;
 	
 	public Wood (int value){

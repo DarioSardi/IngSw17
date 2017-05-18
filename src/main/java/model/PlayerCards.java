@@ -41,16 +41,16 @@ public class PlayerCards{
 	}
 	
 	public void addBuildingCard(Card card){
-		if(canIAdd(this.buildingCards.size())) this.buildingCards.add(card);	
+	this.buildingCards.add(card);	
 	}
 	public void addVentureCard(Card card){
-		if(canIAdd(this.ventureCards.size())) this.ventureCards.add(card);	
+		this.ventureCards.add(card);	
 	}
 	public void addCharacterCard(Card card){
-		if(canIAdd(this.characterCards.size())) this.characterCards.add(card);	
+		this.characterCards.add(card);	
 	}
 	public void addTerritoryCard(Card card){
-		if(canIAdd(this.territoryCards.size())) this.territoryCards.add(card);	
+		this.territoryCards.add(card);	
 	}
 	
 	public boolean canIAdd(int actualNumCards){
