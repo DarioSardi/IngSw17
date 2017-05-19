@@ -7,7 +7,7 @@ public class GlobalVariables {
 	   public static final int excommunicationRound=2;
 	   public static final int totalNumberOfCardsPerSet=24;
 	   public static final int towerCardsPerRound=4;
-	   public static final int totalNumberOfEras=3;
+	   public static final int totalNumberOfPeriods=3;		//TODO Per chi la usa cambi il nome, si chiamano periodi, non ere
 	   public static final int maxNumberPlayerCards = 6;
 	   public static final int initialWoods = 2;
 	   public static final int initialStones = 2;

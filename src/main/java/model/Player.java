@@ -7,9 +7,6 @@ import java.util.List;
 public class Player {
 	private String playerName;
 	private PlayerBonusMalus playerBounusMalus;
-	
-	//SAMUEL private String color;  Non serve ma è qualcosa in più
-	
 	private HashMap<String, Integer> playerResources;
 	private List<FamilyMember> familyMembers;
 	private ArrayList<Boolean> excommunications;
@@ -53,12 +50,12 @@ public class Player {
 		this.playerResources.put(resource, value);
 	}
 	
-	public boolean getExcommunications(int era){
-		return this.excommunications.get(era-1);
+	public boolean getExcommunications(int period){
+		return this.excommunications.get(period-1);
 	}
 	
-	public void setExcommunications(int era, boolean control){
-		this.excommunications.set(era-1, control);
+	public void setExcommunications(int period, boolean control){
+		this.excommunications.set(period-1, control);
 	}
 	
 	
@@ -72,7 +69,7 @@ public class Player {
 
 	public void initializeExcommunication(){
 		int i=0;
-		while(i<GlobalVariables.totalNumberOfEras){
+		while(i<GlobalVariables.totalNumberOfPeriods){
 			this.excommunications.add(false);
 		}
 	}
