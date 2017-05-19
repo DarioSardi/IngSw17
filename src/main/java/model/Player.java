@@ -7,11 +7,10 @@ import java.util.List;
 public class Player {
 	private String playerName;
 	private PlayerBonusMalus playerBounusMalus;
-	private int color;
+	
+	//SAMUEL private String color;  Non serve ma è qualcosa in più
+	
 	private HashMap<String, Integer> playerResources;
-	private int victoryPoints;
-	private int militaryPoints;
-	private int faithPoints;
 	private List<FamilyMember> familyMembers;
 	private ArrayList<Boolean> excommunications;
 	
@@ -21,19 +20,17 @@ public class Player {
     	this.familyMembers = new ArrayList<FamilyMember>();  
     	this.playerBounusMalus= new PlayerBonusMalus();
     	generateHashmapResources(initCoins);
-    	
-
-	}
+    		}
 	
-	public void generateHashmapResources(int coins){
+	private void generateHashmapResources(int coins){
 		this.playerResources= new HashMap<String, Integer>();
 		this.playerResources.put("coin", coins);
 		this.playerResources.put("servant", GlobalVariables.initialServants);
 		this.playerResources.put("stone", GlobalVariables.initialStones);
 		this.playerResources.put("wood", GlobalVariables.initialWoods);
-		this.playerResources.put("victoryPoint", 0);
-		this.playerResources.put("militaryPoint", 0);
-		this.playerResources.put("faithPoint", 0);
+		this.playerResources.put("victoryPoint", GlobalVariables.initialVictoryPoints);
+		this.playerResources.put("militaryPoint", GlobalVariables.initialMilitaryPoints);
+		this.playerResources.put("faithPoint", GlobalVariables.initialFaithPoints);
 		
 		//SAMUEL Gestione delle monete iniziali
 	}
@@ -48,9 +45,9 @@ public class Player {
 		this.playerResources = resources;
 	}
 
-/*	public int getPlayerResources(String resource){
-		this.playerResources.get(resource);
-	}*/
+	public int getPlayerResource(String resource){
+		this.playerResources.get(resource);					//FRANCESCO-SAMUEL Come mai era in un blocco di commento?
+	}
 	
 	public void setPlayerResource(String resource, int value){
 		this.playerResources.put(resource, value);

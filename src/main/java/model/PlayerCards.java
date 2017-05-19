@@ -47,7 +47,7 @@ public class PlayerCards{
 		this.ventureCards.add(card);	
 	}
 	public void addCharacterCard(Card card){
-		this.characterCards.add(card);	
+		this.characterCards.add(card);
 	}
 	public void addTerritoryCard(Card card){
 		this.territoryCards.add(card);	
@@ -58,7 +58,7 @@ public class PlayerCards{
 		else return false;
 	}
 	
-	public String toString(){
-		return "";
+	public String toString(){ this.
+		return ""; //SAMUEL toString
 	}
 }
