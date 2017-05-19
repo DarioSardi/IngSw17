@@ -17,6 +17,7 @@ public class Player {
     	this.familyMembers = new ArrayList<FamilyMember>();  
     	this.playerBounusMalus= new PlayerBonusMalus();
     	generateHashmapResources(initCoins);
+    	initializeFamilyMembers();
     		}
 	
 	private void generateHashmapResources(int coins){
@@ -37,13 +38,17 @@ public class Player {
 	public HashMap<String, Integer> getPlayerResources() {
 		return playerResources;
 	}
+	
+	public String getNamePlayer(){
+		return this.playerName;
+	}
 
 	public void setPlayerResources(HashMap<String, Integer> resources) {
 		this.playerResources = resources;
 	}
 
 	public int getPlayerResource(String resource){
-		this.playerResources.get(resource);					//FRANCESCO-SAMUEL Come mai era in un blocco di commento?
+		return this.playerResources.get(resource);					//FRANCESCO-SAMUEL Come mai era in un blocco di commento?
 	}
 	
 	public void setPlayerResource(String resource, int value){
@@ -68,31 +73,26 @@ public class Player {
 	}
 
 	public void initializeExcommunication(){
-		int i=0;
-		while(i<GlobalVariables.totalNumberOfPeriods){
+		for(int i=0; i < GlobalVariables.totalNumberOfPeriods; i++){
 			this.excommunications.add(false);
 		}
 	}
 	
 	private void initializeFamilyMembers(){
-		int i=0;
-		while(i < GlobalVariables.numberOfFamilyMembers){
+		for(int i=0; i < GlobalVariables.numberOfFamilyMembers; i++){
 			this.familyMembers.add(new FamilyMember(this, i));
-			i++;
 		}
-	}
-	
-	public void printFamiliars(){
-		//SAMUEL da fare printFamiliars
 	}
 	
 	//SAMUEL pensare al reinitialize dei familiari
 	public void callToReinitializeFamilyMember(){		//SAMUEL per mettere posizioni a null
-		int i=0;
-		while(i < GlobalVariables.numberOfFamilyMembers){
+		for(int i=0; i < GlobalVariables.numberOfFamilyMembers;  i ++){
 			this.familyMembers.get(i).reinitializeFamilyMember(); //SAMUEL creare metodo in FamilyMember
-			i++;
 		}
+	}
+
+	public void printFamiliars(){
+		//SAMUEL da fare printFamiliars
 	}
 	
 	@Override
