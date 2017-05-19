@@ -11,7 +11,7 @@ public class VictoryPointsMultiplierEffect {
 		this.multiplierFactor= multiplierFactor;
 		this.cardType = cardType;
 	}
-	
+//FRANCESCO to finish with samuel late modifications	
 	private void getVictoryPoints(Player player){
 		if(this.cardType== "ventureCards")
 			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getVentureCards().size());
@@ -20,11 +20,12 @@ public class VictoryPointsMultiplierEffect {
 			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getBuildingCards().size());
 		}
 		if(this.cardType== "territoryCards");
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getVentureCards().size());
+			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getTerritoryCards().size());
 		}
 		if(this.cardType== "ventureCards");
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getVentureCards().size());
+			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getCharacterCards().size());
 		}
+		
 	public void executeEffect(FamilyMember familyMember){
 		getVictoryPoints(familyMember.getPlayer());
 
