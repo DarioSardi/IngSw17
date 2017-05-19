@@ -24,14 +24,6 @@ public class PlayerCards{
     	this.defaultBonusBuildings = new ArrayList<Bonus>();
 	}
 	
-	public void harvestProduction(){
-		//SAMUEL Capire a cosa serva metodo harvestProduction
-	}
-	
-	public void buildingProduction(){
-		//SAMUEL Capire a cosa serva metodo buildingProduction
-	}
-	
 	public void setMilitaryPointsRequirements(Array[] requirements){	//SAMUEL A cosa serve?
 		this.militaryPointsRequirements = requirements;
 	}
@@ -41,7 +33,7 @@ public class PlayerCards{
 	}
 	
 	public void addBuildingCard(Card card){
-	this.buildingCards.add(card);	
+		this.buildingCards.add(card);	
 	}
 	public void addVentureCard(Card card){
 		this.ventureCards.add(card);	

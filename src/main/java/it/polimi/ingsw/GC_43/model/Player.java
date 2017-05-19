@@ -7,6 +7,7 @@ import java.util.List;
 public class Player {
 	private String playerName;
 	private PlayerBonusMalus playerBounusMalus;
+	private PlayerCards playerCards;
 	private HashMap<String, Integer> playerResources;
 	private List<FamilyMember> familyMembers;
 	private ArrayList<Boolean> excommunications;
@@ -16,9 +17,12 @@ public class Player {
     	this.excommunications = new ArrayList<Boolean>();
     	this.familyMembers = new ArrayList<FamilyMember>();  
     	this.playerBounusMalus= new PlayerBonusMalus();
+    	this.playerCards = new PlayerCards();
     	generateHashmapResources(initCoins);
     	initializeFamilyMembers();
-    		}
+    	initializeExcommunication();
+    }
+	
 	
 	private void generateHashmapResources(int coins){
 		this.playerResources= new HashMap<String, Integer>();
@@ -33,10 +37,8 @@ public class Player {
 		//SAMUEL Gestione delle monete iniziali
 	}
 	
-	
-	
 	public HashMap<String, Integer> getPlayerResources() {
-		return playerResources;
+		return this.playerResources;
 	}
 	
 	public String getNamePlayer(){
@@ -46,24 +48,23 @@ public class Player {
 	public void setPlayerResources(HashMap<String, Integer> resources) {
 		this.playerResources = resources;
 	}
-
-	public int getPlayerResource(String resource){
-		return this.playerResources.get(resource);					//FRANCESCO-SAMUEL Come mai era in un blocco di commento?
-	}
 	
 	public void setPlayerResource(String resource, int value){
 		this.playerResources.put(resource, value);
 	}
 	
-	public boolean getExcommunications(int period){
-		return this.excommunications.get(period-1);
+	public int getPlayerResource(String resource){
+		return this.playerResources.get(resource);
 	}
 	
 	public void setExcommunications(int period, boolean control){
 		this.excommunications.set(period-1, control);
 	}
 	
-	
+	public boolean getExcommunications(int period){
+		return this.excommunications.get(period-1);
+	}
+		
 	public PlayerBonusMalus getPlayerBounusMalus() {
 		return playerBounusMalus;
 	}
@@ -72,7 +73,7 @@ public class Player {
 		this.playerBounusMalus = playerBounusMalus;
 	}
 
-	public void initializeExcommunication(){
+	private void initializeExcommunication(){
 		for(int i=0; i < GlobalVariables.totalNumberOfPeriods; i++){
 			this.excommunications.add(false);
 		}
@@ -87,7 +88,7 @@ public class Player {
 	//SAMUEL pensare al reinitialize dei familiari
 	public void callToReinitializeFamilyMember(){		//SAMUEL per mettere posizioni a null
 		for(int i=0; i < GlobalVariables.numberOfFamilyMembers;  i ++){
-			this.familyMembers.get(i).reinitializeFamilyMember(); //SAMUEL creare metodo in FamilyMember
+			this.familyMembers.get(i).setFamilyMemberPosition(null); //SAMUEL creare metodo in FamilyMember
 		}
 	}
 
