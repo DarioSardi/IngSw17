@@ -57,6 +57,14 @@ public class Player {
 		return this.playerResources.get(resource);
 	}
 	
+	public PlayerCards getPlayerCards() {
+		return playerCards;
+	}
+
+	public void setPlayerCards(PlayerCards playerCards) {
+		this.playerCards = playerCards;
+	}
+
 	public void setExcommunications(int period, boolean control){
 		this.excommunications.set(period-1, control);
 	}
