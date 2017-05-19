@@ -19,14 +19,9 @@ public class Player {
     	this.playerBounusMalus= new PlayerBonusMalus();
     	this.playerCards = new PlayerCards();
     	generateHashmapResources(initCoins);
-<<<<<<< HEAD
-    		}
-=======
     	initializeFamilyMembers();
     	initializeExcommunication();
     }
-	
->>>>>>> branch 'master' of https://github.com/DarioSardi/IngSw17.git
 	
 	private void generateHashmapResources(int coins){
 		this.playerResources= new HashMap<String, Integer>();
@@ -48,13 +43,6 @@ public class Player {
 	public void setPlayerResources(HashMap<String, Integer> resources) {
 		this.playerResources = resources;
 	}
-<<<<<<< HEAD
-
-	public int getPlayerResource(String resource){
-		this.playerResources.get(resource);					//FRANCESCO-SAMUEL Come mai era in un blocco di commento?
-	}
-=======
->>>>>>> branch 'master' of https://github.com/DarioSardi/IngSw17.git
 	
 	public void setPlayerResource(String resource, int value){
 		this.playerResources.put(resource, value);
@@ -88,14 +76,8 @@ public class Player {
 		this.playerBounusMalus = playerBounusMalus;
 	}
 
-<<<<<<< HEAD
-	public void initializeExcommunication(){
-		int i=0;
-		while(i<GlobalVariables.totalNumberOfPeriods){
-=======
 	private void initializeExcommunication(){
 		for(int i=0; i < GlobalVariables.totalNumberOfPeriods; i++){
->>>>>>> branch 'master' of https://github.com/DarioSardi/IngSw17.git
 			this.excommunications.add(false);
 		}
 	}
@@ -114,15 +96,8 @@ public class Player {
 	
 	//SAMUEL pensare al reinitialize dei familiari
 	public void callToReinitializeFamilyMember(){		//SAMUEL per mettere posizioni a null
-<<<<<<< HEAD
-		int i=0;
-		while(i < GlobalVariables.numberOfFamilyMembers){
-			this.familyMembers.get(i).reinitializeFamilyMember(); //SAMUEL creare metodo in FamilyMember
-			i++;
-=======
 		for(int i=0; i < GlobalVariables.numberOfFamilyMembers;  i ++){
 			this.familyMembers.get(i).setFamilyMemberPosition(null); //SAMUEL creare metodo in FamilyMember
->>>>>>> branch 'master' of https://github.com/DarioSardi/IngSw17.git
 		}
 	}
 	
