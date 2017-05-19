@@ -1,8 +1,12 @@
-package it.polimi.ingsw.GC_43.model;
-
+package it.polimi.ingsw.GC_43.effects;
+import it.polimi.ingsw.GC_43.model.FamilyMember;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.Resource;
 
 public class ResourceEffect extends Effect {
 	
@@ -15,16 +19,16 @@ public class ResourceEffect extends Effect {
 	
 	
 	
-	public void addResources(HashMap<String,Integer> playerResources){
+	public void addResources( Player player){
 		for( Resource resource: resourcesToGet){
-			int newValue=playerResources.get(resource.getTipoRisorsa())+ resource.getValue();
-			playerResources.put(resource.getTipoRisorsa(), newValue);
+			int newValue=player.getPlayerResources().get(resource.getTipoRisorsa())+ resource.getValue()+player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getTipoRisorsa());
+			player.getPlayerResources().put(resource.getTipoRisorsa(), newValue);
 			
 		}
 	}
 	
-	public void ExecuteEffect(FamilyMember familyMember){
-		addResources(familyMember.getPlayer().getPlayerResources());
+	public void executeEffect(FamilyMember familyMember){
+		addResources(familyMember.getPlayer());
 			
 		}
 

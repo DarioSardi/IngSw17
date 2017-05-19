@@ -1,9 +1,12 @@
 package it.polimi.ingsw.GC_43.model;
 
+import java.util.HashMap;
+
 public class PlayerBonusMalus {
 	
 	//BONUS ADDED EACH TIME NEEDED, THEY COULD BE NEGATIVE TOO
 	//COMING FROM BOTH CHARACTER CARDS AND FROM EXCOMMUNICATION TILES
+	
 	private int bonusDiceCharachterTower;
 	private int bonusDiceTerritoryTower;
 	private int bonusDiceBuildingTower;
@@ -14,10 +17,6 @@ public class PlayerBonusMalus {
 	private int bonusCoinsOnBuyVentureTower;
 	private int bonusCoinsOnBuyBuildingTower;
 	private int bonusCoinsOnBuyTerritoryTower;
-	private int malusOnAcquiringMilitaryPoints;
-	private int malusOnAcquiringMoney;
-	private int malusOnAcquiringWoodOrStone;
-	private int malusOnAcquiringServants;
 	private int malusCoulouredFamiliarsDiceValue;
 	
 	//BOOLEAN, LOGIC OF THESE ARE INCORPORATED IN METHODS USING THOSE
@@ -32,20 +31,39 @@ public class PlayerBonusMalus {
 	private boolean doubleChoiceDiscountOnBuildingCard;
 	
 	
+	private HashMap<String,Integer> malusOnAcquiringResources;
+
 	//TO BE CHECKED IN THE END OF THE GAME
 	//BOOLEAN, LOGIC OF THESE ARE INCORPORATED IN METHODS USING THOSE
 	
-	private boolean noVictoryPointsForVentureCards;
-	private boolean noVictoryPointsForCharacterCards;
-	private boolean noVictoryPointsForTerritoryCards;
-	private boolean malusOnVictoryPoints;
-	private boolean malusOnVictoryPointsPerMilitaryPoint;
-	private boolean malusOnVictoryPointsForBuildingCardCosts;
-	private boolean malusOnVictoryPointsPerResource;
-	
-	
-	
+//Malus On Final Victory Points
+	private HashMap<String,Boolean> malusOnFinalVictoryPoints;
 
+	
+	
+	public PlayerBonusMalus(){
+		this.malusOnAcquiringResources= new HashMap<String,Integer>();
+		this.malusOnAcquiringResources.put("wood", 0);
+		this.malusOnAcquiringResources.put("coin", 0);
+		this.malusOnAcquiringResources.put("stone", 0);
+		this.malusOnAcquiringResources.put("militaryPoint", 0);
+		this.malusOnAcquiringResources.put("faithPoint", 0);
+		this.malusOnAcquiringResources.put("servant", 0);
+		this.malusOnAcquiringResources.put("victoryPoint", 0);
+		this.malusOnFinalVictoryPoints= new HashMap<String,Boolean>();
+		this.malusOnFinalVictoryPoints.put("victoryPoint",false);
+		this.malusOnFinalVictoryPoints.put("militaryPoint",false);
+		this.malusOnFinalVictoryPoints.put("resource",false);
+		this.malusOnFinalVictoryPoints.put("buildingCardCost",false);
+		this.malusOnFinalVictoryPoints.put("ventureCard",false);
+		this.malusOnFinalVictoryPoints.put("territoryCard",false);
+		this.malusOnFinalVictoryPoints.put("characterCard",false);
+
+
+
+
+		
+	}
 	
 	//GETTERS AND SETTERS
 
@@ -54,6 +72,22 @@ public class PlayerBonusMalus {
 	public int getBonusDiceCharachterTower() {
 		return bonusDiceCharachterTower;
 	}
+	public HashMap<String, Boolean> getMalusOnFinalVictoryPoints() {
+		return malusOnFinalVictoryPoints;
+	}
+
+	public void setMalusOnFinalVictoryPoints(HashMap<String, Boolean> malusOnFinalVictoryPoints) {
+		this.malusOnFinalVictoryPoints = malusOnFinalVictoryPoints;
+	}
+
+	public HashMap<String, Integer> getMalusOnAcquiringResources() {
+		return malusOnAcquiringResources;
+	}
+
+	public void setMalusOnAcquiringResources(HashMap<String, Integer> malusOnAcquiringResources) {
+		this.malusOnAcquiringResources = malusOnAcquiringResources;
+	}
+
 	public void setBonusDiceCharachterTower(int bonusDiceCharachterTower) {
 		this.bonusDiceCharachterTower = bonusDiceCharachterTower;
 	}
@@ -111,30 +145,7 @@ public class PlayerBonusMalus {
 	public void setBonusCoinsOnBuyTerritoryTower(int bonusCoinsOnBuyTerritoryTower) {
 		this.bonusCoinsOnBuyTerritoryTower = bonusCoinsOnBuyTerritoryTower;
 	}
-	public int getMalusOnAcquiringMilitaryPoints() {
-		return malusOnAcquiringMilitaryPoints;
-	}
-	public void setMalusOnAcquiringMilitaryPoints(int malusOnAcquiringMilitaryPoints) {
-		this.malusOnAcquiringMilitaryPoints = malusOnAcquiringMilitaryPoints;
-	}
-	public int getMalusOnAcquiringMoney() {
-		return malusOnAcquiringMoney;
-	}
-	public void setMalusOnAcquiringMoney(int malusOnAcquiringMoney) {
-		this.malusOnAcquiringMoney = malusOnAcquiringMoney;
-	}
-	public int getMalusOnAcquiringWoodOrStone() {
-		return malusOnAcquiringWoodOrStone;
-	}
-	public void setMalusOnAcquiringWoodOrStone(int malusOnAcquiringWoodOrStone) {
-		this.malusOnAcquiringWoodOrStone = malusOnAcquiringWoodOrStone;
-	}
-	public int getMalusOnAcquiringServants() {
-		return malusOnAcquiringServants;
-	}
-	public void setMalusOnAcquiringServants(int malusOnAcquiringServants) {
-		this.malusOnAcquiringServants = malusOnAcquiringServants;
-	}
+
 	public int getMalusCoulouredFamiliarsDiceValue() {
 		return malusCoulouredFamiliarsDiceValue;
 	}
@@ -171,62 +182,7 @@ public class PlayerBonusMalus {
 	public void setDoubleChoiceDiscountOnBuildingCard(boolean doubleChoiceDiscountOnBuildingCard) {
 		this.doubleChoiceDiscountOnBuildingCard = doubleChoiceDiscountOnBuildingCard;
 	}
-	public boolean isNoVictoryPointsForVentureCards() {
-		return noVictoryPointsForVentureCards;
-	}
-	public void setNoVictoryPointsForVentureCards(boolean noVictoryPointsForVentureCards) {
-		this.noVictoryPointsForVentureCards = noVictoryPointsForVentureCards;
-	}
-	public boolean isNoVictoryPointsForCharacterCards() {
-		return noVictoryPointsForCharacterCards;
-	}
-	public void setNoVictoryPointsForCharacterCards(boolean noVictoryPointsForCharacterCards) {
-		this.noVictoryPointsForCharacterCards = noVictoryPointsForCharacterCards;
-	}
-	public boolean isNoVictoryPointsForTerritoryCards() {
-		return noVictoryPointsForTerritoryCards;
-	}
-	public void setNoVictoryPointsForTerritoryCards(boolean noVictoryPointsForTerritoryCards) {
-		this.noVictoryPointsForTerritoryCards = noVictoryPointsForTerritoryCards;
-	}
-	public boolean isMalusOnVictoryPoints() {
-		return malusOnVictoryPoints;
-	}
-	public void setMalusOnVictoryPoints(boolean malusOnVictoryPoints) {
-		this.malusOnVictoryPoints = malusOnVictoryPoints;
-	}
-	public boolean isMalusOnVictoryPointsPerMilitaryPoint() {
-		return malusOnVictoryPointsPerMilitaryPoint;
-	}
-	public void setMalusOnVictoryPointsPerMilitaryPoint(boolean malusOnVictoryPointsPerMilitaryPoint) {
-		this.malusOnVictoryPointsPerMilitaryPoint = malusOnVictoryPointsPerMilitaryPoint;
-	}
-	public boolean isMalusOnVictoryPointsForBuildingCardCosts() {
-		return malusOnVictoryPointsForBuildingCardCosts;
-	}
-	public void setMalusOnVictoryPointsForBuildingCardCosts(boolean malusOnVictoryPointsForBuildingCardCosts) {
-		this.malusOnVictoryPointsForBuildingCardCosts = malusOnVictoryPointsForBuildingCardCosts;
-	}
-	public boolean isMalusOnVictoryPointsPerResource() {
-		return malusOnVictoryPointsPerResource;
-	}
-	public void setMalusOnVictoryPointsPerResource(boolean malusOnVictoryPointsPerResource) {
-		this.malusOnVictoryPointsPerResource = malusOnVictoryPointsPerResource;
-	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 }
