@@ -1,3 +1,2 @@
 # GROUP GC_43 "LORENZO IL MAGNIFICO" PROJECT
-push Pc Francesco
 
