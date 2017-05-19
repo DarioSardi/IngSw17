@@ -99,9 +99,9 @@ public class Player {
 	}
 	
 	//SAMUEL pensare al reinitialize dei familiari
-	public void callToReinitializeFamilyMember(){		//SAMUEL per mettere posizioni a null
+	public void callToReinitializeFamilyMember(){
 		for(int i=0; i < GlobalVariables.numberOfFamilyMembers;  i ++){
-			this.familyMembers.get(i).setFamilyMemberPosition(null); //SAMUEL creare metodo in FamilyMember
+			this.familyMembers.get(i).setFamilyMemberPosition(null);
 		}
 	}
 	
