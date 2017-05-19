@@ -74,10 +74,11 @@ public class Player {
 		}
 	}
 	
-	public void initializeFamilyMembers(){
+	private void initializeFamilyMembers(){
 		int i=0;
 		while(i < GlobalVariables.numberOfFamilyMembers){
-			this.familyMembers.add(new FamilyMember(this, this.color));
+			this.familyMembers.add(new FamilyMember(this, i));
+			i++;
 		}
 	}
 	

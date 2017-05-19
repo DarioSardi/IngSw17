@@ -58,7 +58,7 @@ public class PlayerCards{
 		else return false;
 	}
 	
-	public String toString(){ this.
+	public String toString(){
 		return ""; //SAMUEL toString
 	}
 }
