@@ -10,19 +10,13 @@ public class FamilyMember{
     private Player player;
     int diceValue;
 
-    public FamilyMember(Player player,int color){
-        this.color=color;
-        this.alreadyPlaced=false;
-        this.familyMemberPosition=null;
-        this.player= player;
+    public FamilyMember(Player player, int color){
+        this.color = color;
+        this.alreadyPlaced = false;
+        this.familyMemberPosition = null;
+        this.player = player;
     }
-
     
-    
-    
-    public void reinitializeFamilyMember(){
-    	
-    }
     public Player getPlayer() {
         return player;
     }
