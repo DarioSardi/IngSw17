@@ -1,4 +1,6 @@
 package it.polimi.ingsw.GC_43.model;
+import it.polimi.ingsw.GC_43.model.actionSpace.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,6 @@ import it.polimi.ingsw.GC_43.model.actionSpace.HarvestArea;
 import it.polimi.ingsw.GC_43.model.actionSpace.Market;
 import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
 import it.polimi.ingsw.GC_43.model.actionSpace.Tower;
-import model.actionSpace.*;
 
 public class Board {
 
@@ -48,10 +49,10 @@ public Board(){
 
         int numberOfPlayers= players.size();
 
-        this.councilPalace = new CouncilPalace();
+ //       this.councilPalace = new CouncilPalace();
         this.market = new Market();
-        this.productionArea=new ProductionArea();
-        this.harvestArea= new HarvestArea();
+ //       this.productionArea=new ProductionArea();
+ //       this.harvestArea= new HarvestArea();
         this.faithArea = new FaithArea();
         this.dice= new ArrayList<Die>();
 
@@ -87,8 +88,8 @@ public Board(){
 	private void createTowers() {
 		
         this.towers = new ArrayList<Tower>();
-        for(int i=0 ; i < numberOfTowers; i++){
-            this.getTowers().add(new Tower(i));
+        for(int i=0 ; i < GlobalVariables.numberOfTowers; i++){
+//            this.getTowers().add(new Tower(i));
 
         }
     }
@@ -118,7 +119,7 @@ public Board(){
 //		askPlayersForLeaderCards(Controller c);
 
 
-        createAndRollDice();
+//        createAndRollDice();
 
     }
 
@@ -130,7 +131,7 @@ public Board(){
         }
         for (int i=0; i<this.playersID.size(); i++){
         	//SAMUEL-FRANCESCO Da modificare costruttore di player con input dati;
-            players.add(new Player(playersID.get(i)));
+ //           players.add(new Player(playersID.get(i)));
 
         }
     }
@@ -140,7 +141,7 @@ public Board(){
     private void setTowerCards() {
     //    getCards();
     	int startingCardToDraw = this.round*GlobalVariables.towerCardsPerRound;
-        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
+/*        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(0).getFloors().get(index).setCard(this.buildingCardPool.get(startingCardToDraw+index));
@@ -148,12 +149,12 @@ public Board(){
             this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));   
-    }
+    */}
 
 
-    private void createAndRollDice() {
-    	for(int index=0; index<GlobalVariables.numberOfDice;index++)
-    		this.dice.add(new Die(index));		
+   /* private void createAndRollDice() {
+   	for(int index=0; index<GlobalVariables.numberOfDice;index++)
+    		this.dice.add(new Die(index));		*/
     private void RollDice() {
     	for(int index=0; index<GlobalVariables.numberOfDice; index++)
     		this.dice.get(index).rollDie();		
@@ -192,13 +193,13 @@ public Board(){
         this.era = era;
     }
 
-    public List<Die> getDice() {
+ /*   public List<Die> getDice() {
         return Dice;
     }
 
     public void setDice(List<Die> dice) {
         Dice = dice;
-    }
+    }*/
 
     public List getTerritoryCardPool() {
         return territoryCardPool;
