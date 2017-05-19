@@ -12,6 +12,10 @@ public class GlobalVariables {
 	   public static final int initialWoods = 2;
 	   public static final int initialStones = 2;
 	   public static final int initialServants = 3;
+	   public static final int initialCoins = 0;	//FRANCESCO-SAMUEL dobbiamo pensare a come gestire le monete
+	   public static final int initialVictoryPoints = 0;
+	   public static final int initialMilitaryPoints = 0;
+	   public static final int initialFaithPoints = 0;
 	   public static final int minDiceValueHarvestArea = 1;
 	   public static final int mindDiceValueProductionArea = 1;
 	   public static final int mindDiceValueCouncilPalace= 1;
