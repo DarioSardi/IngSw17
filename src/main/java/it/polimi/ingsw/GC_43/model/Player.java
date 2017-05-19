@@ -39,6 +39,10 @@ public class Player {
 	public HashMap<String, Integer> getPlayerResources() {
 		return this.playerResources;
 	}
+	
+	public String getNamePlayer(){
+		return this.playerName;
+	}
 
 	public void setPlayerResources(HashMap<String, Integer> resources) {
 		this.playerResources = resources;
