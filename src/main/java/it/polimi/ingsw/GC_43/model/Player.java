@@ -10,6 +10,7 @@ public class Player {
 	private PlayerCards playerCards;
 	private HashMap<String, Integer> playerResources;
 	private List<FamilyMember> familyMembers;
+
 	private ArrayList<Boolean> excommunications;
 	
 	public Player(String name, int initCoins){
@@ -23,6 +24,10 @@ public class Player {
     	initializeExcommunication();
     }
 	
+	/**
+	 * Generete the initial resources for the player
+	 * @param coins number of coins according to the turn order
+	 */
 	private void generateHashmapResources(int coins){
 		this.playerResources= new HashMap<String, Integer>();
 		this.playerResources.put("coin", coins);
@@ -40,7 +45,7 @@ public class Player {
 		return this.playerResources;
 	}
 	
-	public String getNamePlayer(){
+	public String getPlayerName(){
 		return this.playerName;
 	}
 
@@ -68,6 +73,12 @@ public class Player {
 		this.excommunications.set(period-1, control);
 	}
 	
+	/**
+	 * Returns, for the period selected, if the player has the excommunication
+	 * @param period 
+	 * @return if true, the player has an excommunication 
+	 */
+	
 	public boolean getExcommunications(int period){
 		return this.excommunications.get(period-1);
 	}
@@ -94,12 +105,19 @@ public class Player {
 		}
 	}
 	
+	public FamilyMember getFamilyMember(int numFamilyMember) {
+		return this.familyMembers.get(numFamilyMember);
+	}
+
+	public void setFamilyMember(FamilyMember familyMember) {
+		this.familyMembers.add(familyMember);
+	}
+
 	public void printFamiliars(){
 		//SAMUEL da fare printFamiliars
 	}
-	
-	//SAMUEL pensare al reinitialize dei familiari
-	public void callToReinitializeFamilyMember(){
+
+	public void reinitializeFamilyMemberPosition(){
 		for(int i=0; i < GlobalVariables.numberOfFamilyMembers;  i ++){
 			this.familyMembers.get(i).setFamilyMemberPosition(null);
 		}

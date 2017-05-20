@@ -1,6 +1,6 @@
 package it.polimi.ingsw.GC_43.model;
 
-public class Resource {
+public class Resource {		//SAMUEL Abstract
 	private String tipoRisorsa = "";
 	private int value;
 	

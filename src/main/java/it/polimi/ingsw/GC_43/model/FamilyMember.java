@@ -8,7 +8,8 @@ public class FamilyMember{
     private boolean alreadyPlaced;
     private ActionSpace familyMemberPosition;
     private Player player;
-    int diceValue;
+    private Die die;
+    int malus;
 
     public FamilyMember(Player player, int color){
         this.color = color;
@@ -31,17 +32,33 @@ public class FamilyMember{
     public void setColor(int color) {
         this.color = color;
     }
+    
+    public int getMalus() {
+        return this.malus;
+    }
+    public void setMalus(int malus) {
+        this.malus = malus;
+    }
+    
+	/**
+	 * Check if the player is in an action space
+	 * @return if true, the family member is situated in an action space
+	 */
     public boolean isAlreadyPlaced() {
         return alreadyPlaced;
     }
+    
     public void setAlreadyPlaced(boolean alreadyPlaced) {
         this.alreadyPlaced = alreadyPlaced;
     }
-    public int getDiceValue() {
-        return diceValue;
+
+    public int getFamilyMemberValue() {
+        return this.die.getDieValue()+this.malus;
     }
-    public void setDiceValue(int diceValue) {
-        this.diceValue = diceValue;
+    
+    public void setDieToFamilyMember(Die die) {
+        this.die = die;
+        this.die.setFamilyMemberToDie(this);
     }
 
     private void printFamilyMember(){
