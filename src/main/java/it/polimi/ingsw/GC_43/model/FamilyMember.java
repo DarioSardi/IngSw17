@@ -9,7 +9,7 @@ public class FamilyMember{
     private ActionSpace familyMemberPosition;
     private Player player;
     private Die die;
-    int malus;
+    int malusOnDie;
 
     public FamilyMember(Player player, int color){
         this.color = color;
@@ -33,11 +33,11 @@ public class FamilyMember{
         this.color = color;
     }
     
-    public int getMalus() {
-        return this.malus;
+    public int getMalusOnDie() {
+        return this.malusOnDie;
     }
-    public void setMalus(int malus) {
-        this.malus = malus;
+    public void setMalusOnDie(int malus) {
+        this.malusOnDie = malus;
     }
     
 	/**
@@ -53,7 +53,7 @@ public class FamilyMember{
     }
 
     public int getFamilyMemberValue() {
-        return this.die.getDieValue()+this.malus;
+        return this.die.getDieValue()+this.malusOnDie;
     }
     
     public void setDieToFamilyMember(Die die) {
