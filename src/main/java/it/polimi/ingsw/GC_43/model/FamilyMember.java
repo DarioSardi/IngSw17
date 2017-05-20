@@ -9,7 +9,6 @@ public class FamilyMember{
     private Player player;
     private Die die;
     int malusOnDie;
-    int diceValue;
 
     public FamilyMember(Player player, int color){
         this.color = color;
@@ -53,7 +52,7 @@ public class FamilyMember{
     }
 
     public int getFamilyMemberValue() {
-        return this.die.getDieValue()+this.malusOnDie;
+        return this.die.getDieValue() + this.malusOnDie;
     }
     
     public void setDieToFamilyMember(Die die) {
@@ -72,11 +71,9 @@ public class FamilyMember{
         this.familyMemberPosition = actionSpace;
      }
     
-    public int getDiceValue(){
-    	return this.diceValue;
+    public int getDiceValue(){ //SAMUEL da far togliere a Dario
+    	return this.die.getDieValue();
     }
-
-
 }
 
 

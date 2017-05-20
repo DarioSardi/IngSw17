@@ -105,7 +105,7 @@ public class Player {
 		}
 	}
 	
-	public ArrayList<FamilyMember> getFamilyMember() {
+	public ArrayList<FamilyMember> getFamilyMembers() {
 		return this.familyMembers;
 	}
 	
