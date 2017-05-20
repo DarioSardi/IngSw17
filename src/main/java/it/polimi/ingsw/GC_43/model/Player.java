@@ -9,7 +9,7 @@ public class Player {
 	private PlayerBonusMalus playerBounusMalus;
 	private PlayerCards playerCards;
 	private HashMap<String, Integer> playerResources;
-	private List<FamilyMember> familyMembers;
+	private ArrayList<FamilyMember> familyMembers;
 
 	private ArrayList<Boolean> excommunications;
 	
@@ -103,6 +103,10 @@ public class Player {
 			this.familyMembers.add(new FamilyMember(this, i));
 			i++;
 		}
+	}
+	
+	public ArrayList<FamilyMember> getFamilyMember() {
+		return this.familyMembers;
 	}
 	
 	public FamilyMember getFamilyMember(int numFamilyMember) {

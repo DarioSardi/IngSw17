@@ -3,13 +3,13 @@ package it.polimi.ingsw.GC_43.model;
 import it.polimi.ingsw.GC_43.model.actionSpace.ActionSpace;
 
 public class FamilyMember{
-    //TODO generata per risolvere le dipendenze
     private int color;
     private boolean alreadyPlaced;
     private ActionSpace familyMemberPosition;
     private Player player;
     private Die die;
     int malusOnDie;
+    int diceValue;
 
     public FamilyMember(Player player, int color){
         this.color = color;
@@ -58,12 +58,13 @@ public class FamilyMember{
     
     public void setDieToFamilyMember(Die die) {
         this.die = die;
-        this.die.setFamilyMemberToDie(this);  //FRANCESCO-SAMUEL Metodo per assegnare famigliare al dado
+     // this.die.setFamilyMemberToDie(this);  FRANCESCO-SAMUEL Metodo per assegnare famigliare al dado
     }
-
+/*
     private void printFamilyMember(){
         //TODO to implement ( da passare alla view, ritornerà una stringa in realtà)
     }
+*/    
     public ActionSpace getFamilyMemberPosition() {
         return familyMemberPosition;
     }
@@ -71,6 +72,9 @@ public class FamilyMember{
         this.familyMemberPosition = actionSpace;
      }
     
+    public int getDiceValue(){
+    	return this.diceValue;
+    }
 
 
 }
