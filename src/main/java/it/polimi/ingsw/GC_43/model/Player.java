@@ -123,6 +123,12 @@ public class Player {
 		}
 	}
 	
+	public void assignsDieMalusToFamilyMembers(int malusOnDie){ //FRANCESCO-SAMUEL Metodo per settare il malus
+		for(int i = 0; i < this.familyMembers.size(); i++){
+			this.familyMembers.get(i).setMalusOnDie(malusOnDie);
+		}
+	}
+	
 	@Override
 	public String toString(){
 		//SAMUEL toString per stampare le risorse

@@ -58,7 +58,7 @@ public class FamilyMember{
     
     public void setDieToFamilyMember(Die die) {
         this.die = die;
-        this.die.setFamilyMemberToDie(this);
+        this.die.setFamilyMemberToDie(this);  //FRANCESCO-SAMUEL Metodo per assegnare famigliare al dado
     }
 
     private void printFamilyMember(){
