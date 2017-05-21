@@ -2,7 +2,6 @@ package it.polimi.ingsw.GC_43.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Player {
 	private String playerName;
@@ -135,7 +134,11 @@ public class Player {
 	
 	@Override
 	public String toString(){
-		//SAMUEL toString per stampare le risorse
-		return "";
+		String s;
+		s = "Player: " + this.getPlayerName() + '\n';
+		for(int i = 0; i < this.getFamilyMembers().size(); i++){			
+			s = s + "Family Member " + (i+1) + " : " + this.familyMembers.get(i).getFamilyMemberPosition() + '\n'; 
+		}
+		return s;
 	}
 }
