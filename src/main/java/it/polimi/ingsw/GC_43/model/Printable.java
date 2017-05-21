@@ -6,4 +6,14 @@ public abstract class Printable {
 		return s;
 	}
 
+/*
+	public String printPlayerFamilyMembers(Player player, FamilyMember familyMember){
+		String s;
+		s = "Player: " + player.getPlayerName() + '\n';
+		for(int i = 0; i < player.getFamilyMembers().size(); i++){			
+			s = s + "Family Member " + (i+1) + " : " + familyMember.getFamilyMemberPosition() + '\n'; 
+		}
+		return s;
+	}
+*/
 }

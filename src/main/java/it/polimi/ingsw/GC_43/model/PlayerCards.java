@@ -8,18 +8,18 @@ import java.util.List;
 
 public class PlayerCards{
 	private Array[] militaryPointsRequirements;
-	private List<Card> buildingCards;
-	private List<Card> ventureCards;
-	private List<Card> characterCards;
-	private List<Card> territoryCards;
+	private List<BuildingCard> buildingCards;
+	private List<VentureCard> ventureCards;
+	private List<CharacterCard> characterCards;
+	private List<TerritoryCard> territoryCards;
 	private ArrayList<Bonus> defaultBonusHarvest;
 	private ArrayList<Bonus> defaultBonusBuildings;
 	
 	public PlayerCards (){
-		this.buildingCards = new ArrayList<Card>();
-    	this.ventureCards = new ArrayList<Card>();
-    	this.territoryCards= new ArrayList<Card>();
-    	this.characterCards = new ArrayList<Card>();
+		this.buildingCards = new ArrayList<BuildingCard>();
+    	this.ventureCards = new ArrayList<VentureCard>();
+    	this.territoryCards= new ArrayList<TerritoryCard>();
+    	this.characterCards = new ArrayList<CharacterCard>();
     	this.defaultBonusHarvest = new ArrayList<Bonus>();
     	this.defaultBonusBuildings = new ArrayList<Bonus>();
 	}
@@ -32,16 +32,29 @@ public class PlayerCards{
 		return this.militaryPointsRequirements;
 	}
 	
-	public void addBuildingCard(Card card){
+	public BuildingCard getBuildingCard(int numCarta){
+		return buildingCards.get(numCarta);	
+	}
+	public VentureCard getVentureCard(int numCarta){
+		return ventureCards.get(numCarta);	
+	}
+	public CharacterCard getCharacterCard(int numCarta){
+		return characterCards.get(numCarta);
+	}
+	public TerritoryCard getTerritoryCard(int numCarta){
+		return territoryCards.get(numCarta);	
+	}
+	
+	public void addBuildingCard(BuildingCard card){
 		this.buildingCards.add(card);	
 	}
-	public void addVentureCard(Card card){
+	public void addVentureCard(VentureCard card){
 		this.ventureCards.add(card);	
 	}
-	public void addCharacterCard(Card card){
+	public void addCharacterCard(CharacterCard card){
 		this.characterCards.add(card);
 	}
-	public void addTerritoryCard(Card card){
+	public void addTerritoryCard(TerritoryCard card){
 		this.territoryCards.add(card);	
 	}
 	
