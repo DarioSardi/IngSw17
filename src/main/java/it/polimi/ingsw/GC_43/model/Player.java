@@ -2,7 +2,6 @@ package it.polimi.ingsw.GC_43.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Player {
