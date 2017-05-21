@@ -62,6 +62,10 @@ public class Tower extends ActionArea{
 	public boolean check(FamilyMember f) {
 		return towerOccupied;
 	}
+	
+	public void setTowerOccupied(){
+		towerOccupied=true;			
+	}
 
 	@Override
 	public int getBonusOfArea(Player p) {

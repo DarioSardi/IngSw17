@@ -38,9 +38,6 @@ public void setCard(Card card) {
 public Tower getTower() {
 	return tower;
 }
-public void setTower(Tower tower) {
-	this.tower = tower;
-}
 
 public boolean check(FamilyMember f) {
 	return f.getDiceValue()>=this.getMinDiceValue(); //DARIO necessaria logica buycard
@@ -48,7 +45,7 @@ public boolean check(FamilyMember f) {
 
 public boolean execute(FamilyMember f) {
 	if(this.check(f)){
-		return true;			//DARIO necessaria logica buycard
+		return true;			//DARIO necessaria logica buycard (ricordarsi di settare la torre occupata)
 	}
 	else {return false;} 
 }

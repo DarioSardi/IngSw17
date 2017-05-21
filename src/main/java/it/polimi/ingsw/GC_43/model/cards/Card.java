@@ -42,6 +42,4 @@ public abstract class Card {
 	public abstract boolean canIBuy(FamilyMember familiar, boolean towerTax);
 	
 	public abstract boolean Buy(FamilyMember familiar, boolean towerTax);
-	
-	
 }
