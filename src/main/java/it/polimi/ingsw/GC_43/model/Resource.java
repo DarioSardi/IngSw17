@@ -4,5 +4,6 @@ public abstract class Resource {
 	
 	abstract public int getValue();
 	abstract public void setValue(int value);
-	abstract public String getTipoRisorsa();
+	abstract public String getResourceType();
+	abstract public String toString();
 }
