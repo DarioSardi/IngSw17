@@ -17,6 +17,15 @@ public class ResourceEffect extends Effect {
 		
 	}
 	
+	public String toString(){
+		String resourcesToString = new String();
+		for(Resource resource: resourcesToGet){
+			resourcesToString= resourcesToString+this.resourcesToGet.toString();
+		}
+		return resourcesToString;
+		
+	}
+	
 	
 	
 	public void addResources( Player player){

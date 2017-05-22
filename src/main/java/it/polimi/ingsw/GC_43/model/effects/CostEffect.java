@@ -11,6 +11,7 @@ public class CostEffect extends Effect {
 	}
 	
 	public void executeEffect(){
+		//test
 	}
 	
 }

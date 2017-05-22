@@ -1,7 +1,7 @@
 package it.polimi.ingsw.GC_43.model;
 
 public class Wood extends Resource{
-	private String tipoRisorsa = "wood";
+	private String resourceType = "wood";
 	private int value;
 	
 	public Wood (int value){
@@ -20,6 +20,6 @@ public class Wood extends Resource{
 	
 	@Override
 	public String getTipoRisorsa(){
-		return this.tipoRisorsa;
+		return this.resourceType;
 	}
 }
