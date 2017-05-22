@@ -3,8 +3,8 @@ package it.polimi.ingsw.GC_43.model.actionSpace;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.GC_43.model.Bonus;
+import it.polimi.ingsw.GC_43.model.Card;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
-import it.polimi.ingsw.GC_43.model.cards.Card;
 
 public class Floor extends ActionSpace{
 private boolean floorOccupied;

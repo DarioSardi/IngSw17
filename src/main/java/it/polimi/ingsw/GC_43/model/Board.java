@@ -10,7 +10,6 @@ import it.polimi.ingsw.GC_43.model.actionSpace.HarvestArea;
 import it.polimi.ingsw.GC_43.model.actionSpace.Market;
 import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
 import it.polimi.ingsw.GC_43.model.actionSpace.Tower;
-import it.polimi.ingsw.GC_43.model.cards.Card;
 
 public class Board {
 

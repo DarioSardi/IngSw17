@@ -1,13 +1,10 @@
 package it.polimi.ingsw.GC_43.model;
 
 
-import java.lang.reflect.Array;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerCards{
-	private Array[] militaryPointsRequirements;
 	private List<BuildingCard> buildingCards;
 	private List<VentureCard> ventureCards;
 	private List<CharacterCard> characterCards;
@@ -24,14 +21,8 @@ public class PlayerCards{
     	this.defaultBonusBuildings = new ArrayList<Bonus>();
 	}
 	
-	public void setMilitaryPointsRequirements(Array[] requirements){	//SAMUEL A cosa serve?
-		this.militaryPointsRequirements = requirements;
-	}
-	
-	public Array[] getMilitaryPointsRequirements(){		//SAMUEL A cosa serve?
-		return this.militaryPointsRequirements;
-	}
-	
+	//DARIO-SAMUEL implementare minMilitaryPoints per l'acquisto carta verde
+	//TODO Aggiungere hashmap militaryPointRequirements per carte verdi
 	public BuildingCard getBuildingCard(int numCarta){
 		return buildingCards.get(numCarta);	
 	}
@@ -64,6 +55,6 @@ public class PlayerCards{
 	}
 	
 	public String toString(){
-		return ""; //SAMUEL toString
+		return "";
 	}
 }

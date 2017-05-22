@@ -2,7 +2,7 @@ package it.polimi.ingsw.GC_43.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 public class Player {
 	private String playerName;
@@ -135,7 +135,10 @@ public class Player {
 	
 	@Override
 	public String toString(){
-		//SAMUEL toString per stampare le risorse
-		return "";
+		String s="Player: " + this.getPlayerName() + '\n';	  
+		for (Map.Entry<String, Integer> entry : this.playerResources.entrySet()) {
+			  s = s + entry.getKey() + ": " + entry.getValue() + '\n' ;
+		}
+		return s;	
 	}
 }
