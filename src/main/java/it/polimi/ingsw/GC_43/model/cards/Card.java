@@ -1,6 +1,9 @@
-package it.polimi.ingsw.GC_43.model;
+package it.polimi.ingsw.GC_43.model.cards;
 
 import java.util.ArrayList;
+
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.Resource;
 
 public class Card {
 	private String cardName;

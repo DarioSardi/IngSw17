@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_43.model;
+package it.polimi.ingsw.GC_43.model.cards;
 
 public class BuildingCard extends Card{
 	public BuildingCard(String cardName, int cardEra) {

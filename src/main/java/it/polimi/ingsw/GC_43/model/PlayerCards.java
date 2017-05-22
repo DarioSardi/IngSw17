@@ -4,6 +4,11 @@ package it.polimi.ingsw.GC_43.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
+import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
+import it.polimi.ingsw.GC_43.model.cards.VentureCard;
+
 public class PlayerCards{
 	private List<BuildingCard> buildingCards;
 	private List<VentureCard> ventureCards;

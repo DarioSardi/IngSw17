@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_43.model;
+package it.polimi.ingsw.GC_43.model.cards;
 
 public class VentureCard extends Card{
 	private int endVictoryPoints;
