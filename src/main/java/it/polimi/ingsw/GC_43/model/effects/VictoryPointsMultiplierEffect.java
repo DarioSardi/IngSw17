@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_43.effects;
+package it.polimi.ingsw.GC_43.model.effects;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
