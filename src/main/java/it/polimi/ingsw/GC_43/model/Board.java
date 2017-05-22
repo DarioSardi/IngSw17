@@ -13,6 +13,7 @@ import it.polimi.ingsw.GC_43.model.actionSpace.Tower;
 
 public class Board {
 
+	// minor edit
     //CONFIGURATION SETTINGS
 
    private static int round;
