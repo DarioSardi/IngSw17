@@ -11,6 +11,10 @@ public class SingleCouncilPrivilege {
 		//TODO decide if better to have the choices as a GlobalVariable, forse è meglio cosi la settiamo senza passarla
 	}
 	
+	public void removeChoice(int choiceNumber){
+		this.getChoices().remove(choiceNumber);
+	}
+	
 	public String toString(){
 		String choicesForPlayer = new String();
 		int choiceNumber=1;
@@ -29,5 +33,16 @@ public class SingleCouncilPrivilege {
 //		choices.get(playerChoice-1).executeEffect(familyMember);
 		
 		}
+
+	public ArrayList<ResourceEffect> getChoices() {
+		return choices;
+	}
+
+	public void setChoices(ArrayList<ResourceEffect> choices) {
+		this.choices = choices;
+	}
+	
+	
+	
 }
 
