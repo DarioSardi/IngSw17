@@ -13,7 +13,7 @@ public class VictoryPointsMultiplierEffect {
 	}
 //FRANCESCO to finish with samuel late modifications	
 	private void getVictoryPoints(Player player){
-		if(this.cardType== "ventureCards")
+	/*	if(this.cardType== "ventureCards")
 			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getVentureCards().size());
 		}
 		if(this.cardType== "buildingCards");
@@ -24,6 +24,7 @@ public class VictoryPointsMultiplierEffect {
 		}
 		if(this.cardType== "ventureCards");
 			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getCharacterCards().size());
+		*/
 		}
 		
 	public void executeEffect(FamilyMember familyMember){
