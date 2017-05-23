@@ -1,25 +1,35 @@
 package it.polimi.ingsw.GC_43.model;
 
 public class VictoryPoint extends Resource{
-	private String tipoRisorsa = "victoryPoint";
+	private String resourceType = "victoryPoint";
 	private int value;
 	
-	public VictoryPoint(int quantity){
-		this.value = quantity;
+	public VictoryPoint(int value){
+		this.value = value;
 	}
 	
-	public String getTipoRisorsa() {
-		return tipoRisorsa;
+	@Override
+	public String getResourceType() {
+		return this.resourceType;
 	}
-	public void setTipoRisorsa(String tipoRisorsa) {
-		this.tipoRisorsa = tipoRisorsa;
+	
+	@Override
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
 	}
+	
+	@Override
 	public int getValue() {
-		return value;
+		return this.value;
 	}
+	
+	@Override
 	public void setValue(int value) {
 		this.value = value;
 	}
 	
-	
+	@Override
+	public String toString(){
+		return "resource type: " + this.resourceType;
+	}
 }

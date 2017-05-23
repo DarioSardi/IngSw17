@@ -61,6 +61,14 @@ public class Player {
 		return this.playerResources.get(resource);
 	}
 	
+	public void addResource(String resource, int value){
+		this.playerResources.put(resource, getPlayerResource(resource) + value);
+	}
+	
+	public void subResource(String resource, int value){
+		this.playerResources.put(resource, getPlayerResource(resource) - value);
+	}
+	
 	public PlayerCards getPlayerCards() {
 		return playerCards;
 	}

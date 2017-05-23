@@ -1,7 +1,7 @@
 package it.polimi.ingsw.GC_43.model;
 
 public class Coin extends Resource{
-	private String tipoRisorsa = "coins";
+	private String resourceType = "coins";
 	private int value;
 	
 	public Coin (int value){
@@ -9,7 +9,17 @@ public class Coin extends Resource{
 	}
 	
 	@Override
-	public int getValue(){
+	public String getResourceType() {
+		return this.resourceType;
+	}
+	
+	@Override
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
+	}
+	
+	@Override
+	public int getValue() {
 		return this.value;
 	}
 	
@@ -19,7 +29,7 @@ public class Coin extends Resource{
 	}
 	
 	@Override
-	public String getTipoRisorsa(){
-		return this.tipoRisorsa;
+	public String toString(){
+		return "resource type: " + this.resourceType;
 	}
 }

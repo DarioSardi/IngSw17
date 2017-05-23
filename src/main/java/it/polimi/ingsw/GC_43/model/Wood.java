@@ -6,10 +6,20 @@ public class Wood extends Resource{
 	
 	public Wood (int value){
 		this.value = value;
+	}	
+	
+	@Override
+	public String getResourceType() {
+		return this.resourceType;
 	}
 	
 	@Override
-	public int getValue(){
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
+	}
+	
+	@Override
+	public int getValue() {
 		return this.value;
 	}
 	
@@ -19,7 +29,7 @@ public class Wood extends Resource{
 	}
 	
 	@Override
-	public String getTipoRisorsa(){
-		return this.resourceType;
+	public String toString(){
+		return "resource type: " + this.resourceType;
 	}
 }
