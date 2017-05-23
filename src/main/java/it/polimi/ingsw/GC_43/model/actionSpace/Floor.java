@@ -2,22 +2,24 @@ package it.polimi.ingsw.GC_43.model.actionSpace;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.GC_43.model.Bonus;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.cards.Card;
+import it.polimi.ingsw.GC_43.model.cards.CardHandler;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class Floor extends ActionSpace{
 private boolean floorOccupied;
 private Card card;
 private Tower tower;
-//DARIO metodo addCard() / removeCard()
 
-public Floor(Bonus bonus,Tower tower, Integer minDiceValue) {
+
+public Floor(Effect bonus,Tower tower, Integer minDiceValue) {
 	super();
 	this.setMinDiceValue(minDiceValue);
 	this.setBonus(bonus);
 	this.tower = tower;
 	this.setFamiliarIn(new ArrayList<FamilyMember>());
+	this.card=null;
 }
 public boolean isFloorOccupied() {
 	return floorOccupied;
@@ -35,6 +37,10 @@ public void setCard(Card card) {
 	this.card = card;
 }
 
+public void removeCard(){
+	card=null;
+}
+
 public Tower getTower() {
 	return tower;
 }
@@ -46,9 +52,19 @@ public boolean check(FamilyMember f) {
 	return f.getDiceValue()>=this.getMinDiceValue(); //DARIO necessaria logica buycard
 }
 
+/**
+ * buy the card,get the floor bonus,set the familiar,set the floor and the tower as occupied
+ */
 public boolean execute(FamilyMember f) {
-	if(this.check(f)){
-		return true;			//DARIO necessaria logica buycard
+	if(this.check(f)){			//&&card.getCost().check()
+		CardHandler.buyCard(this, f.getPlayer(),this.card);
+		//DARIO aspettare varini this.getBonus().executeEffect(f.getPlayer());
+		this.getFamiliarIn().add(f);
+		f.setAlreadyPlaced(true);
+		f.setFamilyMemberPosition(this);
+		this.getTower().setTowerOccupied(true);
+		this.setFloorOccupied(true);
+		return true;
 	}
 	else {return false;} 
 }
@@ -66,6 +82,12 @@ public boolean familiarValueCheck(FamilyMember f) {
 @Override
 public boolean checkColor(FamilyMember f) {
 	return true;
+}
+
+public void resetSpace(){
+	this.removeCard();
+	this.floorOccupied=false;
+	this.removeAllFamiliars();
 }
 
 }

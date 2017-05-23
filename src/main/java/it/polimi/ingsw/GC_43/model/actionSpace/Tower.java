@@ -1,8 +1,8 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
-import it.polimi.ingsw.GC_43.model.Bonus;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class Tower extends ActionArea{
 	private TowerColors towerColor;
@@ -50,9 +50,13 @@ public class Tower extends ActionArea{
 	 *            bonus of the floor
 	 * @param minDiceValue
 	 */
-	public void addFloor(Bonus bonus, Integer minDiceValue) {
+	public void addFloor(Effect bonus, Integer minDiceValue) {
 		this.getSpaces().add(new Floor(bonus, this, minDiceValue));
 
+	}
+	
+	public void setTowerOccupied(boolean set){
+		towerOccupied=set;
 	}
 	
 	/**
@@ -67,6 +71,11 @@ public class Tower extends ActionArea{
 	public int getBonusOfArea(Player p) {
 		// DARIO come divido i bonus torre?
 		return 0;
+	}
+	
+	public void resetArea(){
+		this.towerOccupied=false;
+		this.getSpaces().stream().forEach(space->space.resetSpace());
 	}
 
 }
