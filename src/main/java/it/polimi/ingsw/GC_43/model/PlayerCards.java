@@ -41,16 +41,16 @@ public class PlayerCards{
 		return territoryCards.get(numCarta);	
 	}
 	
-	public void addBuildingCard(BuildingCard card){
+	public void addCard(BuildingCard card){
 		this.buildingCards.add(card);	
 	}
-	public void addVentureCard(VentureCard card){
+	public void addCard(VentureCard card){
 		this.ventureCards.add(card);	
 	}
-	public void addCharacterCard(CharacterCard card){
+	public void addCard(CharacterCard card){
 		this.characterCards.add(card);
 	}
-	public void addTerritoryCard(TerritoryCard card){
+	public void addCard(TerritoryCard card){
 		this.territoryCards.add(card);	
 	}
 	
