@@ -1,15 +1,15 @@
 package it.polimi.ingsw.GC_43.model;
 
 public class Servant extends Resource{
-	private String tipoRisorsa = "servant";
+	private String resourceType = "servant";
 	private int value;
 	
-	public Servant (int value){
+	public Servant (int value) {
 		this.value = value;
 	}
 	
 	@Override
-	public int getValue(){
+	public int getValue() {
 		return this.value;
 	}
 	
@@ -19,7 +19,12 @@ public class Servant extends Resource{
 	}
 	
 	@Override
-	public String getTipoRisorsa(){
-		return this.tipoRisorsa;
+	public String getResourceType() {
+		return this.resourceType;
+	}
+	
+	@Override
+	public String toString(){
+		return "Risorse type:" + this.resourceType;
 	}
 }
