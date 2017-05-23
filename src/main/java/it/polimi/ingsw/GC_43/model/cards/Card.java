@@ -8,12 +8,13 @@ import it.polimi.ingsw.GC_43.model.Resource;
 public class Card {
 	private String cardName;
 	private int cardEra;
-	private ArrayList<Resource> instantBonus;  //SAMUEL Pensare alla gestione bonus
+	private ArrayList<Resource> instantBonus;  //DARIO Pensare alla gestione bonus
 
 	public Card(String cardName,int cardEra){
 		this.cardName = cardName;
 		this.cardEra = cardEra;
-		this.instantBonus = new ArrayList<Resource>(); //SAMUEL Pensare alla gestione bonus
+		this.instantBonus = new ArrayList<Resource>(); //DARIO Pensare alla gestione bonus
+		//DARIO lo vedo sul pc?
 	}
 
 	public String getCardName() {
