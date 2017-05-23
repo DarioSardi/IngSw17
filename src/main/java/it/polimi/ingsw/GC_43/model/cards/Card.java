@@ -14,6 +14,7 @@ public class Card {
 		this.cardName = cardName;
 		this.cardEra = cardEra;
 		this.instantBonus = new ArrayList<Resource>(); //DARIO Pensare alla gestione bonus
+		//DARIO lo vedo sul pc?
 	}
 
 	public String getCardName() {
