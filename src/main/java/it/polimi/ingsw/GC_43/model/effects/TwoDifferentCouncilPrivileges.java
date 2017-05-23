@@ -8,7 +8,7 @@ public class TwoDifferentCouncilPrivileges {
 		SingleCouncilPrivilege singleCouncilPrivilege= new SingleCouncilPrivilege();
 		String choicesToSend= new String(singleCouncilPrivilege.toString());
 //TODO IMPLEMENT CONTROLLER, add player a reference to controller
-		//		int playerFirstChoice= familyMember.getPlayer().getController().askPlayerForChoice("Two choices needed, please select just the first choice:\n"+choicesToSend);
+//		int playerFirstChoice= familyMember.getPlayer().getController().askPlayerForChoice("Two choices needed, please select just the first choice:\n"+choicesToSend);
 //		int playerSecondChoice= familyMember.getPlayer().getController().askPlayerForChoice("Please select your second choice: please remeber it has to be different from previous one:\n"+choicesToSend);
 
 		
