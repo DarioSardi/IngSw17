@@ -4,7 +4,7 @@ public class Servant extends Resource{
 	private String resourceType = "servant";
 	private int value;
 	
-	public Servant (int value){
+	public Servant (int value) {
 		this.value = value;
 	}
 		

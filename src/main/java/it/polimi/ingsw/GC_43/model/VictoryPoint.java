@@ -3,7 +3,7 @@ package it.polimi.ingsw.GC_43.model;
 public class VictoryPoint extends Resource{
 	private String resourceType = "victoryPoint";
 	private int value;
-	
+
 	public VictoryPoint(int value){
 		this.value = value;
 	}

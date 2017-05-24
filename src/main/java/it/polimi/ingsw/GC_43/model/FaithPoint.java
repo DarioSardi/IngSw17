@@ -4,7 +4,8 @@ public class FaithPoint extends Resource{
 	private String resourceType = "faithPoint";
 	private int value;
 	
-	public FaithPoint(int value){
+
+	public FaithPoint(int value) {
 		this.value = value;
 	}
 	
@@ -30,6 +31,6 @@ public class FaithPoint extends Resource{
 	
 	@Override
 	public String toString(){
-		return "resource type: " + this.resourceType;
+		return "Resource type: " + this.resourceType;
 	}	
 }

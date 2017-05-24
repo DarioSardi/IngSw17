@@ -4,7 +4,7 @@ public class Coin extends Resource{
 	private String resourceType = "coins";
 	private int value;
 	
-	public Coin (int value){
+	public Coin (int value) {
 		this.value = value;
 	}
 	

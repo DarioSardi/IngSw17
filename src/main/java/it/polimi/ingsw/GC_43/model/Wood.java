@@ -4,7 +4,7 @@ public class Wood extends Resource{
 	private String resourceType = "wood";
 	private int value;
 	
-	public Wood (int value){
+	public Wood (int value) {
 		this.value = value;
 	}	
 	
