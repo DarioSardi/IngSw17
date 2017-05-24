@@ -10,7 +10,11 @@ public class CostEffect extends Effect {
 		this.Costs= new HashMap<String, Resource>();
 	}
 	
-	public void executeEffect(){
+	public boolean check(Player player, boolean towerTax){
+		//TODO to implement
+		return false;
+	}
+	public void executeEffect(Player player, boolean towerTax){
 		//test
 	}
 	

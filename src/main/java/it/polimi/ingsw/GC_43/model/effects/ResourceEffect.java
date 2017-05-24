@@ -52,10 +52,13 @@ public static void main(String [] args){
 	re.resourcesToGet.add(new Wood(3));
 	re.resourcesToGet.add(new Servant(3));
 	re.resourcesToGet.add(new FaithPoint(3));
+	ArrayList <Effect> effects= new ArrayList <Effect>();
+	effects.add(re);
+	effects.add(new MalusOnFinalVictoryPoints("victoryPoint"));
 
 
 	
-	re.addResources(p.getPlayerResources());
+	re.addResources(p);
 	System.out.println(p.getPlayerResources().get("wood"));	
 	System.out.println(p.getPlayerResources().get("servant"));	
 	System.out.println(p.getPlayerResources().get("faithPoint"));	
