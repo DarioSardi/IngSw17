@@ -14,16 +14,19 @@ public class PlayerCards{
 	private List<VentureCard> ventureCards;
 	private List<CharacterCard> characterCards;
 	private List<TerritoryCard> territoryCards;
+	/*
 	private ArrayList<Bonus> defaultBonusHarvest;
 	private ArrayList<Bonus> defaultBonusBuildings;
-	
+	*/
 	public PlayerCards (){
 		this.buildingCards = new ArrayList<BuildingCard>();
     	this.ventureCards = new ArrayList<VentureCard>();
     	this.territoryCards= new ArrayList<TerritoryCard>();
     	this.characterCards = new ArrayList<CharacterCard>();
+    /*
     	this.defaultBonusHarvest = new ArrayList<Bonus>();
     	this.defaultBonusBuildings = new ArrayList<Bonus>();
+    */
 	}
 	
 	//DARIO-SAMUEL implementare minMilitaryPoints per l'acquisto carta verde
