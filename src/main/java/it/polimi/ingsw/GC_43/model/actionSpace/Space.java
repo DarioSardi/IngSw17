@@ -1,12 +1,12 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
-import it.polimi.ingsw.GC_43.model.Bonus;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class Space extends ActionSpace {
 	private boolean unlimited;
 	private ActionArea actionArea;
-	public Space(boolean unlimited, int minDiceValue,ActionArea actionArea,Bonus bonus){
+	public Space(boolean unlimited, int minDiceValue,ActionArea actionArea,Effect bonus){
 		this.unlimited=unlimited;
 		this.setMinDiceValue(minDiceValue);
 		this.actionArea=actionArea;
@@ -46,5 +46,6 @@ public class Space extends ActionSpace {
 		}
 		return true;
 	}
+
 
 }

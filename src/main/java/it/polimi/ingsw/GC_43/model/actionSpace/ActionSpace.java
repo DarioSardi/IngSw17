@@ -2,13 +2,13 @@ package it.polimi.ingsw.GC_43.model.actionSpace;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.GC_43.model.Bonus;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public abstract class ActionSpace {
 	private int minDiceValue;
 	private ArrayList<FamilyMember> familiarIn;
-	private Bonus bonus;
+	private Effect bonus;
 	
 	public abstract boolean check(FamilyMember f);
 
@@ -32,11 +32,11 @@ public abstract class ActionSpace {
 		this.familiarIn = familiarIn;
 	}
 
-	public Bonus getBonus() {
+	public Effect getBonus() {
 		return bonus;
 	}
 
-	public void setBonus(Bonus bonus) {
+	public void setBonus(Effect bonus) {
 		this.bonus = bonus;
 	}
 	
@@ -47,7 +47,7 @@ public abstract class ActionSpace {
 	 */
 	public boolean execute(FamilyMember f){
 		if(check(f)){
-			this.getBonus().earnBonus(f);
+			//DARIO controllare il parametro della execute eff this.getBonus().executeEffect(f.getPlayer());
 			this.getFamiliarIn().add(f);
 			f.setAlreadyPlaced(true);
 			f.setFamilyMemberPosition(this);
@@ -57,8 +57,13 @@ public abstract class ActionSpace {
 	}
 	
 	
+	public void removeAllFamiliars(){
+		this.familiarIn.clear();
+	}
 	
-	
+	public void resetSpace(){
+		this.familiarIn.clear();
+	}
 
 	
 }

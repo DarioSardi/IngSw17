@@ -10,7 +10,14 @@ public abstract class ActionArea {
 	
 	public abstract boolean check(FamilyMember f);
 	public abstract int getBonusOfArea(Player p);
+	
+	public  void resetArea(){
+		this.getSpaces().stream().forEach(space->space.resetSpace());
+	}
+	
 	public ArrayList<ActionSpace> getSpaces(){
 		return spaces;
 	}
+	
+	
 }
