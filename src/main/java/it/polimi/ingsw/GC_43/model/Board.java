@@ -80,10 +80,10 @@ public Board(){
     	for(int i=0; i<GlobalVariables.totalNumberOfCardsPerSet;i++){
         //FRANCESCO bordello in creazione carte,come le ricevo e elaboro? da capire !!!!
 
-        	this.buildingCardPool.add(new BuildingCard(null,this.getEra())); 
+/*        	this.buildingCardPool.add(new BuildingCard(null,this.getEra())); 
         	this.ventureCardPool.add(new VentureCard(null, this.getEra()));
         	this.territoryCardPool.add(new TerritoryCard(null, this.getEra()));
-        	this.characterCardPool.add(new CharacterCard(null, this.getEra()));
+        	this.characterCardPool.add(new CharacterCard(null, this.getEra()));*/
     	}
     }
 
