@@ -11,6 +11,6 @@ public class AdditionalDiceValueToTower {
 		this.additionalValue= additionalValue;
 	}
 	
-	
+	//TODO to understand how to reference the correct tower
 
 }
