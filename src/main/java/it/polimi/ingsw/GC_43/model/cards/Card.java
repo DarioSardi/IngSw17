@@ -7,7 +7,7 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public abstract class Card {
 	private String cardName;
-	private int cardEra;
+	private int cardPeriod;
 	private CostEffect cost;
 	private ArrayList<Effect> instantBonus;
 	private ArrayList<Effect> permaBonus;
@@ -16,7 +16,7 @@ public abstract class Card {
 			ArrayList<Effect> permaBonus) {
 		super();
 		this.cardName = cardName;
-		this.cardEra = cardEra;
+		this.cardPeriod = cardEra;
 		this.cost = cost;
 		this.instantBonus = instantBonus;
 		this.permaBonus = permaBonus;
@@ -29,7 +29,7 @@ public abstract class Card {
 	}
 
 	public int getCardEra() {
-		return cardEra;
+		return cardPeriod;
 	}
 
 	public CostEffect getCost() {
