@@ -13,7 +13,10 @@ public class CostEffect extends Effect {
 	}
 	
 	public boolean check(Player player, boolean towerTax){
-		//TODO to implement
+		if(towerTax){
+			if
+			player.subResource("coin", 3);
+		}
 		return false;
 	}
 	public void executeEffect(Player player, boolean towerTax){
