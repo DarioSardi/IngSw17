@@ -2,6 +2,7 @@ package it.polimi.ingsw.GC_43.model;
 import it.polimi.ingsw.GC_43.model.actionSpace.*;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import it.polimi.ingsw.GC_43.model.cards.Card;
 import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.cards.VentureCard;
+import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
+
 
 public class Board {
 
@@ -51,19 +54,28 @@ public class Board {
 
 
 public Board(){
-        createPlayers(); //magari implementeremo la scelta bonus Base Risorse e Leader Card piu avanti da passare in parametro
-
-        int numberOfPlayers= players.size();
-
- //       this.councilPalace = new CouncilPalace();
+        createPlayers();
+        GlobalVariables.numberOfPlayers=players.size();
+        createDice();
+        rollDice();
+        // io metterei l'effect in global variable
+        this.councilPalace = new CouncilPalace(null);
+        
         this.market = new Market();
- //       this.productionArea=new ProductionArea();
- //       this.harvestArea= new HarvestArea();
+        
+        // io metterei l'effect in global variable
+        this.productionArea=new ProductionArea(null);
+        
+        // io metterei l'effect in global variable
+        this.harvestArea= new HarvestArea(null);
+     
+        createCards();
+      
+        
         this.faithArea = new FaithArea();
         this.dice= new ArrayList<Die>();
 
         createTowers();
-        createCards();
         //maybe to set something from controller input
 
     }
@@ -91,11 +103,20 @@ public Board(){
 	private void createTowers() {
 		
         this.towers = new ArrayList<Tower>();
-        for(int i=0 ; i < GlobalVariables.numberOfTowers; i++){
-//            this..add(new Tower(i));
-
+/*
+        Tower TERRITORIES_TOWER = new Tower(TERRITORIES_TOWER,GlobalVariables.floorsPerTower);
+        TowerColors BUILDINGS_TOWER = null;
+        TowerColors VENTURES_TOWER = null;
+        TowerColors CHARACHTER_TOWER = null;
+//A cosa serve l'enum? meglio passarti al costruttore una stringa di tipo torre
+        
+        this.towers.add(new Tower(TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
+        this.towers.add(new Tower(BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
+        this.towers.add(new Tower(VENTURES_TOWER, GlobalVariables.floorsPerTower));
+        this.towers.add(new Tower(CHARACHTER_TOWER, GlobalVariables.floorsPerTower));
+*/
         }
-    }
+    
 
 
 
@@ -126,18 +147,20 @@ public Board(){
 
     }
 
-
-
+//create Players assigning incremental money to receive
+//No rolling dice to establish the first initial order of players.
     private void createPlayers() {
         if(players==null){
             players = new ArrayList<Player>();
         }
+        int initialCoinsToReceive=5;
         for (int i=0; i<this.playersID.size(); i++){
-        	//SAMUEL-FRANCESCO Da modificare costruttore di player con input dati;
- //           players.add(new Player(playersID.get(i)));
-
+        	players.add(new Player(playersID.get(i),initialCoinsToReceive));
+        	initialCoinsToReceive++;
         }
     }
+    
+    
     
     //SET CARDS READY IN THE TOWERS, REQUIREMENTS: CARDS ORDERED BY ERA FROM BOTTOM TO TOP
     
@@ -155,18 +178,21 @@ public Board(){
     */}
 
 
-   /* private void createAndRollDice() {
-   	for(int index=0; index<GlobalVariables.numberOfDice;index++)
-    		this.dice.add(new Die(index));		*/
-    private void RollDice() {
-    	for(int index=0; index<GlobalVariables.numberOfDice; index++)
-    		this.dice.get(index).rollDie();		
+
+    private void createDice() {
+    	for(int color=0; color<GlobalVariables.numberOfDice;color++)
+    		this.dice.add(new Die(color));		
+    }
+    private void rollDice() {
+    	for(int color=0; color<GlobalVariables.numberOfDice; color++)
+    		this.dice.get(color).rollDie();		
     }
     
     
     
     public void nextTurn(){
         if(this.round == GlobalVariables.excommunicationRound){
+        	
 
         }
 

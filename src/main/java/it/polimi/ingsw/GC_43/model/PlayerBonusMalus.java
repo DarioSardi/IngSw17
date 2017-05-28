@@ -2,6 +2,9 @@ package it.polimi.ingsw.GC_43.model;
 
 import java.util.HashMap;
 
+import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
+
+
 public class PlayerBonusMalus {
 	
 	//BONUS ADDED EACH TIME NEEDED, THEY COULD BE NEGATIVE TOO
@@ -13,10 +16,8 @@ public class PlayerBonusMalus {
 	private int bonusDiceVentureTower;
 	private int bonusProductionArea;
 	private int bonusHarvestArea;
-	private int bonusCoinsOnBuyCharacterTower;
-	private int bonusCoinsOnBuyVentureTower;
-	private int bonusCoinsOnBuyBuildingTower;
-	private int bonusCoinsOnBuyTerritoryTower;
+	
+
 	private int malusCoulouredFamiliarsDiceValue;
 	
 	//BOOLEAN, LOGIC OF THESE ARE INCORPORATED IN METHODS USING THOSE
@@ -38,6 +39,10 @@ public class PlayerBonusMalus {
 	
 //Malus On Final Victory Points
 	private HashMap<String,Boolean> malusOnFinalVictoryPoints;
+	
+//Bonus (coins discount) on acquiring cards in towers
+	
+	private HashMap<String,Integer> bonusCoinsOnBuyInTowers;
 
 	
 	
@@ -58,9 +63,11 @@ public class PlayerBonusMalus {
 		this.malusOnFinalVictoryPoints.put("ventureCard",false);
 		this.malusOnFinalVictoryPoints.put("territoryCard",false);
 		this.malusOnFinalVictoryPoints.put("characterCard",false);
-
-
-
+		this.bonusCoinsOnBuyInTowers= new HashMap<String,Integer>();
+		this.bonusCoinsOnBuyInTowers.put("territoryCard", 0);
+		this.bonusCoinsOnBuyInTowers.put("characterCard", 0);
+		this.bonusCoinsOnBuyInTowers.put("ventureCard", 0);
+		this.bonusCoinsOnBuyInTowers.put("buildingCard", 0);
 
 		
 	}
@@ -121,31 +128,6 @@ public class PlayerBonusMalus {
 	public void setBonusHarvestArea(int bonusHarvestArea) {
 		this.bonusHarvestArea = bonusHarvestArea;
 	}
-	public int getBonusCoinsOnBuyCharacterTower() {
-		return bonusCoinsOnBuyCharacterTower;
-	}
-	public void setBonusCoinsOnBuyCharacterTower(int bonusCoinsOnBuyCharacterTower) {
-		this.bonusCoinsOnBuyCharacterTower = bonusCoinsOnBuyCharacterTower;
-	}
-	public int getBonusCoinsOnBuyVentureTower() {
-		return bonusCoinsOnBuyVentureTower;
-	}
-	public void setBonusCoinsOnBuyVentureTower(int bonusCoinsOnBuyVentureTower) {
-		this.bonusCoinsOnBuyVentureTower = bonusCoinsOnBuyVentureTower;
-	}
-	public int getBonusCoinsOnBuyBuildingTower() {
-		return bonusCoinsOnBuyBuildingTower;
-	}
-	public void setBonusCoinsOnBuyBuildingTower(int bonusCoinsOnBuyBuildingTower) {
-		this.bonusCoinsOnBuyBuildingTower = bonusCoinsOnBuyBuildingTower;
-	}
-	public int getBonusCoinsOnBuyTerritoryTower() {
-		return bonusCoinsOnBuyTerritoryTower;
-	}
-	public void setBonusCoinsOnBuyTerritoryTower(int bonusCoinsOnBuyTerritoryTower) {
-		this.bonusCoinsOnBuyTerritoryTower = bonusCoinsOnBuyTerritoryTower;
-	}
-
 	public int getMalusCoulouredFamiliarsDiceValue() {
 		return malusCoulouredFamiliarsDiceValue;
 	}
@@ -182,6 +164,11 @@ public class PlayerBonusMalus {
 	public void setDoubleChoiceDiscountOnBuildingCard(boolean doubleChoiceDiscountOnBuildingCard) {
 		this.doubleChoiceDiscountOnBuildingCard = doubleChoiceDiscountOnBuildingCard;
 	}
+	public HashMap<String, Integer> getBonusCoinsOnBuyInTowers() {
+		return bonusCoinsOnBuyInTowers;
+	}
+
+	
 
 	
 
