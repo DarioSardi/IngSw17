@@ -14,16 +14,16 @@ public class VictoryPointsMultiplierEffect {
 //FRANCESCO to finish with samuel late modifications	
 	private void getVictoryPoints(Player player){
 		if(this.cardType== "ventureCards")
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().size());
+			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getArrayVentureCards().size());
 		
 		if(this.cardType== "buildingCards");
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getBuildingCards().size());
+			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size());
 		
 		if(this.cardType== "territoryCards");
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getTerritoryCards().size());
+			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size());
 		
 		if(this.cardType== "characterCards");
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getCharacterCards().size());
+			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getArrayCharacterCards().size());
 		
 		}
 		

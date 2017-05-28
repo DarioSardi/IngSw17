@@ -55,16 +55,16 @@ public class FinalCalculationVictoryPoints {
 			//Bonus on Cards
 			//Venture cards has just one permEffect so I consider just element 0;
 			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("ventureCard")){
-				for(VentureCard ventureCard: player.getPlayerCards().getVentureCards())
+				for(VentureCard ventureCard: player.getPlayerCards().getArrayVentureCards())
 					ventureCard.getPermaBonus().get(0).executeEffect();
 			}
 					
 				
 			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("characterCard"))
-				player.addResource("victoryPoint", this.victoryPointsForCharacterCards(player.getPlayerCards().getCharacterCards().size()));
+				player.addResource("victoryPoint", this.victoryPointsForCharacterCards.get(player.getPlayerCards().getArrayCharacterCards().size()));
 		
 			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("territoryCard"))
-				player.addResource("victoryPoint", this.victoryPointsForTerritoryCards(player.getPlayerCards().getTerritoryCards().size()));
+				player.addResource("victoryPoint", this.victoryPointsForTerritoryCards.get(player.getPlayerCards().getArrayTerritoryCards().size()));
 			
 			if(player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("buildingCardCost")){
 				int victoryPointsToSubtract= calculateBuildindCardsCost(player);
@@ -75,8 +75,8 @@ public class FinalCalculationVictoryPoints {
 	//TODO to finish calculateBuildindCardsCost
 	public int calculateBuildindCardsCost(Player player){
 		int victoryPointsToSubtract=0;
-		for(BuildingCard buildingCard: player.getPlayerCards().getBuildingCards()){
-			for(Resource resource: player.getPlayerCards().getBuildingCards())
+		for(BuildingCard buildingCard: player.getPlayerCards().getArrayBuildingCards()){
+			for(Resource resource: buildingCard.getCost().getCosts())
 				if(resource.getResourceType().equals("wood")|| resource.getResourceType().equals("stone"))
 					victoryPointsToSubtract= victoryPointsToSubtract+resource.getValue();
 		}
@@ -106,11 +106,13 @@ public class FinalCalculationVictoryPoints {
 		return totalResources;
 		
 	}
-	public decideForWinner(ArrayList<Player> players){
+	
+	//TODO to be finished with militaryPoints victory pints (5 for forst 2 for second), compara player e stabilisci vincitore, se pari merito vedi turno
+/*	public decideForWinner(ArrayList<Player> players){
 		calculateFinalVictoyPoints(ArrayList<Player> players);
 		
 		
 		
 	}
-
+*/
 }

@@ -22,7 +22,7 @@ public class CostEffect extends Effect {
 					}
 					else{
 						if(player.getPlayerResource(resource.getResourceType())<resource.getValue());
-						return false;
+							return false;
 					}
 				}
 				
@@ -42,6 +42,19 @@ public class CostEffect extends Effect {
 				}			
 			}
 	}
+
+	public ArrayList<Resource> getCosts() {
+		return Costs;
+	}
+
+	public void setCosts(ArrayList<Resource> costs) {
+		Costs = costs;
+	}
+
+
+	
+	
+	
 }
 	
 
