@@ -77,15 +77,12 @@ public Board(){
     	this.ventureCardPool = new ArrayList<Card>();
     	this.territoryCardPool= new ArrayList<Card>();
     	this.characterCardPool = new ArrayList<Card>();
-    	for(int i=0; i<GlobalVariables.totalNumberOfCardsPerSet;i++){
-        //FRANCESCO bordello in creazione carte,come le ricevo e elaboro? da capire !!!!
 
-/*        	this.buildingCardPool.add(new BuildingCard(null,this.getEra())); 
-        	this.ventureCardPool.add(new VentureCard(null, this.getEra()));
-        	this.territoryCardPool.add(new TerritoryCard(null, this.getEra()));
-        	this.characterCardPool.add(new CharacterCard(null, this.getEra()));*/
+        //TODO FRANCESCO  fatti passare arraylist di carte tipo da SAM!!!!
+
+
     	}
-    }
+    
 
 
 
@@ -95,7 +92,7 @@ public Board(){
 		
         this.towers = new ArrayList<Tower>();
         for(int i=0 ; i < GlobalVariables.numberOfTowers; i++){
-//            this.getTowers().add(new Tower(i));
+//            this..add(new Tower(i));
 
         }
     }
