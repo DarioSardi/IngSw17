@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.cards.Card;
 import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.cards.VentureCard;
 
 public class PlayerCards{
-	private List<BuildingCard> buildingCards;
-	private List<VentureCard> ventureCards;
-	private List<CharacterCard> characterCards;
-	private List<TerritoryCard> territoryCards;
+	private ArrayList<BuildingCard> buildingCards;
+	private ArrayList<VentureCard> ventureCards;
+	private ArrayList<CharacterCard> characterCards;
+	private ArrayList<TerritoryCard> territoryCards;
 	/*
 	private ArrayList<Bonus> defaultBonusHarvest;
 	private ArrayList<Bonus> defaultBonusBuildings;
@@ -42,6 +43,22 @@ public class PlayerCards{
 	}
 	public TerritoryCard getTerritoryCard(int numCarta){
 		return territoryCards.get(numCarta);	
+	}
+	
+	public ArrayList<BuildingCard> getArrayBuildingCards(){
+		return this.buildingCards;	
+	}
+	
+	public ArrayList<VentureCard> getArrayVentureCards(){
+		return this.ventureCards;	
+	}
+	
+	public ArrayList<CharacterCard> getArrayCharacterCards(){
+		return this.characterCards;	
+	}
+	
+	public ArrayList<TerritoryCard> getArrayTerritoryCards(){
+		return this.territoryCards;	
 	}
 	
 	public void addCard(BuildingCard card){

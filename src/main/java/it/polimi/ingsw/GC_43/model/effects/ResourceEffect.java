@@ -28,7 +28,7 @@ public class ResourceEffect extends Effect {
 	
 	
 	
-	public void addResources( Player player){
+	public void addResources(Player player){
 		for( Resource resource: resourcesToGet){
 			int newValue=player.getPlayerResources().get(resource.getResourceType())+ resource.getValue()+player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getResourceType());
 			player.getPlayerResources().put(resource.getResourceType(), newValue);
