@@ -3,29 +3,34 @@ package it.polimi.ingsw.GC_43.model.effects;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 
-public class VictoryPointsMultiplierEffect {
+public class VictoryPointsMultiplierEffect extends Effect {
 	private int multiplierFactor;
-	private String cardType;
+	private String multiplierType;
 	
-	public VictoryPointsMultiplierEffect(int multiplierFactor, String cardType){
+	public VictoryPointsMultiplierEffect(int multiplierFactor, String multiplierType){
 		this.multiplierFactor= multiplierFactor;
-		this.cardType = cardType;
+		this.multiplierType = multiplierType;
 	}
-//FRANCESCO to finish with samuel late modifications	
+
 	private void getVictoryPoints(Player player){
-		if(this.cardType== "ventureCards")
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getArrayVentureCards().size());
+		if(this.multiplierType== "ventureCards")
+			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayVentureCards().size());
 		
-		if(this.cardType== "buildingCards");
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size());
+		if(this.multiplierType== "buildingCards");
+			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size());
 		
-		if(this.cardType== "territoryCards");
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size());
+		if(this.multiplierType== "territoryCards");
+			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size());
 		
-		if(this.cardType== "characterCards");
-			player.setPlayerResource("victoryPoint", player.getPlayerResource("victoryPoint")+this.multiplierFactor*player.getPlayerCards().getArrayCharacterCards().size());
+		if(this.multiplierType== "characterCards");
+			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayCharacterCards().size());
 		
+		
+		if(this.multiplierType== "militaryPoint");
+			player.addResource("victoryPoint", (int)(this.multiplierFactor*player.getPlayerResource(this.multiplierType)));
 		}
+
+	
 		
 	public void executeEffect(FamilyMember familyMember){
 		getVictoryPoints(familyMember.getPlayer());

@@ -21,7 +21,7 @@ public class MultipleCouncilPrivileges extends Effect {
 		}
 		
 	}
-
+//TODO to implement
 	public int getNumberOfCopies() {
 		return numberOfCopies;
 	}
