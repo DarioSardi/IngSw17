@@ -2,7 +2,7 @@ package it.polimi.ingsw.GC_43.model.effects;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 
-public class ExtraBuildingProduction {
+public class ExtraBuildingProduction extends Effect {
 
 	private int diceValue;
 	

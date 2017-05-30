@@ -4,6 +4,7 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 
 public class ExtraHarvestProduction extends Effect {
 	private int diceValue;
+
 	
 	public ExtraHarvestProduction(int diceValue){
 		this.diceValue= diceValue;

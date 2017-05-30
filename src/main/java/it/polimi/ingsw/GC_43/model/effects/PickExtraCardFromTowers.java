@@ -3,7 +3,7 @@ package it.polimi.ingsw.GC_43.model.effects;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 
-public class PickExtraCardFromTowers {
+public class PickExtraCardFromTowers extends Effect{
 	private TowerColors towerColor;
 	
 	public PickExtraCardFromTowers(TowerColors towerColor){

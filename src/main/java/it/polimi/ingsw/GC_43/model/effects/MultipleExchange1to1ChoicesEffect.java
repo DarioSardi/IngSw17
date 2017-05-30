@@ -39,7 +39,7 @@ public class MultipleExchange1to1ChoicesEffect extends Effect {
 		}
 
 		
-		
+			
 
 		public boolean isOneGain() {
 			return oneGain;

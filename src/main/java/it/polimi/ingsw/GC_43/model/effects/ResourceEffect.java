@@ -7,7 +7,8 @@ import java.util.List;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.Resource;
-
+import it.polimi.ingsw.GC_43.model.Wood;
+/*
 public class ResourceEffect extends Effect {
 	
 	private List<Resource> resourcesToGet;
@@ -43,7 +44,7 @@ public class ResourceEffect extends Effect {
 
 	
 //If you want to test it, try it out
-/*
+
 public static void main(String [] args){
 	Player p = new Player("ciao", 2);
 	ResourceEffect re = new ResourceEffect();
@@ -64,8 +65,49 @@ public static void main(String [] args){
 	System.out.println(p.getPlayerResources().get("faithPoint"));	
 
 
-	}*/
+	}
+}*/
+
+
+
+
+/**
+ * Created by FrancescoSaverio on 30/05/2017.
+ */
+public class ResourceEffect extends Effect {
+
+		private Resource resource;
+
+        public ResourceEffect(Resource resource){
+            
+        	this.resource=resource;
+
+        }
+
+        public String toString(){
+            String resourceToString = new String(); 
+            return resourceToString;
+
+        }
+
+
+
+       public void addResources(Player player){
+                int newValue=resource.getValue()+player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getResourceType());
+                player.addResource(resource.getResourceType(), newValue);
+            }
+        
+
+        public void executeEffect(FamilyMember familyMember){
+            addResources(familyMember.getPlayer());
+            
+        }
+        public static void main(String [] args){
+        	Resource w = new Wood(2);
+        	ResourceEffect r = new ResourceEffect(w);
+        	r.toString();
+        }
 }
-	
+
 	
 

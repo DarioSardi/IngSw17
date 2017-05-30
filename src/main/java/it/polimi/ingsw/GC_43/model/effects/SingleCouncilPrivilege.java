@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 
-public class SingleCouncilPrivilege {
+public class SingleCouncilPrivilege extends Effect {
 	private ArrayList<ResourceEffect> choices;
 	
 	public SingleCouncilPrivilege(){
