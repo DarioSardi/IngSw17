@@ -28,6 +28,10 @@ public class GlobalVariables {
 	   public static final int towerTax= 3;
 	   public static int numberOfPlayers;
 	   public static ResourceEffect councilPriviledgeEffect;
+	   public static final int victoryPointsFirstMilitaryPower= 5;
+	   public static final int victoryPointsSecondMilitaryPower= 2;
+	   
+
 	   
 
 }

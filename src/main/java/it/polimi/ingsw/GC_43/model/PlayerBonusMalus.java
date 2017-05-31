@@ -10,7 +10,7 @@ public class PlayerBonusMalus {
 	//BONUS ADDED EACH TIME NEEDED, THEY COULD BE NEGATIVE TOO
 	//COMING FROM BOTH CHARACTER CARDS AND FROM EXCOMMUNICATION TILES
 	
-	private int bonusDiceCharachterTower;
+	private int bonusDiceCharacterTower;
 	private int bonusDiceTerritoryTower;
 	private int bonusDiceBuildingTower;
 	private int bonusDiceVentureTower;
@@ -76,8 +76,8 @@ public class PlayerBonusMalus {
 
 	
 	
-	public int getBonusDiceCharachterTower() {
-		return bonusDiceCharachterTower;
+	public int getBonusDiceCharacterTower() {
+		return bonusDiceCharacterTower;
 	}
 	public HashMap<String, Boolean> getMalusOnFinalVictoryPoints() {
 		return malusOnFinalVictoryPoints;
@@ -95,8 +95,8 @@ public class PlayerBonusMalus {
 		this.malusOnAcquiringResources = malusOnAcquiringResources;
 	}
 
-	public void setBonusDiceCharachterTower(int bonusDiceCharachterTower) {
-		this.bonusDiceCharachterTower = bonusDiceCharachterTower;
+	public void setBonusDiceCharacterTower(int bonusDiceCharacterTower) {
+		this.bonusDiceCharacterTower = bonusDiceCharacterTower;
 	}
 	public int getBonusDiceTerritoryTower() {
 		return bonusDiceTerritoryTower;

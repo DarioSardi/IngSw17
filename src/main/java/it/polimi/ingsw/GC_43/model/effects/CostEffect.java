@@ -13,6 +13,7 @@ public class CostEffect extends Effect {
 		this.Costs= Costs;
 	}
 	
+	
 	public boolean check(Player player, String cardType){
 				for (Resource resource: Costs){
 					if(resource.getResourceType().equals("coin")){
