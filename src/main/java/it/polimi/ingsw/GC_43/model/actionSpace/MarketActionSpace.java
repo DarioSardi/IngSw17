@@ -1,8 +1,15 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class MarketActionSpace extends ActionSpace {
+
+	
+	public MarketActionSpace(Effect e, int minDiceValue) {
+		this.setBonus(e);
+		this.setMinDiceValue(minDiceValue);
+	}
 
 	@Override
 	public boolean check(FamilyMember f) {

@@ -58,7 +58,7 @@ public boolean check(FamilyMember f) {
  */
 public boolean execute(FamilyMember f) {
 	if(this.check(f)){	
-		CardHandler.buyCard(this, f.getPlayer(),this.card);
+		CardHandler.buyCard(this, f,this.card);
 		this.getBonus().executeEffect(f);
 		this.getFamiliarIn().add(f);
 		f.setAlreadyPlaced(true);

@@ -10,18 +10,15 @@ public class Tower{
 	private TowerColors towerColor;
 	private boolean towerOccupied;	
 	private ArrayList<Floor> floors;
+	private int floorsNumber;
 	/**
 	 * generate a tower with some empty floors
 	 * @param towerColor define the tower colors
 	 */
-	public Tower(TowerColors towerColor,int floors) {
+	public Tower(TowerColors towerColor,int floorsNumber) {
 		this.towerColor = towerColor;	
 		this.towerOccupied= false;
-		
-		for(int i=0;i<floors;i++){
-		this.addFloor(null,0);
-		}
-		
+		this.floorsNumber=floorsNumber;
 	}
 
 	// getters and setters
@@ -56,15 +53,23 @@ public class Tower{
 	}
 
 	/**
-	 * add a floor to the tower
-	 * 
+	 * add floor without bonus
+	 * @param minDiceValue
+	 */
+	public void addFloor(int minDiceValue){
+		this.floors.add(new Floor(null, this, minDiceValue));
+	}
+	
+	/**
+	 * add a floor to the tower with a bonus
 	 * @param bonus bonus of the floor
 	 * @param minDiceValue
 	 */
 	public void addFloor(Effect bonus, Integer minDiceValue) {
 		this.floors.add(new Floor(bonus, this, minDiceValue));
-
 	}
+	
+	
 	
 	public void setTowerOccupied(boolean set){
 		towerOccupied=set;

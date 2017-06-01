@@ -2,6 +2,7 @@ package it.polimi.ingsw.GC_43.model.cards;
 
 import javax.xml.bind.JAXBElement.GlobalScope;
 
+import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionSpace.Floor;
@@ -15,13 +16,13 @@ public class CardHandler {
 	 * @param f floor where the card is
 	 * @return true if the card can be bought
 	 */
-	public static boolean buyCard(Floor f,Player p, Card c){
+	public static boolean buyCard(Floor f,FamilyMember fam, Card c){
 		if(c.getCost()!=null){
-			c.getCost().executeEffect();
+			c.getCost().executeEffect(fam);
 		}
-		c.getInstantBonus().stream().forEach(e->e.executeEffect());
+		c.getInstantBonus().stream().forEach(e->e.executeEffect(fam));
 		if(c.getType()=="CharacterCard"){
-			c.getPermaBonus().stream().forEach(e->e.executeEffect());
+			c.getPermaBonus().stream().forEach(e->e.executeEffect(fam));
 		}
 		//DARIO far pagare la tassa
 		//DARIO aspettare sam p.getPlayerCards().addCard(c);
