@@ -11,7 +11,28 @@ public class MultipleExchange1to1ChoicesEffect extends Effect {
 		private ArrayList<Resource> gains;
 		private boolean oneGain;
 		
-			public MultipleExchange1to1ChoicesEffect(ArrayList<Resource> costs,ArrayList<Resource> gains, boolean oneGain){
+		
+		public String toString(){
+			String toString="Multiple one to one exchange effect ";
+			if(oneGain){
+				toString=toString+ "with only one gain";
+			}
+			toString=toString+":\ncosts: ";
+			int number=1;
+			for(Resource cost:this.costs){
+				toString=toString+"cost "+number+" "+cost.getResourceType()+": "+cost.getValue()+" ";
+				number++;
+			}
+			number=1;
+			toString=toString+"\ngains:\n ";
+
+			for(Resource gain:this.gains){
+				toString=toString+"gain "+number+" "+gain.getResourceType()+": "+gain.getValue()+" ";
+			}
+			return toString;
+		}
+		
+		public MultipleExchange1to1ChoicesEffect(ArrayList<Resource> costs,ArrayList<Resource> gains, boolean oneGain){
 				this.costs=new ArrayList<Resource>();
 				this.gains=new ArrayList<Resource>();
 				this.costs=costs;
@@ -33,8 +54,7 @@ public class MultipleExchange1to1ChoicesEffect extends Effect {
 
 
 
-		private boolean checkChoice(int choiceNumber, Player player) {
-			
+		private boolean checkChoice(int choiceNumber, Player player) {		
 			return player.getPlayerResource(this.costs.get(choiceNumber).getResourceType())>=this.getCosts().get(choiceNumber).getValue();
 		}
 

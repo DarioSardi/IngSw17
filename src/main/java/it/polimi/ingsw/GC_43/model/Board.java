@@ -71,8 +71,8 @@ public Board(ArrayList players){
         
         // io metterei l'effect in global variable
         this.councilPalace = new CouncilPalace(null);
-        
-        this.market = new Market();
+   //TODO parlane con sam di inizializzazione generale di tutto     
+ //       this.market = new Market();
         
         // io metterei l'effect in global variable
         this.productionArea=new ProductionArea(null);
@@ -88,7 +88,6 @@ public Board(ArrayList players){
         //maybe to set something from controller input
         this.faithArea = new FaithArea(this.excommunicationTiles);
         
-        initialize();
 
 
     }
@@ -98,10 +97,10 @@ public Board(ArrayList players){
 
 
     private void createCards() {
-    	this.buildingCardPool = new ArrayList<Card>();
-    	this.ventureCardPool = new ArrayList<Card>();
-    	this.territoryCardPool= new ArrayList<Card>();
-    	this.characterCardPool = new ArrayList<Card>();
+    	this.buildingCardPool = new ArrayList<BuildingCard>();
+    	this.ventureCardPool = new ArrayList<VentureCard>();
+    	this.territoryCardPool= new ArrayList<TerritoryCard>();
+    	this.characterCardPool = new ArrayList<CharacterCard>();
     	this.excommunicationTiles= new ArrayList<ExcommunicationTile>();
 
         //TODO FRANCESCO  fatti passare arraylist di carte tipo da SAM!!!!
@@ -166,17 +165,17 @@ public Board(ArrayList players){
     //SET CARDS READY IN THE TOWERS, REQUIREMENTS: CARDS ORDERED BY ERA FROM BOTTOM TO TOP
     
     private void setTowerCards() {
- /*   	int startingCardToDraw = this.round*GlobalVariables.towerCardsPerRound;
+    	int startingCardToDraw = this.round*GlobalVariables.towerCardsPerRound;
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
-            this.getTowers().get(0).getSpaces().get(index).se(this.territoryCardPool.get(startingCardToDraw+index));
+            this.getTowers().get(0).getFloors().get(index).setCard((TerritoryCard)this.territoryCardPool.get(startingCardToDraw+index));
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
-            this.getTowers().get(1).getFloors().get(index).setCard(this.buildingCardPool.get(startingCardToDraw+index));
+            this.getTowers().get(1).getFloors().get(index).setCard((BuildingCard)this.buildingCardPool.get(startingCardToDraw+index));
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
-            this.getTowers().get(2).getFloors().get(index).setCard(this.ventureCardPool.get(startingCardToDraw+index));
+            this.getTowers().get(2).getFloors().get(index).setCard((VentureCard)this.ventureCardPool.get(startingCardToDraw+index));
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
-            this.getTowers().get(3).getFloors().get(index).setCard(this.characterCardPool.get(startingCardToDraw+index));   
-    */}
-
+            this.getTowers().get(3).getFloors().get(index).setCard((CharacterCard)this.characterCardPool.get(startingCardToDraw+index));   
+    }
+//TODO Think about how to remove casts on setting cards on floors;
 
 
     private void createDice() {

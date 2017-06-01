@@ -1,11 +1,26 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
+import java.util.ArrayList;
+
 public class MultipleCouncilPrivileges extends Effect {
 	private int numberOfCopies;
+	private ArrayList<ResourceEffect> choices;
 
+	
+	//TODO decidere per resource effect , io terrei arrayList
+	public String toString(){
+		String toString = "Player can take "+this.numberOfCopies+ "different council privilege choice effect: ";
+		int choiceNumber=1;
+		for(ResourceEffect resourceEffect : choices){
+			toString= toString+"choice "+choiceNumber+": "+ resourceEffect.toString();
+			choiceNumber++;
+		}
+		return toString;
+	}
 	
 	public MultipleCouncilPrivileges(int numberOfCopies) {
 		this.numberOfCopies=numberOfCopies;
+		this.choices=new ArrayList<ResourceEffect>();
 	}
 	
 	public void executeEffect(){
