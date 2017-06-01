@@ -49,16 +49,17 @@ public void setTower(Tower tower) {
 }
 
 public boolean check(FamilyMember f) {
-	return f.getDiceValue()>=this.getMinDiceValue(); //DARIO necessaria logica buycard
+	return f.getDiceValue()>=this.getMinDiceValue()&&CardHandler.checkBuy(this, f.getPlayer(), this.getCard(),this.getTower().check(f));
 }
+//DARIO tower tax!
 
 /**
  * buy the card,get the floor bonus,set the familiar,set the floor and the tower as occupied
  */
 public boolean execute(FamilyMember f) {
-	if(this.check(f)){			//&&card.getCost().check()
+	if(this.check(f)){	
 		CardHandler.buyCard(this, f.getPlayer(),this.card);
-		//DARIO aspettare varini this.getBonus().executeEffect(f.getPlayer());
+		this.getBonus().executeEffect(f);
 		this.getFamiliarIn().add(f);
 		f.setAlreadyPlaced(true);
 		f.setFamilyMemberPosition(this);

@@ -1,5 +1,8 @@
 package it.polimi.ingsw.GC_43.model.cards;
 
+import javax.xml.bind.JAXBElement.GlobalScope;
+
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionSpace.Floor;
 
@@ -20,6 +23,7 @@ public class CardHandler {
 		if(c.getType()=="CharacterCard"){
 			c.getPermaBonus().stream().forEach(e->e.executeEffect());
 		}
+		//DARIO far pagare la tassa
 		//DARIO aspettare sam p.getPlayerCards().addCard(c);
 		f.removeCard();
 		
@@ -28,6 +32,13 @@ public class CardHandler {
 	
 	//DARIO controllo quando non ho abbastanza spazi sulla plancia!!!
 	
+	public static boolean checkBuy(Floor f,Player p, Card c,boolean towerTax){
+		if(towerTax){p.subResource("coin", 3);}  //DARIO  modificare il 3 in una globale
+		return towerTax;
+		
+	}
+	}
+	
 	
 
-}
+

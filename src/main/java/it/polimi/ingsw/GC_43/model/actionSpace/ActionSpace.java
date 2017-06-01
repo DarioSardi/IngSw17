@@ -47,7 +47,7 @@ public abstract class ActionSpace {
 	 */
 	public boolean execute(FamilyMember f){
 		if(check(f)){
-			//DARIO controllare il parametro della execute eff this.getBonus().executeEffect(f.getPlayer());
+			this.getBonus().executeEffect(f); 
 			this.getFamiliarIn().add(f);
 			f.setAlreadyPlaced(true);
 			f.setFamilyMemberPosition(this);

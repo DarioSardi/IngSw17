@@ -1,24 +1,36 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
-public class Tower extends ActionArea{
+public class Tower{
 	private TowerColors towerColor;
 	private boolean towerOccupied;	
+	private ArrayList<Floor> floors;
 	/**
-	 * generate a empty tower 
+	 * generate a tower with some empty floors
 	 * @param towerColor define the tower colors
 	 */
 	public Tower(TowerColors towerColor,int floors) {
 		this.towerColor = towerColor;	
 		this.towerOccupied= false;
+		
+		for(int i=0;i<floors;i++){
+		this.addFloor(null,0);
+		}
+		
 	}
 
 	// getters and setters
 	public TowerColors getTowerColor() {
 		return towerColor;
+	}
+
+	public ArrayList<Floor> getFloors() {
+		return floors;
 	}
 
 	/**
@@ -28,7 +40,7 @@ public class Tower extends ActionArea{
 	 */
 	public boolean hasPlayerIn(FamilyMember f) {
 		if(f.getColor()==0){return true;}
-		else{for(ActionSpace floor: this.getSpaces()){
+		else{for(ActionSpace floor: this.floors){
 			if(f.getColor()==floor.getFamiliarIn().get(0).getColor()){return false;}
 		}
 		return true;}
@@ -36,7 +48,7 @@ public class Tower extends ActionArea{
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (ActionSpace floor: this.getSpaces()) {
+		for (ActionSpace floor: this.floors) {
 			sb.append(floor.toString());
 			sb.append("\n");
 		}
@@ -46,12 +58,11 @@ public class Tower extends ActionArea{
 	/**
 	 * add a floor to the tower
 	 * 
-	 * @param bonus
-	 *            bonus of the floor
+	 * @param bonus bonus of the floor
 	 * @param minDiceValue
 	 */
 	public void addFloor(Effect bonus, Integer minDiceValue) {
-		this.getSpaces().add(new Floor(bonus, this, minDiceValue));
+		this.floors.add(new Floor(bonus, this, minDiceValue));
 
 	}
 	
@@ -62,12 +73,11 @@ public class Tower extends ActionArea{
 	/**
 	 * check if the tower is occupied
 	 */
-	@Override
+
 	public boolean check(FamilyMember f) {
 		return towerOccupied;
 	}
 
-	@Override
 	public int getBonusOfArea(Player p) {
 		// DARIO come divido i bonus torre?
 		return 0;
@@ -75,7 +85,7 @@ public class Tower extends ActionArea{
 	
 	public void resetArea(){
 		this.towerOccupied=false;
-		this.getSpaces().stream().forEach(space->space.resetSpace());
+		this.floors.stream().forEach(space->space.resetSpace());
 	}
 
 }

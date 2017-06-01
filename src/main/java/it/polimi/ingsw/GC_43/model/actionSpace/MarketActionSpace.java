@@ -18,5 +18,10 @@ public class MarketActionSpace extends ActionSpace {
 	public boolean checkColor(FamilyMember f) {
 		return true;
 	}
+	
+	@Override
+	public String toString(){
+		return "in this market you will get : "+ this.getBonus().toString();	
+	}
 
 }
