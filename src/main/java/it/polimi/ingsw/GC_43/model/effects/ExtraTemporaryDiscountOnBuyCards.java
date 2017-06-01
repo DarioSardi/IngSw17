@@ -1,17 +1,23 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.Resource;
 
 public class ExtraTemporaryDiscountOnBuyCards extends Effect{ 
-	private int quantity;
-	private String resourceType;
+	private Resource resource;
+	String towerType;
 	
-	public ExtraTemporaryDiscountOnBuyCards(int quantity, String resourceType){
-		this.quantity=quantity;
-		this.resourceType= resourceType;
+	public String toString(){
+		String toString="Get an instant temporary discount on buy Cards in "+this.towerType+"of "+this.resource.getResourceType()+": "+this.resource.getValue();
+		return toString;
+	}
+	
+	public ExtraTemporaryDiscountOnBuyCards(Resource resource, String towerType){
+		this.resource=resource;
+		this.towerType=towerType;
 	}
 	
 	public void executeEffect(FamilyMember familyMember){
-		
+		//TODO to implement
 	}
 }

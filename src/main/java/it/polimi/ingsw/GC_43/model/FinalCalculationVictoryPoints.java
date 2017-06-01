@@ -148,7 +148,7 @@ public class FinalCalculationVictoryPoints {
 
 //TODO Works, think to render it more dynamical
 	private void assignVictoryPointsForMilitaryPower(ArrayList<Player> players,String resource) {
-		ArrayList<Integer> arr= new ArrayList();
+		ArrayList<Integer> arr= new ArrayList<Integer>();
 		for(Player player:players)
 			arr.add(player.getPlayerResource(resource));
 			
