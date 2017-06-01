@@ -2,9 +2,15 @@ package it.polimi.ingsw.GC_43.model.effects;
 
 import java.util.List;
 
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+
 public abstract class Effect {
 	
-	public void executeEffect(){
+	public String toString(){
+		String toString=null;
+		return toString;
+	}
+	public void executeEffect(FamilyMember familyMember){
 		
 	}
 

@@ -11,6 +11,11 @@ public class CoinsMultiplierEffect extends Effect {
 		this.multiplierType= multiplierType;
 	}
 
+	public String toString(){
+		String toString="Player will receive an amount of victory points equal to "+this.multiplierFactor+" * "+this.multiplierType;
+		return toString;
+	}
+	
 	private void getVictoryPoints(Player player){
 		
 		if(this.multiplierType== "buildingCards");

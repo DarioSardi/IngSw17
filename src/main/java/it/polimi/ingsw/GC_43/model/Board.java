@@ -33,6 +33,7 @@ public class Board {
     private List buildingCardPool;
     private List characterCardPool;
     private List ventureCardPool;
+    private ArrayList <ExcommunicationTile> excommunicationTiles;
 
     private List<Die> dice;
     
@@ -53,11 +54,21 @@ public class Board {
 //	private Controller c;
 
 
-public Board(){
-        createPlayers();
+public Board(ArrayList players){
+	
+	
+		this.round=1;
+		this.turnNumber=1;
+		this.era=1;
+	
+		this.players=new ArrayList<Player>();
+		this.players=players;
         GlobalVariables.numberOfPlayers=players.size();
+
+        createPlayers();
         createDice();
         rollDice();
+        
         // io metterei l'effect in global variable
         this.councilPalace = new CouncilPalace(null);
         
@@ -72,11 +83,13 @@ public Board(){
         createCards();
       
         
-        this.faithArea = new FaithArea();
-        this.dice= new ArrayList<Die>();
 
         createTowers();
         //maybe to set something from controller input
+        this.faithArea = new FaithArea(this.excommunicationTiles);
+        
+        initialize();
+
 
     }
 
@@ -89,6 +102,7 @@ public Board(){
     	this.ventureCardPool = new ArrayList<Card>();
     	this.territoryCardPool= new ArrayList<Card>();
     	this.characterCardPool = new ArrayList<Card>();
+    	this.excommunicationTiles= new ArrayList<ExcommunicationTile>();
 
         //TODO FRANCESCO  fatti passare arraylist di carte tipo da SAM!!!!
 
@@ -103,18 +117,14 @@ public Board(){
 	private void createTowers() {
 		
         this.towers = new ArrayList<Tower>();
-/*
-        Tower TERRITORIES_TOWER = new Tower(TERRITORIES_TOWER,GlobalVariables.floorsPerTower);
-        TowerColors BUILDINGS_TOWER = null;
-        TowerColors VENTURES_TOWER = null;
-        TowerColors CHARACHTER_TOWER = null;
-//A cosa serve l'enum? meglio passarti al costruttore una stringa di tipo torre
         
-        this.towers.add(new Tower(TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(VENTURES_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(CHARACHTER_TOWER, GlobalVariables.floorsPerTower));
-*/
+
+        
+        this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
+        this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
+        this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));
+        this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
+
         }
     
 
@@ -131,22 +141,13 @@ public Board(){
 
 
     public void initialize(){
-    	
-    	
+    	    	
         setTowerCards();
-        
-//		setExcommunicationCards();
 
-
-
-//		askPlayersForDefaultBonus(Controller c);
-//		askPlayersForLeaderCards(Controller c);
-
-
-//        createAndRollDice();
 
     }
 
+    
 //create Players assigning incremental money to receive
 //No rolling dice to establish the first initial order of players.
     private void createPlayers() {
@@ -165,21 +166,22 @@ public Board(){
     //SET CARDS READY IN THE TOWERS, REQUIREMENTS: CARDS ORDERED BY ERA FROM BOTTOM TO TOP
     
     private void setTowerCards() {
-    //    getCards();
-    	int startingCardToDraw = this.round*GlobalVariables.towerCardsPerRound;
-/*        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
-            this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));
-        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
-            this.getTowers().get(0).getFloors().get(index).setCard(this.buildingCardPool.get(startingCardToDraw+index));
+   /* 	int startingCardToDraw = this.round*GlobalVariables.towerCardsPerRound;
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
-            this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));   
+            this.getTowers().get(1).getFloors().get(index).setCard(this.buildingCardPool.get(startingCardToDraw+index));
+        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
+            this.getTowers().get(2).getFloors().get(index).setCard(this.ventureCardPool.get(startingCardToDraw+index));
+        for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
+            this.getTowers().get(3).getFloors().get(index).setCard(this.characterCardPool.get(startingCardToDraw+index));   
     */}
 
 
 
     private void createDice() {
+        this.dice= new ArrayList<Die>();
+
     	for(int color=0; color<GlobalVariables.numberOfDice;color++)
     		this.dice.add(new Die(color));		
     }
@@ -191,44 +193,40 @@ public Board(){
     
     
     public void nextTurn(){
-        if(this.round == GlobalVariables.excommunicationRound){
-        	
-
+        if(this.round % GlobalVariables.excommunicationRound==0){
+//TODO 	to decide whether to implement it on controller, it requires interaction
+        	//        	checkPlayerExcommunication();
         }
+        setTowerCards();
+        rollDice();
+        establishNewPlayerOrder();
 
     }
 
 
-
-
-
-
-
-    //GETTERS AND SETTERS
-
-    public int getRound() {
-        return round;
+    public String nextPlayerRound(){
+    	//TODO to implement
+    	return null;
     }
 
-    public void setRound(int round) {
-        this.round = round;
-    }
+    private void establishNewPlayerOrder() {
+    	
+	}
 
-    public int getEra() {
-        return era;
-    }
 
-    public void setEra(int era) {
-        this.era = era;
-    }
 
- /*   public List<Die> getDice() {
-        return Dice;
+
+
+	//GETTERS AND SETTERS
+
+
+    public List<Die> getDice() {
+        return this.dice;
     }
 
     public void setDice(List<Die> dice) {
-        Dice = dice;
-    }*/
+        this.dice = dice;
+    }
 
     public List getTerritoryCardPool() {
         return territoryCardPool;

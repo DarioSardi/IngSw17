@@ -8,8 +8,9 @@ public class FaithArea {
 	private ArrayList<ExcommunicationTile> excommunicationTiles;
 	
 
-	public FaithArea(){
+	public FaithArea(ArrayList<ExcommunicationTile> excommunicationTiles){
 		this.excommunicationTiles= new ArrayList<ExcommunicationTile>();
+		this.excommunicationTiles=excommunicationTiles;
 		this.victoryPositionPoints= new ArrayList<Integer>();
 		generateVictoryPositionPoints();
 	}

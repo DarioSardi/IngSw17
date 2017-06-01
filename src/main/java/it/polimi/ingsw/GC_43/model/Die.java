@@ -1,6 +1,8 @@
 package it.polimi.ingsw.GC_43.model;
 
-public class Die {
+import java.util.Observable;
+
+public class Die extends Observable{
 	private int dieValue;
 	private int dieColor;
 	private int range=6;
@@ -29,11 +31,11 @@ public class Die {
 		this.range = range;
 	}
 	
-	//FRANCESCO fare tutta la funzione su un unica riga di codice
 	public void rollDie(){
 		double Dvalue = Math.random()*this.range;
 		int value = (int)Dvalue+1;
-		this.setDieValue(value);	
+		this.setDieValue(value);
+		notifyObservers();
 	}
 
 

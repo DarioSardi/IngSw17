@@ -9,6 +9,12 @@ public class AdditionalValueToDiceOnHarvest extends Effect{
 		this.valueToAddOnDice= valueToAddOnDice;
 	}
 	
+	public String toString(){
+		
+		String toString="Player will have an additional value on Dice on Harvest of: "+this.valueToAddOnDice;
+		return toString;
+	}
+	
 	public void executeEffect(FamilyMember familyMember){
 		familyMember.getPlayer().getPlayerBounusMalus().setBonusHarvestArea(familyMember.getPlayer().getPlayerBounusMalus().getBonusHarvestArea()+this.valueToAddOnDice);
 		
