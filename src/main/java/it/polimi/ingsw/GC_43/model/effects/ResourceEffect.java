@@ -102,6 +102,7 @@ public class ResourceEffect extends Effect {
             addResources(familyMember.getPlayer());
             
         }
+
         public static void main(String [] args){
         	Resource w = new Wood(2);
         	ResourceEffect r = new ResourceEffect(w);

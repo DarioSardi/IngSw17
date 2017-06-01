@@ -166,9 +166,9 @@ public Board(ArrayList players){
     //SET CARDS READY IN THE TOWERS, REQUIREMENTS: CARDS ORDERED BY ERA FROM BOTTOM TO TOP
     
     private void setTowerCards() {
-   /* 	int startingCardToDraw = this.round*GlobalVariables.towerCardsPerRound;
+ /*   	int startingCardToDraw = this.round*GlobalVariables.towerCardsPerRound;
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
-            this.getTowers().get(0).getFloors().get(index).setCard(this.territoryCardPool.get(startingCardToDraw+index));
+            this.getTowers().get(0).getSpaces().get(index).se(this.territoryCardPool.get(startingCardToDraw+index));
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(1).getFloors().get(index).setCard(this.buildingCardPool.get(startingCardToDraw+index));
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)

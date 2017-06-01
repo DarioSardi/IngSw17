@@ -81,7 +81,9 @@ public class FinalCalculationVictoryPoints {
 			//Venture cards has just one permEffect so I consider just element 0;
 			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("ventureCard")){
 				for(VentureCard ventureCard: player.getPlayerCards().getArrayVentureCards())
-					ventureCard.getPermaBonus().get(0).executeEffect();
+					
+					//assigned a random familyMember, doesn't count
+					ventureCard.getPermaBonus().get(0).executeEffect(player.getFamilyMember(1));
 			}
 					
 				
