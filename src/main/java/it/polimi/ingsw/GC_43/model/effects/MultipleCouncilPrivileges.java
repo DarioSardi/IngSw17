@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class MultipleCouncilPrivileges extends Effect {
 	private int numberOfCopies;
-	private ArrayList<ResourceEffect> choices;
+	private ArrayList<Effect> choices;
 
 	
 	//TODO decidere per resource effect , io terrei arrayList
 	public String toString(){
 		String toString = "Player can take "+this.numberOfCopies+ "different council privilege choice effect: ";
 		int choiceNumber=1;
-		for(ResourceEffect resourceEffect : choices){
+		for(Effect resourceEffect : choices){
 			toString= toString+"choice "+choiceNumber+": "+ resourceEffect.toString();
 			choiceNumber++;
 		}
@@ -20,7 +20,7 @@ public class MultipleCouncilPrivileges extends Effect {
 	
 	public MultipleCouncilPrivileges(int numberOfCopies) {
 		this.numberOfCopies=numberOfCopies;
-		this.choices=new ArrayList<ResourceEffect>();
+		this.choices=new ArrayList<Effect>();
 	}
 	
 	public void executeEffect(){

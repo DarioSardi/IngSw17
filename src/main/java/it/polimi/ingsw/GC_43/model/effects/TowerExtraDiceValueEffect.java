@@ -10,6 +10,11 @@ public class TowerExtraDiceValueEffect extends Effect {
 		this.towerType=towerType;
 		this.extraValue=extraValue;
 	}
+    public String toString(){
+        String toString = "Player will receve a additional value on die of "+this.extraValue+" on tower "+this.towerType; 
+        return toString;
+
+    }
 	
 	
 	public void executeEffect(FamilyMember familyMember){

@@ -11,6 +11,11 @@ public class VictoryPointsMultiplierEffect extends Effect {
 		this.multiplierFactor= multiplierFactor;
 		this.multiplierType = multiplierType;
 	}
+	
+	public String toString(){
+		String toString="Player will get an amount of victory points equal to "+this.multiplierFactor+" "+this.multiplierType;
+		return toString;
+	}
 
 	private void getVictoryPoints(Player player){
 		if(this.multiplierType== "ventureCards")

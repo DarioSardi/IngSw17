@@ -85,8 +85,8 @@ public class ResourceEffect extends Effect {
         }
 
         public String toString(){
-            String resourceToString = new String(); 
-            return resourceToString;
+            String toString = this.resource.toString(); 
+            return toString;
 
         }
 
@@ -103,11 +103,7 @@ public class ResourceEffect extends Effect {
             
         }
 
-        public static void main(String [] args){
-        	Resource w = new Wood(2);
-        	ResourceEffect r = new ResourceEffect(w);
-        	r.toString();
-        }
+
 }
 
 	

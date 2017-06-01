@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 
 public class SingleCouncilPrivilege extends Effect {
-	private ArrayList<ResourceEffect> choices;
+	private ArrayList<Effect> choices;
 	
 	public SingleCouncilPrivilege(){
 		//TODO decide if better to have the choices as a GlobalVariable, forse è meglio cosi la settiamo senza passarla
@@ -16,13 +16,13 @@ public class SingleCouncilPrivilege extends Effect {
 	}
 	
 	public String toString(){
-		String choicesForPlayer = new String();
+		String toString = new String();
 		int choiceNumber=1;
-		for(ResourceEffect resourceEffect : choices){
-			choicesForPlayer= choicesForPlayer+"choice "+choiceNumber+": "+ resourceEffect.toString();
+		for(Effect resourceEffect : choices){
+			toString= toString+"choice "+choiceNumber+": "+ resourceEffect.toString();
 			choiceNumber++;
 		}
-		return choicesForPlayer;
+		return toString;
 	}
 	
 	public void executeEffect(FamilyMember familyMember){
@@ -34,11 +34,11 @@ public class SingleCouncilPrivilege extends Effect {
 		
 		}
 
-	public ArrayList<ResourceEffect> getChoices() {
+	public ArrayList<Effect> getChoices() {
 		return choices;
 	}
 
-	public void setChoices(ArrayList<ResourceEffect> choices) {
+	public void setChoices(ArrayList<Effect> choices) {
 		this.choices = choices;
 	}
 	
