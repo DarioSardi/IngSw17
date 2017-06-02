@@ -101,8 +101,8 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 	}
 	
 	private FamilyMember askForFamilyMemberChoice() {
-			String question="Please select the familiar you want to use to perform the action:\n")jbn;
-			//+this.player.printFreeFamiliars();
+			String question="Please select the familiar you want to use to perform the action:\n";
+			//+this.productionAction.getPlayer().printFreeFamilyMembers());
 			int choice=askForSingleChoice(question,0,GlobalVariables.numberOfFamilyMembers);
 			
 			return this.productionAction.getPlayer().getFamilyMember(choice);
