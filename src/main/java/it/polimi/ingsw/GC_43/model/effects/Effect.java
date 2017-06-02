@@ -5,6 +5,7 @@ import java.util.List;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 
 public abstract class Effect {
+
 	
 	public String toString(){
 		String toString=null;
@@ -12,6 +13,10 @@ public abstract class Effect {
 	}
 	public void executeEffect(FamilyMember familyMember){
 		
+	}
+	
+	public boolean check(FamilyMember familyMember){
+		return false;
 	}
 
 }
