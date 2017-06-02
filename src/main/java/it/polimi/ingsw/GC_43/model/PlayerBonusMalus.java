@@ -24,7 +24,7 @@ public class PlayerBonusMalus {
 	
 	private boolean noFloorBonus;
 	private boolean noMarketActionSpaceBonus;
-	private boolean twoServantsCountsAsOne;
+	private boolean twoServantsCountAsOne;
 	
 	//MALUS PO PIU SPECIALOTTI, DA TRATTARE CON UNA BUONA LOGICA
 	private boolean skipFirstFamiliarMoveAndGetItBackAtTheEnd;
@@ -146,11 +146,11 @@ public class PlayerBonusMalus {
 	public void setNoMarketActionSpaceBonus(boolean noMarketActionSpaceBonus) {
 		this.noMarketActionSpaceBonus = noMarketActionSpaceBonus;
 	}
-	public boolean isTwoServantsCountsAsOne() {
-		return twoServantsCountsAsOne;
+	public boolean isTwoServantsCountAsOne() {
+		return twoServantsCountAsOne;
 	}
-	public void setTwoServantsCountsAsOne(boolean twoServantsCountsAsOne) {
-		this.twoServantsCountsAsOne = twoServantsCountsAsOne;
+	public void setTwoServantsCountAsOne(boolean twoServantsCountAsOne) {
+		this.twoServantsCountAsOne = twoServantsCountAsOne;
 	}
 	public boolean isSkipFirstFamiliarMoveAndGetItBackAtTheEnd() {
 		return skipFirstFamiliarMoveAndGetItBackAtTheEnd;

@@ -9,7 +9,7 @@ public class TwoServantsCountAsOne extends Effect {
 		return toString;
 	}
 	public void executeEffect(FamilyMember familyMember){
-		familyMember.getPlayer().getPlayerBounusMalus().setTwoServantsCountsAsOne(true);
+		familyMember.getPlayer().getPlayerBounusMalus().setTwoServantsCountAsOne(true);
 	}
 	
 }

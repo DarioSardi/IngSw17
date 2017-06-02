@@ -26,6 +26,17 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 	}
 
 	private void askForServantsUsage() {
+		int numberOfServants=this.productionAction.getPlayer().getPlayerResource("servant");
+		boolean isTwoServantsCountAsOne=this.productionAction.getPlayer().getPlayerBounusMalus().isTwoServantsCountAsOne();
+		if(numberOfServants>0){
+			String question= "Please insert how many servants you want to use to increase your familiar current die value of "+this.productionAction.getFamilyMember().getDiceValue();
+			question= question +"\n You have a maximum of "+numberOfServants+ " servants available and isTwoServantsCountAsOne malus is set "+isTwoServantsCountAsOne;
+			int choice=askForSingleChoice(question,0,numberOfServants);
+			if(isTwoServantsCountAsOne)
+				choice=choice/2;
+			this.productionAction.setServantsUsed(choice);
+		}
+		
 		// TODO check the boolean 2 servants count as one !!!!!!
 		
 	}
