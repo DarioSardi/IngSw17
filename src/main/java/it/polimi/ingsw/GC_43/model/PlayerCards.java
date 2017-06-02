@@ -61,16 +61,16 @@ public class PlayerCards{
 		return this.territoryCards;	
 	}
 	
-	public void addCard(BuildingCard card){
+	public void addBuildingCard(BuildingCard card){
 		this.buildingCards.add(card);	
 	}
-	public void addCard(VentureCard card){
+	public void addVentureCard(VentureCard card){
 		this.ventureCards.add(card);	
 	}
-	public void addCard(CharacterCard card){
+	public void addCharacterCard(CharacterCard card){
 		this.characterCards.add(card);
 	}
-	public void addCard(TerritoryCard card){
+	public void addTerritoryCard(TerritoryCard card){
 		this.territoryCards.add(card);	
 	}
 	
