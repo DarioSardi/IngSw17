@@ -7,8 +7,9 @@ public class FamilyMember{
     private boolean alreadyPlaced;
     private ActionSpace familyMemberPosition;
     private Player player;
-    private Die die;
-    int malusOnDie;
+  //  private Die die;
+    		private int diceValue;
+    private int malusOnDie = 0;
 
     public FamilyMember(Player player, int color){
         this.color = color;
@@ -50,7 +51,7 @@ public class FamilyMember{
     public void setAlreadyPlaced(boolean alreadyPlaced) {
         this.alreadyPlaced = alreadyPlaced;
     }
-
+/*
     public int getFamilyMemberValue() {
         return this.die.getDieValue() + this.malusOnDie;
     }
@@ -59,6 +60,15 @@ public class FamilyMember{
         this.die = die;
     //    this.die.setFamilyMemberToDie(this);  //FRANCESCO-SAMUEL Metodo per assegnare famigliare al dado
     }
+ */   
+    
+			    public int getFamilyMemberValue() {
+			        return this.diceValue + this.malusOnDie;
+			    }
+			    
+			    public void setDieToFamilyMember(int diceValue) {
+			        this.diceValue = diceValue;
+			    }
     
     public ActionSpace getFamilyMemberPosition() {
         return familyMemberPosition;
@@ -66,21 +76,28 @@ public class FamilyMember{
     public void setFamilyMemberPosition(ActionSpace actionSpace) {
         this.familyMemberPosition = actionSpace;
      }
-    
+ /*   
     public int getDiceValue(){ //SAMUEL da far togliere a Dario
     	return this.die.getDieValue();
     }
+ */
+    public int getDiceValue(){ //SAMUEL da far togliere a Dario
+    	return this.diceValue;
+    }
+    
     
     @Override
     public String toString(){
-    	String s="Player: " + this.player + '\n';
-    	s = s + "Family member" + this.color + ":\n";
-    	s = s + "\t Value: " + getFamilyMemberValue() + '\n';
-    	s = s + "\t : " + this.familyMemberPosition;
+    	String s = "Color:" + this.color + "\n";
+    	s = s + "Value: " + this.getFamilyMemberValue() + '\n';
+    	if(this.alreadyPlaced == true){
+    		s = s + "Position: " + this.familyMemberPosition.toString();
+    	}else{
+    		s = s + "Position: No Position";
+    	}
     	return s;
     }
 }
-
 
 
 

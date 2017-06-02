@@ -141,6 +141,26 @@ public class Player {
 		}
 	}
 	
+	public void printFamilyMembers(){
+		for (int i=0; i < this.familyMembers.size(); i++)
+			
+			System.out.println("FamilyMember "+ i +") " +'\n' + this.familyMembers.get(i).toString()+'\n');
+	}
+	
+	public void printFreeFamilyMembers(){
+		for (int i=0; i < this.familyMembers.size(); i++)
+			if(this.familyMembers.get(i).getFamilyMemberPosition() == null)
+			System.out.println("FamilyMember "+ i +") " +'\n' + this.familyMembers.get(i).toString()+'\n');
+	}
+	
+	public ArrayList<FamilyMember> getFreeFamilyMembers(){
+		ArrayList<FamilyMember> free = new ArrayList<FamilyMember>();
+		for (int i=0; i < this.familyMembers.size(); i++)
+			if(this.familyMembers.get(i).isAlreadyPlaced() == false)
+				 free.add(this.familyMembers.get(i));
+		return free;
+	}
+	
 	@Override
 	public String toString(){
 		String s="Player: " + this.getPlayerName() + '\n';	  
@@ -150,3 +170,4 @@ public class Player {
 		return s;	
 	}
 }
+
