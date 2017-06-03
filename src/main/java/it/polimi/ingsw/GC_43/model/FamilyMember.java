@@ -61,13 +61,22 @@ public class FamilyMember{
     //    this.die.setFamilyMemberToDie(this);  //FRANCESCO-SAMUEL Metodo per assegnare famigliare al dado
     }
  */   
-    
+    			
+ 
 			    public int getFamilyMemberValue() {
 			        return this.diceValue + this.malusOnDie;
 			    }
 			    
 			    public void setDieToFamilyMember(int diceValue) {
 			        this.diceValue = diceValue;
+			    }
+			    
+			    public void addFamilyMemberValue(int value) {
+			        this.diceValue = this.diceValue + value;
+			    }
+			    
+			    public void subFamilyMemberValue(int value) {
+			        this.diceValue = this.diceValue - value;
 			    }
     
     public ActionSpace getFamilyMemberPosition() {
@@ -81,7 +90,7 @@ public class FamilyMember{
     	return this.die.getDieValue();
     }
  */
-    public int getDiceValue(){ //SAMUEL da far togliere a Dario
+    public int getDiceValue(){
     	return this.diceValue;
     }
     
