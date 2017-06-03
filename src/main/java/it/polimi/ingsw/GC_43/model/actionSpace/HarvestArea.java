@@ -9,7 +9,9 @@ public class HarvestArea extends ActionArea{
 		
 	public HarvestArea(Effect e) {
 		this.getSpaces().add(new Space(false,GlobalVariables.minDiceValueHarvestArea,this,e));
+		if(GlobalVariables.numberOfPlayers>=3){
 		this.getSpaces().add(new Space(true,GlobalVariables.minDiceValueHarvestArea,this,e));
+		}
 	}
 	
 	/**
@@ -37,6 +39,16 @@ public class HarvestArea extends ActionArea{
 		return p.getPlayerBounusMalus().getBonusHarvestArea();
 	}
 
+	public Space getPrimarySpace(){
+		return (Space) this.getSpaces().get(0);
+	}
+	
+	public Space getSecondarySpace(){
+		if(this.getSpaces().size()==2){
+			return (Space) this.getSpaces().get(1);
+		}
+		else return null;
+	}
 
 
  
