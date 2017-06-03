@@ -16,7 +16,6 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 	
 	public ProductionActionCreationRoutine(String playerID, Player player){	
 		this.productionAction=new ProductionAction(playerID, player);
-	//	this.creatorRoutine=new CommonActionCreatorRoutine(Player player);
 	}
 	
 	

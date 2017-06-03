@@ -6,7 +6,7 @@ import it.polimi.ingsw.GC_43.model.Player;
 
 public class CommonActionPerformerRoutine {
 	
-	
+
 	public static HashMap<String,Integer> copyPlayerResources(Player player){
 		HashMap<String,Integer> copyOfPlayerResources= new HashMap<String,Integer> ();
 		copyOfPlayerResources.put("coin", player.getPlayerResource("coin"));
@@ -30,6 +30,8 @@ public class CommonActionPerformerRoutine {
 		return checkResult;
 		
 	}
+	
+	
 	
 	
 	
