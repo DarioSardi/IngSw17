@@ -139,26 +139,29 @@ public class Player {
 		for(int i = 0; i < this.familyMembers.size(); i++){
 			this.familyMembers.get(i).setMalusOnDie(malusOnDie);
 		}
-	}
-	
-	public void printFamilyMembers(){
-		for (int i=0; i < this.familyMembers.size(); i++)
-			
-			System.out.println("FamilyMember "+ i +") " +'\n' + this.familyMembers.get(i).toString()+'\n');
-	}
-	
-	public void printFreeFamilyMembers(){
-		for (int i=0; i < this.familyMembers.size(); i++)
-			if(this.familyMembers.get(i).getFamilyMemberPosition() == null)
-			System.out.println("FamilyMember "+ i +") " +'\n' + this.familyMembers.get(i).toString()+'\n');
-	}
-	
+	}	
+
 	public ArrayList<FamilyMember> getFreeFamilyMembers(){
 		ArrayList<FamilyMember> free = new ArrayList<FamilyMember>();
 		for (int i=0; i < this.familyMembers.size(); i++)
 			if(this.familyMembers.get(i).isAlreadyPlaced() == false)
 				 free.add(this.familyMembers.get(i));
 		return free;
+	}
+	
+	public String printFamilyMembers(){
+		String s = "";
+		for (int i=0; i < this.familyMembers.size(); i++)
+			s = s + "FamilyMember "+ i +") " +'\n' + this.familyMembers.get(i).toString()+'\n';	
+		return s;
+	}
+	
+	public String printFreeFamilyMembers(){
+		String s="";
+		for (int i=0; i < this.familyMembers.size(); i++)
+			if(this.familyMembers.get(i).getFamilyMemberPosition() == null)
+				s = s + "FamilyMember "+ i +") " +'\n' + this.familyMembers.get(i).toString()+'\n';
+		return s;
 	}
 	
 	@Override
