@@ -9,6 +9,9 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Client {
 	private int port,ID;
@@ -56,8 +59,12 @@ public class Client {
 	private void connect() throws UnknownHostException, IOException {
     	System.out.println("tento di connettermi...");
     	socket = new Socket(address, port);
-    	inSocket = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        outSocket = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+    	
+    	//thread per gestione I/O
+    	ExecutorService executor = Executors.newFixedThreadPool(2);
+    	executor.submit(new ClientInHandler(new Scanner(socket.getInputStream())));
+    	executor.submit(new ClientOutHandler(new PrintWriter(socket.getOutputStream())));
+    	
         System.out.println("connesso!");
     }
 

@@ -30,6 +30,7 @@ public class ClientHandler implements Runnable{
 					socketOut.println("messaggio al server: " + line);
 				}
 				}
+			socketOut.println("Stacca tutto ci stanno tracciando!");
 			socketOut.close();
 			socketIn.close();
 			socket.close();
