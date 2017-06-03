@@ -149,6 +149,12 @@ public class Player {
 		return free;
 	}
 	
+	public FamilyMember findFamilyMemberByColor(int color){
+		int i=0;
+		while (this.familyMembers.get(i).getColor()!=color){i++;}
+		return this.familyMembers.get(i);
+	}
+	
 	public String printFamilyMembers(){
 		String s = "";
 		for (int i=0; i < this.familyMembers.size(); i++)
