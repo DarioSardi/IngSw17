@@ -37,8 +37,7 @@ public class ProductionActionPerformer{
 
 	//TODO WAIT FOR SAM
 	private FamilyMember matchFamilyMember(Player player, int familyMemberColor) {
-		// return player.getFamiliarByColor(familyMemberColor)
-		return null;
+		return player.findFamilyMemberByColor(familyMemberColor);
 	}
 	
 	

@@ -12,8 +12,7 @@ public class CommonActionCreatorRoutine {
 
 	
 	public static FamilyMember askForFamilyMemberChoice(Player player) {
-		String question="Please select the familiar you want to use to perform the action:\n";
-		//+this.productionAction.getPlayer().printFreeFamilyMembers());
+		String question="Please select the familiar you want to use to perform the action:\n"+player.printFreeFamilyMembers();
 		int choice=askForSingleChoice(question,0,GlobalVariables.numberOfFamilyMembers);
 		
 		return player.getFamilyMember(choice);
