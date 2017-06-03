@@ -10,36 +10,25 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class ProductionActionCreationRoutine implements ActionCreation {
 	private ProductionAction productionAction;
+	private CommonActionCreatorRoutine creatorRoutine;
 	//player ID will be the ID of the instance of playerImpl != player of the model 
+	
+	
 	public ProductionActionCreationRoutine(String playerID, Player player){	
 		this.productionAction=new ProductionAction(playerID, player);
+	//	this.creatorRoutine=new CommonActionCreatorRoutine(Player player);
 	}
 	
 	
 	public boolean prepareAction() {
-		this.productionAction.setFamilyMember(askForFamilyMemberChoice());
+		this.productionAction.setFamilyMember(CommonActionCreatorRoutine.askForFamilyMemberChoice(this.productionAction.getPlayer()));
 		this.productionAction.setFamilyMemberColor(this.productionAction.getFamilyMember().getColor());
-		askForServantsUsage();
+		productionAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),this.productionAction.getFamilyMember().getDiceValue()));
 		getInputsForProduction();
 		
 		return false;
 	}
-
-	private void askForServantsUsage() {
-		int numberOfServants=this.productionAction.getPlayer().getPlayerResource("servant");
-		boolean isTwoServantsCountAsOne=this.productionAction.getPlayer().getPlayerBounusMalus().isTwoServantsCountAsOne();
-		if(numberOfServants>0){
-			String question= "Please insert how many servants you want to use to increase your familiar current die value of "+this.productionAction.getFamilyMember().getDiceValue();
-			question= question +"\n You have a maximum of "+numberOfServants+ " servants available and isTwoServantsCountAsOne malus is set "+isTwoServantsCountAsOne;
-			int choice=askForSingleChoice(question,0,numberOfServants);
-			if(isTwoServantsCountAsOne)
-				choice=choice/2;
-			this.productionAction.setServantsUsed(choice);
-		}
-		
-		// TODO check the boolean 2 servants count as one !!!!!!
-		
-	}
+	
 	/*@require bonus malus on familyMember die to be already applied, but that's normal*/ 
 	private void getInputsForProduction(){
 		 
@@ -60,48 +49,22 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 	}
 	
 	
-	
-
-	private int askForSingleChoice(String question,int minRange, int maxRange) {
-		boolean choiceOk=false;
-		int choiceTaken=0;
-		while(!choiceOk){
-			Scanner reader= new Scanner(System.in);
-
-			System.out.println("Please select the familiar you want to use to perform the action:\n");
-		
-			try{
-				int choice=reader.nextInt();
-				if(choice>=0&&choice<=GlobalVariables.numberOfFamilyMembers){
-					choiceOk=true;
-					choiceTaken=choice;
-				}
-			}
-			catch(Exception e){
-				e.printStackTrace();
-				System.out.println("\ninput choice not valid");
-			}
-		}
-		return choiceTaken;
-	}
-	
-	
 	private void askForASingleChoice(Effect effect) {
 		String question="Do you want to perform this resource exchange?\n Input 1 for yes I do, 0 for I don't\n";
-		int choice=askForSingleChoice(question,0,1);	
+		int choice=CommonActionCreatorRoutine.askForSingleChoice(question,0,1);	
 		this.productionAction.getProductionChoices().add(choice);
 		
 	}
 	
 	private void askForMultipleChoice(Effect effect) {		
 		String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
-		int choice=askForSingleChoice(question,-1,1);
+		int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,1);
 		if(effect.check(this.productionAction.getFamilyMember())){
 			this.productionAction.getProductionChoices().add(choice);
 		}
 		else{
 			question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
-			choice= askForSingleChoice(question,0,1);
+			choice= CommonActionCreatorRoutine.askForSingleChoice(question,0,1);
 			if(choice==0){
 				System.out.println("\nChoice skipped");
 			}
@@ -109,14 +72,6 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 				askForMultipleChoice(effect);
 			}
 		}
-	}
-	
-	private FamilyMember askForFamilyMemberChoice() {
-			String question="Please select the familiar you want to use to perform the action:\n";
-			//+this.productionAction.getPlayer().printFreeFamilyMembers());
-			int choice=askForSingleChoice(question,0,GlobalVariables.numberOfFamilyMembers);
-			
-			return this.productionAction.getPlayer().getFamilyMember(choice);
 	}
 
 	

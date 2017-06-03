@@ -16,7 +16,8 @@ public class ProductionAction extends Action implements Serializable {
 	private String playerID;
 	private int familyMemberColor;
 	private FamilyMember familyMember;
-	
+	private int ActionID;
+	//THINK OF ACTION ID BEST PRACTICE WAY
 	private int servantsUsed;
 	private ArrayList<Integer> productionChoices;
 	
@@ -25,6 +26,7 @@ public class ProductionAction extends Action implements Serializable {
 		productionChoices=new ArrayList<>();
 		this.servantsUsed=0;
 		this.player=player;
+		this.ActionID=0;
 	}
 	
 
