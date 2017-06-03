@@ -47,5 +47,14 @@ public class Space extends ActionSpace {
 		return true;
 	}
 
+	public boolean isUnlimited() {
+		return unlimited;
+	}
+
+	public ActionArea getActionArea() {
+		return actionArea;
+	}
+
+	
 
 }
