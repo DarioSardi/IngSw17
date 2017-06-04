@@ -1,50 +1,39 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
-import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
+import it.polimi.ingsw.GC_43.model.FamilyMember;
 
-public class AdditionalDiceValueToTower extends Effect{
-	private TowerColors towerType;
-	private int additionalValue;
+public class AdditionalDiceValueToTower extends Effect {
+	private String towerType;
+	private int extraValue;
 	
-	public AdditionalDiceValueToTower(TowerColors towerType, int additionalValue){
-		this.towerType= towerType;
-		this.additionalValue= additionalValue;
+	public AdditionalDiceValueToTower(String towerType,int extraValue) {
+		this.towerType=towerType;
+		this.extraValue=extraValue;
 	}
-	
-	public String toString(){
+    public String toString(){
+        String toString = "Player will receve a additional value on die of "+this.extraValue+" on tower "+this.towerType; 
+        return toString;
 
-		String towerType = new String();
-		
-		if(this.towerType==TowerColors.BUILDINGS_TOWER){
-			towerType="Building Tower";	
-		}
-		if(this.towerType==TowerColors.VENTURES_TOWER){
-			towerType="Venture Tower";	
-		}
-		if(this.towerType==TowerColors.TERRITORIES_TOWER){
-			towerType="Territory Tower";	
-		}
-		if(this.towerType==TowerColors.CHARACTERS_TOWER){
-			towerType="Character Tower";	
-		}
-		String toString="Player will have an additional Dice Value on: "+towerType+ "of value: "+this.additionalValue;
-		
-		return toString;
-
-	}
-	
-	public void executeEffect(){
-	
-	}
-	
-    public static void main(String args[]) {
-        String a = "c";
-        String b = "iao";
-        String c = a + b;
-        System.out.println(c);
     }
-}
 	
-	//TODO to understand how to reference the correct tower
+	
+	public void executeEffect(FamilyMember familyMember){
+		if(towerType.equals("ventureTower")){
+			int oldValue=familyMember.getPlayer().getPlayerBounusMalus().getBonusDiceVentureTower();
+			familyMember.getPlayer().getPlayerBounusMalus().setBonusDiceVentureTower(oldValue+this.extraValue);
+		}
+		if(towerType.equals("territoryTower")){
+			int oldValue=familyMember.getPlayer().getPlayerBounusMalus().getBonusDiceTerritoryTower();
+			familyMember.getPlayer().getPlayerBounusMalus().setBonusDiceTerritoryTower(oldValue+this.extraValue);
+		}
+		if(towerType.equals("buildingTower")){
+			int oldValue=familyMember.getPlayer().getPlayerBounusMalus().getBonusDiceBuildingTower();
+			familyMember.getPlayer().getPlayerBounusMalus().setBonusDiceBuildingTower(oldValue+this.extraValue);
+		}
+		if(towerType.equals("characterTower")){
+			int oldValue=familyMember.getPlayer().getPlayerBounusMalus().getBonusDiceCharacterTower();
+			familyMember.getPlayer().getPlayerBounusMalus().setBonusDiceCharacterTower(oldValue+this.extraValue);
+		}
+	}
 
-
+}

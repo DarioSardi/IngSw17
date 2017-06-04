@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GC_43.playerActions;
 
-        import java.util.Scanner;
+        import java.util.HashMap;
+import java.util.Scanner;
 
         import it.polimi.ingsw.GC_43.model.Board;
         import it.polimi.ingsw.GC_43.model.FamilyMember;
@@ -13,12 +14,14 @@ package it.polimi.ingsw.GC_43.playerActions;
 public class ProductionActionCreationRoutine implements ActionCreation {
     private ProductionAction productionAction;
     private Board board;
+    private HashMap<String,Integer>copyOfPlayerResource;
     //player ID will be the ID of the instance of playerImpl != player of the model
 
 
     public ProductionActionCreationRoutine(String playerID, Player player,Board board){
         this.productionAction=new ProductionAction(playerID, player);
         this.board=board;
+        this.copyOfPlayerResource=CommonActionCreatorRoutine.copyPlayerResources(player);
     }
 
 
@@ -34,7 +37,6 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 
     private void selectProductionSpace(ProductionArea productionArea) {
 
-        ///// check familiar is not already placed
         //// qua non ho fatto check se le scelte soo giuste perchè non ho hash risorse temporaneo
         if(productionArea.getSpaces().isEmpty()){
             System.out.println("\nPrimary empty cell selected\n");

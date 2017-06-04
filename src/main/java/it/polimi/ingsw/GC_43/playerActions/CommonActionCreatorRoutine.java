@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GC_43.playerActions;
 
-        import java.util.Scanner;
+        import java.util.HashMap;
+import java.util.Scanner;
 
         import it.polimi.ingsw.GC_43.model.FamilyMember;
         import it.polimi.ingsw.GC_43.model.GlobalVariables;
@@ -9,7 +10,18 @@ package it.polimi.ingsw.GC_43.playerActions;
 public class CommonActionCreatorRoutine {
 
 
+    public static HashMap<String,Integer> copyPlayerResources(Player player){
+        HashMap<String,Integer> copyOfPlayerResources= new HashMap<String,Integer> ();
+        copyOfPlayerResources.put("coin", player.getPlayerResource("coin"));
+        copyOfPlayerResources.put("servant", player.getPlayerResource("servant"));
+        copyOfPlayerResources.put("stone", player.getPlayerResource("stone"));
+        copyOfPlayerResources.put("wood", player.getPlayerResource("wood"));
+        copyOfPlayerResources.put("victoryPoint", player.getPlayerResource("victoryPoint"));
+        copyOfPlayerResources.put("militaryPoint", player.getPlayerResource("militaryPoint"));
+        copyOfPlayerResources.put("faithPoint", player.getPlayerResource("faithPoint"));
+        return copyOfPlayerResources;
 
+    }
 
     public static FamilyMember askForFamilyMemberChoice(Player player) {
         String question="Please select the familiar you want to use to perform the action:\n"+player.printFreeFamilyMembers();
