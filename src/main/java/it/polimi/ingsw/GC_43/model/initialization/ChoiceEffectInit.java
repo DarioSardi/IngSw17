@@ -50,7 +50,7 @@ public class ChoiceEffectInit {
                 }
                 
             ChoiceEffect choice = new ChoiceEffect(costResourcesChoices, gainResourcesChoices);
-            this.multChoices.getBonusChoices().add(choice);
+            this.multChoices.getChoices().add(choice);
         }	
 	}
 	
