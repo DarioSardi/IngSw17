@@ -19,9 +19,6 @@ public class ProductionActionPerformer{
 	//@require player instance inside the productionAction to be changed into the real one on the server
 	
 	
-	
-	
-	
 	public ProductionActionPerformer(ProductionAction productionAction, Board board){
 		
 		this.productionAction=productionAction;
@@ -32,26 +29,50 @@ public class ProductionActionPerformer{
 	}
 	
 	
+	
 	public boolean performAction() {
 		this.checkResult=true;
-		
 		Player player=this.productionAction.getPlayer();
-		
-	//	FamilyMember familyMember= matchFamilyMember(player, productionAction.getFamilyMemberColor());
-	
-		HashMap<String, Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
-		checkResult= CommonActionPerformerRoutine.checkResourceUsed(player,"servant",this.productionAction.getServantsUsed());
+		FamilyMember familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, productionAction.getFamilyMemberColor());
 
+
+		checkAction(player, familyMember);
 		
-		if(checkResult){
-			int servantsUsed=this.productionAction.getServantsUsed();
-			this.productionAction.getPlayer().subResource("servant",servantsUsed);
-			if(player.getPlayerBounusMalus().isTwoServantsCountAsOne()){
-				servantsUsed=servantsUsed/2;
-			    //familyMember.addDieValue(servantsUsed)
-			}
-			
+		
+		if(checkResult==true){
+			executeAction();
+			return true;
 		}
+		
+		return false;
+	}
+		
+	
+	
+	
+	private void executeAction() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private void checkAction(Player player, FamilyMember familyMember){
+		
+		
+			HashMap<String, Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
+			if(!CommonActionPerformerRoutine.checkServansUsed(player,this.productionAction.getServantsUsed(),familyMember))
+				this.checkResult=false;
+			
+			///// check familiar is not already placed
+
+			checkActionAvailabiliy();
+			
+			///BELLA FUNZIONE execute di ogni actin space, fai check e poi execute , metodi di space
+			
+	
+		
+	}
+		
 			
 			
 			
@@ -77,9 +98,11 @@ public class ProductionActionPerformer{
 		// TODO to implement: getting inputs from class ProductionAction which will
 		//come from the client to the server and will manage it performing it
 		//with relative checks on things
-		return false;
 		
-	}
+	
+
+
+
 
 	
 	/*@require bonus malus on familyMember die to be already applied, but that's normal*/ 

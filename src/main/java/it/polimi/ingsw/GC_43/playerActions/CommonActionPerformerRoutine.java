@@ -2,6 +2,7 @@ package it.polimi.ingsw.GC_43.playerActions;
 
 import java.util.HashMap;
 
+import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 
 public class CommonActionPerformerRoutine {
@@ -22,7 +23,7 @@ public class CommonActionPerformerRoutine {
 	
 	public static boolean checkResourceUsed(Player player, String resourceType, int quantityUsed){
 		boolean checkResult=false;
-		boolean isTwoServantsCountAsOne=player.getPlayerBounusMalus().isTwoServantsCountAsOne();
+		
 
 		if(player.getPlayerResource(resourceType)>=quantityUsed)
 			checkResult=true;
@@ -30,10 +31,23 @@ public class CommonActionPerformerRoutine {
 		return checkResult;
 		
 	}
+	public static boolean checkServansUsed(Player player, int servantsUsed, FamilyMember familyMember) {
+		boolean checkResult= checkResourceUsed(player,"servant",servantsUsed);
+		if(checkResult){
+			player.subResource("servant",servantsUsed);
+			if(player.getPlayerBounusMalus().isTwoServantsCountAsOne()){
+				servantsUsed=servantsUsed/2;
+			}
+		    familyMember.addFamilyMemberValue(servantsUsed);
+		}
+		return checkResult;
+
+	}
 	
-	
-	
-	
+	public static FamilyMember matchFamilyMember(Player player, int color){
+		//TODO to think if correct ask your mates
+		return 	player.findFamilyMemberByColor(color);
+	}
 	
 	
 

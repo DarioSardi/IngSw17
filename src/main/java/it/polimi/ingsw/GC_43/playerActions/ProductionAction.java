@@ -7,6 +7,7 @@ import java.util.Scanner;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
@@ -20,6 +21,7 @@ public class ProductionAction extends Action implements Serializable {
 	//THINK OF ACTION ID BEST PRACTICE WAY
 	private int servantsUsed;
 	private ArrayList<Integer> productionChoices;
+	private boolean primaryCellChosen;
 	
 	public ProductionAction(String playerID, Player player){
 		this.playerID=playerID;
@@ -67,5 +69,25 @@ public class ProductionAction extends Action implements Serializable {
 		this.productionChoices = productionChoices;
 	}
 
+
+	public int getActionID() {
+		return ActionID;
+	}
+
+
+	public void setActionID(int actionID) {
+		ActionID = actionID;
+	}
+
+
+	public boolean isPrimaryCellChosen() {
+		return primaryCellChosen;
+	}
+
+
+	public void setPrimaryCellChosen(boolean primaryCellChosen) {
+		this.primaryCellChosen = primaryCellChosen;
+	}
+	
 
 }
