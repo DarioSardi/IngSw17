@@ -14,6 +14,15 @@ public class CouncilPalaceSpace extends Space {
 		return f.getDiceValue()>=this.getMinDiceValue();
 	}
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("council palace players:");
+;		for(FamilyMember f:this.getFamiliarIn()){
+				sb.append(f.getPlayer().getPlayerName());
+				sb.append("\n");
+		}
+		return sb.toString();
+	}
 
 }

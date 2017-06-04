@@ -40,7 +40,7 @@ public class Server {
 	private void acceptConnections() throws IOException {
 		while(true){
 			Socket cSocket= sSocket.accept();
-			System.out.println("connessione accettata!");
+			System.out.println("connessione accettata! indirizzo Giocatore: "+cSocket.getInetAddress());
 			players.submit(new ClientHandler(cSocket));
 		}
 	}

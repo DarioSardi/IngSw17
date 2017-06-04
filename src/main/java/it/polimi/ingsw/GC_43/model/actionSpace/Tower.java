@@ -19,6 +19,8 @@ public class Tower{
 		this.towerColor = towerColor;	
 		this.towerOccupied= false;
 		this.floorsNumber=floorsNumber;
+		this.floors=new ArrayList<Floor>();
+		this.floorsNumber=0;
 	}
 
 	// getters and setters
@@ -37,29 +39,41 @@ public class Tower{
 	 */
 	public boolean hasPlayerIn(FamilyMember f) {
 		if(f.getColor()==0){return true;}
-		else{for(ActionSpace floor: this.floors){
+		else{for(Floor floor: this.floors){
 			if(f.getColor()==floor.getFamiliarIn().get(0).getColor()){return false;}
 		}
 		return true;}
 	}
 
-	public String toString() {
+	public String toString(){
 		StringBuilder sb = new StringBuilder();
-		for (ActionSpace floor: this.floors) {
+		sb.append(this.getTowerColor().toString()+" info:\n");
+		for (Floor floor: this.floors) {
 			sb.append(floor.toString());
 			sb.append("\n");
 		}
 		return sb.toString();
-	}
-
-	/**
-	 * add floor without bonus
-	 * @param minDiceValue
-	 */
-	public void addFloor(int minDiceValue){
-		this.floors.add(new Floor(null, this, minDiceValue));
+		
 	}
 	
+	public String toStringAll(){
+		StringBuilder sb = new StringBuilder();
+		int floorNumber=0;
+		sb.append(this.getTowerColor().toString()+" info:\n");
+		sb.append("number of floors on this tower: "+this.floorsNumber);
+		sb.append("\n");
+		sb.append("did you have to pay the tax to enter here? "+this.towerOccupied);
+		sb.append("\n");
+		sb.append("-----------------------\n");
+		for (Floor floor: this.floors) {
+			sb.append("FLOOR NUMBER: "+floorNumber+"\n");
+			sb.append(floor.toStringAll());
+			sb.append("\n");
+			floorNumber++;
+		}
+		return sb.toString();
+	}
+
 	/**
 	 * add a floor to the tower with a bonus
 	 * @param bonus bonus of the floor
@@ -67,7 +81,16 @@ public class Tower{
 	 */
 	public void addFloor(Effect bonus, Integer minDiceValue) {
 		this.floors.add(new Floor(bonus, this, minDiceValue));
+		this.floorsNumber=this.floorsNumber+1;
+		//DARIO card? no?
 	}
+	
+	public void addFloor(Integer minDiceValue) {
+		this.floors.add(new Floor(null, this, minDiceValue));
+		this.floorsNumber=this.floorsNumber+1;
+		//DARIO card? no?
+	}
+	
 	
 	
 	
@@ -92,5 +115,6 @@ public class Tower{
 		this.towerOccupied=false;
 		this.floors.stream().forEach(space->space.resetSpace());
 	}
-
+	
+	
 }

@@ -21,6 +21,9 @@ public class CouncilPalace extends ActionArea{
 		return 0;  //nessun bonus utile
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.getSpaces().get(0).toString(); //printa solo il primo e unico spazio
+	}
 	
 }

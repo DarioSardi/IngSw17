@@ -69,12 +69,27 @@ public boolean execute(FamilyMember f) {
 	}
 	else {return false;} 
 }
+public String toString(){
+	return "foor cost: "+ String.valueOf(this.getMinDiceValue())+ "\n"+"floor bonus: "+this.getBonus().toString()+"\n"+" floor Card: "+ this.card.getCardName();
+}
+
 /*
  * print floor info
  *@return print floor cost,floor bonus,floor card
  */
-public String toString(){
-	return "foor cost: "+ String.valueOf(this.getMinDiceValue())+ "floor bonus: "+this.getBonus().toString()+" floor Card: "+ this.card.toString();
+public String toStringAll(){
+StringBuilder sb= new StringBuilder();
+	sb.append("Floor dice requirement: "+ String.valueOf(this.getMinDiceValue()));
+	sb.append("\n");
+	if(this.getBonus()!=null){
+		sb.append("Floor bonus: \n "+this.getBonus().toString());}
+	else{sb.append("Floor bonus: no bonus here");}
+	sb.append("\n");
+	if(this.getCard()!=null){
+		sb.append("Floor Card: "+ this.card.toString());}
+	else{sb.append("no card");}
+	sb.append("\n");
+	return sb.toString();
 }
 @Override
 public boolean familiarValueCheck(FamilyMember f) {

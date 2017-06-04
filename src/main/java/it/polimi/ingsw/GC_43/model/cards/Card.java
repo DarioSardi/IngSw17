@@ -44,5 +44,34 @@ public abstract class Card {
 		return permaBonus;
 	}
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		sb.append("\n......................\n");
+		sb.append("card type: "+this.getType()+"\n");
+		sb.append("card name: "+this.getCardName()+"\n");
+		sb.append("era: "+ this.getCardEra()+"\n");
+		//cost
+		if(this.getCost()!=null){
+			//sb.append("card cost:\n");
+			sb.append(this.getCost().toString());
+		}
+		else{sb.append("this card is free!\n");}
+		//Instant bonus
+		if(this.getInstantBonus().size()>0){
+			sb.append("card rapid bonus:\n");
+			this.getInstantBonus().stream().forEach(e->sb.append(e.toString()));
+			sb.append("\n");
+		}
+		else{sb.append("no rapid bonus!\n");}
+		//Permanent bonus
+		if(this.getPermaBonus().size()>0){
+			sb.append("card permanent bonus:\n");
+			this.getPermaBonus().stream().forEach(e->sb.append(e.toString()));
+			sb.append("\n");
+		}
+		else{sb.append("no permanent bonus!\n");}
+		sb.append("......................\n");
+		return sb.toString();
+	}
 }

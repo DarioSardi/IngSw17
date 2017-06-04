@@ -49,6 +49,33 @@ public class HarvestArea extends ActionArea{
 		}
 		else return null;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("harvest area status: \n");
+		sb.append("first area is ");
+		if(getPrimarySpace().getFamiliarIn().isEmpty()){
+			sb.append("free");
+		}
+		else{sb.append("not free!");}
+		sb.append("\n");
+		
+		
+		if(getSecondarySpace()==null){sb.append("second area not available");}
+		else if(getSecondarySpace().getFamiliarIn().isEmpty()){
+			sb.append("second area have no players in");
+		}
+		else{
+			sb.append("second area have this players in:");
+			for(FamilyMember f:this.getSecondarySpace().getFamiliarIn()){
+				sb.append(f.getPlayer().getPlayerName());
+				sb.append("\n");
+				}
+			}
+		return sb.toString();
+
+	}
 
 
  

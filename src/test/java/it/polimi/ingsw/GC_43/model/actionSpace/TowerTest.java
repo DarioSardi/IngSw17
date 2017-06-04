@@ -1,18 +1,37 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.Resource;
+import it.polimi.ingsw.GC_43.model.Stone;
+import it.polimi.ingsw.GC_43.model.Wood;
+import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.effects.CostEffect;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
+import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
 
 public class TowerTest {
 
+	public Tower t1=new Tower(TowerColors.BUILDINGS_TOWER,2);
+	public ResourceEffect re=new ResourceEffect(new Stone(2));
+	public ArrayList<Resource> costs=new ArrayList<Resource>();
+	public CostEffect cost=new CostEffect(costs);
+	public ArrayList<Effect> effects= new ArrayList<Effect>();
+	public  BuildingCard card=new BuildingCard("cimitero", 2, cost, effects, effects, 4);
 	@Before
 	public void initializeTest(){
-	
+		t1.addFloor(2);
+		t1.addFloor(re, 5);
+		effects.add(new ResourceEffect(new Wood(2)));
+		costs.add(new Stone(2));
+		t1.getFloors().get(0).setCard(card);
 	}
 	
 	@Test
@@ -48,7 +67,7 @@ public class TowerTest {
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		System.out.println(t1.toStringAll());
 	}
 
 	@Test
