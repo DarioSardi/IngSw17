@@ -65,7 +65,7 @@ public class ProductionActionPerformer{
 			
 			///// check familiar is not already placed
 
-			checkActionAvailabiliy();
+	//		checkActionAvailabiliy();
 			
 			///BELLA FUNZIONE execute di ogni actin space, fai check e poi execute , metodi di space
 			
