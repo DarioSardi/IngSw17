@@ -2,33 +2,48 @@ package it.polimi.ingsw.GC_43.playerActions;
 
 import java.util.Scanner;
 
+import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class ProductionActionCreationRoutine implements ActionCreation {
 	private ProductionAction productionAction;
-	private CommonActionCreatorRoutine creatorRoutine;
+	private Board board;
 	//player ID will be the ID of the instance of playerImpl != player of the model 
 	
 	
-	public ProductionActionCreationRoutine(String playerID, Player player){	
+	public ProductionActionCreationRoutine(String playerID, Player player,Board board){	
 		this.productionAction=new ProductionAction(playerID, player);
-	//	this.creatorRoutine=new CommonActionCreatorRoutine(Player player);
+		this.board=board;
 	}
 	
 	
 	public boolean prepareAction() {
 		this.productionAction.setFamilyMember(CommonActionCreatorRoutine.askForFamilyMemberChoice(this.productionAction.getPlayer()));
 		this.productionAction.setFamilyMemberColor(this.productionAction.getFamilyMember().getColor());
-		productionAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),this.productionAction.getFamilyMember().getDiceValue()));
+		this.productionAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),this.productionAction.getFamilyMember().getDiceValue()));
+		selectProductionSpace(board.getProductionArea());
 		getInputsForProduction();
 		
 		return false;
 	}
 	
+	private void selectProductionSpace(ProductionArea productionArea) {
+		
+		///// check familiar is not already placed
+		//// qua non ho fatto check se le scelte soo giuste perchè non ho hash risorse temporaneo
+		if(productionArea.getSpaces().isEmpty()){
+			System.out.println("Primary empty cell selected");
+			this.productionAction.setPrimaryCellChosen(true);
+		}
+		
+	}
+
+
 	/*@require bonus malus on familyMember die to be already applied, but that's normal*/ 
 	private void getInputsForProduction(){
 		 

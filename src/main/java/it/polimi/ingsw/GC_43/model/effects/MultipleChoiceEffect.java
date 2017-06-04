@@ -39,6 +39,15 @@ public class MultipleChoiceEffect extends Effect {
 			
 		}
 
+		public ArrayList<ChoiceEffect> getChoices() {
+			return choices;
+		}
+
+		public void setChoices(ArrayList<ChoiceEffect> choices) {
+			this.choices = choices;
+		}
+
+		
 		
 			
 

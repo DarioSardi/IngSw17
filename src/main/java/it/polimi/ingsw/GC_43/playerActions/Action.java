@@ -6,6 +6,7 @@ public abstract class Action {
 	private String playerID;
 	private Player player;
 	private int ActionID;
+	
 	public String getPlayerID() {
 		return playerID;
 	}
