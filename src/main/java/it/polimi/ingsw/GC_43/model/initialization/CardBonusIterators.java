@@ -54,7 +54,7 @@ public class CardBonusIterators {
 			ChoiceEffectInit cEI = new ChoiceEffectInit();
 			cEI.multipleChoiceInit(bonus, slide);		
 		}
-		else if (effect.equals("extraCard")) bonus.add(new PickExtraCardFromTowers(valueEffect));
+		else if (effect.equals("extraCard")) bonus.add(new PickExtraCardFromTower(valueEffect));
 		else if (effect.equals("extraBuildingCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "buildingCards"));
 		else if (effect.equals("extraCharacterCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "characterCards"));
 		else if (effect.equals("extraTerritoryCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "territoryCards"));
