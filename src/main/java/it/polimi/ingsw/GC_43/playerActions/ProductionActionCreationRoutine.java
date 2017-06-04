@@ -29,15 +29,15 @@ public class ProductionActionCreationRoutine implements ActionCreation {
         this.productionAction.setFamilyMember(CommonActionCreatorRoutine.askForFamilyMemberChoice(this.productionAction.getPlayer()));
         this.productionAction.setFamilyMemberColor(this.productionAction.getFamilyMember().getColor());
         this.productionAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),this.productionAction.getFamilyMember().getDiceValue()));
+        this.productionAction.getPlayer().subResource("servant",this.productionAction.getServantsUsed());
         selectProductionSpace(board.getProductionArea());
         getInputsForProduction();
 
         return false;
     }
-
+//TODO ricordati di fare execute effect sugli space se l'azione va buon fine
     private void selectProductionSpace(ProductionArea productionArea) {
 
-        //// qua non ho fatto check se le scelte soo giuste perchè non ho hash risorse temporaneo
         if(productionArea.getSpaces().isEmpty()){
             System.out.println("\nPrimary empty cell selected\n");
             this.productionAction.setPrimaryCellChosen(true);
@@ -50,7 +50,11 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 
     }
 
-
+    
+//ARRIVATO QUI 5/06/17  sottrai costi mano a mano da risorse (decommenta sopra con global variable e di a SAM per inizializzazione)
+    
+    
+    
     /*@require bonus malus on familyMember die to be already applied, but that's normal*/
     private void getInputsForProduction(){
 

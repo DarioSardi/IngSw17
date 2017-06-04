@@ -16,6 +16,10 @@ public class PickExtraCardFromTower extends Effect{
 		this.dieValue=dieValue;
 		this.towerType= towerType;
 	}
+	public PickExtraCardFromTower(int dieValue){
+		this.dieValue=dieValue;
+		this.towerType= "whatever";
+	}
 	
 	public void executeEffect(FamilyMember familyMember){
 		
