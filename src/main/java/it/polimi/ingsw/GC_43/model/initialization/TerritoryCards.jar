@@ -1,0 +1,512 @@
+{
+  "Cards": [
+    {
+      "Name": "Citta'",
+      "Period": "1",
+      "Type": "TerritoryCard",
+      "HarvestDice": "6",
+      "InstantBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "singleCouncilPrivilege",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Bosco",
+      "Period": "1",
+      "Type": "TerritoryCard",
+      "HarvestDice": "2",
+      "InstantBonus": [
+        {
+          "effect": "wood",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "wood",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Foresta",
+      "Period": "1",
+      "Type": "TerritoryCard",
+      "HarvestDice": "5",
+      "InstantBonus": [
+        {
+          "effect": "wood",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "wood",
+          "valueEffect": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Monastero",
+      "Period": "1",
+      "Type": "TerritoryCard",
+      "HarvestDice": "6",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "servant",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Borgo",
+      "Period": "1",
+      "Type": "TerritoryCard",
+      "HarvestDice": "3",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "servant",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Rocca",
+      "Period": "1",
+      "Type": "TerritoryCard",
+      "HarvestDice": "5",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Tenuta",
+      "Period": "3",
+      "Type": "TerritoryCard",
+      "HarvestDice": "3",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "wood",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "wood",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Maniero",
+      "Period": "2",
+      "Type": "TerritoryCard",
+      "HarvestDice": "5",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "servant",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Cava di Pietra",
+      "Period": "2",
+      "Type": "TerritoryCard",
+      "HarvestDice": "3",
+      "InstantBonus": [
+        {
+          "effect": "wood",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "stone",
+          "valueEffect": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Villaggio Minerario",
+      "Period": "2",
+      "Type": "TerritoryCard",
+      "HarvestDice": "4",
+      "InstantBonus": [
+        {
+          "effect": "servant",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "servant",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Possedimento",
+      "Period": "2",
+      "Type": "TerritoryCard",
+      "HarvestDice": "4",
+      "InstantBonus": [
+        {
+          "effect": "servant",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "wood",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "wood",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Cava di Ghiaia",
+      "Period": "1",
+      "Type": "TerritoryCard",
+      "HarvestDice": "4",
+      "InstantBonus": [
+        {
+          "effect": "stone",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "stone",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Citta' Fortificata",
+      "Period": "3",
+      "Type": "TerritoryCard",
+      "HarvestDice": "2",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "servant",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "servant",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Castello",
+      "Period": "3",
+      "Type": "TerritoryCard",
+      "HarvestDice": "4",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "coin",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "3"
+        },
+        {
+          "effect": "servant",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Cava di Marmo",
+      "Period": "3",
+      "Type": "TerritoryCard",
+      "HarvestDice": "2",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Colonia",
+      "Period": "3",
+      "Type": "TerritoryCard",
+      "HarvestDice": "5",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        },
+        {
+          "effect": "wood",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Citta' Mercantile",
+      "Period": "3",
+      "Type": "TerritoryCard",
+      "HarvestDice": "1",
+      "InstantBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "servant",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Provincia",
+      "Period": "3",
+      "Type": "TerritoryCard",
+      "HarvestDice": "6",
+      "InstantBonus": [
+        {
+          "effect": "singleCouncilPrivilege",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Avamposto Commerciale",
+      "Period": "1",
+      "Type": "TerritoryCard",
+      "HarvestDice": "1",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Ducato",
+      "Period": "2",
+      "Type": "TerritoryCard",
+      "HarvestDice": "6",
+      "InstantBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "4"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "wood",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Eremo",
+      "Period": "2",
+      "Type": "TerritoryCard",
+      "HarvestDice": "2",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Miniera d'Oro",
+      "Period": "2",
+      "Type": "TerritoryCard",
+      "HarvestDice": "1",
+      "InstantBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Villaggio Montano",
+      "Period": "2",
+      "Type": "TerritoryCard",
+      "HarvestDice": "3",
+      "InstantBonus": [
+        {
+          "effect": "servant",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "wood",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Santuario",
+      "Period": "3",
+      "Type": "TerritoryCard",
+      "HarvestDice": "1",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,475 @@
+{
+  "Cards": [
+    {
+      "Name": "Ambasciatore",
+      "Period": "3",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "extraCard",
+          "valueEffect": "7"
+        },
+        {
+          "effect": "multipleCouncilPrivilege",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "6"
+        }
+      ]
+    },
+    {
+      "Name": "Generale",
+      "Period": "3",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "multVictoryPointsMilitaryPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "5"
+        }
+      ]
+    },
+    {
+      "Name": "Vescovo",
+      "Period": "3",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "extraProduction",
+          "valueEffect": "4"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "5"
+        }
+      ]
+    },
+    {
+      "Name": "Cardinale",
+      "Period": "3",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "extraHarvest",
+          "valueEffect": "4"
+        },
+        {
+          "effect": "faithPoint",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Araldo",
+      "Period": "3",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "MultVictPointsVentureCard",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "6"
+        }
+      ]
+    },
+    {
+      "Name": "Cortigiana",
+      "Period": "3",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "MultVictPointsBuildingCard",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "7"
+        }
+      ]
+    },
+    {
+      "Name": "Dama",
+      "Period": "1",
+      "Type": "CharacterCard",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "addDiceValueCharacterTower",
+          "valueEffect": "2"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Eroe",
+      "Period": "2",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "multipleCouncilPrivilege",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "extraVentureCard",
+          "valueEffect": "6"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Capitano",
+      "Period": "2",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "extraTerritoryCard",
+          "valueEffect": "6"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Mecenate",
+      "Period": "2",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "extraCharacterCard",
+          "valueEffect": "6"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Architetto",
+      "Period": "2",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "extraBuildingCard",
+          "valueEffect": "6"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Messo Papale",
+      "Period": "2",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "5"
+        }
+      ]
+    },
+    {
+      "Name": "Costruttore",
+      "Period": "1",
+      "Type": "CharacterCard",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "addDiceValueBuildingTower",
+          "valueEffect": "2"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Governatore",
+      "Period": "3",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "MultVictPointsBuildingCard",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "6"
+        }
+      ]
+    },
+    {
+      "Name": "Badessa",
+      "Period": "1",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "extraCard",
+          "valueEffect": "4"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Cavaliere",
+      "Period": "1",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "multCouncilPrivileges",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "addDiceValueVentureTower",
+          "valueEffect": "2"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Contadino",
+      "Period": "1",
+      "Type": "CharacterCard",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "addHarvestDiceValue",
+          "valueEffect": "2"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Artigiano",
+      "Period": "1",
+      "Type": "CharacterCard",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "addProductionDiceValue",
+          "valueEffect": "2"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Condottiero",
+      "Period": "1",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "addTerritoryDiceValue",
+          "valueEffect": "2"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Studioso",
+      "Period": "2",
+      "Type": "CharacterCard",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "addProductionDiceValue",
+          "valueEffect": "3"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Fattore",
+      "Period": "2",
+      "Type": "CharacterCard",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "addHarvestDiceValue",
+          "valueEffect": "3"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Messo Reale",
+      "Period": "2",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "multCouncilPrivileges",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "5"
+        }
+      ]
+    },
+    {
+      "Name": "Nobile",
+      "Period": "3",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "multVictoryPointsTerritory",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "6"
+        }
+      ]
+    },
+    {
+      "Name": "Predicatore",
+      "Period": "1",
+      "Type": "CharacterCard",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "disableFloorBonusEffect",
+          "valueEffect": "0"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "2"
+        }
+      ]
+    }
+  ]
+}

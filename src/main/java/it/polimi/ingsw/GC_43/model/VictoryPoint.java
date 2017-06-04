@@ -30,6 +30,6 @@ public class VictoryPoint extends Resource{
 	
 	@Override
 	public String toString(){
-		return "resource type: " + this.resourceType;
+		return "resource type: " + this.resourceType + this.value;
 	}
 }

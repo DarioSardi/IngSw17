@@ -1,0 +1,652 @@
+{
+  "Cards": [
+    {
+      "Name": "Costruire le Mura",
+      "Period": "1",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "singleCouncilPrivilege",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "stone",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Ingaggiare Reclute",
+      "Period": "1",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Innalzare una Statua",
+      "Period": "1",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "twoDifferentCouncilPrivileges",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Ospitare i Mendicanti",
+      "Period": "1",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "servant",
+          "valueEffect": "4"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Sostegno al Vescovo",
+      "Period": "1",
+      "Type": "VentureCard",
+      "MilitaryCost": "2",
+      "MilitaryMin": "4",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "coin",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Riparare la Chiesa",
+      "Period": "1",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Sostegno al Cardinale",
+      "Period": "2",
+      "Type": "VentureCard",
+      "MilitaryCost": "4",
+      "MilitaryMin": "7",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "coin",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Accogliere gli Stranieri",
+      "Period": "2",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "servant",
+          "valueEffect": "5"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Crociata",
+      "Period": "2",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "5"
+        },
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "Cost": []
+    },
+    {
+      "Name": "Costruire i Bastioni",
+      "Period": "2",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "3"
+        },
+        {
+          "effect": "singleCouncilPrivilege",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "2"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "stone",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Combattere le Eresie",
+      "Period": "1",
+      "Type": "VentureCard",
+      "MilitaryCost": "3",
+      "MilitaryMin": "5",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "Cost": []
+    },
+    {
+      "Name": "Campagna Militare",
+      "Period": "1",
+      "Type": "VentureCard",
+      "MilitaryCost": "2",
+      "MilitaryMin": "3",
+      "InstantBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "Cost": []
+    },
+    {
+      "Name": "Commissionare Arte Sacra",
+      "Period": "3",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "6"
+        }
+      ]
+    },
+    {
+      "Name": "Costruire le Torri",
+      "Period": "3",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "4"
+        },
+        {
+          "effect": "singleCouncilPrivilege",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "stone",
+          "valueCost": "6"
+        }
+      ]
+    },
+    {
+      "Name": "Riparare la Cattedrale",
+      "Period": "3",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "3"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "3"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Migliorare le Strade",
+      "Period": "3",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "servant",
+          "valueCost": "3"
+        },
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Riparare l'Abbazia",
+      "Period": "2",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "6"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Ingaggiare Soldati",
+      "Period": "2",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "6"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "6"
+        }
+      ]
+    },
+    {
+      "Name": "Scavare Canalizzazioni",
+      "Period": "2",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "servant",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "coin",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Supporto al Re",
+      "Period": "2",
+      "Type": "VentureCard",
+      "MilitaryCost": "3",
+      "MilitaryMin": "6",
+      "InstantBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "5"
+        },
+        {
+          "effect": "singleCouncilPrivilege",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "Cost": []
+    },
+    {
+      "Name": "Guerra Santa",
+      "Period": "3",
+      "Type": "VentureCard",
+      "MilitaryCost": "8",
+      "MilitaryMin": "15",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "8"
+        }
+      ],
+      "Cost": []
+    },
+    {
+      "Name": "Sostegno al Papa",
+      "Period": "3",
+      "Type": "VentureCard",
+      "MilitaryCost": "5",
+      "MilitaryMin": "10",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "10"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "3"
+        },
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Ingaggiare Mercenari",
+      "Period": "3",
+      "Type": "VentureCard",
+      "MilitaryCost": "0",
+      "MilitaryMin": "0",
+      "InstantBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "7"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "6"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "8"
+        }
+      ]
+    },
+    {
+      "Name": "Conquista Militare",
+      "Period": "3",
+      "Type": "VentureCard",
+      "MilitaryCost": "6",
+      "MilitaryMin": "12",
+      "InstantBonus": [
+        {
+          "effect": "wood",
+          "valueEffect": "3"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "3"
+        },
+        {
+          "effect": "coin",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "7"
+        }
+      ],
+      "Cost": []
+    }
+  ]
+}

@@ -1,0 +1,1048 @@
+{
+  "Cards": [
+    {
+      "Name": "Gilda degli Scultori",
+      "Period": "2",
+      "Type": "BuildingCard",
+      "ProductionDice": "5",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "6"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "stone",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "3"
+                }
+              ]
+            },
+            {
+              "CostChoice": [
+                {
+                  "costCh": "stone",
+                  "valueCh": "3"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "7"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "stone",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Palazzo",
+      "Period": "3",
+      "Type": "BuildingCard",
+      "ProductionDice": "6",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "9"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "coin",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "servant",
+                  "valueGain": "2"
+                },
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "4"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "3"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "3"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Basilica",
+      "Period": "3",
+      "Type": "BuildingCard",
+      "ProductionDice": "1",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        },
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "wood",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "faithPoint",
+                  "valueGain": "2"
+                }
+              ]
+            },
+            {
+              "CostChoice": [
+                {
+                  "costCh": "stone",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "faithPoint",
+                  "valueGain": "2"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Gilda dei Costruttori",
+      "Period": "2",
+      "Type": "BuildingCard",
+      "ProductionDice": "4",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "servant",
+                  "valueCh": "1"
+                },
+                {
+                  "costCh": "wood",
+                  "valueCh": "1"
+                },
+                {
+                  "costCh": "stone",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "6"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Giardino",
+      "Period": "3",
+      "Type": "BuildingCard",
+      "ProductionDice": "1",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "10"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "servant",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "4"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Battistero",
+      "Period": "2",
+      "Type": "BuildingCard",
+      "ProductionDice": "2",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "faihPoint",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "faithPoint",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "coin",
+                  "valueGain": "2"
+                },
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "2"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "stone",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Falegnameria",
+      "Period": "1",
+      "Type": "BuildingCard",
+      "ProductionDice": "4",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "wood",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "coin",
+                  "valueGain": "3"
+                }
+              ]
+            },
+            {
+              "CostChoice": [
+                {
+                  "costCh": "wood",
+                  "valueCh": "2"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "coin",
+                  "valueGain": "5"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Arco di Trionfo",
+      "Period": "1",
+      "Type": "BuildingCard",
+      "ProductionDice": "6",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "6"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multVictoryPointsVenture",
+          "valueEffect": "1"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Tagliapietre",
+      "Period": "1",
+      "Type": "BuildingCard",
+      "ProductionDice": "3",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "2"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "stone",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "coin",
+                  "valueGain": "3"
+                }
+              ]
+            },
+            {
+              "CostChoice": [
+                {
+                  "costCh": "stone",
+                  "valueCh": "2"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "coin",
+                  "valueGain": "5"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Esattoria",
+      "Period": "1",
+      "Type": "BuildingCard",
+      "ProductionDice": "5",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multVictoryPointsTerritory",
+          "valueEffect": "1"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "3"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Teatro",
+      "Period": "1",
+      "Type": "BuildingCard",
+      "ProductionDice": "6",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "6"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multVictoryPointsCharacter",
+          "valueEffect": "1"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Fiera",
+      "Period": "3",
+      "Type": "BuildingCard",
+      "ProductionDice": "4",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "8"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "coin",
+                  "valueCh": "4"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "wood",
+                  "valueGain": "3"
+                },
+                {
+                  "gainType": "stone",
+                  "valueGain": "3"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "4"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Gilda dei Pittori",
+      "Period": "2",
+      "Type": "BuildingCard",
+      "ProductionDice": "4",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "wood",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "3"
+                }
+              ]
+            },
+            {
+              "CostChoice": [
+                {
+                  "costCh": "wood",
+                  "valueCh": "3"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "7"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Caserma",
+      "Period": "2",
+      "Type": "BuildingCard",
+      "ProductionDice": "1",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "servant",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "militaryPoint",
+                  "valueGain": "3"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "1"
+        }
+      ]
+    },
+    {
+      "Name": "Fortezza",
+      "Period": "2",
+      "Type": "BuildingCard",
+      "ProductionDice": "6",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "8"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "militaryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "2"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Cappella",
+      "Period": "1",
+      "Type": "BuildingCard",
+      "ProductionDice": "2",
+      "InstantBonus": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "coin",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "faithPoint",
+                  "valueGain": "1"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Zecca",
+      "Period": "1",
+      "Type": "BuildingCard",
+      "ProductionDice": "5",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "5"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multVictoryPointsCharacter",
+          "valueEffect": "1"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Residenza",
+      "Period": "1",
+      "Type": "BuildingCard",
+      "ProductionDice": "1",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "coin",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "councilPrivilege",
+                  "valueGain": "1"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Castelletto",
+      "Period": "3",
+      "Type": "BuildingCard",
+      "ProductionDice": "5",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "9"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "multCouncilPrivileges",
+          "valueEffect": "1"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Cattedrale",
+      "Period": "3",
+      "Type": "BuildingCard",
+      "ProductionDice": "2",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "7"
+        },
+        {
+          "effect": "faithPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "4"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "4"
+        }
+      ]
+    },
+    {
+      "Name": "Banca",
+      "Period": "3",
+      "Type": "BuildingCard",
+      "ProductionDice": "2",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "7"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "coin",
+          "valueEffect": "5"
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "coin",
+          "valueCost": "3"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Accademia Militare",
+      "Period": "3",
+      "Type": "BuildingCard",
+      "ProductionDice": "3",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "7"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "servant",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "militaryPoint",
+                  "valueGain": "3"
+                },
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "1"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "servant",
+          "valueCost": "1"
+        },
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "2"
+        }
+      ]
+    },
+    {
+      "Name": "Tesoreria",
+      "Period": "2",
+      "Type": "BuildingCard",
+      "ProductionDice": "3",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "coin",
+                  "valueCh": "1"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "3"
+                }
+              ]
+            },
+            {
+              "CostChoice": [
+                {
+                  "costCh": "coin",
+                  "valueCh": "2"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "victoryPoint",
+                  "valueGain": "5"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "3"
+        }
+      ]
+    },
+    {
+      "Name": "Mercato",
+      "Period": "2",
+      "Type": "BuildingCard",
+      "ProductionDice": "3",
+      "InstantBonus": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": [
+        {
+          "effect": "multExchange",
+          "valueEffect": "0",
+          "Choices": [
+            {
+              "CostChoice": [
+                {
+                  "costCh": "coin",
+                  "valueCh": "3"
+                }
+              ],
+              "Gain": [
+                {
+                  "gainType": "wood",
+                  "valueGain": "2"
+                },
+                {
+                  "gainType": "stone",
+                  "valueGain": "2"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "Cost": [
+        {
+          "typeCost": "wood",
+          "valueCost": "2"
+        },
+        {
+          "typeCost": "stone",
+          "valueCost": "1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "Global Variables": [
+    {
+	"maxNumberOfPlayers": "5", 
+	"numberOfTowers": "4", 
+	"numberOfDice": "3",
+	"excommunicationRound": "2",
+	"totalNumberOfCardsPerSet": "24",
+	"towerCardsPerRound": "4", 
+	"towerCardsPerPeriod": "8", 
+	"floorsPerTower": "4", 
+	"totalNumberOfPeriods": "3", 
+	"maxNumberPlayerCards": "6",
+	"initialWoods": "2",
+	"initialStones": "2",
+	"initialServants": "3",
+	"initialFirstPlayerCoins": "5",
+	"initialSecondPlayerCoins": "6",
+	"initialThirdPlayerCoins": "7",
+	"initialFourthPlayerCoins": "8",
+	"initialVictoryPoints": "0",
+	"initialMilitaryPoints": "0",
+	"initialFaithPoints": "0",
+	"minDiceFirstHarvestArea": "1",
+	"minDiceSecondHarvestArea": "3",
+	"mindDiceFirstProductionArea": "1",
+	"mindDiceSecondProductionArea": "3",
+	"mindDiceValueCouncilPalace": "1",
+	"towerTax": "3",
+	"victoryPointsFirstMilitaryPoint": "5",
+	"victoryPointsSecondMilitaryPoint": "2"
+    }
+  ]
+}

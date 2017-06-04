@@ -31,6 +31,6 @@ public class FaithPoint extends Resource{
 	
 	@Override
 	public String toString(){
-		return "Resource type: " + this.resourceType;
+		return "Resource type: " + this.resourceType + this.value;
 	}	
 }
