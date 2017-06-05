@@ -21,11 +21,11 @@ import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 
 public class Board {
 
-	// minor edit
     //CONFIGURATION SETTINGS
    private static int phase;
    private static int round;
    private static int period;
+   private ArrayList<Integer> victoryPositionPoints;
 
     //CARDPOOLS
     private List territoryCardPool;
@@ -33,7 +33,8 @@ public class Board {
     private List characterCardPool;
     private List ventureCardPool;
     private ArrayList <ExcommunicationTile> excommunicationTiles;
-
+    
+    //DICE
     private List<Die> dice;
     
     
@@ -49,10 +50,13 @@ public class Board {
     private List<String> playersID;
     private List<Player> players;
 
-//  Generate controller class (see addPlayer function)
-//	private Controller c;
 
 
+    
+    
+    //SAM-FRANCESCO: Remember to call board.initalize() only after creation of board and
+    //and initial settings of all stuff, delete this comment afterwards ;)
+    
 public Board(ArrayList playersID){
 	
 	
@@ -62,35 +66,24 @@ public Board(ArrayList playersID){
 	
 		this.playersID=new ArrayList<String>();
 		this.playersID=playersID;
-        GlobalVariables.numberOfPlayers=playersID.size();
+		this.victoryPositionPoints= new ArrayList<Integer>();
 
+        
+		GlobalVariables.numberOfPlayers=playersID.size();
+        
         createPlayers();
+        
+        
         createDice();
-        rollDice();
-        
-        // io metterei l'effect in global variable
-        this.councilPalace = new CouncilPalace(null);
-   //TODO parlane con sam di inizializzazione generale di tutto     
-        this.market = new Market(null);
-        
-        // io metterei l'effect in global variable
-        this.productionArea=new ProductionArea(null);
-        
-        // io metterei l'effect in global variable
-        this.harvestArea= new HarvestArea(null);
+                
      
         createCards();
         
-        
 
         createTowers();
-        //maybe to set something from controller input
-        this.faithArea = new FaithArea(this.excommunicationTiles);
         
         
-        initialize();
         
-
 
     }
 
@@ -105,14 +98,8 @@ public Board(ArrayList playersID){
     	this.characterCardPool = new ArrayList<CharacterCard>();
     	this.excommunicationTiles= new ArrayList<ExcommunicationTile>();
 
-        //TODO FRANCESCO  fatti passare arraylist di carte tipo da SAM!!!!
-
-
     	}
     
-
-
-
 
 
 	private void createTowers() {
@@ -120,7 +107,6 @@ public Board(ArrayList playersID){
         this.towers = new ArrayList<Tower>();
         
 
-        
         this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));
@@ -131,7 +117,6 @@ public Board(ArrayList playersID){
 
 
 
-    // REQUIREMENTS : Controller ask for addPlayers giving ID as input
     public void addPlayerID(String playerID){
         if (playersID == null)
             playersID= new ArrayList <String>();
@@ -141,12 +126,30 @@ public Board(ArrayList playersID){
 
     public void initialize(){
     	    	
+        rollDice();
+        
+        setPlayersFamilyMembersValue();
+
         setTowerCards();
 
 
     }
 
     
+private void setPlayersFamilyMembersValue() {		
+	for (Player player: this.getPlayers()){
+		for(int i=0; i<player.getFamilyMembers().size();i++){
+			player.getFamilyMember(i).setDieToFamilyMember(this.getDice().get(i).getDieValue());
+			
+		}
+	}
+		
+}
+
+
+
+
+
 //create Players assigning incremental money to receive
 //No rolling dice to establish the first initial order of players.
     private void createPlayers() {
@@ -162,7 +165,7 @@ public Board(ArrayList playersID){
     
     
     
-    //SET CARDS READY IN THE TOWERS, REQUIREMENTS: CARDS ORDERED BY ERA FROM BOTTOM TO TOP
+  //SET CARDS READY IN THE TOWERS, @require : CARDS ORDERED BY ERA FROM BOTTOM TO TOP
     
     private void setTowerCards() {
     	int startingCardToDraw = this.round*GlobalVariables.towerCardsPerRound;
@@ -175,7 +178,6 @@ public Board(ArrayList playersID){
         for(int index=0 ; index < GlobalVariables.towerCardsPerRound; index++)
             this.getTowers().get(3).getFloors().get(index).setCard((CharacterCard)this.characterCardPool.get(startingCardToDraw+index));   
     }
-//TODO Think about how to remove casts on setting cards on floors;
 
 
     private void createDice() {
@@ -199,21 +201,60 @@ public Board(ArrayList playersID){
         	//        	checkPlayerExcommunication();
         	this.period++;
         }
+
+ //       establishNewPlayerOrder();
+        
+        resetAreas();
+        
         setTowerCards();
+        
         rollDice();
-        establishNewPlayerOrder();
+       
+        setPlayersFamilyMembersValue();
 
+        
     }
 
 
-    public String nextPlayerRound(){
-    	//TODO to implement
-    	return null;
-    }
+    private void resetAreas() {
+    	resetTowers();
+    	this.harvestArea.resetArea();
+    	this.productionArea.resetArea();
+    	this.councilPalace.resetArea();
+    	this.market.resetArea();
 
-    private void establishNewPlayerOrder() {
-    	
 	}
+
+
+    private void resetTowers() {
+		for(int i=0; i<this.getTowers().size();i++)
+			this.getTowers().get(i).resetArea();
+	}
+	
+	
+	public void nextPlayerPhase(){
+		this.phase++;
+	}
+    private String getPhasePlayer(){
+    	return this.getPlayersID().get(this.phase%4);
+    }
+
+    
+    
+	
+	//TODO TO BE COMPLETED AFTER DARIO
+ /*  private void establishNewPlayerOrder() {
+    	ArrayList <Player> newPlayerOrder=new ArrayList<Player>();
+    	if(!this.getCouncilPalace()Board.getSpaces().isEmpty()){
+        	for(FamilyMember player: this.councilPalace.getSpaces().){
+        		newPlayerOrder.add(e)
+        	}
+
+    	}
+    	
+	}*/
+    
+
 
 
 
@@ -325,4 +366,47 @@ public Board(ArrayList playersID){
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
+
+	public static int getPhase() {
+		return phase;
+	}
+
+	public static void setPhase(int phase) {
+		Board.phase = phase;
+	}
+	
+	public static int getRound() {
+		return round;
+	}
+
+	public static void setRound(int round) {
+		Board.round = round;
+	}
+
+	public static int getPeriod() {
+		return period;
+	}
+
+	public static void setPeriod(int period) {
+		Board.period = period;
+	}
+
+	public ArrayList<Integer> getVictoryPositionPoints() {
+		return victoryPositionPoints;
+	}
+
+	public void setVictoryPositionPoints(ArrayList<Integer> victoryPositionPoints) {
+		this.victoryPositionPoints = victoryPositionPoints;
+	}
+
+	public ArrayList<ExcommunicationTile> getExcommunicationTiles() {
+		return excommunicationTiles;
+	}
+
+	public void setExcommunicationTiles(ArrayList<ExcommunicationTile> excommunicationTiles) {
+		this.excommunicationTiles = excommunicationTiles;
+	}
+    
+    
+    
 }
