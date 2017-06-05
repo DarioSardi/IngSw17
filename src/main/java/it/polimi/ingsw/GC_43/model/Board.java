@@ -23,10 +23,9 @@ public class Board {
 
 	// minor edit
     //CONFIGURATION SETTINGS
-
+   private static int phase;
    private static int round;
-   private static int turnNumber;
-   private static int era;
+   private static int period;
 
     //CARDPOOLS
     private List territoryCardPool;
@@ -54,16 +53,16 @@ public class Board {
 //	private Controller c;
 
 
-public Board(ArrayList players){
+public Board(ArrayList playersID){
 	
 	
 		this.round=1;
-		this.turnNumber=1;
-		this.era=1;
+		this.phase=1;
+		this.period=1;
 	
-		this.players=new ArrayList<Player>();
-		this.players=players;
-        GlobalVariables.numberOfPlayers=players.size();
+		this.playersID=new ArrayList<String>();
+		this.playersID=playersID;
+        GlobalVariables.numberOfPlayers=playersID.size();
 
         createPlayers();
         createDice();
@@ -72,7 +71,7 @@ public Board(ArrayList players){
         // io metterei l'effect in global variable
         this.councilPalace = new CouncilPalace(null);
    //TODO parlane con sam di inizializzazione generale di tutto     
- //       this.market = new Market();
+        this.market = new Market(null);
         
         // io metterei l'effect in global variable
         this.productionArea=new ProductionArea(null);
@@ -81,12 +80,15 @@ public Board(ArrayList players){
         this.harvestArea= new HarvestArea(null);
      
         createCards();
-      
+        
         
 
         createTowers();
         //maybe to set something from controller input
         this.faithArea = new FaithArea(this.excommunicationTiles);
+        
+        
+        initialize();
         
 
 
@@ -134,8 +136,6 @@ public Board(ArrayList players){
         if (playersID == null)
             playersID= new ArrayList <String>();
         playersID.add(playerID);
-
-
     }
 
 
@@ -153,7 +153,7 @@ public Board(ArrayList players){
         if(players==null){
             players = new ArrayList<Player>();
         }
-        int initialCoinsToReceive=5;
+        int initialCoinsToReceive=GlobalVariables.initialFirstPlayerCoins;
         for (int i=0; i<this.playersID.size(); i++){
         	players.add(new Player(playersID.get(i),initialCoinsToReceive));
         	initialCoinsToReceive++;
@@ -192,9 +192,12 @@ public Board(ArrayList players){
     
     
     public void nextTurn(){
+        this.round++;
+
         if(this.round % GlobalVariables.excommunicationRound==0){
 //TODO 	to decide whether to implement it on controller, it requires interaction
         	//        	checkPlayerExcommunication();
+        	this.period++;
         }
         setTowerCards();
         rollDice();
