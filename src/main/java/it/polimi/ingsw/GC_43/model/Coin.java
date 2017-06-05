@@ -28,8 +28,5 @@ public class Coin extends Resource{
 		this.value = value;
 	}
 	
-	@Override
-	public String toString(){
-		return "resource type: " + this.resourceType + this.value;
-	}
+
 }

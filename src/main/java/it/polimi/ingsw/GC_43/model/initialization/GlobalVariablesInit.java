@@ -81,6 +81,7 @@ public class GlobalVariablesInit {
 		       	towerTax = Integer.valueOf((String)slides.get("towerTax"));
 		       	victoryPointsFirstMilitaryPoint = Integer.valueOf((String)slides.get("victoryPointsFirstMilitaryPoint"));
 		       	victoryPointsSecondMilitaryPoint = Integer.valueOf((String)slides.get("victoryPointsSecondMilitaryPoint"));
+		       	System.out.println("inizializzate tutte le variabili globali");
 		    }				
         } catch (Exception e) {
             e.printStackTrace();

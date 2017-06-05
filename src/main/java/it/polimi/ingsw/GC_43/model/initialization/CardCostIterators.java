@@ -11,24 +11,26 @@ import org.json.simple.JSONObject;
  
 public class CardCostIterators {	
 	private ArrayList<Resource> costs;
-	public CardCostIterators(){
+	public CardCostIterators(CostEffect costEffect,Iterator<?> iter){
 		costs = new ArrayList<>();
+		iterator(costEffect,iter);
 	}
 	
 	public void iterator(CostEffect costEffect, Iterator<?> iter){
 		while (iter.hasNext()) {
 			JSONObject slide = (JSONObject) iter.next(); 
-			costIterator(costEffect, slide);
-		}
+			String typeCost = (String)slide.get("typeCost");
+	       	 int valueCost = Integer.valueOf((String)slide.get("valueCost")); 
+	       	 
+	       	 if (typeCost.equals("coin")) this.costs.add(new Coin(valueCost));
+	       	 else if (typeCost.equals("servant")) this.costs.add(new Servant(valueCost));
+	       	 else if (typeCost.equals("stone")) this.costs.add(new Stone(valueCost));
+	       	 else if (typeCost.equals("wood")) this.costs.add(new Wood(valueCost));		}
+	}
+
+	public ArrayList<Resource> getCosts() {
+		return costs;
 	}	
-	
-	private void costIterator(CostEffect costEffect, JSONObject slide){
-       	 String typeCost = (String)slide.get("typeCost");
-       	 int valueCost = Integer.valueOf((String)slide.get("valueCost")); 
-       	 
-       	 if (typeCost.equals("coin")) this.costs.add(new Coin(valueCost));
-       	 else if (typeCost.equals("servant")) this.costs.add(new Servant(valueCost));
-       	 else if (typeCost.equals("stone")) this.costs.add(new Stone(valueCost));
-       	 else if (typeCost.equals("wood")) this.costs.add(new Wood(valueCost));
-    }	
+
+		
 }

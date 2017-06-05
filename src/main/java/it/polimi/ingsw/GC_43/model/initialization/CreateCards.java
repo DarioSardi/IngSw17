@@ -1,5 +1,7 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
+import it.polimi.ingsw.GC_43.model.Coin;
+import it.polimi.ingsw.GC_43.model.Resource;
 import it.polimi.ingsw.GC_43.model.cards.*;
 import it.polimi.ingsw.GC_43.model.effects.*;
 
@@ -24,13 +26,13 @@ public class CreateCards {
 	public CreateCards(){		
     	this.instantBonus = new ArrayList<Effect>();		
     	this.permanentBonus = new ArrayList<Effect>();
-    	this.costEffect = new CostEffect(null);
+    	//this.costEffect = new CostEffect(null);
     	this.cardBonusIterators = new CardBonusIterators();
-    	this.cardCostIterators = new CardCostIterators();
+    	//this.cardCostIterators = new CardCostIterators();
 	}
     
 	public void readCards(Object obj, ArrayList<Card> cards) { 
-    	 int i=0;
+    	
          JSONObject jsonObject = (JSONObject) obj;
          
          JSONArray cardContent = (JSONArray) jsonObject.get("Cards");
@@ -60,8 +62,9 @@ public class CreateCards {
              else{
             	 
             	 JSONArray cardCostsIterator = (JSONArray) slides.get("Cost");
-            	 this.cardCostIterators.iterator(this.costEffect, cardCostsIterator.iterator());
-
+            	 this.cardCostIterators=new CardCostIterators(this.costEffect, cardCostsIterator.iterator());
+            	 this.costEffect=new CostEffect(this.cardCostIterators.getCosts());
+            	
             	 
             	 if (type.equals("CharacterCard")){
             		 cards.add(new CharacterCard(this.name, this.period, this.costEffect, this.instantBonus, this.permanentBonus));
@@ -70,9 +73,9 @@ public class CreateCards {
             	 else
             	 if (type.equals("BuildingCard")){
 	            	 int productionDice = Integer.valueOf((String)slides.get("ProductionDice"));
-	                 
 	            	 cards.add(new BuildingCard(this.name, this.period, this.costEffect, this.instantBonus,
 		             			this.permanentBonus, productionDice));
+	            	 
 	             }
             	 
             	 else
@@ -87,8 +90,9 @@ public class CreateCards {
              this.instantBonus = new ArrayList<Effect>();
              this.permanentBonus = new ArrayList<Effect>();
              
-             System.out.println(i); i++;
-         }     
+           
+         }
+        
          selectRandomCards(cards);
     }
 	

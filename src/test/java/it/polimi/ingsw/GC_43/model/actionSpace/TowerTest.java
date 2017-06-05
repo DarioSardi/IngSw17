@@ -77,7 +77,7 @@ public class TowerTest {
 
 	@Test
 	public void testToString() {
-		//System.out.println(t1.toStringAll());
+		System.out.println(t1.toStringAll());
 	}
 
 	@Test(expected=Exception.class)

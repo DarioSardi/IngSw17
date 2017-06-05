@@ -39,6 +39,8 @@ public class InitCards {
        	 	
        	 	obj = parser.parse(new FileReader("src/main/java/it/polimi/ingsw/GC_43/model/initialization/VentureCards.jar"));
     	 	this.createCards.readCards(obj, this.ventureCards);
+    	 	
+    	 	System.out.println("inizializzate tutte le carte");
            	 	
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.GC_43.model.initialization;
  
 public class InitGame {
-	InitCards initCards;
+	InitCards initCards=new InitCards();
 	
 	public InitGame(){
 		initGlobalVariables();
@@ -13,7 +13,8 @@ public class InitGame {
 	}
 	
 	private void initCards(){
+		
 		initCards.readJson();
 	}
-		
+	
 }

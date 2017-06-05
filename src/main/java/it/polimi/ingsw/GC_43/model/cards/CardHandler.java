@@ -26,7 +26,6 @@ public class CardHandler {
 			if (c.getType() == "CharacterCard") {
 				c.getPermaBonus().stream().forEach(e -> e.executeEffect(fam));
 			}
-			//DARIO modificare le add
 			if (c instanceof BuildingCard) {
 				fam.getPlayer().getPlayerCards().addBuildingCard((BuildingCard) c);
 			} else if (c instanceof CharacterCard) {
