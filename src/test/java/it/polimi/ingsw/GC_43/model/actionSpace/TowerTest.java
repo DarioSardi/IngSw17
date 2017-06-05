@@ -25,8 +25,12 @@ public class TowerTest {
 	public CostEffect cost=new CostEffect(costs);
 	public ArrayList<Effect> effects= new ArrayList<Effect>();
 	public  BuildingCard card=new BuildingCard("cimitero", 2, cost, effects, effects, 4);
+	public Player p1=new Player("coso1", 4);
+	public Player p2=new Player("coso2", 4);
+	public FamilyMember f1= new FamilyMember(p1, 2);
+	
 	@Before
-	public void initializeTest(){
+	public void initializeTest() throws Exception{
 		t1.addFloor(2);
 		t1.addFloor(re, 5);
 		effects.add(new ResourceEffect(new Wood(2)));
@@ -35,10 +39,10 @@ public class TowerTest {
 	}
 	
 	@Test
-	public void testTower() throws IllegalArgumentException {
+	public void testTower(){
 		new Tower(null, 0);
 		new Tower(TowerColors.BUILDINGS_TOWER,2);
-		new Tower(null, -3);
+		
 	}
 
 	@Test
@@ -53,46 +57,58 @@ public class TowerTest {
 	public void testGetFloors() {
 		new Tower(null, 0).getFloors();
 		new Tower(TowerColors.BUILDINGS_TOWER,2).getFloors();
-		new Tower(null, -3).getFloors();
+	}
+	
+	@Test(expected=ExceptionInInitializerError.class)
+	public void testInvalidTowers(){
+		new Tower(null, -3);
 	}
 
 	@Test
-	public void testHasPlayerIn() {
-		Tower t1=new Tower(TowerColors.BUILDINGS_TOWER,2);
-		Player p1=new Player("coso", 4);
-		FamilyMember f1= new FamilyMember(p1, 2);
-		assertEquals(false, t1.hasPlayerIn(f1));
-		//inserire giocatore e ricontrollare
+	public void testHasPlayerIn() throws Exception {
+		FamilyMember f2= new FamilyMember(p1, 1);
+		assertEquals(true, t1.hasPlayerIn(f1));
+		//aggiunti in modo brutale...migliorare con inizializzazione sensata del gioco
+		t1.getFloors().get(0).getFamiliarIn().add(f1);
+		t1.getFloors().get(1).getFamiliarIn().add(f2);
+		assertEquals(false, t1.hasPlayerIn(f2));
+	
 	}
 
 	@Test
 	public void testToString() {
-		System.out.println(t1.toStringAll());
+		//System.out.println(t1.toStringAll());
 	}
 
-	@Test
-	public void testAddFloor() {
-		fail("Not yet implemented");
+	@Test(expected=Exception.class)
+	public void testAddFloor() throws Exception {
+		t1.addFloor(4);
 	}
 
 	@Test
 	public void testSetTowerOccupied() {
-		fail("Not yet implemented");
+		t1.setTowerOccupied(true);
+		t1.setTowerOccupied(true);
+		t1.setTowerOccupied(false);
 	}
 
 	@Test
-	public void testCheck() {
-		fail("Not yet implemented");
+	public void testCheck() throws Exception {
+		assertFalse(t1.check(f1));
+		t1.setTowerOccupied(true);
+		assertTrue(t1.check(f1));
 	}
 
 	@Test
 	public void testGetBonusOfArea() {
-		fail("Not yet implemented");
+		System.out.println(t1.getBonusOfArea(p1));
 	}
 
 	@Test
 	public void testResetArea() {
-		fail("Not yet implemented");
+		t1.setTowerOccupied(true);
+		t1.resetArea();
+		assertFalse(t1.check(f1));
 	}
 
 }

@@ -2,6 +2,8 @@ package it.polimi.ingsw.GC_43.model.actionSpace;
 
 import java.util.ArrayList;
 
+import javax.xml.ws.RequestWrapper;
+
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
@@ -11,14 +13,19 @@ public class Tower{
 	private boolean towerOccupied;	
 	private ArrayList<Floor> floors;
 	private int floorsNumber;
+	private int maxFloors;
 	/**
 	 * generate a tower with some empty floors
 	 * @param towerColor define the tower colors
 	 */
-	public Tower(TowerColors towerColor,int floorsNumber) {
+	
+	public Tower(TowerColors towerColor,int maxFloors) throws ExceptionInInitializerError{
+		if(maxFloors<0){
+			throw new ExceptionInInitializerError("negative floor value!");
+		}
 		this.towerColor = towerColor;	
 		this.towerOccupied= false;
-		this.floorsNumber=floorsNumber;
+		this.maxFloors=maxFloors;
 		this.floors=new ArrayList<Floor>();
 		this.floorsNumber=0;
 	}
@@ -40,7 +47,9 @@ public class Tower{
 	public boolean hasPlayerIn(FamilyMember f) {
 		if(f.getColor()==0){return true;}
 		else{for(Floor floor: this.floors){
-			if(f.getColor()==floor.getFamiliarIn().get(0).getColor()){return false;}
+			for(FamilyMember fam:floor.getFamiliarIn()){
+			if(f.getPlayer()==fam.getPlayer()){return false;}
+			}
 		}
 		return true;}
 	}
@@ -78,16 +87,24 @@ public class Tower{
 	 * add a floor to the tower with a bonus
 	 * @param bonus bonus of the floor
 	 * @param minDiceValue
+	 * @throws Exception 
 	 */
-	public void addFloor(Effect bonus, Integer minDiceValue) {
-		this.floors.add(new Floor(bonus, this, minDiceValue));
-		this.floorsNumber=this.floorsNumber+1;
-		//DARIO card? no?
+	public void addFloor(Effect bonus, Integer minDiceValue) throws Exception {
+		if (this.floorsNumber<maxFloors) {
+			this.floors.add(new Floor(bonus, this, minDiceValue));
+			this.floorsNumber = this.floorsNumber + 1;
+			//DARIO card? no?
+			
+		}
+		else{throw new Exception("no space for another floor");}
 	}
 	
-	public void addFloor(Integer minDiceValue) {
-		this.floors.add(new Floor(null, this, minDiceValue));
-		this.floorsNumber=this.floorsNumber+1;
+	public void addFloor(Integer minDiceValue) throws Exception {
+		if (this.floorsNumber<maxFloors) {
+			this.floors.add(new Floor(null, this, minDiceValue));
+			this.floorsNumber=this.floorsNumber+1;
+		}
+		else{throw new Exception("no space for another floor");}
 		//DARIO card? no?
 	}
 	
