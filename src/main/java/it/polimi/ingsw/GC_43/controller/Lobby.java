@@ -12,14 +12,18 @@ public class Lobby implements Runnable{
 		this.admin=lobbyAdmin;
 		this.players=new ArrayList<>();
 		this.players.add(lobbyAdmin);
+		lobbyAdmin.setLobby(this);
 		this.ID=ID;
 		System.out.println("SONO LA LOBBY "+ID+" E SON VIVA!");
 	}
 
-	public void addPlayer(ClientHandler cH) {
+	public boolean addPlayer(ClientHandler cH) {
 		//DARIO mettere il limite di controllo
 		this.players.add(cH);
-		
+		cH.setLobby(this);
+		System.out.println("added "+cH.toString());
+		cH.sendMsgTo("sei stato aggiunto alla lobby");
+		return true;
 	}
 
 	
@@ -45,4 +49,36 @@ public class Lobby implements Runnable{
 		return "lobby number "+ID+", lobby admin is: "+admin.toString()+"\n";
 	}
 
+	public void broadcastMsg(String nextLine,ClientHandler cH) {
+		players.stream().forEach(p->p.sendMsgTo("message from "+cH.getUsername()+": "+nextLine));
+		
+	}
+	
+	private void lobbyMsg(String nextLine) {
+		players.stream().forEach(p->p.sendMsgTo("message from the LOBBY: "+nextLine));
+	}
+
+	public void startGame(ClientHandler clientHandler) {
+		if(this.admin==clientHandler){
+			//INIZIA GIOCO
+			lobbyMsg("il gioco sta iniziando");
+		}
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

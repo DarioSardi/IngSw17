@@ -38,5 +38,11 @@ public class ClientInHandler implements Runnable {
 		
 		
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "handler with ID: "+myClient.getID();
+	}
 
 }

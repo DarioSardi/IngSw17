@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GC_43.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -10,12 +11,33 @@ public class ClientHandler implements Runnable{
 	private int ID;
 	private Server myServer;
 	private String username;
+	private Scanner socketIn;
+	private PrintWriter socketOut;
+	private Lobby lobby;
 
-	public ClientHandler(Socket socket,int ID,Server myServer) {
+	public ClientHandler(Socket socket,int ID,Server myServer) throws IOException {
 		super();
 		this.socket = socket;
 		this.ID=ID;
 		this.myServer=myServer;
+		this.socketIn = new Scanner(this.socket.getInputStream());
+		this.socketOut = new PrintWriter(this.socket.getOutputStream());
+	}
+	
+	public Lobby getLobby() {
+		return lobby;
+	}
+
+
+
+	public void setLobby(Lobby lobby) {
+		this.lobby = lobby;
+	}
+
+
+
+	public String getUsername() {
+		return username;
 	}
 
 	@Override
@@ -25,8 +47,6 @@ public class ClientHandler implements Runnable{
 			
 			//SETUP
 			System.out.println("ClientHandler starting up!");
-			Scanner socketIn = new Scanner(socket.getInputStream());
-			PrintWriter socketOut = new PrintWriter(socket.getOutputStream());
 			this.username=socketIn.nextLine();
 			System.out.println("username of the player is "+username);
 			socketOut.println(this.ID);
@@ -34,40 +54,30 @@ public class ClientHandler implements Runnable{
 			
 			//MENU
 			while (!exit) {
-				socketOut.flush();
-				socketOut.println("sei nel menù,scegli!");
-				socketOut.flush();
+				sendMsgTo("sei nel menù,scegli!");
+				
 				//NEW LOBBY
 				String choice=socketIn.nextLine();
 				if (choice.equals("1")) {
-					socketOut.println("seleziona un numero di lobby");
-					socketOut.flush();
+					sendMsgTo("seleziona un numero di lobby");
 					Integer lobbyNumber = Integer.parseInt(socketIn.nextLine());
 					if (myServer.newLobby(this, lobbyNumber)) {
-						socketOut.println("sei nella lobby");
-						socketOut.flush();
-						boolean inlobby=true;
-						while(inlobby){
-							if(socketIn.nextLine().equals("exit_lobby")){
-								//rimuovi lobby
-								inlobby=false;
-								socketOut.println("stai uscendo dalla lobby");
-								socketOut.flush();
-							}
-						}
+						sendMsgTo("sei nella lobby");
+						inLobby();
 					} else {
-						socketOut.println("lobby number unaviable");
-						socketOut.flush();
+						sendMsgTo("lobby number unaviable");
 					}
 				
 				//ENTER LOBBY
 				} else if (choice.equals("2")) {
-					socketOut.println("seleziona una lobby");
-					socketOut.flush();
-					socketOut.println(myServer.getLobbiesToString());
-					socketOut.flush();
+					sendMsgTo("seleziona una lobby");
+					sendMsgTo(myServer.getLobbiesToString());
 					Integer lobbyNumber=Integer.parseInt(socketIn.nextLine());
-					myServer.joinLobby(lobbyNumber, this);
+					if(myServer.joinLobby(lobbyNumber, this)){
+					inLobby();
+					}
+					else{sendMsgTo("unable to join lobby");}
+					
 				
 				//QUIT
 				} else if (choice.equals("3")) {
@@ -76,8 +86,7 @@ public class ClientHandler implements Runnable{
 				
 				//FKING MORON
 				else{
-					socketOut.println("invalid choice");
-					socketOut.flush();
+					sendMsgTo("invalid choice");
 				}
 			}
 			
@@ -90,6 +99,36 @@ public class ClientHandler implements Runnable{
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void inLobby() {
+		sendMsgTo("sei entrato nella lobby");
+		boolean inlobby=true;
+		while(inlobby){
+			String command=socketIn.nextLine();
+			if(command.equals("exit_lobby")){
+				//DARIO rimuovi lobby
+				inlobby=false;
+				sendMsgTo("stai uscendo dalla lobby");
+			}
+			else if(command.equals("chat")){
+				sendMsgTo("digita il messaggio da mandare a tutti gli altri");
+				String msg=socketIn.nextLine();
+				lobby.broadcastMsg(msg,this);
+			}
+			else if(command.equals("start_game")){
+				lobby.startGame(this);
+			}
+			else{
+				sendMsgTo("nulla di che...");
+				continue;}
+		}
+		
+	}
+
+	public void sendMsgTo(String string){
+		socketOut.println(string);
+		socketOut.flush();
 	}
 	
 	@Override

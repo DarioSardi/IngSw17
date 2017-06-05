@@ -30,4 +30,7 @@ public class Market {
 		return sb.toString();
 	}
 	
+	public  void resetArea(){
+		this.marketActionSpaces.stream().forEach(space->space.resetSpace());
+	}
 }
