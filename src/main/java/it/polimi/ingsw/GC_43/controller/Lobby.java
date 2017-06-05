@@ -58,10 +58,14 @@ public class Lobby implements Runnable{
 		players.stream().forEach(p->p.sendMsgTo("message from the LOBBY: "+nextLine));
 	}
 
-	public void startGame(ClientHandler clientHandler) {
+	public boolean startGame(ClientHandler clientHandler) {
 		if(this.admin==clientHandler){
 			//INIZIA GIOCO
 			lobbyMsg("il gioco sta iniziando");
+			return true;
+		}
+		else{
+			return false;
 		}
 		
 	}

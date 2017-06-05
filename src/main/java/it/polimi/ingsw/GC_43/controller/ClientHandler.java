@@ -117,12 +117,23 @@ public class ClientHandler implements Runnable{
 				lobby.broadcastMsg(msg,this);
 			}
 			else if(command.equals("start_game")){
-				lobby.startGame(this);
+				if(lobby.startGame(this)){
+					inGame();
+				}
+				else{
+					sendMsgTo("you are not the admin...");
+					continue;
+				}
 			}
 			else{
 				sendMsgTo("nulla di che...");
 				continue;}
 		}
+		
+	}
+
+	private void inGame() {
+		// TODO Auto-generated method stub
 		
 	}
 

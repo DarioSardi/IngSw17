@@ -34,9 +34,7 @@ public class ClientInHandler implements Runnable {
 		System.out.println("\n\n\n\n");
 		System.out.println("Menu di gioco");
 		System.out.println("1. crea una nuova partita");
-		System.out.println("2. seleziona una lobby");
-		
-		
+		System.out.println("2. seleziona una lobby");	
 	}
 	
 	

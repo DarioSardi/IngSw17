@@ -7,7 +7,7 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public abstract class ActionSpace {
 	private int minDiceValue;
-	private ArrayList<FamilyMember> familiarIn;
+	private ArrayList<FamilyMember> familiarIn=new ArrayList<>();
 	private Effect bonus;
 	
 	public abstract boolean check(FamilyMember f);
@@ -30,6 +30,13 @@ public abstract class ActionSpace {
 
 	public void setFamiliarIn(ArrayList<FamilyMember> familiarIn) {
 		this.familiarIn = familiarIn;
+	}
+	
+	/*
+	 * only for testing
+	 */
+	public void addFamiliarIn(FamilyMember f){
+		this.familiarIn.add(f);
 	}
 
 	public Effect getBonus() {
