@@ -22,6 +22,8 @@ public class Client {
     private BufferedReader inKeyboard;
     private PrintWriter outVideo;
 	private String address,username;
+	private ClientOutHandler outStream;
+	private ClientInHandler inStream;
 	private static InetAddress ipAddr;
 	
     public Client() throws IOException{
@@ -51,10 +53,20 @@ public class Client {
 		
 	}
 	
-	private void setID(int ID){
+	public void setID(int ID){
 		this.ID=ID;
-		System.out.println("connected with ID:"+this.ID);
+		
 	}
+	
+	public int getID(){
+		return ID;
+	}
+	
+
+	public String getUsername() {
+		return username;
+	}
+
 
 
 	private void connect() throws UnknownHostException, IOException {
@@ -63,10 +75,12 @@ public class Client {
     	
     	//thread per gestione I/O
     	ExecutorService executor = Executors.newFixedThreadPool(2);
-    	executor.submit(new ClientInHandler(new Scanner(socket.getInputStream())));
-    	executor.submit(new ClientOutHandler(new PrintWriter(socket.getOutputStream())));
-    	
+    	this.outStream=new ClientOutHandler(new PrintWriter(socket.getOutputStream()),this);
+    	this.inStream=new ClientInHandler(new Scanner(socket.getInputStream()),this);
+    	executor.submit(inStream);
+    	executor.submit(outStream);
         System.out.println("connesso!");
+        
     }
 
 
@@ -75,13 +89,26 @@ public class Client {
     	inKeyboard = new BufferedReader(new InputStreamReader(System.in));
         outVideo = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
     	ipAddr=InetAddress.getLoopbackAddress();
-        System.out.println("Benvenuto su Lorenzo il magnifico in JAVA");
+    	System.out.println("Benvenuto su Lorenzo il magnifico in JAVA");
+    	System.out.println("scegli configurazione: manual o auto?");
+    	String answer=inKeyboard.readLine().toString();
+    	
+    	if(answer.equals("manual")){
     	System.out.println("seleziona l'indirizzo del server: ");
     	this.address=inKeyboard.readLine();
     	System.out.println("seleziona la porta del server: ");
     	this.port=Integer.parseInt(inKeyboard.readLine());
     	System.out.println("Username: ");
     	this.username=inKeyboard.readLine();
+        }
+        
+    	else if(answer.equals("auto")){
+        	this.address="127.0.0.1";
+        	this.port=7777;
+        	this.username="PanDario7";
+        }
+    	else{System.out.println("ma che cazz...");}
+    	
     	System.out.println("connetto a: "+address+"/"+port);
     }
 	
