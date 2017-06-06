@@ -1,10 +1,11 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
 import java.util.ArrayList;
+import it.polimi.ingsw.GC_43.model.resources.*;
+
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.Resource;
 
 public class ChoiceEffect {
 	private ArrayList<Resource> costs;

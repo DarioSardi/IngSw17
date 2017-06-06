@@ -1,10 +1,11 @@
 package it.polimi.ingsw.GC_43.model.effects;
+import it.polimi.ingsw.GC_43.model.resources.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.Resource;
 
 public class CostEffect extends Effect {
 	private ArrayList<Resource> Costs;

@@ -1,7 +1,8 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
-import it.polimi.ingsw.GC_43.model.Resource;
+
+import it.polimi.ingsw.GC_43.model.resources.*;
 
 public class ExtraTemporaryDiscountOnBuyCards extends Effect{ 
 	private Resource resource;

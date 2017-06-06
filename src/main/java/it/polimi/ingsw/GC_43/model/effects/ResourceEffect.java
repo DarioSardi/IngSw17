@@ -6,8 +6,7 @@ import java.util.List;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.Resource;
-import it.polimi.ingsw.GC_43.model.Wood;
+import it.polimi.ingsw.GC_43.model.resources.*;
 /*
 public class ResourceEffect extends Effect {
 	
