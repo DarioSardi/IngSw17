@@ -9,7 +9,8 @@ import java.util.Scanner;
         import it.polimi.ingsw.GC_43.model.Player;
         import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
         import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
-        import it.polimi.ingsw.GC_43.model.effects.Effect;
+import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class ProductionActionCreationRoutine implements ActionCreation {
     private ProductionAction productionAction;
@@ -29,9 +30,10 @@ public class ProductionActionCreationRoutine implements ActionCreation {
         this.productionAction.setFamilyMember(CommonActionCreatorRoutine.askForFamilyMemberChoice(this.productionAction.getPlayer()));
         this.productionAction.setFamilyMemberColor(this.productionAction.getFamilyMember().getColor());
         this.productionAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),this.productionAction.getFamilyMember().getDiceValue()));
-        this.productionAction.getPlayer().subResource("servant",this.productionAction.getServantsUsed());
+
+        // TODO to decide if to implements check even on actionPrepare  this.productionAction.getPlayer().subResource("servant",this.productionAction.getServantsUsed());
         selectProductionSpace(board.getProductionArea());
-        getInputsForProduction();
+        getInputsForProduction(this.productionAction.getFamilyMember());
 
         return false;
     }
@@ -56,10 +58,10 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     
     
     /*@require bonus malus on familyMember die to be already applied, but that's normal*/
-    private void getInputsForProduction(){
-
+    private void getInputsForProduction(FamilyMember familyMember){
+    	int dieValue=familyMember.getDiceValue()+this.productionAction.getServantsUsed()+familyMember.getPlayer().getPlayerBounusMalus().getBonusProductionArea();
         for(BuildingCard buildingCard: this.productionAction.getPlayer().getPlayerCards().getArrayBuildingCards()){
-            if(this.productionAction.getFamilyMember().getDiceValue()+this.productionAction.getServantsUsed()+this.productionAction.getPlayer().getPlayerBounusMalus().getBonusProductionArea()>=buildingCard.getProductionDice()){
+            if(dieValue>=buildingCard.getProductionDice()){
                 for( Effect effect: buildingCard.getPermaBonus()){
                     if(effect.getClass().toString().contains("MultipleChoiceEffect")){
                         askForMultipleChoice(effect);

@@ -1,35 +1,47 @@
 package it.polimi.ingsw.GC_43.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.playerActions.*;
+import it.polimi.ingsw.GC_43.model.initialization.InitGame;
+import it.polimi.ingsw.GC_43.playerActions.Action;
+import it.polimi.ingsw.GC_43.playerActions.ProductionAction;
+import it.polimi.ingsw.GC_43.playerActions.ProductionActionPerformer;
 
 public class Controller implements IController {
-	    private final Map<String, String> userPassword = new HashMap<String, String>();
-	    private final Map<String, Player> matchPlayer= new HashMap<String, Player>();
-	    private final Board board;
+	    private Map<String, Player> matchPlayer= new HashMap<String, Player>();
+	    private Board board;
+	    private ArrayList<ClientHandler> clientHandlers;
 	    
 	    
-	    public Controller(){
-	    	this.board=new Board(null);
+	    public Controller(ArrayList<ClientHandler> clientHandlers){
+	    	this.clientHandlers=clientHandlers;
+	    	this.matchPlayer=new HashMap<String, Player>();
+	    }
+	    
+	    public void initializeGame(){
+	    	
+	    	insertPlayers();
+
+	    	
 	    	
 	    }
 	    
-	    
-	    public boolean login(String username, String password) {
-	        String pw = userPassword.get(username);
-
-	        if (pw == null) {
-	            userPassword.put(username, password);
-	            return true;
-	        }
-
-	        return password.equals(pw);
+	    public void insertPlayers(){
+	    	ArrayList<String> playerIDs= new ArrayList<String>();
+	    	for(ClientHandler clientHandler: this.clientHandlers){
+	    		playerIDs.add(clientHandler.getUsername());
+	    	}
+	    	this.board=new Board(playerIDs);
+	    //	new InitGame(board);
+	    	
+	    	
 	    }
 	    
+//TODO AGGIUNGI BOOLEANO PER VEDERE SE PLAYER CONNESSO O NO;
 	    
 	    
 	    
@@ -51,6 +63,12 @@ public class Controller implements IController {
 	    			return false;
 	    	}
 	    }
+
+		@Override
+		public boolean login(String username, String Password) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 
 
 }

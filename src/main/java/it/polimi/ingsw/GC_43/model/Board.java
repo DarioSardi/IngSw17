@@ -202,7 +202,7 @@ private void setPlayersFamilyMembersValue() {
         	this.period++;
         }
 
- //       establishNewPlayerOrder();
+        establishNewPlayerOrder();
         
         resetAreas();
         
@@ -236,23 +236,31 @@ private void setPlayersFamilyMembersValue() {
 		this.phase++;
 	}
     private String getPhasePlayer(){
-    	return this.getPlayersID().get(this.phase%4);
+    	return this.getPlayers().get(this.phase%4).getPlayerName();
     }
 
     
     
 	
 	//TODO TO BE COMPLETED AFTER DARIO
- /*  private void establishNewPlayerOrder() {
-    	ArrayList <Player> newPlayerOrder=new ArrayList<Player>();
-    	if(!this.getCouncilPalace()Board.getSpaces().isEmpty()){
-        	for(FamilyMember player: this.councilPalace.getSpaces().){
-        		newPlayerOrder.add(e)
+  private void establishNewPlayerOrder() {
+    	if(!this.getCouncilPalace().entryOrder().isEmpty()){
+        	ArrayList <Player> newPlayerOrder=new ArrayList<Player>();
+        	newPlayerOrder=this.getCouncilPalace().entryOrder();
+        	
+        	for(Player player: newPlayerOrder){
+        		if(this.getPlayers().contains(player)){
+        			this.getPlayers().remove(player);
+        		}
         	}
+        	for(Player player: this.getPlayers()){
+        		newPlayerOrder.add(player);
+        	}
+        	this.setPlayers(newPlayerOrder);
 
     	}
     	
-	}*/
+	} 
     
 
 

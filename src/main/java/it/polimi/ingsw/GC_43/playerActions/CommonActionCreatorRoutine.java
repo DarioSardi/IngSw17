@@ -22,6 +22,8 @@ public class CommonActionCreatorRoutine {
         return copyOfPlayerResources;
 
     }
+    
+    
 
     public static FamilyMember askForFamilyMemberChoice(Player player) {
         String question="Please select the familiar you want to use to perform the action:\n"+player.printFreeFamilyMembers();
@@ -29,6 +31,8 @@ public class CommonActionCreatorRoutine {
 
         return player.getFamilyMember(choice);
     }
+    
+    
 
     public static int askForServantsUsage(Player player, int currentDieValue) {
         int numberOfServants=player.getPlayerResource("servant");
@@ -45,6 +49,10 @@ public class CommonActionCreatorRoutine {
         return choice;
 
     }
+    
+    
+    
+    
     public static int askForSingleChoice(String question,int minRange, int maxRange) {
         boolean choiceOk=false;
         int choiceTaken=0;
