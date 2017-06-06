@@ -7,7 +7,7 @@ import it.polimi.ingsw.GC_43.model.resources.*;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 
-public class ChoiceEffect {
+public class ChoiceEffect extends Effect{
 	private ArrayList<Resource> costs;
 	private ArrayList<Resource> gains;
 	
@@ -40,15 +40,19 @@ public class ChoiceEffect {
 		return checkResult;
 	}
 	public void executeEffect(FamilyMember familyMember){
+		executeEffect(familyMember.getPlayer());
+	}
+	public void executeEffect(Player player){
 		for (Resource resource: this.costs){
 			if(resource.getResourceType().equals("coin")){
-				familyMember.getPlayer().subResource(resource.getResourceType(), resource.getValue());
-				}
+				player.subResource(resource.getResourceType(), resource.getValue());				}
 		}
+	
 		for (Resource resource: this.gains){
-			familyMember.getPlayer().addResource(resource.getResourceType(), resource.getValue()+familyMember.getPlayer().getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getResourceType()));
+			player.addResource(resource.getResourceType(), resource.getValue()+player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getResourceType()));
 				}
 		
 			}					
-		}
+		
+}
 

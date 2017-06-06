@@ -11,6 +11,7 @@ import java.util.Scanner;
         import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
+import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 
 public class ProductionActionCreationRoutine implements ActionCreation {
     private ProductionAction productionAction;
@@ -64,7 +65,7 @@ public class ProductionActionCreationRoutine implements ActionCreation {
             if(dieValue>=buildingCard.getProductionDice()){
                 for( Effect effect: buildingCard.getPermaBonus()){
                     if(effect.getClass().toString().contains("MultipleChoiceEffect")){
-                        askForMultipleChoice(effect);
+                        askForMultipleChoice((MultipleChoiceEffect)effect);
                     }
 
                     else if (effect.getClass().toString().contains("ChoiceEffect")){
@@ -84,15 +85,16 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 
     }
 
-    private void askForMultipleChoice(Effect effect) {
+    private void askForMultipleChoice(MultipleChoiceEffect effect) {
+    	int maxRange=effect.getChoices().size();
         String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
-        int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,1);
+        int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
         if(effect.check(this.productionAction.getFamilyMember())){
             this.productionAction.getProductionChoices().add(choice);
         }
         else{
             question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
-            choice= CommonActionCreatorRoutine.askForSingleChoice(question,0,1);
+            choice= CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
             if(choice==0){
                 System.out.println("\nChoice skipped");
             }

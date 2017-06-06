@@ -7,12 +7,15 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
+import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
+import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 
 
 public class ProductionActionPerformer{
 	private ProductionAction productionAction;
 	private boolean checkResult;
 	private Board board;
+	private int index;
 
 	
 	//README
@@ -24,6 +27,7 @@ public class ProductionActionPerformer{
 		this.productionAction=productionAction;
 		this.checkResult=false;
 		this.board=board;
+		this.index=0;
 		//decide if to launch directly here in creation the performAction();
 		
 	}
@@ -121,30 +125,50 @@ public class ProductionActionPerformer{
 			
 	private void checkProductionPerform(Player player, FamilyMember familyMember) {
 		
-    	int dieValue=familyMember.getDiceValue()+this.productionAction.getServantsUsed()+player.getPlayerBounusMalus().getBonusProductionArea();}}
+    	int dieValue=familyMember.getDiceValue()+this.productionAction.getServantsUsed()+player.getPlayerBounusMalus().getBonusProductionArea();
     	
-/*  		 
+  		 
 		for(BuildingCard buildingCard: this.productionAction.getPlayer().getPlayerCards().getArrayBuildingCards()){
-			if(familyMember.getDiceValue()+this.productionAction.getServantsUsed()+player.getPlayerBounusMalus().getBonusProductionArea()>=buildingCard.getProductionDice()){
+			if(dieValue>=buildingCard.getProductionDice()){
 				for( Effect effect: buildingCard.getPermaBonus()){
 					if(effect.getClass().toString().contains("MultipleChoiceEffect")){
-						askForMultipleChoice(effect);	
+						executeMultipleChoice((MultipleChoiceEffect) effect, player);	
 					}
 				
 					else if (effect.getClass().toString().contains("ChoiceEffect")){
-						askForASingleChoice(effect);
+						executeSingleChoice((ChoiceEffect) effect, player);
 					}
-					else(){
+			 	else{
 						effect.executeEffect(familyMember);
 				}
         	}
+			}
 		}
+		}
+
+
+
+	private void executeSingleChoice(ChoiceEffect effect,Player player) {
+		int playerChoice=this.productionAction.getProductionChoices().get(index);
+	}
+
+
+
+	private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
+		int playerChoice=this.productionAction.getProductionChoices().get(index);
+		if(effect.getChoices().get(playerChoice).check(player)){
+			effect.getChoices().get(playerChoice).executeEffect(player);
+		}
+		else{
+			this.checkResult=false;
+		}
+		index++;
+	}
+}
        
 	
-	return true;
-}		
-	}
-		*/	
+
+		/*	
 		//RESET FAMILY MEMBER TO NOT ALREADY PLACED IF CHECKRESULT IS FALSE	INT THE END
 			
 			// TODO README

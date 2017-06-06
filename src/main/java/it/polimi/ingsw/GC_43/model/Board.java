@@ -242,7 +242,6 @@ private void setPlayersFamilyMembersValue() {
     
     
 	
-	//TODO TO BE COMPLETED AFTER DARIO
   private void establishNewPlayerOrder() {
     	if(!this.getCouncilPalace().entryOrder().isEmpty()){
         	ArrayList <Player> newPlayerOrder=new ArrayList<Player>();
