@@ -1,7 +1,6 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
-import it.polimi.ingsw.GC_43.model.Coin;
-import it.polimi.ingsw.GC_43.model.Resource;
+import it.polimi.ingsw.GC_43.model.resources.*;
 import it.polimi.ingsw.GC_43.model.cards.*;
 import it.polimi.ingsw.GC_43.model.effects.*;
 
