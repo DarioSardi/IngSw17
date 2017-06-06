@@ -1,6 +1,6 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
-import it.polimi.ingsw.GC_43.model.*;
+import it.polimi.ingsw.GC_43.model.resources.*;
 import it.polimi.ingsw.GC_43.model.effects.*;
 
 import java.util.ArrayList;

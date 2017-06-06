@@ -6,12 +6,12 @@
       "Type": "CharacterCard",
       "InstantBonus": [
         {
-          "effect": "extraCard",
-          "valueEffect": "7"
-        },
-        {
           "effect": "multipleCouncilPrivilege",
           "valueEffect": "1"
+        },
+        {
+          "effect": "extraCard",
+          "valueEffect": "7"
         }
       ],
       "PermanentBonus": [],
@@ -29,7 +29,7 @@
       "InstantBonus": [
         {
           "effect": "multVictoryPointsMilitaryPoint",
-          "valueEffect": "1"
+          "valueEffect": "0.5"
         }
       ],
       "PermanentBonus": [],
@@ -68,12 +68,12 @@
       "Type": "CharacterCard",
       "InstantBonus": [
         {
-          "effect": "extraHarvest",
-          "valueEffect": "4"
-        },
-        {
           "effect": "faithPoint",
           "valueEffect": "2"
+        },
+        {
+          "effect": "extraHarvest",
+          "valueEffect": "4"
         }
       ],
       "PermanentBonus": [],
@@ -126,6 +126,10 @@
       "Type": "CharacterCard",
       "InstantBonus": [],
       "PermanentBonus": [
+        {
+          "effect": "extraTemporaryDiscountCharacter",
+          "valueEffect": "2"
+        },
         {
           "effect": "addDiceValueCharacterTower",
           "valueEffect": "2"

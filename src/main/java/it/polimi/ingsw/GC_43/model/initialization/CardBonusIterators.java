@@ -3,6 +3,7 @@ package it.polimi.ingsw.GC_43.model.initialization;
 import it.polimi.ingsw.GC_43.model.*;
 import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 import it.polimi.ingsw.GC_43.model.effects.*;
+import it.polimi.ingsw.GC_43.model.resources.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -59,7 +60,11 @@ public class CardBonusIterators {
 		else if (effect.equals("extraCharacterCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "characterCards"));
 		else if (effect.equals("extraTerritoryCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "territoryCards"));
 		else if (effect.equals("extraVentureCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "ventureCards"));
-	 
+/*		else if (effect.equals("extraTemporaryDiscountBuiilding")) bonus.add(new ExtraTemporaryDiscountOnBuyCards(valueEffect, "buiildingCards"));
+		else if (effect.equals("extraTemporaryDiscountCharacter")) bonus.add(new ExtraTemporaryDiscountOnBuyCards(valueEffect, "characterCards"));
+		else if (effect.equals("extraTemporaryDiscountTerritory")) bonus.add(new ExtraTemporaryDiscountOnBuyCards(valueEffect, "territoryCards"));
+		else if (effect.equals("extraTemporaryDiscountVenture")) bonus.add(new ExtraTemporaryDiscountOnBuyCards(valueEffect, "ventureCards"));
+*/	 
 		else if (effect.equals("coin")) bonus.add(new ResourceEffect(new Coin(valueEffect)));
      	else if (effect.equals("servant")) bonus.add(new ResourceEffect(new Servant(valueEffect)));
      	else if (effect.equals("stone")) bonus.add(new ResourceEffect(new Stone(valueEffect)));

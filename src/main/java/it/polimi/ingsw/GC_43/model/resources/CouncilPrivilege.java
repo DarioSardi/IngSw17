@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_43.model;
+package it.polimi.ingsw.GC_43.model.resources;
 
 import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 
@@ -9,17 +9,7 @@ public class CouncilPrivilege extends Resource{
 	
 	public CouncilPrivilege (int value) {
 		this.value = value;
-	}
-	
-	@Override
-	public String getResourceType() {
-		return this.resourceType;
-	}
-	
-	@Override
-	public void setResourceType(String resourceType) {
-		this.resourceType = resourceType;
-	}
+	}	
 	
 	@Override
 	public int getValue() {
@@ -27,8 +17,7 @@ public class CouncilPrivilege extends Resource{
 	}
 	
 	@Override
-	public void setValue(int value) {
-		this.value = value;
+	public String getResourceType(){
+		return this.resourceType;
 	}
-	
 }
