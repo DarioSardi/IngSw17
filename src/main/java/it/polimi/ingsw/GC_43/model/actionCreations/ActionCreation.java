@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_43.playerActions;
+package it.polimi.ingsw.GC_43.model.actionCreations;
 
 public interface ActionCreation {
 	

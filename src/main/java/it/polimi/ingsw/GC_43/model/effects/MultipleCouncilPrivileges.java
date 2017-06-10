@@ -2,45 +2,53 @@ package it.polimi.ingsw.GC_43.model.effects;
 
 import java.util.ArrayList;
 
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
+
 public class MultipleCouncilPrivileges extends Effect {
 	private int numberOfCopies;
-	private ArrayList<Effect> choices;
+	private MultipleChoiceEffect privilegeChoices;
 
 	
-	//TODO decidere per resource effect , io terrei arrayList
+	
 	public String toString(){
-		String toString = "Player can take "+this.numberOfCopies+ "different council privilege choice effect: ";
-		int choiceNumber=1;
-		for(Effect resourceEffect : choices){
-			toString= toString+"choice "+choiceNumber+": "+ resourceEffect.toString();
-			choiceNumber++;
-		}
+		String toString = "Player can take "+this.numberOfCopies+ "different council privilege choice effect:\n ";
+		toString=toString+" "+this.getPrivilegeChoices().toString();
 		return toString;
 	}
 	
 	public MultipleCouncilPrivileges(int numberOfCopies) {
 		this.numberOfCopies=numberOfCopies;
-		this.choices=new ArrayList<Effect>();
+//		this.privilegeChoices=GlobalVariables.councilPriviledgeEffect;
 	}
 	
-	public void executeEffect(){
-		int i=0;
-		SingleCouncilPrivilege singleCouncilPrivilege= new SingleCouncilPrivilege();
-		while(i<this.getNumberOfCopies()){
-			String choices= singleCouncilPrivilege.toString();
-//			int playerChoice= familyMember.getPlayer().getController().askPlayerForChoice(choices.size(),choicesToSend);
-//			choices.get(playerChoice-1).executeEffect(familyMember);
-//			singleCouncilPrivilege.removeChoice(playerChoice);
-			
-			i++;
-		}
+
+	public void executeEffect(FamilyMember familyMember){
 		
 	}
-//TODO to implement
+	public void executeEffect(FamilyMember familyMember, int playerChoice){
+		this.getPrivilegeChoices().executeEffect(familyMember, playerChoice);
+	}
+	
+	
+	
 	public int getNumberOfCopies() {
 		return numberOfCopies;
 	}
 
+
+	public MultipleChoiceEffect getPrivilegeChoices() {
+		return privilegeChoices;
+	}
+
+	public void setPrivilegeChoices(MultipleChoiceEffect privilegeChoices) {
+		this.privilegeChoices = privilegeChoices;
+	}
+
+	public void setNumberOfCopies(int numberOfCopies) {
+		this.numberOfCopies = numberOfCopies;
+	}
+	
 
 	
 }

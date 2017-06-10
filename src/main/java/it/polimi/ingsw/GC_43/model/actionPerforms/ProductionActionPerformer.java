@@ -1,10 +1,11 @@
-package it.polimi.ingsw.GC_43.playerActions;
+package it.polimi.ingsw.GC_43.model.actionPerforms;
 
 import java.util.HashMap;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
@@ -36,8 +37,10 @@ public class ProductionActionPerformer{
 	
 	public boolean performAction() {
 		this.checkResult=true;
+
 		Player player=this.productionAction.getPlayer();
 		FamilyMember familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, productionAction.getFamilyMemberColor());
+		HashMap<String,Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
 
 
 		checkAndTryAction(player, familyMember);
@@ -48,8 +51,9 @@ public class ProductionActionPerformer{
 			return true;
 		}
 		else{
-		//decide if to make a class message notification
-		return false;
+			player.setPlayerResources(playerResourcesCopy);
+			familyMember.setAlreadyPlaced(false);
+			return false;
 		}
 	}
 		
@@ -65,7 +69,6 @@ public class ProductionActionPerformer{
 	private void checkAndTryAction(Player player, FamilyMember familyMember){
 		
 		
-			HashMap<String, Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
 
 			checkFamilyMemberAlreadyPlaced(familyMember);
 			
@@ -74,6 +77,7 @@ public class ProductionActionPerformer{
 			checkProductionCellSelection(familyMember);
 			
 			checkProductionPerform(player, familyMember);
+			
 			
 			
 			
@@ -93,7 +97,7 @@ public class ProductionActionPerformer{
 				this.checkResult=false;
 		}
 		else if(!this.productionAction.isPrimaryCellChosen()){
-			if(!this.board.getProductionArea().getSecondarySpace().execute(familyMember))
+			if(board.getProductionArea().getSecondarySpace()!=null&&!this.board.getProductionArea().getSecondarySpace().execute(familyMember))
 				this.checkResult=false;
 		}
 	}
@@ -131,98 +135,32 @@ public class ProductionActionPerformer{
 		for(BuildingCard buildingCard: this.productionAction.getPlayer().getPlayerCards().getArrayBuildingCards()){
 			if(dieValue>=buildingCard.getProductionDice()){
 				for( Effect effect: buildingCard.getPermaBonus()){
-					if(effect.getClass().toString().contains("MultipleChoiceEffect")){
+					if(effect.getClass().toString().contains("MultipleChoiceEffect"))
 						executeMultipleChoice((MultipleChoiceEffect) effect, player);	
-					}
-				
-					else if (effect.getClass().toString().contains("ChoiceEffect")){
-						executeSingleChoice((ChoiceEffect) effect, player);
-					}
-			 	else{
+					
+					else
 						effect.executeEffect(familyMember);
+				
 				}
-        	}
 			}
 		}
-		}
-
-
-
-	private void executeSingleChoice(ChoiceEffect effect,Player player) {
-		int playerChoice=this.productionAction.getProductionChoices().get(index);
 	}
 
 
 
 	private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
 		int playerChoice=this.productionAction.getProductionChoices().get(index);
-		if(effect.getChoices().get(playerChoice).check(player)){
-			effect.getChoices().get(playerChoice).executeEffect(player);
-		}
-		else{
-			this.checkResult=false;
-		}
+		if(playerChoice!=-1){
+			if(effect.getChoices().get(playerChoice).check(player)){
+				effect.getChoices().get(playerChoice).executeEffect(player);
+			}
+			else
+				this.checkResult=false;
+			}
 		index++;
 	}
 }
-       
-	
-
-		/*	
-		//RESET FAMILY MEMBER TO NOT ALREADY PLACED IF CHECKRESULT IS FALSE	INT THE END
-			
-			// TODO README
-			//CHECK IF SECONDARY CELLS FOR BOTH PRODUCTION AND HARVEST ARE NULL BECAUSE OF NUMBER OF PLAYERS
-			
-			
-		//TODO to ask for check die and if space occupied
-		//TODO to ask for check die and if space occupied
-		//TODO to ask for check die and if space occupied
-		//TODO to ask for check die and if space occupied
-		//TODO to ask for check die and if space occupied
-		//TODO to ask for check die and if space occupied
-		//TODO to ask for check die and if space occupied
-
-	//	checkChoices(familyMember.getDiceValue()+player.getPlayerBounusMalus().getBonusProductionArea(), player);
-	
-	//	familyMember.
-		// TODO to implement: getting inputs from class ProductionAction which will
-		//come from the client to the server and will manage it performing it
-		//with relative checks on things
-		
-	
-
-
-
-
-	
-	/*@require bonus malus on familyMember die to be already applied, but that's normal*/ 
-/*	private boolean checkChoices(int dieValue,Player player ){
-
-			 
-			for(BuildingCard buildingCard: this.productionAction.getPlayer().getPlayerCards().getArrayBuildingCards()){
-				if(this.productionAction.getFamilyMember().getDiceValue()+this.productionAction.getServantsUsed()+this.productionAction.getPlayer().getPlayerBounusMalus().getBonusProductionArea()>=buildingCard.getProductionDice()){
-					for( Effect effect: buildingCard.getPermaBonus()){
-						if(effect.getClass().toString().contains("MultipleChoiceEffect")){
-							askForMultipleChoice(effect);	
-						}
-					
-					else if (effect.getClass().toString().contains("ChoiceEffect")){
-					askForASingleChoice(effect);
-						}
-					}
-	        	}
-			}
-	       
-		}
-		return true;
-	}
-
-
-
-	
-	*/
-	
+  
 	
 
 
