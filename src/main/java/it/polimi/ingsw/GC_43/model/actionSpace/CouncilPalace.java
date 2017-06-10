@@ -11,7 +11,7 @@ public class CouncilPalace extends ActionArea{
 
 	public CouncilPalace(Effect e) {
 		
-		this.getSpaces().add(new CouncilPalaceSpace(GlobalVariables.mindDiceValueCouncilPalace, this,e));
+		this.getSpaces().add(new CouncilPalaceSpace(GlobalVariables.minDiceValueCouncilPalace, this,e));
 	}
 
 	@Override
