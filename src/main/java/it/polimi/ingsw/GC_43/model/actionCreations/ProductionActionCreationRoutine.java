@@ -1,17 +1,19 @@
-package it.polimi.ingsw.GC_43.playerActions;
+package it.polimi.ingsw.GC_43.model.actionCreations;
 
         import java.util.HashMap;
 import java.util.Scanner;
 
-        import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.Board;
         import it.polimi.ingsw.GC_43.model.FamilyMember;
         import it.polimi.ingsw.GC_43.model.GlobalVariables;
         import it.polimi.ingsw.GC_43.model.Player;
-        import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
-        import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
+import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
+import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
+import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 
 public class ProductionActionCreationRoutine implements ActionCreation {
     private ProductionAction productionAction;
@@ -44,12 +46,16 @@ public class ProductionActionCreationRoutine implements ActionCreation {
         if(productionArea.getSpaces().isEmpty()){
             System.out.println("\nPrimary empty cell selected\n");
             this.productionAction.setPrimaryCellChosen(true);
+            productionArea.getPrimarySpace().execute(this.productionAction.getFamilyMember());
         }
         else{
-//			System.out.println("\nPrimary production cell occupied, secondary production cell selected. Family Member will receive a malus on die value of \n"+GlobalVariables.malusUnlimitedCells);
+	//		System.out.println("\nPrimary production cell occupied, secondary production cell selected. Family Member will receive a malus on die value of \n"+GlobalVariables.malusUnlimitedCells);
             this.productionAction.setPrimaryCellChosen(false);
 //			this.productionAction.getFamilyMember().subFamilyMemberValue(GlobalVariables.malusUnlimitedCells);
+            productionArea.getPrimarySpace().execute(this.productionAction.getFamilyMember());
+
         }
+        
 
     }
 
@@ -67,9 +73,8 @@ public class ProductionActionCreationRoutine implements ActionCreation {
                     if(effect.getClass().toString().contains("MultipleChoiceEffect")){
                         askForMultipleChoice((MultipleChoiceEffect)effect);
                     }
-
-                    else if (effect.getClass().toString().contains("ChoiceEffect")){
-                        askForASingleChoice(effect);
+                    if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
+                        askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
                     }
                 }
             }
@@ -78,14 +83,27 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     }
 
 
-    private void askForASingleChoice(Effect effect) {
+    private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges effect) {
+    	int numberOfCopies=effect.getNumberOfCopies();
+    	while(numberOfCopies>0){
+    		int choice= askForMultipleChoice(effect.getPrivilegeChoices());
+    		if(choice!=-1){
+    			effect.getPrivilegeChoices().getChoices().remove(choice);
+    		}
+
+    		numberOfCopies--;
+    	}
+	}
+
+
+	private void askForASingleChoice(Effect effect) {
         String question="Do you want to perform this resource exchange?\n Input 1 for yes I do, 0 for I don't\n";
         int choice=CommonActionCreatorRoutine.askForSingleChoice(question,0,1);
         this.productionAction.getProductionChoices().add(choice);
 
     }
 
-    private void askForMultipleChoice(MultipleChoiceEffect effect) {
+    private int askForMultipleChoice(MultipleChoiceEffect effect) {
     	int maxRange=effect.getChoices().size();
         String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
         int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
@@ -102,6 +120,7 @@ public class ProductionActionCreationRoutine implements ActionCreation {
                 askForMultipleChoice(effect);
             }
         }
+        return choice;
     }
 
 

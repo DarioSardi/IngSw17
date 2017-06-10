@@ -6,10 +6,10 @@ import java.util.Map;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionPerforms.ProductionActionPerformer;
+import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
 import it.polimi.ingsw.GC_43.model.initialization.InitGame;
-import it.polimi.ingsw.GC_43.playerActions.Action;
-import it.polimi.ingsw.GC_43.playerActions.ProductionAction;
-import it.polimi.ingsw.GC_43.playerActions.ProductionActionPerformer;
 
 public class Controller implements IController {
 	    private Map<String, Player> matchPlayer= new HashMap<String, Player>();

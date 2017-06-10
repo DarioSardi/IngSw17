@@ -1,8 +1,7 @@
 package it.polimi.ingsw.GC_43.model;
 import it.polimi.ingsw.GC_43.model.actionSpace.*;
 
-
-
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class Board {
    private static int phase;
    private static int round;
    private static int period;
-   private ArrayList<Integer> victoryPositionPoints;
+   private int[] victoryPositionPoints;
 
     //CARDPOOLS
     private List territoryCardPool;
@@ -66,7 +65,7 @@ public Board(ArrayList playersID){
 	
 		this.playersID=new ArrayList<String>();
 		this.playersID=playersID;
-		this.victoryPositionPoints= new ArrayList<Integer>();
+//		this.victoryPositionPoints= new int[GlobalVariables.maxFaithPoints+1];
 
         
 		GlobalVariables.numberOfPlayers=playersID.size();
@@ -398,11 +397,11 @@ private void setPlayersFamilyMembersValue() {
 		Board.period = period;
 	}
 
-	public ArrayList<Integer> getVictoryPositionPoints() {
+	public int[] getVictoryPositionPoints() {
 		return victoryPositionPoints;
 	}
 
-	public void setVictoryPositionPoints(ArrayList<Integer> victoryPositionPoints) {
+	public void setVictoryPositionPoints(int [] victoryPositionPoints) {
 		this.victoryPositionPoints = victoryPositionPoints;
 	}
 

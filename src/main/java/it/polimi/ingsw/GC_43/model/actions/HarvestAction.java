@@ -1,18 +1,11 @@
-package it.polimi.ingsw.GC_43.playerActions;
+package it.polimi.ingsw.GC_43.model.actions;
 
-        import java.io.Serializable;
-        import java.util.ArrayList;
-        import java.util.Scanner;
+import java.util.ArrayList;
 
-        import it.polimi.ingsw.GC_43.model.FamilyMember;
-        import it.polimi.ingsw.GC_43.model.GlobalVariables;
-        import it.polimi.ingsw.GC_43.model.Player;
-        import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
-        import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
-        import it.polimi.ingsw.GC_43.model.effects.Effect;
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.Player;
 
-
-public class ProductionAction extends Action implements Serializable {
+public class HarvestAction {
     private Player player;
     private String playerID;
     private int familyMemberColor;
@@ -20,12 +13,12 @@ public class ProductionAction extends Action implements Serializable {
     private int ActionID;
     //THINK OF ACTION ID BEST PRACTICE WAY
     private int servantsUsed;
-    private ArrayList<Integer> productionChoices;
+    private ArrayList<Integer> harvestChoices;
     private boolean primaryCellChosen;
 
-    public ProductionAction(String playerID, Player player){
+    public HarvestAction(String playerID, Player player){
         this.playerID=playerID;
-        productionChoices=new ArrayList<>();
+        this.harvestChoices=new ArrayList<>();
         this.servantsUsed=0;
         this.player=player;
         this.ActionID=0;
@@ -63,10 +56,10 @@ public class ProductionAction extends Action implements Serializable {
         this.servantsUsed = servantsUsed;
     }
     public ArrayList<Integer> getProductionChoices() {
-        return productionChoices;
+        return harvestChoices;
     }
     public void setProductionChoices(ArrayList<Integer> productionChoices) {
-        this.productionChoices = productionChoices;
+        this.harvestChoices = productionChoices;
     }
 
 
@@ -91,4 +84,6 @@ public class ProductionAction extends Action implements Serializable {
 
 
 }
+
+
 
