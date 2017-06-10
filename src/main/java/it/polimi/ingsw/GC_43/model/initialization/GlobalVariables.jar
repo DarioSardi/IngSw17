@@ -2,6 +2,7 @@
   "Global Variables": [
     {
 	"maxNumberOfPlayers": "5", 
+	"numberOfFamilyMembers": "4", 
 	"numberOfTowers": "4", 
 	"numberOfDice": "3",
 	"excommunicationRound": "2",
@@ -27,8 +28,13 @@
 	"mindDiceSecondProductionArea": "3",
 	"mindDiceValueCouncilPalace": "1",
 	"towerTax": "3",
-	"victoryPointsFirstMilitaryPoint": "5",
-	"victoryPointsSecondMilitaryPoint": "2"
+	"victoryPointsFirstMilitaryPower": "5",
+	"victoryPointsSecondMilitaryPower": "2",
+	"malusUnlimitedCells": "-3",
+	"maxVictoryPoints": "99",
+	"maxMilitaryPoints": "25",
+	"maxFaithPoints": "15",
+	"endResourcesToVictoryPoint": "5"
     }
   ]
 }

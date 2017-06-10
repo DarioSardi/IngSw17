@@ -1,6 +1,6 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
-import it.polimi.ingsw.GC_43.model.resources.*;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.cards.*;
 import it.polimi.ingsw.GC_43.model.effects.*;
 
@@ -98,7 +98,7 @@ public class CreateCards {
 	private void selectRandomCards(ArrayList<Card> cards){
 		ArrayList<Card> cardsByType = new ArrayList<Card>();
 		ArrayList<Card> cardsByPeriod;
-		for(int i=1; i <= GlobalVariablesInit.totalNumberOfPeriods; i++){
+		for(int i=1; i <= GlobalVariables.totalNumberOfPeriods; i++){
 			cardsByPeriod = new ArrayList<>();
 			
 			for(int j=0; j < cards.size(); j++){
@@ -106,7 +106,7 @@ public class CreateCards {
 			}
 			
 			Collections.shuffle(cardsByPeriod);
-			while (cardsByPeriod.size() > GlobalVariablesInit.towerCardsPerPeriod){
+			while (cardsByPeriod.size() > GlobalVariables.towerCardsPerPeriod){
 				cardsByPeriod.remove(cardsByPeriod.size()-1);
 			}
 			

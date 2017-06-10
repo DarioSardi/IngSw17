@@ -24,6 +24,7 @@ public class GlobalVariablesInit {
 		       	 JSONObject slides = (JSONObject) iterator1.next();
 		        
 		       	GlobalVariables.maxNumberOfPlayers = Integer.valueOf((String)slides.get("maxNumberOfPlayers"));
+		       	GlobalVariables.numberOfFamilyMembers = Integer.valueOf((String)slides.get("numberOfFamilyMembers"));
 		       	GlobalVariables.numberOfTowers = Integer.valueOf((String)slides.get("numberOfTowers"));
 		       	GlobalVariables.numberOfDice = Integer.valueOf((String)slides.get("numberOfDice"));
 		       	GlobalVariables.excommunicationRound = Integer.valueOf((String)slides.get("excommunicationRound"));
@@ -46,12 +47,16 @@ public class GlobalVariablesInit {
 		       	GlobalVariables.initialFaithPoints = Integer.valueOf((String)slides.get("initialFaithPoints"));
 		       	GlobalVariables.minDiceFirstHarvestArea = Integer.valueOf((String)slides.get("minDiceFirstHarvestArea"));
 		       	GlobalVariables.minDiceSecondHarvestArea = Integer.valueOf((String)slides.get("minDiceSecondHarvestArea"));
-		       	GlobalVariables.mindDiceFirstProductionArea = Integer.valueOf((String)slides.get("mindDiceFirstProductionArea"));
-		       	GlobalVariables.mindDiceSecondProductionArea = Integer.valueOf((String)slides.get("mindDiceSecondProductionArea"));
-		       	GlobalVariables.mindDiceValueCouncilPalace = Integer.valueOf((String)slides.get("mindDiceValueCouncilPalace"));
+		       	GlobalVariables.minDiceFirstProductionArea = Integer.valueOf((String)slides.get("minDiceFirstProductionArea"));
+		       	GlobalVariables.minDiceSecondProductionArea = Integer.valueOf((String)slides.get("minDiceSecondProductionArea"));
+		       	GlobalVariables.minDiceValueCouncilPalace = Integer.valueOf((String)slides.get("minDiceValueCouncilPalace"));
 		       	GlobalVariables.towerTax = Integer.valueOf((String)slides.get("towerTax"));
-		       	GlobalVariables.victoryPointsFirstMilitaryPoint = Integer.valueOf((String)slides.get("victoryPointsFirstMilitaryPoint"));
-		       	GlobalVariables.victoryPointsSecondMilitaryPoint = Integer.valueOf((String)slides.get("victoryPointsSecondMilitaryPoint"));
+		       	GlobalVariables.victoryPointsFirstMilitaryPower = Integer.valueOf((String)slides.get("victoryPointsFirstMilitaryPower"));
+		       	GlobalVariables.victoryPointsSecondMilitaryPower = Integer.valueOf((String)slides.get("victoryPointsSecondMilitaryPower"));
+		       	GlobalVariables.maxVictoryPoints = Integer.valueOf((String)slides.get("maxVictoryPoints"));
+		       	GlobalVariables.maxMilitaryPoints = Integer.valueOf((String)slides.get("maxMilitaryPoints"));
+		       	GlobalVariables.maxFaithPoints = Integer.valueOf((String)slides.get("maxFaithPoints"));
+		       	GlobalVariables.endResourcesToVictoryPoint = Integer.valueOf((String)slides.get("endResourcesToVictoryPoint"));
 		       	System.out.println("inizializzate tutte le variabili globali");
 		    }				
         } catch (Exception e) {
