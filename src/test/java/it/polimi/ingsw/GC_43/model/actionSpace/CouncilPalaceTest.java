@@ -2,19 +2,22 @@ package it.polimi.ingsw.GC_43.model.actionSpace;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
 import it.polimi.ingsw.GC_43.model.resources.*;
 
 public class CouncilPalaceTest {
 	
-	ResourceEffect resource=new ResourceEffect(new Coin(1));
-	CouncilPalace c=new CouncilPalace(resource);
+	ArrayList<Effect> resourceA=new ArrayList<>();
+	CouncilPalace c;
 	Player p1=new Player("Dario", 5);
 		FamilyMember f11=new FamilyMember(p1, 1);
 		FamilyMember f12=new FamilyMember(p1, 2);
@@ -28,13 +31,15 @@ public class CouncilPalaceTest {
 	
 	@Before
 	public void initPalace(){
+		resourceA.add(new ResourceEffect(new Coin(1)));
+		c=new CouncilPalace(resourceA);
 		c.getCouncil().addFamiliarIn(f11);
 		c.getCouncil().addFamiliarIn(f31);
 		c.getCouncil().addFamiliarIn(f32);
 		c.getCouncil().addFamiliarIn(f12);
 		c.getCouncil().addFamiliarIn(f21);
 	}
-	
+/*	
 	@Test
 	public void testCheck() {
 		fail("Not yet implemented");
@@ -59,6 +64,7 @@ public class CouncilPalaceTest {
 	public void testIsEmpty() {
 		fail("Not yet implemented");
 	}
+*/
 
 	@Test
 	public void testEntryOrder() {

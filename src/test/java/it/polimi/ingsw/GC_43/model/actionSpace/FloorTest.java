@@ -13,7 +13,7 @@ public class FloorTest {
 		InitGame game1=new InitGame();
 	}
 
-	@Test
+/*	@Test
 	public void testFamiliarValueCheck() {
 		//fail("Not yet implemented");
 	}
@@ -66,6 +66,6 @@ public class FloorTest {
 	@Test
 	public void testToStringAll() {
 		//fail("Not yet implemented");
-	}
+	}*/
 
 }
