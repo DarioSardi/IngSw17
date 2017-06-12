@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -75,8 +76,8 @@ public class Client {
     	
     	//thread per gestione I/O
     	ExecutorService executor = Executors.newFixedThreadPool(2);
-    	this.outStream=new ClientOutHandler(new PrintWriter(socket.getOutputStream()),this);
-    	this.inStream=new ClientInHandler(new Scanner(socket.getInputStream()),this);
+    	this.outStream=new ClientOutHandler(new ObjectOutputStream(socket.getOutputStream()),this);
+    	this.inStream=new ClientInHandler(new ObjectInputStream(socket.getInputStream()),this);
     	executor.submit(inStream);
     	executor.submit(outStream);
         System.out.println("connesso!");
@@ -90,24 +91,28 @@ public class Client {
         outVideo = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
     	ipAddr=InetAddress.getLoopbackAddress();
     	System.out.println("Benvenuto su Lorenzo il magnifico in JAVA");
+    	while(true){
     	System.out.println("scegli configurazione: manual o auto?");
     	String answer=inKeyboard.readLine().toString();
     	
     	if(answer.equals("manual")){
-    	System.out.println("seleziona l'indirizzo del server: ");
-    	this.address=inKeyboard.readLine();
-    	System.out.println("seleziona la porta del server: ");
-    	this.port=Integer.parseInt(inKeyboard.readLine());
-    	System.out.println("Username: ");
-    	this.username=inKeyboard.readLine();
+	    	System.out.println("seleziona l'indirizzo del server: ");
+	    	this.address=inKeyboard.readLine();
+	    	System.out.println("seleziona la porta del server: ");
+	    	this.port=Integer.parseInt(inKeyboard.readLine());
+	    	System.out.println("Username: ");
+	    	this.username=inKeyboard.readLine();
+	    	break;
         }
         
     	else if(answer.equals("auto")){
         	this.address="127.0.0.1";
         	this.port=7777;
         	this.username="PanDario7";
+        	break;
         }
-    	else{System.out.println("ma che cazz...");}
+    	else{System.out.println("scelta non valida, riproviamo...");}
+    	}
     	
     	System.out.println("connetto a: "+address+"/"+port);
     }

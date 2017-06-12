@@ -74,7 +74,6 @@ public class Server {
 		System.out.println("provo a creare la lobby numero "+lobbyNumber);
 		if(!(this.lobbies.containsKey(lobbyNumber))){
 			this.lobbies.put(lobbyNumber,new Lobby(clientHandler,lobbyNumber));
-			//lobbies.get(lobbyNumber).run();
 			System.out.println("added lobby number "+this.lobbies.size());	
 			return true;
 		}
