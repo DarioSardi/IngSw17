@@ -10,6 +10,9 @@ public class InitGameTest {
 	public void testInitGame() {
 		InitGame game=new InitGame();
 		game.initCards.getBuildingCards().stream().forEach(c->System.out.println(c.toString()));
+		game.initCards.getCharacterCards().stream().forEach(c->System.out.println(c.toString()));
+		game.initCards.getTerritoryCards().stream().forEach(c->System.out.println(c.toString()));
+		game.initCards.getVentureCards().stream().forEach(c->System.out.println(c.toString()));
 	}
 
 	@Test

@@ -12,7 +12,7 @@
           "valueEffect": "2"
         },
         {
-          "effect": "singleCouncilPrivilege",
+          "effect": "multCouncilPrivileges",
           "valueEffect": "1"
         }
       ],
@@ -62,8 +62,8 @@
       "MilitaryMin": "0",
       "InstantBonus": [
         {
-          "effect": "twoDifferentCouncilPrivileges",
-          "valueEffect": "1"
+          "effect": "multCouncilPrivileges",
+          "valueEffect": "2"
         }
       ],
       "PermanentBonus": [
@@ -268,7 +268,7 @@
           "valueEffect": "3"
         },
         {
-          "effect": "singleCouncilPrivilege",
+          "effect": "multCouncilPrivileges",
           "valueEffect": "1"
         }
       ],
@@ -362,7 +362,7 @@
           "valueEffect": "4"
         },
         {
-          "effect": "singleCouncilPrivilege",
+          "effect": "multCouncilPrivileges",
           "valueEffect": "1"
         }
       ],
@@ -530,7 +530,7 @@
           "valueEffect": "5"
         },
         {
-          "effect": "singleCouncilPrivilege",
+          "effect": "multCouncilPrivileges",
           "valueEffect": "1"
         }
       ],

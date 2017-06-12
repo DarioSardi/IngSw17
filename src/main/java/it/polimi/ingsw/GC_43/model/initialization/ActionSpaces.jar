@@ -1,0 +1,72 @@
+{
+  "ActionSpaces": [
+    {
+      "FaithPoints": [
+        {
+          "position": "0",
+          "victoryPoint": "0"
+        },
+        {
+          "position": "1",
+          "victoryPoint": "1"
+        },
+        {
+          "position": "2",
+          "victoryPoint": "2"
+        },
+        {
+          "position": "3",
+          "victoryPoint": "3"
+        },
+        {
+          "position": "4",
+          "victoryPoint": "4"
+        },
+        {
+          "position": "5",
+          "victoryPoint": "5"
+        },
+        {
+          "position": "6",
+          "victoryPoint": "7"
+        },
+        {
+          "position": "7",
+          "victoryPoint": "9"
+        },
+        {
+          "position": "8",
+          "victoryPoint": "11"
+        },
+        {
+          "position": "9",
+          "victoryPoint": "13"
+        },
+        {
+          "position": "10",
+          "victoryPoint": "15"
+        },
+        {
+          "position": "11",
+          "victoryPoint": "17"
+        },
+        {
+          "position": "12",
+          "victoryPoint": "19"
+        },
+        {
+          "position": "13",
+          "victoryPoint": "22"
+        },
+        {
+          "position": "14",
+          "victoryPoint": "25"
+        },
+        {
+          "position": "15",
+          "victoryPoint": "30"
+        }
+      ]
+    }
+  ]
+}

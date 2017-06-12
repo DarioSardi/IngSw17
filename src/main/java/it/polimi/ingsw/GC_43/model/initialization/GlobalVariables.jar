@@ -1,40 +1,86 @@
 {
   "Global Variables": [
     {
-	"maxNumberOfPlayers": "5", 
-	"numberOfFamilyMembers": "4", 
-	"numberOfTowers": "4", 
-	"numberOfDice": "3",
-	"excommunicationRound": "2",
-	"totalNumberOfCardsPerSet": "24",
-	"towerCardsPerRound": "4", 
-	"towerCardsPerPeriod": "8", 
-	"floorsPerTower": "4", 
-	"totalNumberOfPeriods": "3", 
-	"maxNumberPlayerCards": "6",
-	"initialWoods": "2",
-	"initialStones": "2",
-	"initialServants": "3",
-	"initialFirstPlayerCoins": "5",
-	"initialSecondPlayerCoins": "6",
-	"initialThirdPlayerCoins": "7",
-	"initialFourthPlayerCoins": "8",
-	"initialVictoryPoints": "0",
-	"initialMilitaryPoints": "0",
-	"initialFaithPoints": "0",
-	"minDiceFirstHarvestArea": "1",
-	"minDiceSecondHarvestArea": "3",
-	"mindDiceFirstProductionArea": "1",
-	"mindDiceSecondProductionArea": "3",
-	"mindDiceValueCouncilPalace": "1",
-	"towerTax": "3",
-	"victoryPointsFirstMilitaryPower": "5",
-	"victoryPointsSecondMilitaryPower": "2",
-	"malusUnlimitedCells": "-3",
-	"maxVictoryPoints": "99",
-	"maxMilitaryPoints": "25",
-	"maxFaithPoints": "15",
-	"endResourcesToVictoryPoint": "5"
+      "maxNumberOfPlayers": "5",
+      "numberOfFamilyMembers": "4",
+      "numberOfTowers": "4",
+      "numberOfDice": "3",
+      "excommunicationRound": "2",
+      "totalNumberOfCardsPerSet": "24",
+      "towerCardsPerRound": "4",
+      "towerCardsPerPeriod": "8",
+      "floorsPerTower": "4",
+      "totalNumberOfPeriods": "3",
+      "maxNumberPlayerCards": "6",
+      "initialWoods": "2",
+      "initialStones": "2",
+      "initialServants": "3",
+      "initialFirstPlayerCoins": "5",
+      "initialSecondPlayerCoins": "6",
+      "initialThirdPlayerCoins": "7",
+      "initialFourthPlayerCoins": "8",
+      "initialVictoryPoints": "0",
+      "initialMilitaryPoints": "0",
+      "initialFaithPoints": "0",
+      "minDiceFirstHarvestArea": "1",
+      "minDiceSecondHarvestArea": "3",
+      "minDiceFirstProductionArea": "1",
+      "minDiceSecondProductionArea": "3",
+      "minDiceValueCouncilPalace": "1",
+      "towerTax": "3",
+      "victoryPointsFirstMilitaryPower": "5",
+      "victoryPointsSecondMilitaryPower": "2",
+      "malusUnlimitedCells": "-3",
+      "maxVictoryPoints": "99",
+      "maxMilitaryPoints": "25",
+      "maxFaithPoints": "15",
+      "endResourcesToVictoryPoint": "5",
+      "CouncilPrivileges": [
+        {
+          "Bonus": [
+            {
+              "type": "wood",
+              "value": "1"
+            },
+            {
+              "type": "stone",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Bonus": [
+            {
+              "type": "servant",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "Bonus": [
+            {
+              "type": "coin",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "Bonus": [
+            {
+              "type": "militaryPoint",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "Bonus": [
+            {
+              "type": "faithPoint",
+              "value": "1"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

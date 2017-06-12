@@ -20,7 +20,7 @@ public class ChoiceEffectInit {
 	}
 		
 	
-	public void multipleChoiceInit(ArrayList<Effect> bonus, JSONObject slide){	
+	public void multipleChoiceInit(JSONObject slide){	
 		JSONArray choices = (JSONArray) slide.get("Choices");
         Iterator<?> iter = choices.iterator();
         while (iter.hasNext()) {
@@ -65,4 +65,7 @@ public class ChoiceEffectInit {
      	else if (type.equals("victoryPoint")) resources.add(new VictoryPoint(value));
 	}
 	
+	public MultipleChoiceEffect getMultChoice(){
+		return this.multChoices;
+	}
 }

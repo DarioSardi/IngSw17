@@ -13,10 +13,6 @@ public class CardCostIterators {
 	private ArrayList<Resource> costs;
 	public CardCostIterators(CostEffect costEffect,Iterator<?> iter){
 		costs = new ArrayList<>();
-		iterator(costEffect,iter);
-	}
-	
-	public void iterator(CostEffect costEffect, Iterator<?> iter){
 		while (iter.hasNext()) {
 			JSONObject slide = (JSONObject) iter.next(); 
 			String typeCost = (String)slide.get("typeCost");
@@ -24,8 +20,8 @@ public class CardCostIterators {
 	       	 
 	       	 if (typeCost.equals("coin")) this.costs.add(new Coin(valueCost));
 	       	 else if (typeCost.equals("servant")) this.costs.add(new Servant(valueCost));
-	       	 else if (typeCost.equals("stone")) this.costs.add(new Stone(valueCost));
-	       	 else if (typeCost.equals("wood")) this.costs.add(new Wood(valueCost));		}
+	       	 else if (typeCost.equals("stone")) this.costs.add(new Stone(valueCost));		
+	    }
 	}
 
 	public ArrayList<Resource> getCosts() {

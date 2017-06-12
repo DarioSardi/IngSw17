@@ -9,13 +9,11 @@ import org.junit.Test;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.Resource;
-import it.polimi.ingsw.GC_43.model.Stone;
-import it.polimi.ingsw.GC_43.model.Wood;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.CostEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
+import it.polimi.ingsw.GC_43.model.resources.*;
 
 public class TowerTest {
 

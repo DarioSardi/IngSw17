@@ -13,7 +13,7 @@
       ],
       "PermanentBonus": [
         {
-          "effect": "singleCouncilPrivilege",
+          "effect": "multCouncilPrivileges",
           "valueEffect": "1"
         }
       ]
@@ -370,11 +370,11 @@
       "HarvestDice": "6",
       "InstantBonus": [
         {
-          "effect": "singleCouncilPrivilege",
+          "effect": "stone",
           "valueEffect": "1"
         },
         {
-          "effect": "stone",
+          "effect": "multCouncilPrivileges",
           "valueEffect": "1"
         }
       ],

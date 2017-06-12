@@ -1,0 +1,197 @@
+{
+  "ExcommunicationTiles": [
+    {
+	"period": "1",
+      "Malus": [
+        {
+          "type": "malusOnGetMilitaryPoints",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "period": "1",
+      "Malus": [
+        {
+          "type": "malusOnGetCoins",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "period": "1",
+      "Malus": [
+        {
+          "type": "malusOnFamilyMemberDiceValue",
+          "value": "1"
+        }
+      ]
+    },
+    {
+	"period": "1",
+      "Malus": [
+        {
+          "type": "malusOnHarvest",
+          "value": "3"
+        }
+      ]
+    },
+    {
+	"period": "1",
+      "Malus": [
+        {
+          "type": "malusOnGetWood",
+          "value": "3"
+        },
+        {
+          "type": "malusOnGetStone",
+          "value": "3"
+        }
+      ]
+    },
+    {
+      "period": "1",
+      "Malus": [
+        {
+          "type": "malusOnProduction",
+          "value": "3"
+        }
+      ]
+    },
+    {
+      "period": "1",
+      "Malus": [
+        {
+          "type": "malusOnGetServant",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "period": "2",
+      "Malus": [
+        {
+          "type": "malusOnCharacterTower",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "period": "2",
+      "Malus": [
+        {	    
+          "type": "twoServantsCountAsOne",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "period": "2",
+      "Malus": [
+        {
+          "type": "malusOnTerritoryTower",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "period": "2",
+      "Malus": [
+        {	    
+          "type": "malusOnFirstTurn",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "period": "2",
+      "Malus": [
+        {
+          "type": "malusOnBuildingTower",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "period": "2",
+      "Malus": [
+        {
+          "type": "malusOnMarket",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "period": "2",
+      "Malus": [
+        {
+          "type": "malusOnVentureTower",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "period": "3",
+      "Malus": [
+        {
+          "type": "malusOnFinalVictoryPoints",
+          "malusOn": "resource"
+        }
+      ]
+    },
+    {
+      "period": "3",
+      "Malus": [
+        {
+          "type": "malusOnFinalVictoryPoints",
+          "malusOn": "buildingCards"
+        }
+      ]
+    },
+    {
+      "period": "3",
+      "Malus": [
+        {
+          "type": "malusOnFinalVictoryPoints",
+          "malusOn": "militaryPoint"
+        }
+      ]
+    },
+    {
+      "period": "3",
+      "Malus": [
+        {
+          "type": "malusOnFinalVictoryPoints",
+          "malusOn": "ventureCards"
+        }
+      ]
+    },
+    {
+      "period": "3",
+      "Malus": [
+        {
+          "type": "malusOnFinalVictoryPoints",
+          "malusOn": "buildingCardCost"
+        }
+      ]
+    },
+    {
+      "period": "3",
+      "Malus": [
+        {
+          "type": "malusOnFinalVictoryPoints",
+          "malusOn": "territoryCard"
+        }
+      ]
+    },
+    {
+      "period": "3",
+      "Malus": [
+        {
+          "type": "malusOnFinalVictoryPoints",
+          "malusOn": "victoryPoint"
+        }
+      ]
+    }
+  ]
+}
