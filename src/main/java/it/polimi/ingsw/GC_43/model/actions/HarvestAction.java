@@ -6,20 +6,14 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 
 public class HarvestAction extends Action {
-    private Player player;
-    private String playerID;
-    private int familyMemberColor;
-    private FamilyMember familyMember;
-    private int ActionID;
-    //THINK OF ACTION ID BEST PRACTICE WAY
-    private int servantsUsed;
+
     private ArrayList<Integer> harvestChoices;
     private boolean primaryCellChosen;
 
     public HarvestAction(String playerID, Player player){
     	super(playerID,player);
         this.harvestChoices=new ArrayList<>();
-        this.ActionID=1;
+        this.setActionID(2);
     }
 
 

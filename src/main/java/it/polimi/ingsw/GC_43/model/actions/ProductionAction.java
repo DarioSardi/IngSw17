@@ -7,20 +7,14 @@ package it.polimi.ingsw.GC_43.model.actions;
 
 
 public class ProductionAction extends Action {
-    private Player player;
-    private String playerID;
-    private int familyMemberColor;
-    private FamilyMember familyMember;
-    private int ActionID;
-    //THINK OF ACTION ID BEST PRACTICE WAY
-    private int servantsUsed;
+
     private ArrayList<Integer> productionChoices;
     private boolean primaryCellChosen;
 
     public ProductionAction(String playerID, Player player){
     	super(playerID,player);
         this.productionChoices=new ArrayList<>();
-        this.ActionID=2;
+        this.setActionID(1);
     }
 
 

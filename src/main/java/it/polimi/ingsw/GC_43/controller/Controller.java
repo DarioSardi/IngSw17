@@ -49,30 +49,34 @@ public class Controller implements IController {
 	    	int actionID= action.getActionID();
 	    	boolean result;
 	    	switch(actionID){
-	    		case 0:
+	    		case 1:
 	    			ProductionAction productionAction=(ProductionAction) action;
-	    			ProductionActionPerformer productionActionImpl= new ProductionActionPerformer(productionAction, this.board);
+	    			ProductionActionPerformerRoutine productionActionImpl= new ProductionActionPerformerRoutine(productionAction, this.board);
 	    			result = productionActionImpl.performAction();
 	    			return result;
-	    		case 1:
+	    		case 2:
 	    			HarvestAction harvestAction=(HarvestAction) action;
-	    			HarvestActionPerformer harvestActionImpl= new HarvestActionPerformer(harvestAction, this.board);
+	    			HarvestActionPerformerRoutine harvestActionImpl= new HarvestActionPerformerRoutine(harvestAction, this.board);
 	    			result = harvestActionImpl.performAction();
 	    			return result;
 	    			
-	    		case 2:
+	    		case 3:
+	    			CouncilPalaceAction councilPalaceAction=(CouncilPalaceAction) action;
+	    			CouncilPalacePerformerRoutine councilPalaceActionImpl= new CouncilPalacePerformerRoutine(councilPalaceAction, this.board);
+	    			result = councilPalaceActionImpl.performAction();
+	    			return result;
+	    		case 4:
+	 /*   			CouncilPalaceAction councilPalaceAction=(CouncilPalaceAction) action;
+	    			CouncilPalacePerformerRoutine councilPalaceActionImpl= new CouncilPalacePerformerRoutine(councilPalaceAction, this.board);
+	    			result = councilPalaceActionImpl.performAction();
+	    			return result;*/
+	    			
 	    			
 	    		
 	    		default:
 	    			return false;
 	    	}
 	    }
-
-		@Override
-		public boolean login(String username, String Password) {
-			// TODO Auto-generated method stub
-			return false;
-		}
 
 
 }

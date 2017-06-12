@@ -6,10 +6,9 @@ import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actions.CouncilPalaceAction;
-import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
-import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
+import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 
 public class CouncilPalacePerformerRoutine implements ActionPerformer {
 	
@@ -32,8 +31,8 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 		//decide if to launch directly here in creation the performAction();
 		
 	}
-/*	
-public void performAction(){
+	
+public boolean performAction(){
 	this.checkResult=true;
 
 	Player player=this.councilPalaceAction.getPlayer();
@@ -43,7 +42,7 @@ public void performAction(){
 
 	checkAndTryAction(player, familyMember);
 	
-/*	
+	
 	if(checkResult==true){
 		return true;
 	}
@@ -60,57 +59,25 @@ public void performAction(){
 private void checkAndTryAction(Player player, FamilyMember familyMember){
 	
 	
-
-	checkFamilyMemberAlreadyPlaced(familyMember);
-	
 	checkServantsUsed(player, familyMember);
-	
-	checkHarvestCellSelection(familyMember);
-	
-	checkHarvestPerform(player, familyMember);
-	
-	
-	
-	
+		
+	checkCouncilPalacePerform(player, familyMember);
 
 
 }
 
 
-
-
-
-
-
-private void checkHarvestCellSelection(FamilyMember familyMember) {
-if(this.harvestAction.isPrimaryCellChosen()){
-	if(!this.board.getHarvestArea().getPrimarySpace().execute(familyMember))
-		this.checkResult=false;
-}
-else if(!this.harvestAction.isPrimaryCellChosen()){
-	if(board.getHarvestArea().getSecondarySpace()==null||!(this.board.getHarvestArea().getSecondarySpace().execute(familyMember)))
-		this.checkResult=false;
-}
-}
-
-
-
-private void checkFamilyMemberAlreadyPlaced(FamilyMember familyMember) {
-if(familyMember.isAlreadyPlaced()){
-	this.checkResult=false;
-}		
-}
 
 
 
 private void checkServantsUsed(Player player, FamilyMember familyMember) {
-int servantsUsed=this.harvestAction.getServantsUsed();
-if(!CommonActionPerformerRoutine.checkServansUsed(player,servantsUsed,familyMember))
-	this.checkResult=false;
+	int servantsUsed=this.councilPalaceAction.getServantsUsed();
+	if(!CommonActionPerformerRoutine.checkServansUsed(player,servantsUsed,familyMember))
+		this.checkResult=false;
 
-else{
-	player.subResource("servant", servantsUsed);
-}		
+	else{
+		player.subResource("servant", servantsUsed);
+	}		
 }
 
 
@@ -118,16 +85,14 @@ else{
 
 
 	
-private void checkHarvestPerform(Player player, FamilyMember familyMember) {
+private void checkCouncilPalacePerform(Player player, FamilyMember familyMember) {
 
-int dieValue=familyMember.getDiceValue()+this.harvestAction.getServantsUsed()+player.getPlayerBounusMalus().getBonusHarvestArea();
-
+int dieValue=familyMember.getDiceValue()+this.councilPalaceAction.getServantsUsed();
 	 
-for(TerritoryCard territoryCard: this.harvestAction.getPlayer().getPlayerCards().getArrayTerritoryCards()){
-	if(dieValue>=territoryCard.getProductionDice()){
-		for( Effect effect: territoryCard.getPermaBonus()){
-			if(effect.getClass().toString().contains("MultipleChoiceEffect"))
-				executeMultipleChoice((MultipleChoiceEffect) effect, player);	
+	if(dieValue>=this.board.getCouncilPalace().getCouncil().getMinDiceValue()){
+		for( Effect effect: this.board.getCouncilPalace().getCouncil().getBonus()){
+			if(effect.getClass().toString().contains("MultipleCouncilPrivileges"))
+				executeMultipleCouncilPrivileges((MultipleCouncilPrivileges)effect, player);	
 			
 			else
 				effect.executeEffect(familyMember);
@@ -135,12 +100,15 @@ for(TerritoryCard territoryCard: this.harvestAction.getPlayer().getPlayerCards()
 		}
 	}
 }
+private void executeMultipleCouncilPrivileges(MultipleCouncilPrivileges effect, Player player) {
+	executeMultipleChoice(effect.getPrivilegeChoices(),player);
 }
 
 
 
+
 private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
-int playerChoice=this.harvestAction.getHarvestChoices().get(index);
+int playerChoice=this.councilPalaceAction.getCouncilPalaceChoices().get(index);
 if(playerChoice!=-1){
 	if(effect.getChoices().get(playerChoice).check(player)){
 		effect.getChoices().get(playerChoice).executeEffect(player);
@@ -151,14 +119,9 @@ if(playerChoice!=-1){
 index++;
 }
 
-*/
 
 
-	@Override
-	public boolean performAction() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 
 }
