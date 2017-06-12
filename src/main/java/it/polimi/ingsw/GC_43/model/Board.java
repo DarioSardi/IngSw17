@@ -65,7 +65,7 @@ public Board(ArrayList playersID){
 	
 		this.playersID=new ArrayList<String>();
 		this.playersID=playersID;
-//		this.victoryPositionPoints= new int[GlobalVariables.maxFaithPoints+1];
+		this.victoryPositionPoints= new int[GlobalVariables.maxFaithPoints+1];
 
         
 		GlobalVariables.numberOfPlayers=playersID.size();

@@ -13,7 +13,7 @@ private Card card;
 private Tower tower;
 
 
-public Floor(Effect bonus,Tower tower, Integer minDiceValue) {
+public Floor(ArrayList<Effect> bonus,Tower tower, Integer minDiceValue) {
 	super();
 	this.setMinDiceValue(minDiceValue);
 	this.setBonus(bonus);
@@ -59,7 +59,8 @@ public boolean check(FamilyMember f) {
 public boolean execute(FamilyMember f) {
 	if(this.check(f)){	
 		CardHandler.buyCard(this, f,this.card, this.floorOccupied);
-		this.getBonus().executeEffect(f);
+		for(Effect effect : this.getBonus())
+			effect.executeEffect(f);
 		this.getFamiliarIn().add(f);
 		f.setAlreadyPlaced(true);
 		f.setFamilyMemberPosition(this);
@@ -82,7 +83,9 @@ StringBuilder sb= new StringBuilder();
 	sb.append("Floor dice requirement: "+ String.valueOf(this.getMinDiceValue()));
 	sb.append("\n");
 	if(this.getBonus()!=null){
-		sb.append("Floor bonus: \n "+this.getBonus().toString());}
+		sb.append("Floor bonus: \n ");
+		for(Effect effect : this.getBonus())
+			sb.append(effect.toString());}
 	else{sb.append("Floor bonus: no bonus here");}
 	sb.append("\n");
 	if(this.getCard()!=null){

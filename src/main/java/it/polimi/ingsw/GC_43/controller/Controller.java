@@ -1,14 +1,14 @@
 package it.polimi.ingsw.GC_43.controller;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.actionPerforms.ProductionActionPerformer;
-import it.polimi.ingsw.GC_43.model.actions.Action;
-import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
+import it.polimi.ingsw.GC_43.model.actionPerforms.*;
+import it.polimi.ingsw.GC_43.model.actions.*;
 import it.polimi.ingsw.GC_43.model.initialization.InitGame;
 
 public class Controller implements IController {
@@ -47,14 +47,18 @@ public class Controller implements IController {
 	    
 	    public boolean submit(Action action){
 	    	int actionID= action.getActionID();
+	    	boolean result;
 	    	switch(actionID){
 	    		case 0:
 	    			ProductionAction productionAction=(ProductionAction) action;
 	    			ProductionActionPerformer productionActionImpl= new ProductionActionPerformer(productionAction, this.board);
-	    			boolean result = productionActionImpl.performAction();
+	    			result = productionActionImpl.performAction();
 	    			return result;
 	    		case 1:
-	    			
+	    			HarvestAction harvestAction=(HarvestAction) action;
+	    			HarvestActionPerformer harvestActionImpl= new HarvestActionPerformer(harvestAction, this.board);
+	    			result = harvestActionImpl.performAction();
+	    			return result;
 	    			
 	    		case 2:
 	    			

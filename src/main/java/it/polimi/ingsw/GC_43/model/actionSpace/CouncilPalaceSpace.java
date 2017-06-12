@@ -1,10 +1,14 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class CouncilPalaceSpace extends Space {
-	public CouncilPalaceSpace(int minDiceValue, ActionArea actionArea,Effect bonus) {
+	
+	
+	public CouncilPalaceSpace(int minDiceValue, ActionArea actionArea,ArrayList<Effect> bonus) {
 		super(true, minDiceValue, actionArea,bonus);
 	}
 	

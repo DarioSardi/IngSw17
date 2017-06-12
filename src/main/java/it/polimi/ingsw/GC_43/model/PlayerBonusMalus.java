@@ -1,8 +1,10 @@
 package it.polimi.ingsw.GC_43.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 
 public class PlayerBonusMalus {
@@ -43,6 +45,11 @@ public class PlayerBonusMalus {
 //Bonus (coins discount) on acquiring cards in towers
 	
 	private HashMap<String,Integer> bonusCoinsOnBuyInTowers;
+	
+	//BONUS PRODUCTION AREA 
+	
+	private ArrayList<Effect> bonusHarvestEffect;
+	private ArrayList<Effect> bonusProductionEffect;
 
 	
 	
@@ -68,6 +75,9 @@ public class PlayerBonusMalus {
 		this.bonusCoinsOnBuyInTowers.put("characterCard", 0);
 		this.bonusCoinsOnBuyInTowers.put("ventureCard", 0);
 		this.bonusCoinsOnBuyInTowers.put("buildingCard", 0);
+		bonusHarvestEffect=new ArrayList<Effect>();
+		bonusProductionEffect=new ArrayList<Effect>();
+		
 
 		
 	}
@@ -167,6 +177,27 @@ public class PlayerBonusMalus {
 	public HashMap<String, Integer> getBonusCoinsOnBuyInTowers() {
 		return bonusCoinsOnBuyInTowers;
 	}
+
+	public ArrayList<Effect> getBonusHarvestEffect() {
+		return bonusHarvestEffect;
+	}
+
+	public void setBonusHarvestEffect(ArrayList<Effect> bonusHarvestEffect) {
+		this.bonusHarvestEffect = bonusHarvestEffect;
+	}
+
+	public ArrayList<Effect> getBonusProductionEffect() {
+		return bonusProductionEffect;
+	}
+
+	public void setBonusProductionEffect(ArrayList<Effect> bonusProductionEffect) {
+		this.bonusProductionEffect = bonusProductionEffect;
+	}
+
+	public void setBonusCoinsOnBuyInTowers(HashMap<String, Integer> bonusCoinsOnBuyInTowers) {
+		this.bonusCoinsOnBuyInTowers = bonusCoinsOnBuyInTowers;
+	}
+	
 
 	
 

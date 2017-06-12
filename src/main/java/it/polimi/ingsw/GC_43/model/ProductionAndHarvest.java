@@ -6,7 +6,7 @@ import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
-public class ProductionAndHArvest {
+public class ProductionAndHarvest {
 	
 	public static boolean harvestAction(FamilyMember f, int dicevalue) throws ExecutionException{
 		for(TerritoryCard c: f.getPlayer().getPlayerCards().getArrayTerritoryCards())

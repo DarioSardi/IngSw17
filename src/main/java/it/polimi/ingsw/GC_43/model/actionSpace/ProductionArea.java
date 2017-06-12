@@ -1,5 +1,7 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
@@ -7,7 +9,7 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class ProductionArea extends ActionArea{
 		
-	public ProductionArea(Effect e) {
+	public ProductionArea(ArrayList<Effect> e) {
 		this.getSpaces().add(new Space(false,GlobalVariables.minDiceValueHarvestArea,this,e));
 		if(GlobalVariables.numberOfPlayers>=3){
 		this.getSpaces().add(new Space(true,GlobalVariables.minDiceValueHarvestArea,this,e));

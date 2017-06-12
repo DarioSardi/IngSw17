@@ -5,6 +5,8 @@ import java.util.HashMap;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.model.actions.HarvestAction;
 import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
@@ -12,7 +14,7 @@ import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 
 
-public class ProductionActionPerformer{
+public class ProductionActionPerformer implements ActionPerformer{
 	private ProductionAction productionAction;
 	private boolean checkResult;
 	private Board board;
@@ -36,10 +38,11 @@ public class ProductionActionPerformer{
 	
 	
 	public boolean performAction() {
+		
 		this.checkResult=true;
 
 		Player player=this.productionAction.getPlayer();
-		FamilyMember familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, productionAction.getFamilyMemberColor());
+		FamilyMember familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, this.productionAction.getFamilyMemberColor());
 		HashMap<String,Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
 
 
@@ -47,7 +50,6 @@ public class ProductionActionPerformer{
 		
 		
 		if(checkResult==true){
-			executeAction();
 			return true;
 		}
 		else{
@@ -60,10 +62,6 @@ public class ProductionActionPerformer{
 	
 	
 	
-	private void executeAction() {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 	private void checkAndTryAction(Player player, FamilyMember familyMember){
@@ -97,7 +95,7 @@ public class ProductionActionPerformer{
 				this.checkResult=false;
 		}
 		else if(!this.productionAction.isPrimaryCellChosen()){
-			if(board.getProductionArea().getSecondarySpace()!=null&&!this.board.getProductionArea().getSecondarySpace().execute(familyMember))
+			if(board.getProductionArea().getSecondarySpace()==null||!(this.board.getProductionArea().getSecondarySpace().execute(familyMember)))
 				this.checkResult=false;
 		}
 	}
@@ -159,6 +157,11 @@ public class ProductionActionPerformer{
 			}
 		index++;
 	}
+
+
+
+
+
 }
   
 	

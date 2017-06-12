@@ -8,7 +8,7 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 public abstract class ActionSpace {
 	private int minDiceValue;
 	private ArrayList<FamilyMember> familiarIn=new ArrayList<>();
-	private Effect bonus;
+	private ArrayList<Effect> bonus;
 	
 	public abstract boolean check(FamilyMember f);
 
@@ -39,11 +39,11 @@ public abstract class ActionSpace {
 		this.familiarIn.add(f);
 	}
 
-	public Effect getBonus() {
+	public ArrayList<Effect> getBonus() {
 		return bonus;
 	}
 
-	public void setBonus(Effect bonus) {
+	public void setBonus(ArrayList<Effect> bonus) {
 		this.bonus = bonus;
 	}
 	
@@ -54,7 +54,8 @@ public abstract class ActionSpace {
 	 */
 	public boolean execute(FamilyMember f){
 		if(check(f)){
-			this.getBonus().executeEffect(f); 
+			for(Effect effect: this.bonus)
+				effect.executeEffect(f); 
 			this.getFamiliarIn().add(f);
 			f.setAlreadyPlaced(true);
 			f.setFamilyMemberPosition(this);

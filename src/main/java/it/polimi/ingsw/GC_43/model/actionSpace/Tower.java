@@ -71,7 +71,7 @@ public class Tower{
 		sb.append(this.getTowerColor().toString()+" info:\n");
 		sb.append("number of floors on this tower: "+this.floorsNumber);
 		sb.append("\n");
-		sb.append("did you have to pay the tax to enter here? "+this.towerOccupied);
+		sb.append("do you have to pay the tax to enter here? "+this.towerOccupied);
 		sb.append("\n");
 		sb.append("-----------------------\n");
 		for (Floor floor: this.floors) {
@@ -89,7 +89,7 @@ public class Tower{
 	 * @param minDiceValue
 	 * @throws Exception 
 	 */
-	public void addFloor(Effect bonus, Integer minDiceValue) throws Exception {
+	public void addFloor(ArrayList<Effect> bonus, Integer minDiceValue) throws Exception {
 		if (this.floorsNumber<maxFloors) {
 			this.floors.add(new Floor(bonus, this, minDiceValue));
 			this.floorsNumber = this.floorsNumber + 1;

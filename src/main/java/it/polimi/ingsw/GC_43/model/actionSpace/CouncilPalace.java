@@ -9,7 +9,7 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class CouncilPalace extends ActionArea{
 
-	public CouncilPalace(Effect e) {
+	public CouncilPalace(ArrayList<Effect> e) {
 		
 		this.getSpaces().add(new CouncilPalaceSpace(GlobalVariables.minDiceValueCouncilPalace, this,e));
 	}

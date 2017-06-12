@@ -1,16 +1,14 @@
 package it.polimi.ingsw.GC_43.model.actionCreations;
 
         import java.util.HashMap;
-import java.util.Scanner;
 
 import it.polimi.ingsw.GC_43.model.Board;
-        import it.polimi.ingsw.GC_43.model.FamilyMember;
-        import it.polimi.ingsw.GC_43.model.GlobalVariables;
-        import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
+import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
 import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
-import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
@@ -41,22 +39,23 @@ public class ProductionActionCreationRoutine implements ActionCreation {
         return false;
     }
 //TODO ricordati di fare execute effect sugli space se l'azione va buon fine
-    private void selectProductionSpace(ProductionArea productionArea) {
+    private boolean selectProductionSpace(ProductionArea productionArea) {
 
         if(productionArea.getSpaces().isEmpty()){
             System.out.println("\nPrimary empty cell selected\n");
             this.productionAction.setPrimaryCellChosen(true);
-            productionArea.getPrimarySpace().execute(this.productionAction.getFamilyMember());
         }
         else{
-	//		System.out.println("\nPrimary production cell occupied, secondary production cell selected. Family Member will receive a malus on die value of \n"+GlobalVariables.malusUnlimitedCells);
+        	if(productionArea.getPrimarySpace().execute(this.productionAction.getFamilyMember())){
+
+        	System.out.println("\nPrimary production cell occupied, secondary production cell selected. Family Member will receive a malus on die value of \n"+GlobalVariables.malusUnlimitedCells);
             this.productionAction.setPrimaryCellChosen(false);
-//			this.productionAction.getFamilyMember().subFamilyMemberValue(GlobalVariables.malusUnlimitedCells);
-            productionArea.getPrimarySpace().execute(this.productionAction.getFamilyMember());
+			return productionArea.check((this.productionAction.getFamilyMember()));
 
-        }
-        
 
+        	}
+       }
+       return true;
     }
 
     

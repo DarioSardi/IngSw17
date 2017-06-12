@@ -1,11 +1,12 @@
 package it.polimi.ingsw.GC_43.model.actions;
 
-        import java.util.ArrayList;
+        import java.io.Serializable;
+import java.util.ArrayList;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 
-public abstract class Action {
+public abstract class Action implements Serializable {
     private Player player;
     private String playerID;
     private int familyMemberColor;
@@ -14,7 +15,15 @@ public abstract class Action {
     //THINK OF ACTION ID BEST PRACTICE WAY
     private int servantsUsed;
     private ArrayList<Integer> Choices;
-    private boolean primaryCellChosen;
+    
+    
+    public Action(String playerID, Player player ){
+        this.servantsUsed=0;
+        this.player=player;
+        this.playerID=playerID;
+
+    	
+    }
 
     public String getPlayerID() {
         return playerID;
@@ -58,12 +67,7 @@ public abstract class Action {
 	public void setChoices(ArrayList<Integer> choices) {
 		Choices = choices;
 	}
-	public boolean isPrimaryCellChosen() {
-		return primaryCellChosen;
-	}
-	public void setPrimaryCellChosen(boolean primaryCellChosen) {
-		this.primaryCellChosen = primaryCellChosen;
-	}
+
     
 
 

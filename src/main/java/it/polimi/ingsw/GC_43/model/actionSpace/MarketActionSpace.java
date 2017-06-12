@@ -1,12 +1,14 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
+import java.util.ArrayList;
+
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class MarketActionSpace extends ActionSpace {
 
 	
-	public MarketActionSpace(Effect e, int minDiceValue) {
+	public MarketActionSpace(ArrayList<Effect> e, int minDiceValue) {
 		this.setBonus(e);
 		this.setMinDiceValue(minDiceValue);
 	}
@@ -28,7 +30,10 @@ public class MarketActionSpace extends ActionSpace {
 	
 	@Override
 	public String toString(){
-		return "in this market you will get : "+ this.getBonus().toString();	
+		String toString= "in this market you will get : ";
+		for(Effect effect : this.getBonus())
+			toString=toString+effect.toString();
+		return toString;	
 	}
 
 }
