@@ -32,7 +32,7 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 		//decide if to launch directly here in creation the performAction();
 		
 	}
-	
+/*	
 public void performAction(){
 	this.checkResult=true;
 
@@ -43,7 +43,7 @@ public void performAction(){
 
 	checkAndTryAction(player, familyMember);
 	
-	
+/*	
 	if(checkResult==true){
 		return true;
 	}
@@ -151,8 +151,15 @@ if(playerChoice!=-1){
 index++;
 }
 
+*/
 
 
+	@Override
+	public boolean performAction() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
 }
+
