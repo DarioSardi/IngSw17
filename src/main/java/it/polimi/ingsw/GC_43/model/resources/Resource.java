@@ -7,6 +7,6 @@ public abstract class Resource {
 	public abstract String getResourceType();
 	
 	public String toString(){
-		return "resource type: " + this.getResourceType() +" "+ this.getValue();
+		return this.getResourceType() +": "+ this.getValue();
 	}
 }

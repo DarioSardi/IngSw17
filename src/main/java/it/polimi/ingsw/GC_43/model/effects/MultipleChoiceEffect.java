@@ -10,10 +10,10 @@ public class MultipleChoiceEffect extends Effect {
 		private ArrayList<ChoiceEffect> choices;
 		
 		public String toString(){
-			String toString="Multiple one to one exchange effect ";
+			String toString="Multiple one to one exchange effect\n";
 			int number =0;
 			for(ChoiceEffect choiceEffect:this.choices){
-				toString=toString+"choice number "+number+": "+choiceEffect.toString()+"\n";
+				toString=toString+"choice number "+number+" -> \n   "+choiceEffect.toString()+"\n";
 				number++;
 			}
 			
