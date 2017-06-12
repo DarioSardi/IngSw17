@@ -72,6 +72,13 @@ public abstract class ActionSpace {
 	public void resetSpace(){
 		this.familiarIn.clear();
 	}
-
+	
+	/**
+	 * 
+	 * @return true if the space is occupied
+	 */
+	public boolean isOccupied(){
+		return !familiarIn.isEmpty();
+	}
 	
 }
