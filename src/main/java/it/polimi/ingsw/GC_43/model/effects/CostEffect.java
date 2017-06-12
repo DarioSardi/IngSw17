@@ -18,7 +18,7 @@ public class CostEffect extends Effect {
 	public String toString(){
 		String toString= "The cost is equal to: \n ";
 		for(Resource resource:Costs){
-			toString= toString+resource.getResourceType()+": "+resource.getValue()+"\n";
+			toString= toString+resource.getResourceType()+": "+resource.getValue()+"\n ";
 		}
 		return toString;
 	}

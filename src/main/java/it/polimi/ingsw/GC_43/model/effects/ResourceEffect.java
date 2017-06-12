@@ -84,7 +84,7 @@ public class ResourceEffect extends Effect {
         }
 
         public String toString(){
-            String toString = this.resource.toString(); 
+            String toString = "  "+this.resource.toString()+"\n"; 
             return toString;
 
         }

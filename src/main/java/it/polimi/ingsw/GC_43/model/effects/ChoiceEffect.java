@@ -19,11 +19,11 @@ public class ChoiceEffect extends Effect{
 	}
 	public String toString(){
 
-		String toString="Costs: ";
+		String toString="Costs = ";
 		for(Resource cost:this.costs){
 			toString=toString+cost.getResourceType()+": "+cost.getValue()+" ";
 		}
-		toString=toString+"\ngains: ";
+		toString=toString+"\n   gains = ";
 
 		for(Resource gain:this.gains){
 			toString=toString+gain.getResourceType()+": "+gain.getValue()+" ";

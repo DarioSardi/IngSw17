@@ -19,7 +19,7 @@ public class MultipleCouncilPrivileges extends Effect {
 	
 	public MultipleCouncilPrivileges(int numberOfCopies) {
 		this.numberOfCopies=numberOfCopies;
-//		this.privilegeChoices=GlobalVariables.councilPriviledgeEffect;
+		this.privilegeChoices=GlobalVariables.councilPrivilegeEffect;
 	}
 	
 
