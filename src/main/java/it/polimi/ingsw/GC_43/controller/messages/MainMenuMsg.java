@@ -4,17 +4,26 @@ import java.util.Scanner;
 
 public class MainMenuMsg extends ChoiceMessage {
 
-	Scanner s;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8991875641686943483L;
 	Integer subChoice;
 	
 	public MainMenuMsg() {
-		this.s = new Scanner(System.in);
 		this.answer=-1;
 		this.subChoice=-1;
 	}
+	
 
 	@Override
 	public void choose() {
+		System.out.println("\n\n\n\n");
+		System.out.println("Menu di gioco");
+		System.out.println("1. crea una nuova partita");
+		System.out.println("2. seleziona una lobby");	
+		System.out.println("3. esci");	
 		
 		while(this.answer==-1){
 		System.out.println("sei nel menù,scegli!");

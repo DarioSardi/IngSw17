@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
+import it.polimi.ingsw.GC_43.controller.QuerySolver;
 import it.polimi.ingsw.GC_43.controller.messages.ConnectionDataMsg;
 import it.polimi.ingsw.GC_43.controller.messages.SimpleMsg;
 
@@ -19,7 +20,6 @@ public class ClientOutHandler implements Runnable {
 	public ClientOutHandler(ObjectOutputStream socketOut,Client myClient) {
 		this.socketOut=socketOut;
 		this.myClient=myClient;
-		this.solver= new QuerySolver();
 	}
 
 	@Override
@@ -33,10 +33,10 @@ public class ClientOutHandler implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//DARIO modificare con variabile "busy" per non far inviare input se sto eseguendo un messaggio
 		while(true){
-			String msg=userIn.nextLine();
-			sendClientMsg(msg);
+			//String msg=userIn.nextLine();
+			//sendClientMsg(msg);
 			
 		}
 

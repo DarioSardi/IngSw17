@@ -1,15 +1,18 @@
 package it.polimi.ingsw.GC_43.controller.messages;
 
-public class SimpleMsg extends Message{
-	private String choice;
+import java.io.Serializable;
 
-	public SimpleMsg(String choice) {
-		this.choice = choice;
+public class SimpleMsg extends Message implements Serializable{
+	private String msg;
+
+	public SimpleMsg(String msg) {
+		this.msg = msg;
 	}
 
-	public String getChoice() {
-		return choice;
+	public String getMsg() {
+		return msg;
 	}
 	
 	
 }
+

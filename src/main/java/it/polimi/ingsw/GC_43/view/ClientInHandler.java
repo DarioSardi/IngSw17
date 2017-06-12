@@ -1,8 +1,11 @@
 package it.polimi.ingsw.GC_43.view;
 
+import java.awt.Choice;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Scanner;
 
+import it.polimi.ingsw.GC_43.controller.messages.ChoiceMessage;
 import it.polimi.ingsw.GC_43.controller.messages.ConnectionDataMsg;
 import it.polimi.ingsw.GC_43.controller.messages.SimpleMsg;
 
@@ -24,23 +27,60 @@ public class ClientInHandler implements Runnable {
 		//Set ID of user
 		myClient.setID(readID().getID());
 		System.out.println("client ID is now: " + myClient.getID());
-		//print menu
-		menu();
-		//read while
 		while(true){
-			line = readSimpleIn().getChoice();
-			System.out.println(line);	}
+			try {
+				readInObject();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	}
 		}
 	
 	
-	private void menu(){
-		System.out.println("\n\n\n\n");
-		System.out.println("Menu di gioco");
-		System.out.println("1. crea una nuova partita");
-		System.out.println("2. seleziona una lobby");	
-		System.out.println("3. esci");	
+	private void readInObject() throws Exception {
+		try {
+			System.out.println("provo a leggere");
+			Object msg=this.socketIn.readObject();
+			//choice
+			if(msg instanceof ChoiceMessage){
+				ChoiceMessage c= (ChoiceMessage) msg;
+				System.out.println("è un messaggio choice");
+				choiceMsgRead(c);
+			}
+			//msg
+			else if(msg instanceof SimpleMsg)
+			{
+				simpleMsgRead((SimpleMsg) msg);
+			}
+			else if (msg instanceof Object){
+				System.out.println("formato sconosciuto");
+			}
+			else
+			{throw new Exception("non so cosa sia successo");}
+		
+		
+		
+		
+		
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
+
+	private void simpleMsgRead(SimpleMsg msg) {
+		System.out.println(msg.getMsg());
+	}
+
+	private void choiceMsgRead(ChoiceMessage msg) {
+		msg.setScanner(new Scanner(System.in));
+		msg.choose();
+	}
+
 	
 	
 	@Override
@@ -59,16 +99,6 @@ public class ClientInHandler implements Runnable {
 	}
 	
 
-	private SimpleMsg readSimpleIn() {
-		try {
-			return (SimpleMsg) this.socketIn.readObject();
-		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
+	
 
 }
