@@ -57,8 +57,16 @@ public class GlobalVariablesInit {
 		       	GlobalVariables.maxMilitaryPoints = Integer.valueOf((String)slides.get("maxMilitaryPoints"));
 		       	GlobalVariables.maxFaithPoints = Integer.valueOf((String)slides.get("maxFaithPoints"));
 		       	GlobalVariables.endResourcesToVictoryPoint = Integer.valueOf((String)slides.get("endResourcesToVictoryPoint"));
+		       	
+		       	
+		    	CouncilPrivilegeInit cpi = new CouncilPrivilegeInit();
+				cpi.multipleChoiceInit(slides);
+				GlobalVariables.councilPrivilegeEffect = cpi.getMultChoice();       			       	
+		       	
 		       	System.out.println("inizializzate tutte le variabili globali");
-		    }				
+	        }   	
+		       
+		    			
         } catch (Exception e) {
             e.printStackTrace();
         }

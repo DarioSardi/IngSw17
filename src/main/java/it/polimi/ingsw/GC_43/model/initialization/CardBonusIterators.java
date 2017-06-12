@@ -22,9 +22,10 @@ public class CardBonusIterators {
 		
 	private void effectIterator(ArrayList<Effect> bonus, JSONObject slide){
 		String effect = (String)slide.get("effect");
-		int valueEffect = Integer.valueOf((String)slide.get("valueEffect"));
-		if (effect.equals("addDiceValueBuildingTower")) bonus.add(new AdditionalDiceValueToTower("buildingTower", valueEffect));
-		else if (effect.equals("addDiceValueCharacterTower")) bonus.add(new AdditionalDiceValueToTower("characterTower", valueEffect));
+		double valueDouble = Double.parseDouble((String)slide.get("valueEffect"));
+		int valueEffect = (int) valueDouble;
+		if ("addDiceValueBuildingTower".equalsIgnoreCase(effect)) bonus.add(new AdditionalDiceValueToTower("buildingTower", valueEffect));
+		else if ("addDiceValueCharacterTower".equalsIgnoreCase(effect)) bonus.add(new AdditionalDiceValueToTower("characterTower", valueEffect));
 		else if (effect.equals("addDiceValueTerritoryTower")) bonus.add(new AdditionalDiceValueToTower("territoryTower", valueEffect));
 		else if (effect.equals("addDiceValueVentureTower")) bonus.add(new AdditionalDiceValueToTower("ventureTower", valueEffect));	
 		else if (effect.equals("addProductionDiceValue")) bonus.add(new AdditionalValueToDiceOnProduction(valueEffect));
@@ -40,27 +41,28 @@ public class CardBonusIterators {
 		else if (effect.equals("extraHarvest")) bonus.add(new ExtraHarvestAction(valueEffect));
 
 		else if (effect.equals("malusColouredFamilyMemberValue")) bonus.add(new MalusOnColouredFamilyMemberDiceValue(valueEffect));
-	//	else if (effect.equals("malusFinalVictoryPoints")) bonus.add(new MalusOnFinalVictoryPoints(""));
 		else if (effect.equals("malusServant")) bonus.add(new TwoServantsCountAsOne());
 
 		else if (effect.equals("multCouncilPrivileges")) bonus.add(new MultipleCouncilPrivileges(valueEffect));
-		else if (effect.equals("multVictoryPointsBuilding")) bonus.add(new VictoryPointsMultiplierEffect(valueEffect, "buildingCards"));
-		else if (effect.equals("multVictoryPointsCharacter")) bonus.add(new VictoryPointsMultiplierEffect(valueEffect, "characterCards"));
-		else if (effect.equals("multVictoryPointsTerritory")) bonus.add(new VictoryPointsMultiplierEffect(valueEffect, "territoryCards"));
-		else if (effect.equals("multVictoryPointsVenture")) bonus.add(new VictoryPointsMultiplierEffect(valueEffect, "ventureCards"));
-		else if (effect.equals("multVictoryPointsMilitaryPoint")) bonus.add(new VictoryPointsMultiplierEffect(valueEffect, "militaryPoint"));
+		/*	else if (effect.equals("multVictoryPointsBuilding")) bonus.add(new VictoryPointsMultiplierEffect(valueDouble, "buildingCards"));
+		else if (effect.equals("multVictoryPointsCharacter")) bonus.add(new VictoryPointsMultiplierEffect(valueDouble, "characterCards"));
+		else if (effect.equals("multVictoryPointsTerritory")) bonus.add(new VictoryPointsMultiplierEffect(valueDouble, "territoryCards"));
+		else if (effect.equals("multVictoryPointsVenture")) bonus.add(new VictoryPointsMultiplierEffect(valueDouble, "ventureCards"));
+		else if (effect.equals("multVictoryPointsMilitaryPoint")) bonus.add(new VictoryPointsMultiplierEffect(valueDouble, "militaryPoint"));
+	*/
 		else if (effect.equals("multCoinsBuilding")) bonus.add(new CoinsMultiplierEffect(valueEffect, "buildingCards"));
 		else if (effect.equals("multCoinsTerritory")) bonus.add(new CoinsMultiplierEffect(valueEffect, "territoryCards"));
 		else if (effect.equals("multExchange")) {			
-			ChoiceEffectInit cEI = new ChoiceEffectInit();
-			cEI.multipleChoiceInit(bonus, slide);		
+			ChoiceEffectInit cei = new ChoiceEffectInit();
+			cei.multipleChoiceInit(slide);
+			bonus.add(cei.getMultChoice()); 
 		}
 		else if (effect.equals("extraCard")) bonus.add(new PickExtraCardFromTower(valueEffect));
 		else if (effect.equals("extraBuildingCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "buildingCards"));
 		else if (effect.equals("extraCharacterCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "characterCards"));
 		else if (effect.equals("extraTerritoryCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "territoryCards"));
 		else if (effect.equals("extraVentureCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "ventureCards"));
-/*		else if (effect.equals("extraTemporaryDiscountBuiilding")) bonus.add(new ExtraTemporaryDiscountOnBuyCards(valueEffect, "buiildingCards"));
+/*		else if (effect.equals("extraTemporaryDiscountBuilding")) bonus.add(new ExtraTemporaryDiscountOnBuyCards(valueEffect, "buiildingCards"));
 		else if (effect.equals("extraTemporaryDiscountCharacter")) bonus.add(new ExtraTemporaryDiscountOnBuyCards(valueEffect, "characterCards"));
 		else if (effect.equals("extraTemporaryDiscountTerritory")) bonus.add(new ExtraTemporaryDiscountOnBuyCards(valueEffect, "territoryCards"));
 		else if (effect.equals("extraTemporaryDiscountVenture")) bonus.add(new ExtraTemporaryDiscountOnBuyCards(valueEffect, "ventureCards"));

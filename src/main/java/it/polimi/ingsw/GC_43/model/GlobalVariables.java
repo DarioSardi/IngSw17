@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GC_43.model;
 
+import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
 
 public class GlobalVariables {
@@ -40,7 +41,7 @@ public class GlobalVariables {
 	   public static int maxFaithPoints;
 	   public static int endResourcesToVictoryPoint;
 	   
-	   public static ResourceEffect councilPriviledgeEffect;
+	   public static MultipleChoiceEffect councilPrivilegeEffect;
 	   public static int malusUnlimitedCells;
 	   
 
