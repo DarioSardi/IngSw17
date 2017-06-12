@@ -12,13 +12,13 @@ import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 
-public class HarvestActionPerformer implements ActionPerformer {
+public class HarvestActionPerformerRoutine implements ActionPerformer {
 	private HarvestAction harvestAction;
 	private boolean checkResult;
 	private Board board;
 	private int index;
 	
-	public HarvestActionPerformer(HarvestAction harvestAction, Board board){
+	public HarvestActionPerformerRoutine(HarvestAction harvestAction, Board board){
 		this.harvestAction=harvestAction;
 		this.checkResult=false;
 		this.board=board;

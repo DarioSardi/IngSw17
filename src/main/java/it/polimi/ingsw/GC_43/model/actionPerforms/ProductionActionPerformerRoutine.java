@@ -14,7 +14,7 @@ import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 
 
-public class ProductionActionPerformer implements ActionPerformer{
+public class ProductionActionPerformerRoutine implements ActionPerformer{
 	private ProductionAction productionAction;
 	private boolean checkResult;
 	private Board board;
@@ -25,7 +25,7 @@ public class ProductionActionPerformer implements ActionPerformer{
 	//@require player instance inside the productionAction to be changed into the real one on the server
 	//decide if the match of player is better inside here
 	
-	public ProductionActionPerformer(ProductionAction productionAction, Board board){
+	public ProductionActionPerformerRoutine(ProductionAction productionAction, Board board){
 		
 		this.productionAction=productionAction;
 		this.checkResult=false;

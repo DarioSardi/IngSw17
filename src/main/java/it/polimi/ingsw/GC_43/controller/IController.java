@@ -5,7 +5,7 @@ import java.util.Map;
 
 
 public interface IController {
-    boolean login(String username, String Password);
+ //   boolean login(String username, String Password);
 
 //    Map<String, Integer> getRecords();
 

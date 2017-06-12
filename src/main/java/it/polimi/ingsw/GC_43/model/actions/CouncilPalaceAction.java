@@ -7,19 +7,12 @@ import it.polimi.ingsw.GC_43.model.Player;
 
 public class CouncilPalaceAction extends Action{
 	
-    private Player player;
-    private String playerID;
-    private int familyMemberColor;
-    private FamilyMember familyMember;
-    private int ActionID;
-    //THINK OF ACTION ID BEST PRACTICE WAY
-    private int servantsUsed;
     private ArrayList<Integer> councilPalaceChoices;
 
     public CouncilPalaceAction(String playerID, Player player){
     	super(playerID,player);
         this.councilPalaceChoices=new ArrayList<>();
-        this.ActionID=2;
+        this.setActionID(3);
     }
 
 
