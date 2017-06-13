@@ -8,7 +8,7 @@ public class LobbyJoiningMsg extends ChoiceMessage{
 	
 	@Override
 	public void choose() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

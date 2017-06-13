@@ -100,5 +100,13 @@ public class Server {
 		System.out.println(sb.toString());
 		return sb.toString();
 	}
+	
+	public ArrayList<Integer> getLobbiesNumbers(){
+		ArrayList<Integer> lobbiesNumber=new ArrayList<>();
+		lobbies.entrySet().stream().forEach(lobby->lobbiesNumber.add(lobby.getKey()));
+		return lobbiesNumber;
+		
+	}
+	
 }
 

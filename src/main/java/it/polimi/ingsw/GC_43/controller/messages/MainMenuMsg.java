@@ -9,17 +9,14 @@ public class MainMenuMsg extends ChoiceMessage {
 	 * 
 	 */
 	private static final long serialVersionUID = -8991875641686943483L;
-	Integer subChoice;
 	
 	public MainMenuMsg() {
 		this.answer=-1;
-		this.subChoice=-1;
 	}
 	
 
 	@Override
 	public void choose() {
-		System.out.println("\n\n\n\n");
 		System.out.println("Menu di gioco");
 		System.out.println("1. crea una nuova partita");
 		System.out.println("2. seleziona una lobby");	
@@ -32,9 +29,6 @@ public class MainMenuMsg extends ChoiceMessage {
 		String choice=s.nextLine();
 		
 		if (choice.equals("1")) {
-			System.out.println("seleziona un numero di lobby");
-			this.subChoice = Integer.parseInt(s.nextLine());
-			System.out.println("la scelta è "+this.subChoice);
 			this.answer=1;
 			
 			

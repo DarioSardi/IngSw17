@@ -1,21 +1,22 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.Resource;
-import it.polimi.ingsw.GC_43.model.Stone;
-import it.polimi.ingsw.GC_43.model.Wood;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.CostEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
+import it.polimi.ingsw.GC_43.model.resources.Resource;
+import it.polimi.ingsw.GC_43.model.resources.Stone;
+import it.polimi.ingsw.GC_43.model.resources.Wood;
 
 public class TowerTest {
 

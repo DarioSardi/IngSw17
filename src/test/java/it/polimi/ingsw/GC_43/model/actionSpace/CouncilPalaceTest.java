@@ -1,16 +1,14 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import it.polimi.ingsw.GC_43.model.Coin;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.Stone;
 import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
+import it.polimi.ingsw.GC_43.model.resources.Coin;
 
 public class CouncilPalaceTest {
 	

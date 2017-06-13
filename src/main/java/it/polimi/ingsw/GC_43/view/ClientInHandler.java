@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
 
+import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.controller.messages.ChoiceMessage;
 import it.polimi.ingsw.GC_43.controller.messages.ConnectionDataMsg;
 import it.polimi.ingsw.GC_43.controller.messages.SimpleMsg;
+import it.polimi.ingsw.GC_43.controller.messages.StateChangeMsg;
 
 public class ClientInHandler implements Runnable {
 
@@ -15,10 +17,12 @@ public class ClientInHandler implements Runnable {
 	private Client myClient;
 	private Boolean idSetted;
 
+
 	public ClientInHandler(ObjectInputStream socketIn,Client myClient) {
 		this.socketIn=socketIn;
 		this.myClient=myClient;
 		this.idSetted=false;
+		
 	}
 
 	@Override
@@ -27,7 +31,8 @@ public class ClientInHandler implements Runnable {
 		//Set ID of user
 		myClient.setID(readID().getID());
 		System.out.println("client ID is now: " + myClient.getID());
-		while(true){
+		Boolean online=true;
+		while(online){
 			try {
 				readInObject();
 			} catch (Exception e) {
@@ -39,12 +44,11 @@ public class ClientInHandler implements Runnable {
 	
 	private void readInObject() throws Exception {
 		try {
-			System.out.println("provo a leggere");
 			Object msg=this.socketIn.readObject();
+			this.myClient.busy=true;
 			//choice
 			if(msg instanceof ChoiceMessage){
 				ChoiceMessage c= (ChoiceMessage) msg;
-				System.out.println("è un messaggio choice");
 				choiceMsgRead(c);
 			}
 			//msg
@@ -52,12 +56,25 @@ public class ClientInHandler implements Runnable {
 			{
 				simpleMsgRead((SimpleMsg) msg);
 			}
+			//status change
+			else if(msg instanceof StateChangeMsg)
+			{
+				StateChangeMsg c= (StateChangeMsg) msg;
+				if(c.getInLobby()!=null){
+					this.myClient.inLobby=c.getInLobby();
+					System.out.println("stato di inLobby cambiato a "+this.myClient.inLobby);
+				}
+				if(c.getInGame()!=null){
+					this.myClient.inGame=c.getInGame();
+				}
+			}
+			//uknown
 			else if (msg instanceof Object){
 				System.out.println("formato sconosciuto");
 			}
 			else
 			{throw new Exception("non so cosa sia successo");}
-		
+			this.myClient.busy=false;
 		
 		
 		
@@ -73,12 +90,20 @@ public class ClientInHandler implements Runnable {
 	}
 
 	private void simpleMsgRead(SimpleMsg msg) {
+		System.out.println("è arrivato un messaggioh!");
 		System.out.println(msg.getMsg());
 	}
 
 	private void choiceMsgRead(ChoiceMessage msg) {
 		msg.setScanner(new Scanner(System.in));
-		msg.choose();
+		try {
+			msg.choose();
+			msg.setScanner(null);
+			this.myClient.sendObject(msg);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	

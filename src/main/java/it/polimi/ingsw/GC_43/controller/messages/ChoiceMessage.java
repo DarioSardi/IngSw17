@@ -10,7 +10,7 @@ public abstract class ChoiceMessage implements Serializable{
 	 */
 	private static final long serialVersionUID = 6285249356713856391L;
 	public int answer;
-	public abstract void choose();
+	public abstract void choose() throws Exception;
 	public Scanner s;
 	
 	public int getAnswer() {

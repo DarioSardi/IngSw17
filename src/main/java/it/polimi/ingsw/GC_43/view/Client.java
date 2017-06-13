@@ -26,8 +26,12 @@ public class Client {
 	private ClientOutHandler outStream;
 	private ClientInHandler inStream;
 	private static InetAddress ipAddr;
+	boolean inLobby,busy,inGame;
 	
     public Client() throws IOException{
+    	this.inLobby=false;
+    	this.inGame=false;
+    	this.busy=false;
     	setup();
     	connect();
     	startToPlay();
@@ -120,5 +124,9 @@ public class Client {
 	public static void main(String [] args) throws IOException {
 		 Client c= new Client();
 	 }
+	
+	public void sendObject(Object obj){
+		this.outStream.sendObject(obj);
+	}
 
 }

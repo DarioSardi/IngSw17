@@ -9,6 +9,7 @@ import it.polimi.ingsw.GC_43.controller.messages.ChoiceMessage;
 import it.polimi.ingsw.GC_43.controller.messages.ConnectionDataMsg;
 import it.polimi.ingsw.GC_43.controller.messages.MainMenuMsg;
 import it.polimi.ingsw.GC_43.controller.messages.SimpleMsg;
+import it.polimi.ingsw.GC_43.controller.messages.StateChangeMsg;
 
 
 public class ClientHandler implements Runnable{
@@ -55,9 +56,12 @@ public class ClientHandler implements Runnable{
 		System.out.println("ClientHandler starting up!");
 		reciveUserData();
 		MainMenuMsg menu=new MainMenuMsg();
+		this.sendObject(menu);
 		
-		this.sendChoiceTo(menu);
-		this.readChoice();
+		boolean running=true;
+		while(running){
+			this.readChoice();
+		}
 	}
 	
 
@@ -99,6 +103,7 @@ public class ClientHandler implements Runnable{
 	}
 
 	public void sendStringTo(String string){
+		System.out.println("scrivo un messaggio in sendStringTo nel clientHandler");
 		SimpleMsg serverAnswer=new SimpleMsg(string);
 		try {
 			socketOut.writeObject(serverAnswer);
@@ -109,7 +114,7 @@ public class ClientHandler implements Runnable{
 		}
 	
 	}
-	public void sendChoiceTo(ChoiceMessage msg){
+	public void sendObject(Object msg){
 		try {
 			socketOut.writeObject(msg);
 			socketOut.flush();
@@ -118,6 +123,8 @@ public class ClientHandler implements Runnable{
 			e.printStackTrace();
 		}
 	}
+	
+
 	
 	
 	@Override
@@ -150,6 +157,9 @@ public class ClientHandler implements Runnable{
 			e.printStackTrace();
 		}
 		
+	}
+	public Server getMyServer(){
+		return this.myServer;
 	}
 	
 }
