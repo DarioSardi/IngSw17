@@ -38,7 +38,7 @@ public class FloorTest {
 		f1.setDieToFamilyMember(3);
 		reA.add(re);
 		t1.addFloor(2);
-		t1.addFloor(reA, 5);
+		t1.addFloor(re, 5);
 		effects.add(new ResourceEffect(new Wood(2)));
 		costs.add(new Coin(2));
 		t1.getFloors().get(0).setCard(card);

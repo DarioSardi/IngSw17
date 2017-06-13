@@ -16,10 +16,13 @@ public class Floor extends ActionSpace {
 		super();
 		this.setMinDiceValue(minDiceValue);
 		
-		//COSI
+		if(bonus!=null){
 		this.setBonus(new ArrayList<Effect>());
 		this.getBonus().add(bonus);
-		//
+		}
+		else{
+			this.setBonus(null);
+		}
 		
 		this.tower = tower;
 		this.setFamiliarIn(new ArrayList<FamilyMember>());

@@ -33,7 +33,7 @@ public class TowerTest {
 	public void initializeTest() throws Exception{
 		reA.add(re);
 		t1.addFloor(2);
-		t1.addFloor(reA, 5);
+		t1.addFloor(re, 5);
 		effects.add(new ResourceEffect(new Wood(2)));
 		costs.add(new Stone(2));
 		t1.getFloors().get(0).setCard(card);
@@ -84,11 +84,6 @@ public class TowerTest {
 	@Test
 	public void testToString() {
 		System.out.println(t1.toString());
-	}
-
-	@Test(expected=Exception.class)
-	public void testAddFloor() throws Exception {
-		t1.addFloor(4);
 	}
 
 	@Test
