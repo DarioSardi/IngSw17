@@ -9,6 +9,7 @@ import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
 import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
@@ -32,13 +33,11 @@ public class ProductionActionCreationRoutine implements ActionCreation {
         this.productionAction.setFamilyMemberColor(this.productionAction.getFamilyMember().getColor());
         this.productionAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),this.productionAction.getFamilyMember().getDiceValue()));
 
-        // TODO to decide if to implements check even on actionPrepare  this.productionAction.getPlayer().subResource("servant",this.productionAction.getServantsUsed());
         selectProductionSpace(board.getProductionArea());
         getInputsForProduction(this.productionAction.getFamilyMember());
 
         return false;
     }
-//TODO ricordati di fare execute effect sugli space se l'azione va buon fine
     private boolean selectProductionSpace(ProductionArea productionArea) {
 
         if(productionArea.getSpaces().isEmpty()){
@@ -59,7 +58,6 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     }
 
     
-//ARRIVATO QUI 5/06/17  sottrai costi mano a mano da risorse (decommenta sopra con global variable e di a SAM per inizializzazione)
     
     
     
@@ -108,6 +106,12 @@ public class ProductionActionCreationRoutine implements ActionCreation {
         int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
         if(effect.check(this.productionAction.getFamilyMember())){
             this.productionAction.getProductionChoices().add(choice);
+            ChoiceEffect choiceEffect=effect.getChoices().get(choice);
+            
+            //Ask per privilege council SE nello scambio, MAX DA RIVEDERE;
+            
+            if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil"))
+            	askForMultipleCouncilPrivilege(new MultipleCouncilPrivileges(1));
         }
         else{
             question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
@@ -116,7 +120,7 @@ public class ProductionActionCreationRoutine implements ActionCreation {
                 System.out.println("\nChoice skipped");
             }
             else{
-                askForMultipleChoice(effect);
+                return askForMultipleChoice(effect);
             }
         }
         return choice;

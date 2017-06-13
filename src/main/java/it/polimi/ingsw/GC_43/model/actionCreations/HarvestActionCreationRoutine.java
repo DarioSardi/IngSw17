@@ -116,7 +116,7 @@ private void getInputsForHarvest(FamilyMember familyMember) {
                 System.out.println("\nChoice skipped");
             }
             else{
-                askForMultipleChoice(effect);
+                return askForMultipleChoice(effect);
             }
         }
         return choice;

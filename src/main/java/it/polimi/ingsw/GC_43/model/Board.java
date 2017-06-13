@@ -22,9 +22,9 @@ import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 public class Board implements Serializable {
 
     //CONFIGURATION SETTINGS
-   private static int phase;
-   private static int round;
-   private static int period;
+   private int phase;
+   private int round;
+   private int period;
    private int[] faithVictoryPoints;
 
     //CARDPOOLS
@@ -43,7 +43,7 @@ public class Board implements Serializable {
     private CouncilPalace councilPalace;
     private HarvestArea harvestArea;
     private ProductionArea productionArea;
-    private List <Tower> towers;
+    private ArrayList <Tower> towers;
     private FaithArea faithArea;
 
     //PLAYERS
@@ -66,10 +66,6 @@ public Board(ArrayList playersID){
 	
 		this.playersID=new ArrayList<String>();
 		this.playersID=playersID;
-
-		//RISOLVI 
-		//		this.faithVictoryPoints= new int[GlobalVariables.maxFaithPoints+1];
-
         
 		GlobalVariables.numberOfPlayers=playersID.size();
         
@@ -108,11 +104,12 @@ public Board(ArrayList playersID){
 		
         this.towers = new ArrayList<Tower>();
         
-
-        this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
+//SET BY INIT GAME OF SAM
+        
+/*        this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
+        this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));*/
 
         }
     
@@ -269,6 +266,16 @@ private void setPlayersFamilyMembersValue() {
     	}
     	
 	} 
+  
+  	public String towersToString(){
+  		String toString="\nTowers in game are :\n\n";
+  		int number=0;
+  		for(Tower tower: this.getTowers()){
+  			toString=toString+number+") "+tower.toStringAll()+"\n\n";
+  			number++;
+  		}
+  		return toString;
+  	}
     
 
 
@@ -351,11 +358,11 @@ private void setPlayersFamilyMembersValue() {
         this.productionArea = productionArea;
     }
 
-    public List<Tower> getTowers() {
+    public ArrayList<Tower> getTowers() {
         return towers;
     }
 
-    public void setTowers(List<Tower> towers) {
+    public void setTowers(ArrayList<Tower> towers) {
         this.towers = towers;
     }
 
@@ -383,28 +390,28 @@ private void setPlayersFamilyMembersValue() {
         this.players = players;
     }
 
-	public static int getPhase() {
+	public int getPhase() {
 		return phase;
 	}
 
-	public static void setPhase(int phase) {
-		Board.phase = phase;
+	public void setPhase(int phase) {
+		this.phase = phase;
 	}
 	
-	public static int getRound() {
+	public int getRound() {
 		return round;
 	}
 
-	public static void setRound(int round) {
-		Board.round = round;
+	public void setRound(int round) {
+		this.round = round;
 	}
 
-	public static int getPeriod() {
+	public int getPeriod() {
 		return period;
 	}
 
-	public static void setPeriod(int period) {
-		Board.period = period;
+	public void setPeriod(int period) {
+		this.period = period;
 	}
 
 	public ArrayList<ExcommunicationTile> getExcommunicationTiles() {

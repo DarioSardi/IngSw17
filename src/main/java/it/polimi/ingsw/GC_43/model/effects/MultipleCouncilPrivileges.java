@@ -13,7 +13,7 @@ public class MultipleCouncilPrivileges extends Effect {
 	
 	public String toString(){
 		String toString = "Player can take "+this.numberOfCopies+ "different council privilege choice effect:\n ";
-		toString=toString+" "+this.getPrivilegeChoices().toString();
+		toString=toString+this.getPrivilegeChoices().toString();
 		return toString;
 	}
 	
