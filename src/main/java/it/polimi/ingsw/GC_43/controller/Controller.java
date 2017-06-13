@@ -54,10 +54,14 @@ public class Controller implements IController {
 
 
 
-
+	// MATCH PLAYER REQUIRE 
 		private void setMatches() {
+			int i=0;
 	    	for(ClientHandler clientHandler: this.clientHandlers){
+	    		
 	    		this.matchClientHandler.put(clientHandler.getUsername(), clientHandler);
+	    		this.matchPlayer.put(clientHandler.getUsername(), this.board.getPlayers().get(i));
+	    		i++;
 	    		
 	    	}
 	    	

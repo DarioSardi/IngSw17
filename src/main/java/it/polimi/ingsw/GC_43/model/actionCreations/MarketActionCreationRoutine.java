@@ -88,7 +88,7 @@ public class MarketActionCreationRoutine implements ActionCreation{
                     System.out.println("\nChoice skipped");
                 }
                 else{
-                    askForMultipleChoice(effect);
+                    return askForMultipleChoice(effect);
                 }
             }
             return choice;

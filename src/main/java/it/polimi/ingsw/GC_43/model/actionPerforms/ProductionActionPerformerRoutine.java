@@ -164,14 +164,25 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 
 	private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
 		int playerChoice=this.productionAction.getProductionChoices().get(index);
+		ChoiceEffect choiceEffect=(ChoiceEffect)effect.getChoices().get(playerChoice);
 		if(playerChoice!=-1){
-			if(effect.getChoices().get(playerChoice).check(player)){
+			if(choiceEffect.check(player)){
+				
+				//Se risorsa == privilege council, nel execute effect di choiceEffect verrà skippato il gain perchè già preso prima
+				if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil")){
+					MultipleCouncilPrivileges privilege= new MultipleCouncilPrivileges(1);
+					executeMultipleCouncilPrivilege(privilege, player);
+				}
 				effect.getChoices().get(playerChoice).executeEffect(player);
 			}
-			else
+			
+			else{
 				this.checkResult=false;
 			}
+		}
+	
 		this.index++;
+		
 	}
 }
   

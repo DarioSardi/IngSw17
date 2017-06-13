@@ -55,10 +55,25 @@ public class ChoiceEffect extends Effect{
 		}
 	
 		for (Resource resource: this.gains){
-			player.addResource(resource.getResourceType(), resource.getValue()+player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getResourceType()));
-				}
-		
-			}					
+			if(!(resource.getResourceType().equals("privilegeCouncil")))
+				player.addResource(resource.getResourceType(), resource.getValue()+player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getResourceType()));
+			}
+		}
+	
+	public ArrayList<Resource> getCosts() {
+		return costs;
+	}
+	public void setCosts(ArrayList<Resource> costs) {
+		this.costs = costs;
+	}
+	public ArrayList<Resource> getGains() {
+		return gains;
+	}
+	public void setGains(ArrayList<Resource> gains) {
+		this.gains = gains;
+	}	
+	
+	
 		
 }
 
