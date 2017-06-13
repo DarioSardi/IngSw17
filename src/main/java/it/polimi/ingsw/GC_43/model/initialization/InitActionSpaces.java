@@ -157,22 +157,7 @@ public class InitActionSpaces {
         }
         
     }
-	
-	private ResourceEffect retResourceEffect(String type, int value){
-		ResourceEffect resEff;		
-		if (type.equals("coin")) resEff = (new ResourceEffect(new Coin(value)));
-     	else if (type.equals("servant")) resEff =  (new ResourceEffect(new Servant(value)));
-     	else if (type.equals("stone")) resEff =  (new ResourceEffect(new Stone(value)));
-     	else if (type.equals("wood")) resEff =  (new ResourceEffect(new Wood(value)));
-     	else if (type.equals("faithPoint")) resEff =  (new ResourceEffect(new FaithPoint(value)));
-     	else if (type.equals("militaryPoint")) resEff =  (new ResourceEffect(new MilitaryPoint(value)));
-     	else if (type.equals("victoryPoint")) resEff =  (new ResourceEffect(new VictoryPoint(value)));
-     	else if (type.equals("councilPrivilege")) resEff =  (new ResourceEffect(new CouncilPrivilege(value)));
-     	else resEff=null;
-		return resEff;
 		
-	}
-	
 	private void addFloorsToTower(JSONArray floorsBonusArray, int towerNumber){
 		for (int i=1; i <= GlobalVariables.floorsPerTower; i++){
             Iterator floorsBonusIterator = floorsBonusArray.iterator();
@@ -200,6 +185,23 @@ public class InitActionSpaces {
    	 	 	}
 		}
 	}
+	
+	
+	private ResourceEffect retResourceEffect(String type, int value){
+		ResourceEffect resEff;		
+		if (type.equals("coin")) resEff = (new ResourceEffect(new Coin(value)));
+     	else if (type.equals("servant")) resEff =  (new ResourceEffect(new Servant(value)));
+     	else if (type.equals("stone")) resEff =  (new ResourceEffect(new Stone(value)));
+     	else if (type.equals("wood")) resEff =  (new ResourceEffect(new Wood(value)));
+     	else if (type.equals("faithPoint")) resEff =  (new ResourceEffect(new FaithPoint(value)));
+     	else if (type.equals("militaryPoint")) resEff =  (new ResourceEffect(new MilitaryPoint(value)));
+     	else if (type.equals("victoryPoint")) resEff =  (new ResourceEffect(new VictoryPoint(value)));
+     	else if (type.equals("councilPrivilege")) resEff =  (new ResourceEffect(new CouncilPrivilege(value)));
+     	else resEff=null;
+		return resEff;
+		
+	}
+	
 	public List<Tower> getTowers(){
 		return this.towers;
 	}
