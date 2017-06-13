@@ -15,6 +15,8 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.polimi.ingsw.GC_43.model.Board;
+
 public class Client {
 	private int port,ID;
 	private Socket socket;
@@ -26,6 +28,7 @@ public class Client {
 	private ClientOutHandler outStream;
 	private ClientInHandler inStream;
 	private static InetAddress ipAddr;
+	private Board board;
 	
     public Client() throws IOException{
     	setup();
@@ -66,6 +69,17 @@ public class Client {
 
 	public String getUsername() {
 		return username;
+	}
+	
+
+	public Board getBoard() {
+		return board;
+	}
+
+
+
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 
 
