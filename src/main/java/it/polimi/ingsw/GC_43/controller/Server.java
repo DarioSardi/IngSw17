@@ -31,11 +31,7 @@ public class Server {
 		sSocket= new ServerSocket(PORT);
 		System.out.println("Socket ready on Port:"+PORT);
 		players= Executors.newCachedThreadPool();
-		ExecutorService executor = Executors.newFixedThreadPool(2);
-		executor.submit(acceptConnections());
-
-		
-		//closeServer();
+		acceptConnections();
 		
 	}
 
@@ -50,7 +46,8 @@ public class Server {
 
 	private Runnable acceptConnections() throws IOException {
 		int numberOfClients=0;
-		while(true){
+		boolean online=true;
+		while(online){
 			Socket cSocket= sSocket.accept();
 			System.out.println("connessione accettata! indirizzo Giocatore: "+cSocket.getInetAddress());
 			players.submit(new ClientHandler(cSocket,numberOfClients,this));
@@ -59,16 +56,12 @@ public class Server {
 			numberOfClients++;
 			
 		}
+		return null;
 	}
 	
 	private Socket getClient(int key){
 		return clients.get(key);
 	}
-	public static void main(String[] args) throws IOException { 
-		Server s=new Server();
-	}
-
-
 
 	public boolean newLobby(ClientHandler clientHandler,Integer lobbyNumber) {
 		System.out.println("provo a creare la lobby numero "+lobbyNumber);
@@ -88,9 +81,7 @@ public class Server {
 	}
 	
 	public boolean joinLobby(Integer lobbyNumber,ClientHandler cH){
-		//DARIO aggiungere try/catch per lobby piene
-		this.lobbies.get(lobbyNumber).addPlayer(cH);
-		return true;
+		return this.lobbies.get(lobbyNumber).addPlayer(cH);
 	}
 
 
@@ -101,5 +92,11 @@ public class Server {
 		System.out.println(sb.toString());
 		return sb.toString();
 	}
+	
+	//MAIN
+	public static void main(String[] args) throws IOException { 
+		Server s=new Server();
+	}
+
 }
 

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -17,8 +18,8 @@ import java.util.concurrent.Executors;
 public class Client {
 	private int port,ID;
 	private Socket socket;
-    private BufferedReader inSocket;
-    private PrintWriter outSocket;
+    private ObjectInputStream inSocket;
+    private ObjectOutputStream outSocket;
     private BufferedReader inKeyboard;
     private PrintWriter outVideo;
 	private String address,username;
@@ -75,8 +76,8 @@ public class Client {
     	
     	//thread per gestione I/O
     	ExecutorService executor = Executors.newFixedThreadPool(2);
-    	this.outStream=new ClientOutHandler(new PrintWriter(socket.getOutputStream()),this);
-    	this.inStream=new ClientInHandler(new Scanner(socket.getInputStream()),this);
+    	this.outStream=new ClientOutHandler(new ObjectOutputStream(socket.getOutputStream()),this);
+    	this.inStream=new ClientInHandler(new ObjectInputStream(socket.getInputStream()),this);
     	executor.submit(inStream);
     	executor.submit(outStream);
         System.out.println("connesso!");

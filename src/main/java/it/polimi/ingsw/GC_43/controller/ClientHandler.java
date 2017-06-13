@@ -1,6 +1,8 @@
 package it.polimi.ingsw.GC_43.controller;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -11,8 +13,8 @@ public class ClientHandler implements Runnable{
 	private int ID;
 	private Server myServer;
 	private String username;
-	private Scanner socketIn;
-	private PrintWriter socketOut;
+	private ObjectInputStream socketIn;
+	private ObjectOutputStream socketOut;
 	private Lobby lobby;
 
 	public ClientHandler(Socket socket,int ID,Server myServer) throws IOException {
@@ -20,8 +22,8 @@ public class ClientHandler implements Runnable{
 		this.socket = socket;
 		this.ID=ID;
 		this.myServer=myServer;
-		this.socketIn = new Scanner(this.socket.getInputStream());
-		this.socketOut = new PrintWriter(this.socket.getOutputStream());
+		this.socketIn = new ObjectInputStream(this.socket.getInputStream());
+		this.socketOut = new ObjectOutputStream(this.socket.getOutputStream());
 	}
 	
 	public Lobby getLobby() {
@@ -47,9 +49,9 @@ public class ClientHandler implements Runnable{
 			
 			//SETUP
 			System.out.println("ClientHandler starting up!");
-			this.username=socketIn.nextLine();
+			this.username=readMsg();
 			System.out.println("username of the player is "+username);
-			socketOut.println(this.ID);
+			sendMsgTo(String.valueOf(this.ID));
 			socketOut.flush();
 			
 			//MENU
@@ -57,10 +59,10 @@ public class ClientHandler implements Runnable{
 				sendMsgTo("sei nel menù,scegli!");
 				
 				//NEW LOBBY
-				String choice=socketIn.nextLine();
+				String choice=readMsg();
 				if (choice.equals("1")) {
 					sendMsgTo("seleziona un numero di lobby");
-					Integer lobbyNumber = Integer.parseInt(socketIn.nextLine());
+					Integer lobbyNumber = Integer.parseInt(readMsg());
 					if (myServer.newLobby(this, lobbyNumber)) {
 						sendMsgTo("sei nella lobby");
 						inLobby();
@@ -72,7 +74,7 @@ public class ClientHandler implements Runnable{
 				} else if (choice.equals("2")) {
 					sendMsgTo("seleziona una lobby");
 					sendMsgTo(myServer.getLobbiesToString());
-					Integer lobbyNumber=Integer.parseInt(socketIn.nextLine());
+					Integer lobbyNumber=Integer.parseInt(readMsg());
 					if(myServer.joinLobby(lobbyNumber, this)){
 					inLobby();
 					}
@@ -105,7 +107,7 @@ public class ClientHandler implements Runnable{
 		sendMsgTo("sei entrato nella lobby");
 		boolean inlobby=true;
 		while(inlobby){
-			String command=socketIn.nextLine();
+			String command=readMsg();
 			if(command.equals("exit_lobby")){
 				//DARIO rimuovi lobby
 				inlobby=false;
@@ -113,7 +115,7 @@ public class ClientHandler implements Runnable{
 			}
 			else if(command.equals("chat")){
 				sendMsgTo("digita il messaggio da mandare a tutti gli altri");
-				String msg=socketIn.nextLine();
+				String msg=readMsg();
 				lobby.broadcastMsg(msg,this);
 			}
 			else if(command.equals("start_game")){
@@ -138,9 +140,36 @@ public class ClientHandler implements Runnable{
 	}
 
 	public void sendMsgTo(String string){
-		socketOut.println(string);
-		socketOut.flush();
+		SimpleMessage sm=new SimpleMessage(string);
+		try {
+			socketOut.writeObject(sm);
+			socketOut.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+	public SimpleMessage receiveMsg(){
+		try {
+			Object o=socketIn.readObject();
+			if(o instanceof SimpleMessage){
+				return (SimpleMessage) o;
+			}
+			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	public String readMsg(){
+		return receiveMsg().getMsg();
+	}
+	
 	
 	@Override
 	public String toString() {

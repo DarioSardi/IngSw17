@@ -7,6 +7,8 @@ public class Lobby implements Runnable{
 	private ClientHandler admin;
 	private ArrayList<ClientHandler> players;
 	public int ID;
+	private Controller controller;
+	private boolean exist;
 
 	public Lobby(ClientHandler lobbyAdmin,Integer ID) {
 		this.admin=lobbyAdmin;
@@ -14,21 +16,34 @@ public class Lobby implements Runnable{
 		this.players.add(lobbyAdmin);
 		lobbyAdmin.setLobby(this);
 		this.ID=ID;
+		this.exist=true;
 		System.out.println("SONO LA LOBBY "+ID+" E SON VIVA!");
 	}
 
 	public boolean addPlayer(ClientHandler cH) {
-		//DARIO mettere il limite di controllo
-		this.players.add(cH);
-		cH.setLobby(this);
-		System.out.println("added "+cH.toString());
-		cH.sendMsgTo("sei stato aggiunto alla lobby");
-		return true;
+		if (players.size()<4) {
+			if (!players.contains(cH)) {
+				this.players.add(cH);
+				cH.setLobby(this);
+				System.out.println("added " + cH.toString());
+				cH.sendMsgTo("added to the lobby!");
+				return true;
+			} else {
+				cH.setLobby(this);
+				System.out.println("re-entered " + cH.toString());
+				cH.sendMsgTo("welcome back to the lobby");
+				return true;
+			} 
+		}
+		else{
+			cH.sendMsgTo("Lobby is full!");
+			return false;
+		}
 	}
 
 	
 	public void run() {
-		while(true){
+		while(exist){
 			System.out.println("---------------------------");
 			System.out.println("nella lobby "+ID+" ci sono");
 			players.stream().forEach(p->System.out.println(p.toString()));
@@ -37,7 +52,6 @@ public class Lobby implements Runnable{
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -62,6 +76,8 @@ public class Lobby implements Runnable{
 		if(this.admin==clientHandler){
 			//INIZIA GIOCO
 			lobbyMsg("il gioco sta iniziando");
+			this.controller=new Controller(players);
+			controller.initializeGame();
 			return true;
 		}
 		else{
