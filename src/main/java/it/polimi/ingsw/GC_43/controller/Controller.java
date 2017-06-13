@@ -12,32 +12,67 @@ import it.polimi.ingsw.GC_43.model.actions.*;
 import it.polimi.ingsw.GC_43.model.initialization.InitGame;
 
 public class Controller implements IController {
-	    private Map<String, Player> matchPlayer= new HashMap<String, Player>();
-	    private Board board;
+	
+	
+	//MATCHING PLAYERS ON MODEL AND CLIENT HANDLERS
+	    private Map<String, Player> matchPlayer;
+	    private Map<String, ClientHandler> matchClientHandler;
 	    private ArrayList<ClientHandler> clientHandlers;
+
+	    
+	//REFERENCE OF THE MODEL ON SERVER
+	    private Board board;
 	    
 	    
 	    public Controller(ArrayList<ClientHandler> clientHandlers){
 	    	this.clientHandlers=clientHandlers;
 	    	this.matchPlayer=new HashMap<String, Player>();
+	    	this.matchClientHandler=new HashMap<String, ClientHandler>();
 	    }
+	    
+	    
+	    
 	    
 	    public void initializeGame(){
 	    	
 	    	insertPlayers();
+	    	setMatches();
+
 
 	    	
 	    	
 	    }
 	    
-	    public void insertPlayers(){
+	    private void setMatches() {
+	    	for(ClientHandler clientHandler: this.clientHandlers){
+	    		this.matchClientHandler.put(clientHandler.getUsername(), clientHandler);
+	    		
+	    	}
+	    	
+		}
+
+
+
+
+		public void insertPlayers(){
 	    	ArrayList<String> playerIDs= new ArrayList<String>();
 	    	for(ClientHandler clientHandler: this.clientHandlers){
 	    		playerIDs.add(clientHandler.getUsername());
+	    		
 	    	}
 	    	this.board=new Board(playerIDs);
 //	    	new InitGame(board);
 	    	
+	    	
+	    }
+	    
+		
+		
+		
+	//GET CLIENT HANDLER OF TURN    
+	    private ClientHandler getPlayerOfTurn(){
+	    	String playerID=this.board.getPhasePlayer();
+	    	return this.matchClientHandler.get(playerID);
 	    	
 	    }
 	    
@@ -67,10 +102,10 @@ public class Controller implements IController {
 	    			result = councilPalaceActionImpl.performAction();
 	    			return result;
 	    		case 4:
-	 /*   			CouncilPalaceAction councilPalaceAction=(CouncilPalaceAction) action;
-	    			CouncilPalacePerformerRoutine councilPalaceActionImpl= new CouncilPalacePerformerRoutine(councilPalaceAction, this.board);
-	    			result = councilPalaceActionImpl.performAction();
-	    			return result;*/
+	    			MarketAction marketAction=(MarketAction) action;
+	    			MarketActionPerformerRoutine marketActionImpl= new MarketActionPerformerRoutine(marketAction, this.board);
+	    			result = marketActionImpl.performAction();
+	    			return result;
 	    			
 	    			
 	    		

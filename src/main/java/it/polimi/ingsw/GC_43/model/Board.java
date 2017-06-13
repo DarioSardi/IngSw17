@@ -24,7 +24,7 @@ public class Board {
    private static int phase;
    private static int round;
    private static int period;
-   private int[] victoryPositionPoints;
+   private int[] faithVictoryPoints;
 
     //CARDPOOLS
     private List territoryCardPool;
@@ -59,13 +59,15 @@ public class Board {
 public Board(ArrayList playersID){
 	
 	
-		this.round=1;
+/*		this.round=1;
 		this.phase=1;
-		this.period=1;
+		this.period=1;*/
 	
 		this.playersID=new ArrayList<String>();
 		this.playersID=playersID;
-		this.victoryPositionPoints= new int[GlobalVariables.maxFaithPoints+1];
+
+		//RISOLVI 
+		//		this.faithVictoryPoints= new int[GlobalVariables.maxFaithPoints+1];
 
         
 		GlobalVariables.numberOfPlayers=playersID.size();
@@ -234,7 +236,7 @@ private void setPlayersFamilyMembersValue() {
 	public void nextPlayerPhase(){
 		this.phase++;
 	}
-    private String getPhasePlayer(){
+    public String getPhasePlayer(){
     	return this.getPlayers().get(this.phase%4).getPlayerName();
     }
 
@@ -397,20 +399,21 @@ private void setPlayersFamilyMembersValue() {
 		Board.period = period;
 	}
 
-	public int[] getVictoryPositionPoints() {
-		return victoryPositionPoints;
-	}
-
-	public void setVictoryPositionPoints(int [] victoryPositionPoints) {
-		this.victoryPositionPoints = victoryPositionPoints;
-	}
-
 	public ArrayList<ExcommunicationTile> getExcommunicationTiles() {
 		return excommunicationTiles;
 	}
 
 	public void setExcommunicationTiles(ArrayList<ExcommunicationTile> excommunicationTiles) {
 		this.excommunicationTiles = excommunicationTiles;
+	}
+
+	public int[] getFaithVictoryPoints() {
+		return faithVictoryPoints;
+	}
+
+
+	public void setFaithVictoryPoints(int[] faithVictoryPoints) {
+		this.faithVictoryPoints = faithVictoryPoints;
 	}
     
     

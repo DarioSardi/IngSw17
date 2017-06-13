@@ -7,10 +7,10 @@ import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.resources.*;
 //TODO era per council privilege che dava più di un bonus pietra+legno, vedi se sempllificare in altro modo
 public class MultipleResourceEffect extends Effect {
-	private ArrayList<Resource> resourcesToGet;
+	private ArrayList<ResourceEffect> resourcesToGet;
 
-    public MultipleResourceEffect(ArrayList <Resource> resourcesToGet){ 
-    	this.resourcesToGet= new ArrayList<Resource>();
+    public MultipleResourceEffect(ArrayList <ResourceEffect> resourcesToGet){ 
+    	this.resourcesToGet= new ArrayList<ResourceEffect>();
     	this.resourcesToGet=resourcesToGet;
 
     }
@@ -18,17 +18,17 @@ public class MultipleResourceEffect extends Effect {
     public String toString(){
     	String toString= "Resources gained:\n";
     	int index=1;
-    	for(Resource resource: this.resourcesToGet){
-    		toString= toString+" "+index+" "+resource.toString()+"\n"; 
+    	for(ResourceEffect resourceEffect: this.resourcesToGet){
+    		toString= toString+" "+index+" "+resourceEffect.toString()+"\n"; 
     		index++;
     	}
     	return toString;
 
     }
+    
     public void executeEffect(FamilyMember familyMember){
-    	for(Resource resource: this.resourcesToGet){
-            int newValue=resource.getValue()+familyMember.getPlayer().getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getResourceType());
-            familyMember.getPlayer().addResource(resource.getResourceType(), newValue);    	
+    	for(ResourceEffect resourceEffect: this.resourcesToGet){
+            resourceEffect.executeEffect(familyMember);
             }
 
     }
