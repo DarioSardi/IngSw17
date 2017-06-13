@@ -123,13 +123,13 @@ public class InitActionSpaces {
              addFloorsToTower(buildingFloorsBonusArray, 1);
              
              JSONArray characterFloorsBonusArray = (JSONArray) slides.get("FloorsBonusCharacterTower");
-             addFloorsToTower(buildingFloorsBonusArray, 3);
+             addFloorsToTower(characterFloorsBonusArray, 3);
              
              JSONArray territoryFloorsBonusArray = (JSONArray) slides.get("FloorsBonusTerritoryTower");
-             addFloorsToTower(buildingFloorsBonusArray, 0);
+             addFloorsToTower(territoryFloorsBonusArray, 0);
              
              JSONArray ventureFloorsBonusArray = (JSONArray) slides.get("FloorsBonusVentureTower");
-             addFloorsToTower(buildingFloorsBonusArray, 2);
+             addFloorsToTower(ventureFloorsBonusArray, 2);
 
              //SAMUEL inizializzato floors su towers su Board
              
