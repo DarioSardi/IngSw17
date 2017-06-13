@@ -36,7 +36,7 @@ public class Controller implements IController {
 	    		playerIDs.add(clientHandler.getUsername());
 	    	}
 	    	this.board=new Board(playerIDs);
-	    //	new InitGame(board);
+//	    	new InitGame(board);
 	    	
 	    	
 	    }
@@ -46,6 +46,7 @@ public class Controller implements IController {
 	    
 	    
 	    public boolean submit(Action action){
+	    	action.setPlayer(this.matchPlayer.get(action.getPlayer().getPlayerName()));
 	    	int actionID= action.getActionID();
 	    	boolean result;
 	    	switch(actionID){

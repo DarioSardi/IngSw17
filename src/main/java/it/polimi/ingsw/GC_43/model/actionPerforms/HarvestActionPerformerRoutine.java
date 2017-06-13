@@ -11,6 +11,7 @@ import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
+import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 
 public class HarvestActionPerformerRoutine implements ActionPerformer {
 	private HarvestAction harvestAction;
@@ -122,7 +123,9 @@ private void checkHarvestPerform(Player player, FamilyMember familyMember) {
 		if(dieValue>=territoryCard.getProductionDice()){
 			for( Effect effect: territoryCard.getPermaBonus()){
 				if(effect.getClass().toString().contains("MultipleChoiceEffect"))
-					executeMultipleChoice((MultipleChoiceEffect) effect, player);	
+					executeMultipleChoice((MultipleChoiceEffect) effect, player);
+				if(effect.getClass().toString().contains("MultipleCouncilPrivileges"))
+					executeMultipleCouncilPrivilege((MultipleCouncilPrivileges) effect, player);
 				
 				else
 					effect.executeEffect(familyMember);
@@ -131,6 +134,17 @@ private void checkHarvestPerform(Player player, FamilyMember familyMember) {
 		}
 	}
 }
+private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges effect,Player player) {
+	int numberOfCopies=effect.getNumberOfCopies();
+	while(numberOfCopies>0){
+		executeMultipleChoice(effect.getPrivilegeChoices(),player);
+		int playerChoice=this.harvestAction.getHarvestChoices().get(index-1);
+		effect.getPrivilegeChoices().getChoices().remove(playerChoice);
+		}
+
+		numberOfCopies--;
+	}
+
 
 
 

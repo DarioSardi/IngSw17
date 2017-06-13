@@ -11,6 +11,7 @@ import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
+import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 
 
@@ -134,7 +135,10 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 			if(dieValue>=buildingCard.getProductionDice()){
 				for( Effect effect: buildingCard.getPermaBonus()){
 					if(effect.getClass().toString().contains("MultipleChoiceEffect"))
-						executeMultipleChoice((MultipleChoiceEffect) effect, player);	
+						executeMultipleChoice((MultipleChoiceEffect) effect, player);
+					if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
+						executeMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect, player);
+                    }
 					
 					else
 						effect.executeEffect(familyMember);
@@ -143,6 +147,18 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 			}
 		}
 	}
+
+	   private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges effect,Player player) {
+	    	int numberOfCopies=effect.getNumberOfCopies();
+	    	while(numberOfCopies>0){
+	    		executeMultipleChoice(effect.getPrivilegeChoices(),player);
+	    		int playerChoice=this.productionAction.getProductionChoices().get(index-1);
+	    		effect.getPrivilegeChoices().getChoices().remove(playerChoice);
+	    		}
+
+	    		numberOfCopies--;
+	    	}
+		
 
 
 
@@ -155,13 +171,8 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 			else
 				this.checkResult=false;
 			}
-		index++;
+		this.index++;
 	}
-
-
-
-
-
 }
   
 	
