@@ -28,5 +28,13 @@ public class VentureCard extends Card{
 		return TYPE;
 	}
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		sb.append(super.toString());
+		sb.append("alternative military point cost\n");
+		sb.append("military point cost:"+this.militaryCost+"\n");
+		sb.append("minimum military point to have:"+this.militaryMin+"\n");
+		return sb.toString();
+	}
 }

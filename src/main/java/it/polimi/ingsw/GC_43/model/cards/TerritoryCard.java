@@ -22,5 +22,11 @@ public class TerritoryCard extends Card {
 	public String getType() {
 		return TYPE;
 	}
+	@Override
+	public String toString() {
+		
+		return super.toString()+"dice value for the permanent bonus: "+this.harvestDice+"\n";
+		
+	}
 
 }
