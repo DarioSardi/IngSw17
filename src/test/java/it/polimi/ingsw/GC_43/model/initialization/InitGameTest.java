@@ -1,18 +1,25 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
-import static org.junit.Assert.*;
-
+import java.util.ArrayList;
 import org.junit.Test;
+import it.polimi.ingsw.GC_43.model.Board;
 
 public class InitGameTest {
 
 	@Test
 	public void testInitGame() {
-		InitGame game=new InitGame();
-		game.initCards.getBuildingCards().stream().forEach(c->System.out.println(c.toString()));
-		game.initCards.getCharacterCards().stream().forEach(c->System.out.println(c.toString()));
-		game.initCards.getTerritoryCards().stream().forEach(c->System.out.println(c.toString()));
-		game.initCards.getVentureCards().stream().forEach(c->System.out.println(c.toString()));
+		ArrayList<String> players = new ArrayList<>();
+		players.add("Samuel");
+		Board board = new Board(players);
+		new InitGame(board);
+		
+		board.getBuildingCardPool().stream().forEach(c->System.out.println(c.toString()));
+		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+		board.getCharacterCardPool().stream().forEach(c->System.out.println(c.toString()));
+		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+		board.getTerritoryCardPool().stream().forEach(c->System.out.println(c.toString()));
+		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+		board.getVentureCardPool().stream().forEach(c->System.out.println(c.toString()));
 	}
 
 	@Test

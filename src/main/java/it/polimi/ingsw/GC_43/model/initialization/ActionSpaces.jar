@@ -67,6 +67,194 @@
           "victoryPoint": "30"
         }
       ]
+    },
+    {
+      "Market": [
+        {
+          "minDiceValue": "1",
+          "Bonus": [
+            {
+              "type": "coin",
+              "value": "5"
+            }
+          ]
+        },
+        {
+          "minDiceValue": "1",
+          "Bonus": [
+            {
+              "type": "servant",
+              "value": "5"
+            }
+          ]
+        },
+        {
+          "minDiceValue": "1",
+          "Bonus": [
+            {
+              "type": "militaryPoint",
+              "value": "3"
+            },
+            {
+              "type": "coin",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "minDiceValue": "1",
+          "Bonus": [
+            {
+              "type": "councilPrivilege",
+              "value": "2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CouncilPalaceBonus": [
+        {
+          "type": "coin",
+          "value": "1"
+        },
+        {
+          "type": "councilPrivilege",
+          "value": "1"
+        }
+      ]
+    },
+    {
+      "FloorsBonusBuildingTower": [
+        {
+          "floor": "1",
+          "bonus": "noBonus",
+          "value": "0",
+          "minDiceValue": "1"
+        },
+        {
+          "floor": "2",
+          "bonus": "noBonus",
+          "value": "0",
+          "minDiceValue": "3"
+        },
+        {
+          "floor": "3",
+          "bonus": "militaryPoint",
+          "value": "1",
+          "minDiceValue": "5"
+        },
+        {
+          "floor": "4",
+          "bonus": "militaryPoint",
+          "value": "2",
+          "minDiceValue": "7"
+        }
+      ]
+    },
+    {
+      "FloorsBonusCharacterTower": [
+        {
+          "floor": "1",
+          "bonus": "noBonus",
+          "value": "0",
+          "minDiceValue": "1"
+        },
+        {
+          "floor": "2",
+          "bonus": "noBonus",
+          "value": "0",
+          "minDiceValue": "3"
+        },
+        {
+          "floor": "3",
+          "bonus": "stone",
+          "value": "1",
+          "minDiceValue": "5"
+        },
+        {
+          "floor": "4",
+          "bonus": "stone",
+          "value": "2",
+          "minDiceValue": "7"
+        }
+      ]
+    },
+    {
+      "FloorsBonusTerritoryTower": [
+        {
+          "floor": "1",
+          "bonus": "noBonus",
+          "value": "0",
+          "minDiceValue": "1"
+        },
+        {
+          "floor": "2",
+          "bonus": "noBonus",
+          "value": "0",
+          "minDiceValue": "3"
+        },
+        {
+          "floor": "3",
+          "bonus": "wood",
+          "value": "1",
+          "minDiceValue": "5"
+        },
+        {
+          "floor": "4",
+          "bonus": "wood",
+          "value": "2",
+          "minDiceValue": "7"
+        }
+      ]
+    },
+    {
+      "FloorsBonusVentureTower": [
+        {
+          "floor": "1",
+          "bonus": "noBonus",
+          "value": "0",
+          "minDiceValue": "1"
+        },
+        {
+          "floor": "2",
+          "bonus": "noBonus",
+          "value": "0",
+          "minDiceValue": "3"
+        },
+        {
+          "floor": "3",
+          "bonus": "coin",
+          "value": "1",
+          "minDiceValue": "5"
+        },
+        {
+          "floor": "4",
+          "bonus": "coin",
+          "value": "2",
+          "minDiceValue": "7"
+        }
+      ]
+    },
+    {
+      "MilitaryPointsRequired": [
+        {
+          "numTerritoryCards": "3",
+          "militaryPointsRequired": "3"
+        },
+        {
+          "numTerritoryCards": "4",
+          "militaryPointsRequired": "7"
+        },
+        {
+          "numTerritoryCards": "5",
+          "militaryPointsRequired": "12"
+        },
+        {
+          "numTerritoryCards": "6",
+          "militaryPointsRequired": "18"
+        }
+      ]
     }
   ]
 }

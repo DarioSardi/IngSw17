@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
  
  
 public class CreateCards {
+	private ArrayList<Card> cards;
 	private ArrayList<Effect> instantBonus;
 	private ArrayList<Effect> permanentBonus;
     private String name;
@@ -22,15 +23,16 @@ public class CreateCards {
     private CardBonusIterators cardBonusIterators;
     private CardCostIterators cardCostIterators;
 	
-	public CreateCards(){		
-    	this.instantBonus = new ArrayList<Effect>();		
-    	this.permanentBonus = new ArrayList<Effect>();
+	public CreateCards(){
+		this.cards = new ArrayList<>();
+    	this.instantBonus = new ArrayList<>();		
+    	this.permanentBonus = new ArrayList<>();
     	//this.costEffect = new CostEffect(null);
     	this.cardBonusIterators = new CardBonusIterators();
     	//this.cardCostIterators = new CardCostIterators();
 	}
     
-	public void readCards(Object obj, ArrayList<Card> cards) { 
+	public ArrayList<Card> readCards(Object obj) { 
     	
          JSONObject jsonObject = (JSONObject) obj;
          
@@ -56,7 +58,7 @@ public class CreateCards {
              if (type.equals("TerritoryCard")){
             	 
             	 int harvestDice = Integer.valueOf((String)slides.get("HarvestDice"));
-                 cards.add(new TerritoryCard(this.name, this.period, this.instantBonus, this.permanentBonus, harvestDice));
+                 this.cards.add(new TerritoryCard(this.name, this.period, this.instantBonus, this.permanentBonus, harvestDice));
              }
              else{
             	 
@@ -66,13 +68,13 @@ public class CreateCards {
             	
             	 
             	 if (type.equals("CharacterCard")){
-            		 cards.add(new CharacterCard(this.name, this.period, this.costEffect, this.instantBonus, this.permanentBonus));
+            		 this.cards.add(new CharacterCard(this.name, this.period, this.costEffect, this.instantBonus, this.permanentBonus));
 	             }
             	 
             	 else
             	 if (type.equals("BuildingCard")){
 	            	 int productionDice = Integer.valueOf((String)slides.get("ProductionDice"));
-	            	 cards.add(new BuildingCard(this.name, this.period, this.costEffect, this.instantBonus,
+	            	 this.cards.add(new BuildingCard(this.name, this.period, this.costEffect, this.instantBonus,
 		             			this.permanentBonus, productionDice));
 	            	 
 	             }
@@ -81,7 +83,7 @@ public class CreateCards {
             	 if (type.equals("VentureCard")){
 	            	 int militaryCost = Integer.valueOf((String)slides.get("MilitaryCost"));
 	            	 int militaryMin = Integer.valueOf((String)slides.get("MilitaryMin"));
-	                 cards.add(new VentureCard(this.name, this.period, this.costEffect, militaryCost, militaryMin, this.instantBonus,
+	                 this.cards.add(new VentureCard(this.name, this.period, this.costEffect, militaryCost, militaryMin, this.instantBonus,
 		             			this.permanentBonus));
 	             }	           
              }
@@ -92,11 +94,11 @@ public class CreateCards {
            
          }
         
-         selectRandomCards(cards);
+         return selectRandomCards();
     }
 	
-	private void selectRandomCards(ArrayList<Card> cards){
-		ArrayList<Card> cardsByType = new ArrayList<Card>();
+	private ArrayList<Card> selectRandomCards(){
+		ArrayList<Card> cardsByType = new ArrayList<>();
 		ArrayList<Card> cardsByPeriod;
 		for(int i=1; i <= GlobalVariables.totalNumberOfPeriods; i++){
 			cardsByPeriod = new ArrayList<>();
@@ -109,9 +111,9 @@ public class CreateCards {
 			while (cardsByPeriod.size() > GlobalVariables.towerCardsPerPeriod){
 				cardsByPeriod.remove(cardsByPeriod.size()-1);
 			}
-			
+			 
 			 cardsByType.addAll(cardsByPeriod);
-			 cards = cardsByType;
 		}
+		 return cardsByType;
 	}
 }

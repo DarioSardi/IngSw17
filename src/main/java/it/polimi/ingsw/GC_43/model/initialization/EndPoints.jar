@@ -1,0 +1,68 @@
+{
+  "ActionSpaces": [
+    {
+      "EndPointsCharacterCards": [
+        {
+          "numCharacterCards": "0",
+          "victoryPoint": "0"
+        },
+        {
+          "numCharacterCards": "1",
+          "victoryPoint": "1"
+        },
+        {
+          "numCharacterCards": "2",
+          "victoryPoint": "3"
+        },
+        {
+          "numCharacterCards": "3",
+          "victoryPoint": "6"
+        },
+        {
+          "numCharacterCards": "4",
+          "victoryPoint": "10"
+        },
+        {
+          "numCharacterCards": "5",
+          "victoryPoint": "15"
+        },
+        {
+          "numCharacterCards": "6",
+          "victoryPoint": "21"
+        }
+      ]
+    },
+    {
+      "EndPointsTerritoryCards": [
+        {
+          "numTerritoryCards": "0",
+          "victoryPoint": "0"
+        },
+        {
+          "numTerritoryCards": "1",
+          "victoryPoint": "0"
+        },
+        {
+          "numTerritoryCards": "2",
+          "victoryPoint": "0"
+        },
+        {
+          "numTerritoryCards": "3",
+          "victoryPoint": "1"
+        },
+        {
+          "numTerritoryCards": "4",
+          "victoryPoint": "4"
+        },
+        {
+          "numTerritoryCards": "5",
+          "victoryPoint": "10"
+        },
+        {
+          "numTerritoryCards": "6",
+          "victoryPoint": "20"
+        }
+      ]
+    }
+  ]
+}
