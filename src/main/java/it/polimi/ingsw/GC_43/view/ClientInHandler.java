@@ -10,12 +10,13 @@ public class ClientInHandler implements Runnable {
 
 	private ObjectInputStream socketIn;
 	private Client myClient;
-	private Boolean idSetted;
+	private Boolean idSetted,inMenu,inGame;
 
 	public ClientInHandler(ObjectInputStream socketIn,Client myClient) {
 		this.socketIn=socketIn;
 		this.myClient=myClient;
 		this.idSetted=false;
+		this.inMenu=true;
 	}
 
 	@Override
@@ -28,11 +29,23 @@ public class ClientInHandler implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		while(true){
+		while(inMenu){
 			String line=readMsg();
-			System.out.println(line);	
+			System.out.println(line);
+			if(line=="system_ingame_switch"){
+				inGame=true;
+				parseGameActions();
+					
+				}
+			}
 		}
+	private void parseGameActions() {
+		while(inGame){
+			//DARIO parsing ingame
+		}
+		
 	}
+	
 
 	private void menu() throws InterruptedException {
 		System.out.println("\n\n\n\n");
