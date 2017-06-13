@@ -12,10 +12,15 @@ public class Floor extends ActionSpace {
 	private Card card;
 	private Tower tower;
 
-	public Floor(ArrayList<Effect> bonus, Tower tower, Integer minDiceValue) {
+	public Floor(Effect bonus, Tower tower, Integer minDiceValue) {
 		super();
 		this.setMinDiceValue(minDiceValue);
-		this.setBonus(bonus);
+		
+		//COSI
+		this.setBonus(new ArrayList<Effect>());
+		this.getBonus().add(bonus);
+		//
+		
 		this.tower = tower;
 		this.setFamiliarIn(new ArrayList<FamilyMember>());
 		this.card = null;

@@ -90,22 +90,32 @@ public class Tower{
 	 * @param minDiceValue
 	 * @throws Exception 
 	 */
-	public void addFloor(ArrayList<Effect> bonus, Integer minDiceValue) throws Exception {
-		if (this.floorsNumber<maxFloors) {
-			this.floors.add(new Floor(bonus, this, minDiceValue));
-			this.floorsNumber = this.floorsNumber + 1;
-			//DARIO card? no?
-			
+	public void addFloor(Effect bonus, Integer minDiceValue){
+		try {
+			if (this.floorsNumber<maxFloors) {
+				this.floors.add(new Floor(bonus, this, minDiceValue));
+				this.floorsNumber = this.floorsNumber + 1;
+				//DARIO card? no?
+				
+			}
+			else{throw new Exception("no space for another floor");}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else{throw new Exception("no space for another floor");}
 	}
 	
-	public void addFloor(Integer minDiceValue) throws Exception {
-		if (this.floorsNumber<maxFloors) {
-			this.floors.add(new Floor(null, this, minDiceValue));
-			this.floorsNumber=this.floorsNumber+1;
+	public void addFloor(Integer minDiceValue) {
+		try {
+			if (this.floorsNumber<maxFloors) {
+				this.floors.add(new Floor(null, this, minDiceValue));
+				this.floorsNumber=this.floorsNumber+1;
+			}
+			else{throw new Exception("no space for another floor");}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else{throw new Exception("no space for another floor");}
 		//DARIO card? no?
 	}
 	
