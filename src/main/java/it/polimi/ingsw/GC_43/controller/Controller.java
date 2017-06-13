@@ -2,6 +2,7 @@ package it.polimi.ingsw.GC_43.controller;
 
 import java.util.ArrayList;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,13 +38,24 @@ public class Controller implements IController {
 	    	
 	    	insertPlayers();
 	    	setMatches();
+	    	
+	    	sendModelToClients();
 
 
 	    	
 	    	
 	    }
 	    
-	    private void setMatches() {
+	    private void sendModelToClients() {
+	    		for(ClientHandler clientHandler : this.clientHandlers){
+	 //   			clientHandler.sendMsgTo(this.board);
+	    		}			
+		}
+
+
+
+
+		private void setMatches() {
 	    	for(ClientHandler clientHandler: this.clientHandlers){
 	    		this.matchClientHandler.put(clientHandler.getUsername(), clientHandler);
 	    		

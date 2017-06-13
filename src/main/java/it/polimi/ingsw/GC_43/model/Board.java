@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GC_43.model;
 import it.polimi.ingsw.GC_43.model.actionSpace.*;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import it.polimi.ingsw.GC_43.model.cards.VentureCard;
 import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 
 
-public class Board {
+public class Board implements Serializable {
 
     //CONFIGURATION SETTINGS
    private static int phase;
@@ -132,11 +133,18 @@ public Board(ArrayList playersID){
         setPlayersFamilyMembersValue();
 
         setTowerCards();
+        
 
 
     }
 
     
+
+
+
+
+
+
 private void setPlayersFamilyMembersValue() {		
 	for (Player player: this.getPlayers()){
 		for(int i=0; i<player.getFamilyMembers().size();i++){

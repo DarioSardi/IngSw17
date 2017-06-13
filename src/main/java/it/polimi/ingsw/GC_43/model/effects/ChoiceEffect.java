@@ -20,16 +20,22 @@ public class ChoiceEffect extends Effect{
 	public String toString(){
 
 		String toString="Costs = ";
-		for(Resource cost:this.costs){
-			toString=toString+cost.getResourceType()+": "+cost.getValue()+" ";
+		if(this.costs!=null){
+			for(Resource cost:this.costs){
+				toString=toString+cost.getResourceType()+": "+cost.getValue()+" ";
+			}
 		}
+		
 		toString=toString+"\n   gains = ";
-
+		
+		if(this.gains!=null){
 		for(Resource gain:this.gains){
 			toString=toString+gain.getResourceType()+": "+gain.getValue()+" ";
 		}
-		return toString;
 	}
+	return toString;
+		
+}
 	public boolean check(Player player){
 		boolean checkResult=true;
 		for(Resource resource: this.costs){
