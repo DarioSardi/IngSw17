@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -39,32 +40,32 @@ public class CouncilPalaceTest {
 		c.getCouncil().addFamiliarIn(f12);
 		c.getCouncil().addFamiliarIn(f21);
 	}
-/*	
+
 	@Test
 	public void testCheck() {
-		fail("Not yet implemented");
+		assertEquals(true,c.check(f22));
+		assertEquals(false,c.check(null));
+		
 	}
 
 	@Test
 	public void testGetBonusOfArea() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCouncilPalace() {
-		fail("Not yet implemented");
+		assertEquals(0,c.getBonusOfArea(p1));
 	}
 
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		c.toString();
 	}
 
-	@Test
+	@After
 	public void testIsEmpty() {
-		fail("Not yet implemented");
+		assertEquals(false, c.isEmpty());
+		c.resetArea();
+		assertEquals(true, c.isEmpty());
+
 	}
-*/
+
 
 	@Test
 	public void testEntryOrder() {

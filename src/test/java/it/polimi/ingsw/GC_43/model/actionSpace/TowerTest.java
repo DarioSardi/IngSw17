@@ -28,6 +28,7 @@ public class TowerTest {
 	public Player p2=new Player("coso2", 4);
 	public FamilyMember f1= new FamilyMember(p1, 2);
 	
+	
 	@Before
 	public void initializeTest() throws Exception{
 		reA.add(re);
@@ -76,8 +77,13 @@ public class TowerTest {
 	}
 
 	@Test
-	public void testToString() {
+	public void testToStringAll() {
 		System.out.println(t1.toStringAll());
+	}
+	
+	@Test
+	public void testToString() {
+		System.out.println(t1.toString());
 	}
 
 	@Test(expected=Exception.class)
@@ -109,6 +115,14 @@ public class TowerTest {
 		t1.setTowerOccupied(true);
 		t1.resetArea();
 		assertFalse(t1.check(f1));
+	}
+	
+	@Test
+	public void testColorCheck(){
+		Floor floor=t1.getFloors().get(0);
+		assertEquals(true, t1.checkColor(f1));
+		floor.addFamiliarIn(f1);
+		assertEquals(false, t1.checkColor(f1));
 	}
 
 }

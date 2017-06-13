@@ -83,6 +83,7 @@ public class Tower{
 		return sb.toString();
 	}
 
+
 	/**
 	 * add a floor to the tower with a bonus
 	 * @param bonus bonus of the floor
@@ -122,6 +123,20 @@ public class Tower{
 	public boolean check(FamilyMember f) {
 		return towerOccupied;
 	}
+	/**
+	 * check if the player have a familiar in the tower yet
+	 * @param f familiar for the action in the floor
+	 * @return true if there are no other familiar of the same player in the tower
+	 */
+	public boolean checkColor(FamilyMember f) {
+		if (f.getColor()==0){return true;}
+		else{
+				for(Floor floor: this.floors)
+					if(floor.checkColor(f)){return false;}	
+				}
+				return true;
+			}
+	
 
 	public int getBonusOfArea(Player p) {
 		// DARIO come divido i bonus torre?

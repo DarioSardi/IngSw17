@@ -16,7 +16,10 @@ public class CouncilPalace extends ActionArea{
 
 	@Override
 	public boolean check(FamilyMember f) {
+		if(f!=null){
 		return true;
+		}
+		else return false;
 	}
 
 	@Override

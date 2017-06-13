@@ -40,7 +40,7 @@ public abstract class ActionSpace {
 	}
 
 	public ArrayList<Effect> getBonus() {
-		return bonus;
+		return this.bonus;
 	}
 
 	public void setBonus(ArrayList<Effect> bonus) {
@@ -78,7 +78,7 @@ public abstract class ActionSpace {
 	 * @return true if the space is occupied
 	 */
 	public boolean isOccupied(){
-		return !familiarIn.isEmpty();
+		return !this.familiarIn.isEmpty();
 	}
 	
 }
