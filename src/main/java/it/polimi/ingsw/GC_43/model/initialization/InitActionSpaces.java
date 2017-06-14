@@ -2,28 +2,15 @@ package it.polimi.ingsw.GC_43.model.initialization;
 
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.actionSpace.*;
-import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
-import it.polimi.ingsw.GC_43.model.cards.Card;
-import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
-import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
-import it.polimi.ingsw.GC_43.model.cards.VentureCard;
-import it.polimi.ingsw.GC_43.model.effects.AdditionalDiceValueToTower;
-import it.polimi.ingsw.GC_43.model.effects.CostEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
-import it.polimi.ingsw.GC_43.model.effects.MultipleResourceEffect;
 import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
 import it.polimi.ingsw.GC_43.model.resources.*;
 
@@ -79,18 +66,16 @@ public class InitActionSpaces {
              
              //SAMUEL inizializzare faithPoints su Board
              
-             
-
              JSONArray marketArray = (JSONArray) slides.get("Market");
              Iterator<?> marketIterator = marketArray.iterator();
              
              int minDiceValue;     
              ArrayList<MarketActionSpace> marketSpaces = new ArrayList<>();
              while (marketIterator.hasNext()) {
-     			JSONObject slide = (JSONObject) marketIterator.next();
-     			minDiceValue = Integer.valueOf((String)slide.get("minDiceValue"));
+     			JSONObject slide1 = (JSONObject) marketIterator.next();
+     			minDiceValue = Integer.valueOf((String)slide1.get("minDiceValue"));
      			
-     			JSONArray marketBonus = (JSONArray) slides.get("Bonus");
+     			JSONArray marketBonus = (JSONArray) slide1.get("Bonus");
                 Iterator<?> marketBonusIterator = marketBonus.iterator(); 
                 
     			ArrayList<Effect> resources = new ArrayList<>();
@@ -98,7 +83,7 @@ public class InitActionSpaces {
                 while (marketBonusIterator.hasNext()) {
         			JSONObject slide2 = (JSONObject) marketBonusIterator.next();
         			String typeBonus = (String)slide2.get("type");
-        			int valueBonus = Integer.parseInt((String)slide.get("value"));
+        			int valueBonus = Integer.parseInt((String)slide2.get("value"));
         			
         			resources.add(retResourceEffect(typeBonus, valueBonus));
        	 	 	}                
@@ -112,9 +97,9 @@ public class InitActionSpaces {
              Iterator councilPalaceIterator = councilPalaceArray.iterator();
              
              while (councilPalaceIterator.hasNext()) {
-      			JSONObject slide = (JSONObject) councilPalaceIterator.next();
-      			String type = (String)slide.get("type");
-     			int value = Integer.parseInt((String)slide.get("value")); 
+      			JSONObject slide1 = (JSONObject) councilPalaceIterator.next();
+      			String type = (String)slide1.get("type");
+     			int value = Integer.parseInt((String)slide1.get("value")); 
      			
      			this.councilPalaceBonus.add(retResourceEffect(type, value));    			
     	 	 }
@@ -138,13 +123,13 @@ public class InitActionSpaces {
              
              
              JSONArray militaryPointsRequiredArray = (JSONArray) slides.get("MilitaryPointsRequired");
-             Iterator militaryPointsRequiredIterator = councilPalaceArray.iterator();
+             Iterator militaryPointsRequiredIterator = militaryPointsRequiredArray.iterator();
              
              
              while (militaryPointsRequiredIterator.hasNext()) {
-      			JSONObject slide = (JSONObject) militaryPointsRequiredIterator.next();
-      			int numTerritoryCards = Integer.parseInt((String)slide.get("numTerritoryCards"));
-     			int required = Integer.parseInt((String)slide.get("required")); 
+      			JSONObject slide1 = (JSONObject) militaryPointsRequiredIterator.next();
+      			int numTerritoryCards = Integer.parseInt((String)slide1.get("numTerritoryCards"));
+     			int required = Integer.parseInt((String)slide1.get("militaryPointsRequired")); 
      			
      			if (numTerritoryCards >= 0 && numTerritoryCards <= GlobalVariables.maxNumberPlayerCards){
      				this.militaryPointsRequired[numTerritoryCards] = required;

@@ -1,9 +1,15 @@
 package it.polimi.ingsw.GC_43.model;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.GC_43.model.actionSpace.ActionSpace;
 
-public class FamilyMember{
-    private int color;
+public class FamilyMember implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7472932792109550534L;
+	private int color;
     private boolean alreadyPlaced;
     private ActionSpace familyMemberPosition;
     private Player player;
@@ -50,34 +56,23 @@ public class FamilyMember{
     
     public void setAlreadyPlaced(boolean alreadyPlaced) {
         this.alreadyPlaced = alreadyPlaced;
-    }
-/*
+    }	
+ 
     public int getFamilyMemberValue() {
-        return this.die.getDieValue() + this.malusOnDie;
+        return this.diceValue + this.malusOnDie;
     }
     
-    public void setDieToFamilyMember(Die die) {
-        this.die = die;
-    //    this.die.setFamilyMemberToDie(this);  //FRANCESCO-SAMUEL Metodo per assegnare famigliare al dado
+    public void setDieToFamilyMember(int diceValue) {
+        this.diceValue = diceValue;
     }
- */   
-    			
- 
-			    public int getFamilyMemberValue() {
-			        return this.diceValue + this.malusOnDie;
-			    }
-			    
-			    public void setDieToFamilyMember(int diceValue) {
-			        this.diceValue = diceValue;
-			    }
-			    
-			    public void addFamilyMemberValue(int value) {
-			        this.diceValue = this.diceValue + value;
-			    }
-			    
-			    public void subFamilyMemberValue(int value) {
-			        this.diceValue = this.diceValue - value;
-			    }
+    
+    public void addFamilyMemberValue(int value) {
+        this.diceValue = this.diceValue + value;
+    }
+    
+    public void subFamilyMemberValue(int value) {
+        this.diceValue = this.diceValue - value;
+    }
     
     public ActionSpace getFamilyMemberPosition() {
         return familyMemberPosition;

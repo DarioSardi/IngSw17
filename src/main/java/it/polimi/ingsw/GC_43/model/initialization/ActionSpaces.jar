@@ -1,7 +1,7 @@
 {
   "ActionSpaces": [
     {
-      "FaithPoints": [
+	"FaithPoints": [
         {
           "position": "0",
           "victoryPoint": "0"
@@ -66,9 +66,7 @@
           "position": "15",
           "victoryPoint": "30"
         }
-      ]
-    },
-    {
+      ],
       "Market": [
         {
           "minDiceValue": "1",
@@ -110,10 +108,8 @@
             }
           ]
         }
-      ]
-    },
-    {
-      "CouncilPalaceBonus": [
+      ],
+	 "CouncilPalaceBonus": [
         {
           "type": "coin",
           "value": "1"
@@ -122,10 +118,8 @@
           "type": "councilPrivilege",
           "value": "1"
         }
-      ]
-    },
-    {
-      "FloorsBonusBuildingTower": [
+      ],
+	 "FloorsBonusBuildingTower": [
         {
           "floor": "1",
           "bonus": "noBonus",
@@ -150,10 +144,8 @@
           "value": "2",
           "minDiceValue": "7"
         }
-      ]
-    },
-    {
-      "FloorsBonusCharacterTower": [
+      ],
+	 "FloorsBonusCharacterTower": [
         {
           "floor": "1",
           "bonus": "noBonus",
@@ -178,9 +170,7 @@
           "value": "2",
           "minDiceValue": "7"
         }
-      ]
-    },
-    {
+      ],
       "FloorsBonusTerritoryTower": [
         {
           "floor": "1",
@@ -206,9 +196,7 @@
           "value": "2",
           "minDiceValue": "7"
         }
-      ]
-    },
-    {
+      ],
       "FloorsBonusVentureTower": [
         {
           "floor": "1",
@@ -234,9 +222,7 @@
           "value": "2",
           "minDiceValue": "7"
         }
-      ]
-    },
-    {
+      ],
       "MilitaryPointsRequired": [
         {
           "numTerritoryCards": "3",
