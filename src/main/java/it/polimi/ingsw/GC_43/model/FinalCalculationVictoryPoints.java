@@ -7,7 +7,7 @@ import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.cards.VentureCard;
 import it.polimi.ingsw.GC_43.model.resources.Resource;
 
-public class FinalCalculationVictoryPoints {
+public class FinalCalculationVictoryPoints{
 	private ArrayList<Integer> victoryPointsForTerritoryCards;
 	private ArrayList<Integer> victoryPointsForCharacterCards;
 	

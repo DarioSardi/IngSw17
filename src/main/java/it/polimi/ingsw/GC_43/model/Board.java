@@ -21,7 +21,11 @@ import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 
 public class Board implements Serializable {
 
-    //CONFIGURATION SETTINGS
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+//CONFIGURATION SETTINGS
    private int phase;
    private int round;
    private int period;
@@ -44,7 +48,6 @@ public class Board implements Serializable {
     private HarvestArea harvestArea;
     private ProductionArea productionArea;
     private ArrayList <Tower> towers;
-    private FaithArea faithArea;
 
     //PLAYERS
     private List<String> playersID;
@@ -366,13 +369,6 @@ private void setPlayersFamilyMembersValue() {
         this.towers = towers;
     }
 
-    public FaithArea getFaithArea() {
-        return faithArea;
-    }
-
-    public void setFaithArea(FaithArea faithArea) {
-        this.faithArea = faithArea;
-    }
 
     public List<String> getPlayersID() {
         return playersID;
