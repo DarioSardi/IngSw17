@@ -11,6 +11,7 @@ import it.polimi.ingsw.GC_43.model.actionSpace.Tower;
 import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 import it.polimi.ingsw.GC_43.model.actions.TowerAction;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.cards.Card;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
@@ -46,14 +47,16 @@ public class TowerActionCreationRoutine implements ActionCreation {
 	        ////////   QUA ARRIVED
 	        
 	        
-//	        checkInstantEffects();
 	        
 
 	        return true;
 	    }
 	    
 	    
-	    private boolean selectTowerAndFloor(ArrayList <Tower> towers) {
+
+
+
+		private boolean selectTowerAndFloor(ArrayList <Tower> towers) {
 	    	
 	    	//TOWER CHOICE
 	    	String question= this.board.towersToString();
@@ -79,6 +82,9 @@ public class TowerActionCreationRoutine implements ActionCreation {
 	    		this.towerAction.getTowerChoices().add(floorChoice);
 	    	}
 	    	
+	        checkCardInstantEffects(this.board.getTowers().get(towerChoice).getFloors().get(floorChoice).getCard());
+
+	    	
 	    	//VEDITI I CASI INSTANT BONUS  E VEDI PER LE CHOICE !!
 	    	return true;
 	        
@@ -88,7 +94,15 @@ public class TowerActionCreationRoutine implements ActionCreation {
 	    
 	    
 	    
-	    private int lookForExtraBonus(Tower tower) {
+	    private void checkCardInstantEffects(Card card) {
+	    	System.out.println("\nCard instant bonus requiring choices checks...\n");
+	    	for(Effect effect: card.getInstantBonus()){
+	    		
+	    	}
+		}
+
+
+		private int lookForExtraBonus(Tower tower) {
 	    	int extraBonusOnDie=0;
 	    	if(tower.getTowerColor()==TowerColors.BUILDINGS_TOWER)
 	    		extraBonusOnDie=this.towerAction.getPlayer().getPlayerBounusMalus().getBonusDiceBuildingTower();
@@ -103,6 +117,14 @@ public class TowerActionCreationRoutine implements ActionCreation {
 	    		extraBonusOnDie=this.towerAction.getPlayer().getPlayerBounusMalus().getBonusDiceVentureTower();
 	    	
 	    	return extraBonusOnDie;
+		}
+	    
+	    
+	    
+	    
+	    
+	    private void checkInstantEffects() {
+	    	
 		}
 
 

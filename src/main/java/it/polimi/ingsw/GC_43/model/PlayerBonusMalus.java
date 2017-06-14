@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GC_43.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,11 +8,15 @@ import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 
-public class PlayerBonusMalus {
+public class PlayerBonusMalus implements Serializable {
 	
 	//BONUS ADDED EACH TIME NEEDED, THEY COULD BE NEGATIVE TOO
 	//COMING FROM BOTH CHARACTER CARDS AND FROM EXCOMMUNICATION TILES
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int bonusDiceCharacterTower;
 	private int bonusDiceTerritoryTower;
 	private int bonusDiceBuildingTower;
@@ -45,6 +50,7 @@ public class PlayerBonusMalus {
 //Bonus (coins discount) on acquiring cards in towers
 	
 	private HashMap<String,Integer> bonusCoinsOnBuyInTowers;
+	
 	
 	//BONUS PRODUCTION AREA 
 	

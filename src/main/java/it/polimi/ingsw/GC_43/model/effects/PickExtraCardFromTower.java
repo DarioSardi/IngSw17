@@ -3,6 +3,7 @@ package it.polimi.ingsw.GC_43.model.effects;
 import java.util.HashMap;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 
 public class PickExtraCardFromTower extends Effect{ 
 	/**
@@ -23,6 +24,13 @@ public class PickExtraCardFromTower extends Effect{
 		this.dieValue=dieValue;
 		this.towerType= towerType;
 		this.resourceDiscounted= new HashMap<String,Integer>();
+		this.resourceDiscounted.put("coin", 0);
+		this.resourceDiscounted.put("servant", 0);
+		this.resourceDiscounted.put("stone", 0);
+		this.resourceDiscounted.put("wood", 0);
+		this.resourceDiscounted.put("victoryPoint", 0);
+		this.resourceDiscounted.put("militaryPoint", 0);
+		this.resourceDiscounted.put("faithPoint",0);
 	}
 	public PickExtraCardFromTower(int dieValue){
 		this.dieValue=dieValue;
