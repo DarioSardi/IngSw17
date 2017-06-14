@@ -8,6 +8,10 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 
 public class ChoiceEffect extends Effect{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Resource> costs;
 	private ArrayList<Resource> gains;
 	

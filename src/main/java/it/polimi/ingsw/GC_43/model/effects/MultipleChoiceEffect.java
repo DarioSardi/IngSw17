@@ -7,6 +7,10 @@ import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.resources.*;
 
 public class MultipleChoiceEffect extends Effect {
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private ArrayList<ChoiceEffect> choices;
 		
 		public String toString(){

@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import it.polimi.ingsw.GC_43.model.Player;
 
 public class TowerAction extends Action {
-	  private ArrayList<Integer> towerChoices;
+	  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Integer> towerChoices;
 
 	    public TowerAction(String playerID, Player player){
 	    	super(playerID,player);

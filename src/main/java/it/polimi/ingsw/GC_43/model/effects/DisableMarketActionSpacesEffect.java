@@ -4,6 +4,11 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 
 public class DisableMarketActionSpacesEffect extends Effect {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public String toString(){
 		String toString="Player will NOT have access to market action space anymore";
 		return toString;

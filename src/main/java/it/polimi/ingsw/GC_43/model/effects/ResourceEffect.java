@@ -75,6 +75,10 @@ public static void main(String [] args){
  */
 public class ResourceEffect extends Effect {
 
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private Resource resource;
 
         public ResourceEffect(Resource resource){

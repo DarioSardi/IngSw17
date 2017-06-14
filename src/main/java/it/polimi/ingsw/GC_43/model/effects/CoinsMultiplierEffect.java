@@ -3,6 +3,10 @@ package it.polimi.ingsw.GC_43.model.effects;
 import it.polimi.ingsw.GC_43.model.Player;
 
 public class CoinsMultiplierEffect extends Effect {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int multiplierFactor;
 	private String multiplierType;
 	

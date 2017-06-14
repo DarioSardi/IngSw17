@@ -7,6 +7,10 @@ import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.resources.*;
 //TODO era per council privilege che dava più di un bonus pietra+legno, vedi se sempllificare in altro modo
 public class MultipleResourceEffect extends Effect {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<ResourceEffect> resourcesToGet;
 
     public MultipleResourceEffect(ArrayList <ResourceEffect> resourcesToGet){ 

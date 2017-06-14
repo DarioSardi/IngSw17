@@ -6,7 +6,11 @@ import it.polimi.ingsw.GC_43.model.Player;
 
 public class MarketAction extends Action{
 
-    private ArrayList<Integer> MarketChoices;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Integer> MarketChoices;
 
 	public MarketAction(String playerID, Player player) {
 		super(playerID, player);

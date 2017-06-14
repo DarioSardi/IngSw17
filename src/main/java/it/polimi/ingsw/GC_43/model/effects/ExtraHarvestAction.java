@@ -3,6 +3,10 @@ package it.polimi.ingsw.GC_43.model.effects;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 
 public class ExtraHarvestAction extends Effect {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int dieValue;
 	
 	public ExtraHarvestAction(int dieValue){

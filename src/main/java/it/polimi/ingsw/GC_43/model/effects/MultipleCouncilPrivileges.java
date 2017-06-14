@@ -6,6 +6,10 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 
 public class MultipleCouncilPrivileges extends Effect {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numberOfCopies;
 	private MultipleChoiceEffect privilegeChoices;
 

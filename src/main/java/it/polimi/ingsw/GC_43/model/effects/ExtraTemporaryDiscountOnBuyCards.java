@@ -5,6 +5,10 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.resources.*;
 
 public class ExtraTemporaryDiscountOnBuyCards extends Effect{ 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Resource resource;
 	String towerType;
 	

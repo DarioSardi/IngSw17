@@ -7,7 +7,11 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 
 public abstract class Action implements Serializable {
-    private Player player;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Player player;
     private String playerID;
     private int familyMemberColor;
     private FamilyMember familyMember;
