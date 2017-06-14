@@ -1,6 +1,10 @@
 package it.polimi.ingsw.GC_43.model.resources;
 
 public class Coin extends Resource{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2434324628256766197L;
 	private String resourceType = "coins";
 	private int value;
 	

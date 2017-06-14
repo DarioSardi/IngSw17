@@ -1,10 +1,15 @@
 package it.polimi.ingsw.GC_43.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Player {
+public class Player implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4171356456229890955L;
 	private String playerName;
 	private PlayerBonusMalus playerBounusMalus;
 	private PlayerCards playerCards;

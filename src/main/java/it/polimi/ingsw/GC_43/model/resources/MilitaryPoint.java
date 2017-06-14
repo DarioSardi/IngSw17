@@ -1,6 +1,10 @@
 package it.polimi.ingsw.GC_43.model.resources;
 
 public class MilitaryPoint extends Resource {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4745478162778595159L;
 	private String resourceType = "militaryPoint";
 	private int value;
 	
