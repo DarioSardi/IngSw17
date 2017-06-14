@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GC_43.controller;
 
+import java.awt.SecondaryLoop;
 import java.util.ArrayList;
 
 public class Lobby implements Runnable{
@@ -58,6 +59,21 @@ public class Lobby implements Runnable{
 		
 	}
 	
+	public String whoIsIn() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("---------------------------\n");
+		sb.append("nella lobby " + ID + " ci sono\n");
+		players.stream().forEach(p -> {
+			if (p.getUsername().equals(admin.getUsername())) {
+				sb.append(p.getUsername() + "  ADMIN");
+			} else {
+				sb.append(p.getUsername());
+			}
+		});
+		sb.append("\n---------------------------\n");
+		return sb.toString();
+	}
+
 	@Override
 	public String toString() {
 		return "lobby number "+ID+", lobby admin is: "+admin.toString()+"\n";
@@ -75,7 +91,7 @@ public class Lobby implements Runnable{
 	public boolean startGame(ClientHandler clientHandler) {
 		if(this.admin==clientHandler){
 			//INIZIA GIOCO
-			lobbyMsg("il gioco sta iniziando");
+			lobbyMsg("il gioco si sta iniziando");
 			this.controller=new Controller(players);
 			lobbyMsg("controller inizializzato");
 			controller.initializeGame();
