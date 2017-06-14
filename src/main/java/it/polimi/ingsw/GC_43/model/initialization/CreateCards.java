@@ -103,7 +103,7 @@ public class CreateCards {
 		for(int i=1; i <= GlobalVariables.totalNumberOfPeriods; i++){
 			cardsByPeriod = new ArrayList<>();
 			
-			for(int j=0; j < cards.size(); j++){
+			for(int j=0; j < this.cards.size(); j++){
 				if(cards.get(j).getCardEra() == i) cardsByPeriod.add(cards.get(j));
 			}
 			

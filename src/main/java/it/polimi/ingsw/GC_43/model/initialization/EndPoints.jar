@@ -1,34 +1,34 @@
 {
-  "ActionSpaces": [
+  "EndPoints": [
     {
       "EndPointsCharacterCards": [
         {
           "numCharacterCards": "0",
-          "victoryPoint": "0"
+          "victoryPoints": "0"
         },
         {
           "numCharacterCards": "1",
-          "victoryPoint": "1"
+          "victoryPoints": "1"
         },
         {
           "numCharacterCards": "2",
-          "victoryPoint": "3"
+          "victoryPoints": "3"
         },
         {
           "numCharacterCards": "3",
-          "victoryPoint": "6"
+          "victoryPoints": "6"
         },
         {
           "numCharacterCards": "4",
-          "victoryPoint": "10"
+          "victoryPoints": "10"
         },
         {
           "numCharacterCards": "5",
-          "victoryPoint": "15"
+          "victoryPoints": "15"
         },
         {
           "numCharacterCards": "6",
-          "victoryPoint": "21"
+          "victoryPoints": "21"
         }
       ]
     },
@@ -36,31 +36,31 @@
       "EndPointsTerritoryCards": [
         {
           "numTerritoryCards": "0",
-          "victoryPoint": "0"
+          "victoryPointss": "0"
         },
         {
           "numTerritoryCards": "1",
-          "victoryPoint": "0"
+          "victoryPoints": "0"
         },
         {
           "numTerritoryCards": "2",
-          "victoryPoint": "0"
+          "victoryPoints": "0"
         },
         {
           "numTerritoryCards": "3",
-          "victoryPoint": "1"
+          "victoryPoints": "1"
         },
         {
           "numTerritoryCards": "4",
-          "victoryPoint": "4"
+          "victoryPoints": "4"
         },
         {
           "numTerritoryCards": "5",
-          "victoryPoint": "10"
+          "victoryPoints": "10"
         },
         {
           "numTerritoryCards": "6",
-          "victoryPoint": "20"
+          "victoryPoints": "20"
         }
       ]
     }

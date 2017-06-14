@@ -20,14 +20,15 @@ import it.polimi.ingsw.GC_43.model.effects.CostEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
  
 public class InitExcommunicationTiles {
-    
+	private ArrayList<Effect> malusExcommunicationSelected = new ArrayList<>();
+	
 	public static void readExcommunicationTiles() {
 		int period;
 		String type;
 		int value;
 		String malusOn;
 		
-		ArrayList<Effect> malusExcommunicationSelected = new ArrayList<>();
+		
 		ArrayList<Effect> malusExcommunicationTiles = new ArrayList<>();
 		
         JSONParser parser = new JSONParser();
@@ -48,8 +49,9 @@ public class InitExcommunicationTiles {
   			period = Integer.valueOf((String)slides.get("period"));
 
              JSONArray malus = (JSONArray) slides.get("Malus");
-             new ExcommunicationTilesIterators().iterator(malusExcommunicationTiles, malus.iterator());             
+             new ExcommunicationTilesIterators().iterator(malusExcommunicationTiles, malus.iterator());   
          }
+         
          
     	 System.out.println("inizializzate tutte le carte scomunica");
 
