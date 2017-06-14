@@ -48,7 +48,7 @@ public class Controller implements IController {
 	    
 	    private void sendModelToClients() {
 	    		for(ClientHandler clientHandler : this.clientHandlers){
-	 //   			clientHandler.sendMsgTo(this.board);
+//	    			clientHandler.sendMsgTo(this.board);
 	    		}			
 		}
 
@@ -77,7 +77,7 @@ public class Controller implements IController {
 	    		
 	    	}
 	    	this.board=new Board(playerIDs);
-//	    	new InitGame(board);
+	    	new InitGame(board);
 	    	
 	    	
 	    }
