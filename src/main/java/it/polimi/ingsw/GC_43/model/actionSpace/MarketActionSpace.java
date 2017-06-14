@@ -8,6 +8,11 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 public class MarketActionSpace extends ActionSpace {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5559774555424341006L;
+
 	public MarketActionSpace(ArrayList<Effect> e, int minDiceValue) {
 		this.setBonus(e);
 		this.setMinDiceValue(minDiceValue);

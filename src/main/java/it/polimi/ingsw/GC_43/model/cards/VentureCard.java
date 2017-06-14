@@ -6,6 +6,10 @@ import it.polimi.ingsw.GC_43.model.effects.CostEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class VentureCard extends Card{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2078693514720530416L;
 	private int militaryCost, militaryMin;
 	public static final String TYPE = "VentureCard";
 	public VentureCard(String cardName, int cardEra, CostEffect cost, int militaryCost,int militaryMin, ArrayList<Effect> instantBonus,

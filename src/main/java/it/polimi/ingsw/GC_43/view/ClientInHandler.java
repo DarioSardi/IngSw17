@@ -5,53 +5,53 @@ import java.io.ObjectInputStream;
 import java.util.Scanner;
 
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
+import it.polimi.ingsw.GC_43.model.Board;
 
 public class ClientInHandler implements Runnable {
 
 	private ObjectInputStream socketIn;
 	private Client myClient;
-	private Boolean idSetted,inMenu,inGame;
+	private Boolean idSetted;
 
 	public ClientInHandler(ObjectInputStream socketIn,Client myClient) {
 		this.socketIn=socketIn;
 		this.myClient=myClient;
 		this.idSetted=false;
-		this.inMenu=true;
+		this.myClient.inMenu=true;
 	}
 
 	@Override
 	public void run() {
 		myClient.setID(Integer.parseInt(readMsg()));
 		System.out.println("client ID is now: " + myClient.getID());
-		try {
-			menu();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		while(inMenu){
+		while(this.myClient.online){
 			String line=readMsg();
-			System.out.println(line);
-			if(line=="system_ingame_switch"){
-				inGame=true;
-				parseGameActions();
+			
+			if("system_ingame_switch".equals(line)){
+				this.myClient.inGame=true;
+				parseGameUpdates();
 					
 				}
+			else{
+				System.out.println(line);
+			}
 			}
 		}
-	private void parseGameActions() {
-		while(inGame){
-			//DARIO parsing ingame
+	private void parseGameUpdates() {
+		System.out.println("parser delgli update pronto!");
+		while(this.myClient.inGame){
+			Object o=receiveMsg();
+			if(o instanceof Board){
+				Board b=(Board) o;
+				this.myClient.setBoard(b);
+			}
 		}
 		
 	}
 	
 
 	private void menu() throws InterruptedException {
-		System.out.println("\n\n\n\n");
-		System.out.println("Menu di gioco");
-		System.out.println("1. crea una nuova partita");
-		System.out.println("2. seleziona una lobby");	
+		
 	}
 	
 	
@@ -78,6 +78,15 @@ public class ClientInHandler implements Runnable {
 	
 	public String readMsg(){
 		return receiveMsg().getMsg();
+	}
+	
+	public Object receiveObj(){
+		try {
+			return this.socketIn.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

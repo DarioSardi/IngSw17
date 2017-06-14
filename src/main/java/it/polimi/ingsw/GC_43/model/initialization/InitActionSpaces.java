@@ -38,12 +38,13 @@ public class InitActionSpaces {
 		this.faithPoints = new int[GlobalVariables.maxFaithPoints+1];
         this.market = new Market(new ArrayList<MarketActionSpace>());
         this.councilPalaceBonus = new ArrayList<>();
+        this.towers = new ArrayList<>();
         this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
         this.militaryPointsRequired = new Integer[GlobalVariables.maxNumberPlayerCards+1];
-        this.towers = new ArrayList<>();
+        
 	}
 	
 	public void readJson(Board board) {

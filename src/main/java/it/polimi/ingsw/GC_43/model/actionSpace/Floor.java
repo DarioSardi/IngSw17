@@ -8,6 +8,10 @@ import it.polimi.ingsw.GC_43.model.cards.CardHandler;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class Floor extends ActionSpace {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2689065494333771693L;
 	private boolean floorOccupied;
 	private Card card;
 	private Tower tower;

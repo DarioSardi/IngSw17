@@ -25,13 +25,25 @@ public class ClientOutHandler implements Runnable {
 		
 		Scanner userIn= new Scanner(System.in);
 		sendMsgTo(myClient.getUsername());
-		while(true){
+		while(this.myClient.online){
+			if(!this.myClient.inGame){
 			String msg=userIn.nextLine();
 			sendMsgTo(msg);
+			}
+			else if(this.myClient.inGame){
+				inGameParser();
+			}
 		}
 
 	}
 	
+	private void inGameParser() {
+		System.out.println("ho switchato ai comandi in gioco");
+		while(this.myClient.inGame){
+			
+		}
+	}
+
 	public void sendMsgTo(String string){
 		SimpleMessage sm=new SimpleMessage(string);
 		try {

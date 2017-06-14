@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class TerritoryCard extends Card {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4943852848013446288L;
 	public static final String TYPE = "TerritoryCard";
 	private int harvestDice;
 
