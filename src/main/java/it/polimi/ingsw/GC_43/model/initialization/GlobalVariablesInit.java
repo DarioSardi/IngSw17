@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
 import java.io.FileReader;
+import java.io.Serializable;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -9,8 +10,13 @@ import org.json.simple.parser.JSONParser;
 
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
  
-public class GlobalVariablesInit {
-	   public static void readGlobalVariables() {
+public class GlobalVariablesInit implements Serializable{
+	   /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2631448818732722455L;
+
+	public static void readGlobalVariables() {
         JSONParser parser = new JSONParser();
  
         try {
