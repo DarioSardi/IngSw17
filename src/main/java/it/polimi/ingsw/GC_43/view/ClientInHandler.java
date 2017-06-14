@@ -39,6 +39,7 @@ public class ClientInHandler implements Runnable {
 		}
 	private void parseGameUpdates() {
 		System.out.println("parser delgli update pronto!");
+		System.out.println("premi un tasto per continuare.");
 		while(this.myClient.inGame){
 			Object o=receiveMsg();
 			if(o instanceof Board){

@@ -8,9 +8,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,7 +31,7 @@ public class Client {
 	private ClientInHandler inStream;
 	private static InetAddress ipAddr;
 	private Board board;
-	Boolean idSetted,inMenu,inGame,online;
+	Boolean idSetted,inMenu,inGame,online,actionPerformed,myTurn;
 
     public Client() throws IOException{
     	setup();
@@ -37,7 +39,6 @@ public class Client {
     	this.inMenu=true;
     	this.inGame=false;
     	connect();
-    	startToPlay();
     	//closeGame();
     }
     
@@ -56,9 +57,13 @@ public class Client {
 	}
 
 
-
-	private void startToPlay() {
-		// TODO Auto-generated method stub
+    //DARIO temporaneo per il test
+	private void createBoardTest() {
+		ArrayList<String> playersID = new ArrayList<>();
+		playersID.add("0");
+		this.board=new Board(playersID);
+		this.board.toString();
+		this.board.getTowers().toString();
 		
 	}
 
@@ -69,17 +74,17 @@ public class Client {
 	}
 	
 	public int getID(){
-		return ID;
+		return this.ID;
 	}
 	
 
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 	
 
 	public Board getBoard() {
-		return board;
+		return this.board;
 	}
 
 

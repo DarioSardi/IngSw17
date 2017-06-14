@@ -108,7 +108,7 @@ public class ClientHandler implements Runnable{
 	}
 	
 	private void inLobby() {
-		sendMsgTo("sei entrato nella lobby");
+		sendMsgTo("sei entrato nella lobby, digita 'help' per la lista dei comandi");
 		boolean inlobby=true;
 		while(inlobby){
 			String command=readMsg();
@@ -124,13 +124,22 @@ public class ClientHandler implements Runnable{
 			}
 			else if(command.equals("start_game")){
 				if(lobby.startGame(this)){
-					sendMsgTo("prima di InGame");
 					inGame();
 				}
 				else{
 					sendMsgTo("you are not the admin...");
 					continue;
 				}
+			}
+			else if("players".equals(command)){
+				sendMsgTo(lobby.whoIsIn());
+			}
+			else if("help".equals(command)){
+				sendMsgTo("\nchat to chat with the other inLobby players\n"
+						+ "exit_lobby to quit the current lobby\n"
+						+ "start_game to start the game if you are the admin\n"
+						+ "help to see this\n"
+						+ "players if you want to see who is in the lobby\n");
 			}
 			else{
 				sendMsgTo("nulla di che...");

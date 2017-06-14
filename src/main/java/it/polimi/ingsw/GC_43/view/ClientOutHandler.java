@@ -11,6 +11,7 @@ public class ClientOutHandler implements Runnable {
 
 	private ObjectOutputStream socketOut;
 	private Client myClient;
+	private InGameMessageParser gameParser;
 	/**
 	 * handle the message sent to the server
 	 * @param socketOut
@@ -31,16 +32,31 @@ public class ClientOutHandler implements Runnable {
 			sendMsgTo(msg);
 			}
 			else if(this.myClient.inGame){
-				inGameParser();
+				inGameParser(userIn);
 			}
 		}
 
 	}
 	
-	private void inGameParser() {
+	private void inGameParser(Scanner userIn) {
 		System.out.println("ho switchato ai comandi in gioco");
+		System.out.println("digita help per la lista dei comandi in gioco");
+		InGameMessageParser parser=new InGameMessageParser(userIn,this.myClient);
 		while(this.myClient.inGame){
-			
+			String command=userIn.nextLine();
+			if("help".equals(command)){
+				System.out.println("i tuoi comandi sono:");
+				System.out.println("help - per visualizzare la lista dei comandi");
+				System.out.println("action - per visualizzare la lista delle azioni");
+				System.out.println("chat - per inviare un messaggio ai giocatori");
+			}
+			else if("action".equals(command)&&this.myClient.myTurn){
+				parser.actionMenu(userIn,this.myClient);				
+			}
+			else if("action".equals(command)&&!this.myClient.myTurn){
+				System.out.println("this is not your turn!");
+			}
+
 		}
 	}
 
