@@ -7,7 +7,11 @@ import it.polimi.ingsw.GC_43.model.Player;
 
 public class CouncilPalaceAction extends Action{
 	
-    private ArrayList<Integer> councilPalaceChoices;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Integer> councilPalaceChoices;
 
     public CouncilPalaceAction(String playerID, Player player){
     	super(playerID,player);

@@ -77,7 +77,9 @@ public class Lobby implements Runnable{
 			//INIZIA GIOCO
 			lobbyMsg("il gioco sta iniziando");
 			this.controller=new Controller(players);
+			lobbyMsg("controller inizializzato");
 			controller.initializeGame();
+			lobbyMsg("gioco inizializzato");
 			return true;
 		}
 		else{

@@ -5,6 +5,10 @@ import java.util.HashMap;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 
 public class PickExtraCardFromTower extends Effect{ 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int dieValue;
 	private String towerType;
 	private HashMap<String,Integer> resourceDiscounted; 

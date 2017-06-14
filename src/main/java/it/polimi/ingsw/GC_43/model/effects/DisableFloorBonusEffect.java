@@ -5,6 +5,11 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 public class DisableFloorBonusEffect extends Effect {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void executeEffect(FamilyMember familyMember){
 		familyMember.getPlayer().getPlayerBounusMalus().setNoFloorBonus(true);
 	}

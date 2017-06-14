@@ -1,6 +1,10 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
 public class MalusOnColouredFamilyMemberDiceValue extends Effect{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int valueDecreasedBy;
 	
 	public MalusOnColouredFamilyMemberDiceValue(int valueDecreasedBy){

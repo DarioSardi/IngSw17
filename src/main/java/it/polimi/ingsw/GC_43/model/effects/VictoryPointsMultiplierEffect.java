@@ -4,6 +4,10 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 
 public class VictoryPointsMultiplierEffect extends Effect {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int multiplierFactor;
 	private String multiplierType;
 	

@@ -8,6 +8,10 @@ import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 
 public class CostEffect extends Effect {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Resource> Costs;
 	
 	public CostEffect(ArrayList<Resource> Costs){

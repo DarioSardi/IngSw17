@@ -29,9 +29,13 @@ public class Client {
 	private ClientInHandler inStream;
 	private static InetAddress ipAddr;
 	private Board board;
-	
+	Boolean idSetted,inMenu,inGame,online;
+
     public Client() throws IOException{
     	setup();
+    	this.online=true;
+    	this.inMenu=true;
+    	this.inGame=false;
     	connect();
     	startToPlay();
     	//closeGame();
@@ -41,6 +45,7 @@ public class Client {
     
     private void closeGame() {
 		try {
+			this.online=false;
 			inSocket.close();
 			outSocket.close();
 		} catch (Exception e) {
@@ -56,6 +61,7 @@ public class Client {
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 	public void setID(int ID){
 		this.ID=ID;
@@ -80,6 +86,8 @@ public class Client {
 
 	public void setBoard(Board board) {
 		this.board = board;
+		System.out.println("board settata");
+		System.out.println(this.board.toString());
 	}
 
 
@@ -87,7 +95,6 @@ public class Client {
 	private void connect() throws UnknownHostException, IOException {
     	System.out.println("tento di connettermi...");
     	socket = new Socket(address, port);
-    	
     	//thread per gestione I/O
     	ExecutorService executor = Executors.newFixedThreadPool(2);
     	this.outStream=new ClientOutHandler(new ObjectOutputStream(socket.getOutputStream()),this);
@@ -95,6 +102,7 @@ public class Client {
     	executor.submit(inStream);
     	executor.submit(outStream);
         System.out.println("connesso!");
+      
         
     }
 

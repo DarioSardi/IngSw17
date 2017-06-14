@@ -54,6 +54,7 @@ public class InitExcommunicationTiles {
 
 	         selectRandomExcommTiles();
          }
+        
     	 System.out.println("inizializzate tutte le carte scomunica");
 
            	 	

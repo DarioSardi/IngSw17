@@ -1,11 +1,12 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
-public abstract class ActionSpace {
+public abstract class ActionSpace implements Serializable{
 	private int minDiceValue;
 	private ArrayList<FamilyMember> familiarIn=new ArrayList<>();
 	private ArrayList<Effect> bonus;

@@ -56,7 +56,11 @@ public class ClientHandler implements Runnable{
 			
 			//MENU
 			while (!exit) {
-				sendMsgTo("sei nel menù,scegli!");
+				sendMsgTo("\n"
+						+ "Menu di gioco\n"
+						+ "1.crea nuova lobby\n"
+						+ "2.unisciti alla lobby\n"
+						+ "3.esci dal gioco\n");
 				
 				//NEW LOBBY
 				String choice=readMsg();
@@ -120,6 +124,7 @@ public class ClientHandler implements Runnable{
 			}
 			else if(command.equals("start_game")){
 				if(lobby.startGame(this)){
+					sendMsgTo("prima di InGame");
 					inGame();
 				}
 				else{
@@ -135,10 +140,26 @@ public class ClientHandler implements Runnable{
 	}
 
 	private void inGame() {
+		sendMsgTo("You are now in game!");
+		sendMsgTo("system_ingame_switch");
+		Boolean Game=true;
+		while(Game){
+			
+		}
 		// TODO Auto-generated method stub
 		
 	}
 
+	public void sendObject(Object object){
+		try {
+			socketOut.writeObject(object);
+			socketOut.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void sendMsgTo(String string){
 		SimpleMessage sm=new SimpleMessage(string);
 		try {

@@ -1,11 +1,17 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Market {
+public class Market implements Serializable {
 	
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5422861341875183612L;
+
 	public Market(ArrayList<MarketActionSpace> marketActionSpaces) {
 		super();
 		this.marketActionSpaces = marketActionSpaces;

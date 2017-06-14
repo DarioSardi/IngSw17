@@ -9,6 +9,11 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class ProductionArea extends ActionArea{
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -520278630390080976L;
+
 	public ProductionArea(ArrayList<Effect> e) {
 		this.getSpaces().add(new Space(false,GlobalVariables.minDiceValueHarvestArea,this,e));
 		if(GlobalVariables.numberOfPlayers>=3){

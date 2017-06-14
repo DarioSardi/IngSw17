@@ -9,6 +9,11 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class CouncilPalace extends ActionArea{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1601036903329529450L;
+
 	public CouncilPalace(ArrayList<Effect> e) {
 		
 		this.getSpaces().add(new CouncilPalaceSpace(GlobalVariables.minDiceValueCouncilPalace, this,e));

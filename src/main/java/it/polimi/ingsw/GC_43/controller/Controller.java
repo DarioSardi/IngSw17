@@ -37,10 +37,11 @@ public class Controller implements IController {
 	    public void initializeGame(){
 	    	
 	    	insertPlayers();
+	    	System.out.println("player inserted");
 	    	setMatches();
-	    	
+	    	System.out.println("matches created");
 	    	sendModelToClients();
-
+	    	System.out.println("model sent");
 
 	    	
 	    	
@@ -48,7 +49,7 @@ public class Controller implements IController {
 	    
 	    private void sendModelToClients() {
 	    		for(ClientHandler clientHandler : this.clientHandlers){
-	 //   			clientHandler.sendMsgTo(this.board);
+	    			clientHandler.sendObject(this.board);
 	    		}			
 		}
 
@@ -77,7 +78,8 @@ public class Controller implements IController {
 	    		
 	    	}
 	    	this.board=new Board(playerIDs);
-//	    	new InitGame(board);
+	    	System.out.println("sto per inizializzare il gioco");
+	    	new InitGame(board);
 	    	
 	    	
 	    }

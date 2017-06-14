@@ -7,7 +7,11 @@ import it.polimi.ingsw.GC_43.model.Player;
 
 public class HarvestAction extends Action {
 
-    private ArrayList<Integer> harvestChoices;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Integer> harvestChoices;
     private boolean primaryCellChosen;
 
     public HarvestAction(String playerID, Player player){

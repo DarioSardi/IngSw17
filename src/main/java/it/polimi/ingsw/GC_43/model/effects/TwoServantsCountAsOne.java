@@ -4,6 +4,10 @@ import it.polimi.ingsw.GC_43.model.FamilyMember;
 
 public class TwoServantsCountAsOne extends Effect {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public String toString(){
 		String toString="Malus on player: his servant will count as just a half";
 		return toString;

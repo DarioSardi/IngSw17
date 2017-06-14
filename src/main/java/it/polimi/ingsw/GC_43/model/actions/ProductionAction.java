@@ -8,7 +8,11 @@ package it.polimi.ingsw.GC_43.model.actions;
 
 public class ProductionAction extends Action {
 
-    private ArrayList<Integer> productionChoices;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Integer> productionChoices;
     private boolean primaryCellChosen;
 
     public ProductionAction(String playerID, Player player){

@@ -8,6 +8,11 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 public class CouncilPalaceSpace extends Space {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4033708900462156747L;
+
 	public CouncilPalaceSpace(int minDiceValue, ActionArea actionArea,ArrayList<Effect> bonus) {
 		super(true, minDiceValue, actionArea,bonus);
 	}

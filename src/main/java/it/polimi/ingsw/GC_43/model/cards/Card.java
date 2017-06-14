@@ -1,11 +1,16 @@
 package it.polimi.ingsw.GC_43.model.cards;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.GC_43.model.effects.CostEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
-public abstract class Card {
+public abstract class Card implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3230715478707094192L;
 	private String cardName;
 	private int cardPeriod;
 	private CostEffect cost;

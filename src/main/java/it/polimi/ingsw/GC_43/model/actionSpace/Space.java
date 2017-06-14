@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
-public class Space extends ActionSpace {
+public class Space extends ActionSpace{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1345677933307984329L;
 	private boolean unlimited;
 	private ActionArea actionArea;
 	public Space(boolean unlimited, int minDiceValue,ActionArea actionArea,ArrayList<Effect> bonus){

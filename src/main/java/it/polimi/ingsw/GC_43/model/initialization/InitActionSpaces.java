@@ -28,21 +28,23 @@ import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
 import it.polimi.ingsw.GC_43.model.resources.*;
 
 public class InitActionSpaces {
-	Integer[] faithPoints;
-	Market market;
-	ArrayList<ResourceEffect> councilPalaceBonus;
-    private List <Tower> towers;
-	Integer[] militaryPointsRequired;
+	private int[] faithPoints;
+	private Market market;
+	private ArrayList<ResourceEffect> councilPalaceBonus;
+    private ArrayList <Tower> towers;
+	private Integer[] militaryPointsRequired;
 	
 	InitActionSpaces(){
-		this.faithPoints = new Integer[GlobalVariables.maxFaithPoints+1];
+		this.faithPoints = new int[GlobalVariables.maxFaithPoints+1];
         this.market = new Market(new ArrayList<MarketActionSpace>());
         this.councilPalaceBonus = new ArrayList<>();
+        this.towers = new ArrayList<>();
         this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
         this.militaryPointsRequired = new Integer[GlobalVariables.maxNumberPlayerCards+1];
+        
 	}
 	
 	public void readJson(Board board) {
@@ -71,7 +73,8 @@ public class InitActionSpaces {
      			JSONObject slide = (JSONObject) faithAreaIterator.next();
      			position = Integer.parseInt((String)slide.get("position"));
      			victoryPoints = Integer.parseInt((String)slide.get("victoryPoint"));
-     			this.faithPoints[position] = victoryPoints;
+     			if(position >= 0 && position <= GlobalVariables.maxFaithPoints)
+     				this.faithPoints[position] = victoryPoints;
      		 }
              
              //SAMUEL inizializzare faithPoints su Board
@@ -103,7 +106,7 @@ public class InitActionSpaces {
     	 	 }
              
              this.market.setMarketActionSpaces(marketSpaces);
-             
+           
              
              JSONArray councilPalaceArray = (JSONArray) slides.get("CouncilPalaceBonus");
              Iterator councilPalaceIterator = councilPalaceArray.iterator();
@@ -204,5 +207,13 @@ public class InitActionSpaces {
 	
 	public List<Tower> getTowers(){
 		return this.towers;
+	}
+	
+	public int[] getFaithPoints() {
+		return this.faithPoints;
+	}
+	
+	public Market getMarket() {
+		return this.market;
 	}
 }
