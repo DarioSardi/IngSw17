@@ -1,13 +1,14 @@
 package it.polimi.ingsw.GC_43.model.actionCreations;
 
-        import java.util.HashMap;
+        import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Scanner;
 
         import it.polimi.ingsw.GC_43.model.FamilyMember;
         import it.polimi.ingsw.GC_43.model.GlobalVariables;
         import it.polimi.ingsw.GC_43.model.Player;
 
-public class CommonActionCreatorRoutine {
+public class CommonActionCreatorRoutine implements Serializable {
 
 
     public static HashMap<String,Integer> copyPlayerResources(Player player){

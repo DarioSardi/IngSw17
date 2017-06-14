@@ -12,7 +12,11 @@ import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 
 public class CouncilPalaceActionCreationRoutine implements ActionCreation{
 	
-    private CouncilPalaceAction councilPalaceAction;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private CouncilPalaceAction councilPalaceAction;
     private Board board;
     private HashMap<String,Integer>copyOfPlayerResource;
 

@@ -17,7 +17,11 @@ import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 
 public class HarvestActionCreationRoutine implements ActionCreation {
-    private HarvestAction harvestAction;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private HarvestAction harvestAction;
     private Board board;
     private HashMap<String,Integer>copyOfPlayerResource;
 

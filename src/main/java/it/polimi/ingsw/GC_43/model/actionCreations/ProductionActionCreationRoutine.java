@@ -15,7 +15,11 @@ import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 
 public class ProductionActionCreationRoutine implements ActionCreation {
-    private ProductionAction productionAction;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ProductionAction productionAction;
     private Board board;
     private HashMap<String,Integer>copyOfPlayerResource;
     //player ID will be the ID of the instance of playerImpl != player of the model

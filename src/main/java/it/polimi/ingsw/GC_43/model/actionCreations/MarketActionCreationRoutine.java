@@ -12,7 +12,11 @@ import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 
 public class MarketActionCreationRoutine implements ActionCreation{
 	
-	 	private MarketAction marketAction;
+	 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+		private MarketAction marketAction;
 	    private Board board;
 	    private HashMap<String,Integer>copyOfPlayerResource;
 	    private int index;
