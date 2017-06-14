@@ -1,6 +1,10 @@
 package it.polimi.ingsw.GC_43.model.resources;
 
 public class Servant extends Resource{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6319695199878140691L;
 	private String resourceType = "servant";
 	private int value;
 	

@@ -1,6 +1,10 @@
 package it.polimi.ingsw.GC_43.model.resources;
 
 public class VictoryPoint extends Resource{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -346351842808003260L;
 	private String resourceType = "victoryPoint";
 	private int value;
 
