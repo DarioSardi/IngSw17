@@ -22,17 +22,18 @@ public class VictoryPointsMultiplierEffect extends Effect {
 	}
 
 	private void getVictoryPoints(Player player){
+		int malusVictoryPoint=Math.abs(player.getPlayerBounusMalus().getMalusOnAcquiringResources().get("victoryPoint"));
 		if(this.multiplierType== "ventureCards")
-			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayVentureCards().size());
+			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayVentureCards().size()-malusVictoryPoint);
 		
 		if(this.multiplierType== "buildingCards");
-			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size());
+			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size()-malusVictoryPoint);
 		
 		if(this.multiplierType== "territoryCards");
-			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size());
+			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size()-malusVictoryPoint);
 		
 		if(this.multiplierType== "characterCards");
-			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayCharacterCards().size());
+			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayCharacterCards().size()-malusVictoryPoint);
 		
 		
 		if(this.multiplierType== "militaryPoint");

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
+import it.polimi.ingsw.GC_43.model.ExtraFamilyMember;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.actions.HarvestAction;
 
 public class ExtraHarvestAction extends Effect {
 	/**
@@ -20,6 +22,14 @@ public class ExtraHarvestAction extends Effect {
 	}
 	
 	public void executeEffect(FamilyMember familyMember){
-	//TODO to implement	
+		
+		HarvestAction extraHarvestAction= new HarvestAction(familyMember.getPlayer().getPlayerName(), familyMember.getPlayer());
+		extraHarvestAction.setDefaultFamilyMember(true);
+		ExtraFamilyMember extraFamilyMember= new ExtraFamilyMember(familyMember.getPlayer(),0);
+		extraFamilyMember.setDieToFamilyMember(this.dieValue);
+		extraHarvestAction.setFamilyMember(extraFamilyMember);
+		extraHarvestAction.setFamilyMemberColor(extraFamilyMember.getColor());
+		//TODO ADD THIS ACTION TO A PLAYER ATTRIBUTE CLASS EXTRA ACTION FIELD
+		//familyMember.getPlayer().getExtraActionField().getExtraActionList().add(extraHarvestAction);
 	}
 }

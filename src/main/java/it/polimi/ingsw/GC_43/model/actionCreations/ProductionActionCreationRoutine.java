@@ -33,8 +33,12 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 
 
     public boolean prepareAction() {
-        this.productionAction.setFamilyMember(CommonActionCreatorRoutine.askForFamilyMemberChoice(this.productionAction.getPlayer()));
-        this.productionAction.setFamilyMemberColor(this.productionAction.getFamilyMember().getColor());
+    	
+    	if(!this.productionAction.isDefaultFamilyMember())
+    		this.productionAction.setFamilyMember(CommonActionCreatorRoutine.askForFamilyMemberChoice(this.productionAction.getPlayer()));
+        
+    	
+    	this.productionAction.setFamilyMemberColor(this.productionAction.getFamilyMember().getColor());
         this.productionAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),this.productionAction.getFamilyMember().getDiceValue()));
 
         selectProductionSpace(board.getProductionArea());
@@ -95,14 +99,6 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     		numberOfCopies--;
     	}
 	}
-
-
-	private void askForASingleChoice(Effect effect) {
-        String question="Do you want to perform this resource exchange?\n Input 1 for yes I do, 0 for I don't\n";
-        int choice=CommonActionCreatorRoutine.askForSingleChoice(question,0,1);
-        this.productionAction.getProductionChoices().add(choice);
-
-    }
 
     private int askForMultipleChoice(MultipleChoiceEffect effect) {
     	int maxRange=effect.getChoices().size();

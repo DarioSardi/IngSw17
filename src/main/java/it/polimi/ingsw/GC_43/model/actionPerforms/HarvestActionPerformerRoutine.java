@@ -33,7 +33,14 @@ public class HarvestActionPerformerRoutine implements ActionPerformer {
 		this.checkResult=true;
 
 		Player player=this.harvestAction.getPlayer();
-		FamilyMember familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, this.harvestAction.getFamilyMemberColor());
+		
+		
+		FamilyMember familyMember;
+		if(!this.harvestAction.isDefaultFamilyMember())
+			familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, this.harvestAction.getFamilyMemberColor());
+		else
+			familyMember=this.harvestAction.getFamilyMember();
+		
 		HashMap<String,Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
 
 

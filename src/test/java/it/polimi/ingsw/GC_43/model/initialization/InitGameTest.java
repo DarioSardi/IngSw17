@@ -20,6 +20,7 @@ public class InitGameTest {
 		board.getTerritoryCardPool().stream().forEach(c->System.out.println(c.toString()));
 		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 		board.getVentureCardPool().stream().forEach(c->System.out.println(c.toString()));
+		
 	}
 
 	@Test

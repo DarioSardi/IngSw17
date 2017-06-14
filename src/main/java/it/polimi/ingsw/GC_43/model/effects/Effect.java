@@ -22,7 +22,7 @@ public abstract class Effect implements Serializable {
 	}
 	
 	public boolean check(FamilyMember familyMember){
-		return false;
+		return true;
 	}
 
 }

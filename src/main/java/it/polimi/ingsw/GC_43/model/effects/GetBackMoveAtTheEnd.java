@@ -1,5 +1,7 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+
 public class GetBackMoveAtTheEnd extends Effect{
 	
 	/**
@@ -12,7 +14,8 @@ public class GetBackMoveAtTheEnd extends Effect{
 		return toString;
 	}
 	
-	public void executeEffect(){
+	public void executeEffect(FamilyMember familyMember){
+		familyMember.getPlayer().getPlayerBounusMalus().setSkipFirstFamiliarMoveAndGetItBackAtTheEnd(true);
 		
 	}
 }

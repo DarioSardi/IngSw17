@@ -2,8 +2,11 @@ package it.polimi.ingsw.GC_43.model.effects;
 
 import java.util.HashMap;
 
+import it.polimi.ingsw.GC_43.model.ExtraFamilyMember;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
+import it.polimi.ingsw.GC_43.model.actions.HarvestAction;
+import it.polimi.ingsw.GC_43.model.actions.TowerAction;
 
 public class PickExtraCardFromTower extends Effect{ 
 	/**
@@ -42,6 +45,17 @@ public class PickExtraCardFromTower extends Effect{
 	}
 	
 	public void executeEffect(FamilyMember familyMember){
+		TowerAction extraTowerAction= new TowerAction(familyMember.getPlayer().getPlayerName(), familyMember.getPlayer());
+		extraTowerAction.setDefaultFamilyMember(true);
+		ExtraFamilyMember extraFamilyMember= new ExtraFamilyMember(familyMember.getPlayer(),0);
+		extraFamilyMember.setDieToFamilyMember(this.dieValue);
+		extraTowerAction.setFamilyMember(extraFamilyMember);
+		extraTowerAction.setFamilyMemberColor(extraFamilyMember.getColor());
 		
+		if(!this.towerType.equals("whatever")){
+			if(this.towerType.equals("territoryTower")){
+		//TODO TO BE CONTINUED, WITH THE OTHER EVEN EXTRA ACTIONS		
+			}
+		}
 	}
 }

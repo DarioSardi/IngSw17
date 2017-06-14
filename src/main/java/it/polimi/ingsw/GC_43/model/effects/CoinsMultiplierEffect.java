@@ -23,10 +23,10 @@ public class CoinsMultiplierEffect extends Effect {
 	private void getVictoryPoints(Player player){
 		
 		if(this.multiplierType== "buildingCards");
-			player.addResource("coin", this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size());
+			player.addResource("coin", this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size()-Math.abs(player.getPlayerBounusMalus().getMalusOnAcquiringResources().get("coin")));
 		
 		if(this.multiplierType== "territoryCards");
-			player.addResource("coin", this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size());
+			player.addResource("coin", this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size()-Math.abs(player.getPlayerBounusMalus().getMalusOnAcquiringResources().get("coin")));
 
 	}
 }

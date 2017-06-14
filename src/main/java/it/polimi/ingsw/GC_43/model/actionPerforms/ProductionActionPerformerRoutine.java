@@ -29,7 +29,7 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 	public ProductionActionPerformerRoutine(ProductionAction productionAction, Board board){
 		
 		this.productionAction=productionAction;
-		this.checkResult=false;
+		this.checkResult=true;
 		this.board=board;
 		this.index=0;
 		//decide if to launch directly here in creation the performAction();
@@ -43,7 +43,13 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 		this.checkResult=true;
 
 		Player player=this.productionAction.getPlayer();
-		FamilyMember familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, this.productionAction.getFamilyMemberColor());
+		
+		FamilyMember familyMember;
+		if(!this.productionAction.isDefaultFamilyMember())
+			familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, this.productionAction.getFamilyMemberColor());
+		else
+			familyMember=this.productionAction.getFamilyMember();
+		
 		HashMap<String,Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
 
 

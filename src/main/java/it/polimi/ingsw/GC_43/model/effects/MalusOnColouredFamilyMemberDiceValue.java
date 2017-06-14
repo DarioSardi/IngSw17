@@ -1,5 +1,7 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+
 public class MalusOnColouredFamilyMemberDiceValue extends Effect{
 	/**
 	 * 
@@ -16,7 +18,8 @@ public class MalusOnColouredFamilyMemberDiceValue extends Effect{
 		String toString="Malus on coloured family Member: their die value will be decreased permanently by "+this.valueDecreasedBy;
 		return toString;
 	}
-	public void executeEffect(){
+	public void executeEffect(FamilyMember familyMember){
+		familyMember.getPlayer().getPlayerBounusMalus().setMalusCoulouredFamiliarsDiceValue(this.valueDecreasedBy);
 		
 	}
 

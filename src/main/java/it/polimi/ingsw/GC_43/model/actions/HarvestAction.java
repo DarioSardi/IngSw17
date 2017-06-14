@@ -13,6 +13,7 @@ public class HarvestAction extends Action {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Integer> harvestChoices;
     private boolean primaryCellChosen;
+	private boolean defaultFamilyMember;
 
     public HarvestAction(String playerID, Player player){
     	super(playerID,player);
@@ -34,8 +35,17 @@ public class HarvestAction extends Action {
 	public void setPrimaryCellChosen(boolean primaryCellChosen) {
 		this.primaryCellChosen = primaryCellChosen;
 	}
-	
 
+
+	public boolean isDefaultFamilyMember() {
+		return defaultFamilyMember;
+	}
+
+
+	public void setDefaultFamilyMember(boolean defaultFamilyMember) {
+		this.defaultFamilyMember = defaultFamilyMember;
+	}
+	
 
 }
 

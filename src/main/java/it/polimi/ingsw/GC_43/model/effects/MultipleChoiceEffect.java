@@ -30,7 +30,10 @@ public class MultipleChoiceEffect extends Effect {
 			}
 		
 		
-			
+		public void executeEffect(FamilyMember familyMember){
+		
+		}
+
 		public void executeEffect(FamilyMember familyMember, int choiceNumber){
 			this.choices.get(choiceNumber).executeEffect(familyMember);
 			

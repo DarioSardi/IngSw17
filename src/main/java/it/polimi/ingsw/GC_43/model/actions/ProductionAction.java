@@ -14,6 +14,7 @@ public class ProductionAction extends Action {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Integer> productionChoices;
     private boolean primaryCellChosen;
+	private boolean defaultFamilyMember;
 
     public ProductionAction(String playerID, Player player){
     	super(playerID,player);
@@ -40,6 +41,20 @@ public class ProductionAction extends Action {
     public void setPrimaryCellChosen(boolean primaryCellChosen) {
         this.primaryCellChosen = primaryCellChosen;
     }
+
+
+
+	public boolean isDefaultFamilyMember() {
+		return defaultFamilyMember;
+	}
+
+
+
+	public void setDefaultFamilyMember(boolean defaultFamilyMember) {
+		this.defaultFamilyMember = defaultFamilyMember;
+	}
+    
+    
 
 
 }

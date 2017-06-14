@@ -32,13 +32,16 @@ public class HarvestActionCreationRoutine implements ActionCreation {
         this.harvestAction=new HarvestAction(playerID, player);
         this.board=board;
         this.copyOfPlayerResource=CommonActionCreatorRoutine.copyPlayerResources(player);
+        this.harvestAction.setDefaultFamilyMember(false);
     }
 
     
     @Override
     public boolean prepareAction() {
-        this.harvestAction.setFamilyMember(CommonActionCreatorRoutine.askForFamilyMemberChoice(this.harvestAction.getPlayer()));
-        this.harvestAction.setFamilyMemberColor(this.harvestAction.getFamilyMember().getColor());
+    	if(!this.harvestAction.isDefaultFamilyMember())
+    		this.harvestAction.setFamilyMember(CommonActionCreatorRoutine.askForFamilyMemberChoice(this.harvestAction.getPlayer()));
+        
+    	this.harvestAction.setFamilyMemberColor(this.harvestAction.getFamilyMember().getColor());
         this.harvestAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(harvestAction.getPlayer(),this.harvestAction.getFamilyMember().getDiceValue()));
 
         // TODO to decide if to implements check even on actionPrepare  this.productionAction.getPlayer().subResource("servant",this.productionAction.getServantsUsed());
@@ -47,21 +50,22 @@ public class HarvestActionCreationRoutine implements ActionCreation {
 
         return check;
     }
-private void getInputsForHarvest(FamilyMember familyMember) {
-	int dieValue=familyMember.getDiceValue()+this.harvestAction.getServantsUsed()+familyMember.getPlayer().getPlayerBounusMalus().getBonusHarvestArea();
-    for(TerritoryCard territoryCard: this.harvestAction.getPlayer().getPlayerCards().getArrayTerritoryCards()){
-        if(dieValue>=territoryCard.getProductionDice()){
-            for( Effect effect: territoryCard.getPermaBonus()){
-                if(effect.getClass().toString().contains("MultipleChoiceEffect")){
-                    askForMultipleChoice((MultipleChoiceEffect)effect);
-                }
-                if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
-                    askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
-                }
-            }
-        }
+    
+    private void getInputsForHarvest(FamilyMember familyMember) {
+    	int dieValue=familyMember.getDiceValue()+this.harvestAction.getServantsUsed()+familyMember.getPlayer().getPlayerBounusMalus().getBonusHarvestArea();
+    	for(TerritoryCard territoryCard: this.harvestAction.getPlayer().getPlayerCards().getArrayTerritoryCards()){
+    		if(dieValue>=territoryCard.getProductionDice()){
+    			for( Effect effect: territoryCard.getPermaBonus()){
+    				if(effect.getClass().toString().contains("MultipleChoiceEffect")){
+    					askForMultipleChoice((MultipleChoiceEffect)effect);
+    				}
+    				if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
+    					askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
+    				}
+    			}
+    		}
+    	}
     }
-}
 
 
 

@@ -32,14 +32,14 @@ public class Board implements Serializable {
    private int[] faithVictoryPoints;
 
     //CARDPOOLS
-    private List territoryCardPool;
-    private List buildingCardPool;
-    private List characterCardPool;
-    private List ventureCardPool;
+    private ArrayList territoryCardPool;
+    private ArrayList buildingCardPool;
+    private ArrayList characterCardPool;
+    private ArrayList ventureCardPool;
     private ArrayList <ExcommunicationTile> excommunicationTiles;
     
     //DICE
-    private List<Die> dice;
+    private ArrayList<Die> dice;
     
     
     //AREAS
@@ -50,8 +50,8 @@ public class Board implements Serializable {
     private ArrayList <Tower> towers;
 
     //PLAYERS
-    private List<String> playersID;
-    private List<Player> players;
+    private ArrayList<String> playersID;
+    private ArrayList<Player> players;
 
 
 
@@ -106,15 +106,8 @@ public Board(ArrayList playersID){
 	private void createTowers() {
 		
         this.towers = new ArrayList<Tower>();
-        
-//SET BY INIT GAME OF SAM
-        
-/*        this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));*/
 
-        }
+      }
     
 
 
@@ -162,13 +155,8 @@ private void setPlayersFamilyMembersValue() {
 //create Players assigning incremental money to receive
 //No rolling dice to establish the first initial order of players.
     private void createPlayers() {
-        if(players==null){
-            players = new ArrayList<Player>();
-        }
-        int initialCoinsToReceive=GlobalVariables.initialFirstPlayerCoins;
-        for (int i=0; i<this.playersID.size(); i++){
-        	players.add(new Player(playersID.get(i),initialCoinsToReceive));
-        	initialCoinsToReceive++;
+        if(this.players==null){
+            this.players = new ArrayList<Player>();
         }
     }
     
@@ -293,39 +281,39 @@ private void setPlayersFamilyMembersValue() {
         return this.dice;
     }
 
-    public void setDice(List<Die> dice) {
+    public void setDice(ArrayList<Die> dice) {
         this.dice = dice;
     }
 
-    public List getTerritoryCardPool() {
+    public ArrayList getTerritoryCardPool() {
         return territoryCardPool;
     }
 
-    public void setTerritoryCardPool(List territoryCardPool) {
+    public void setTerritoryCardPool(ArrayList territoryCardPool) {
         this.territoryCardPool = territoryCardPool;
     }
 
-    public List getBuildingCardPool() {
+    public ArrayList getBuildingCardPool() {
         return buildingCardPool;
     }
 
-    public void setBuildingCardPool(List buildingCardPool) {
+    public void setBuildingCardPool(ArrayList buildingCardPool) {
         this.buildingCardPool = buildingCardPool;
     }
 
-    public List getCharacterCardPool() {
+    public ArrayList getCharacterCardPool() {
         return characterCardPool;
     }
 
-    public void setCharacterCardPool(List characterCardPool) {
+    public void setCharacterCardPool(ArrayList characterCardPool) {
         this.characterCardPool = characterCardPool;
     }
 
-    public List getVentureCardPool() {
+    public ArrayList getVentureCardPool() {
         return ventureCardPool;
     }
 
-    public void setVentureCardPool(List ventureCardPool) {
+    public void setVentureCardPool(ArrayList ventureCardPool) {
         this.ventureCardPool = ventureCardPool;
     }
 
@@ -374,7 +362,7 @@ private void setPlayersFamilyMembersValue() {
         return playersID;
     }
 
-    public void setPlayersID(List<String> playersID) {
+    public void setPlayersID(ArrayList<String> playersID) {
         this.playersID = playersID;
     }
 
@@ -382,7 +370,7 @@ private void setPlayersFamilyMembersValue() {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
 
