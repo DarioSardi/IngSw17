@@ -12,6 +12,8 @@ public class InitActionSpacesTest {
 		players.add("Samuel");
 		Board board = new Board(players);
 		new InitGame(board);
+		
+		board.getTowers().stream().forEach(c->System.out.println(c.toString()));
 	}
 
 }

@@ -27,9 +27,9 @@ public class InitActionSpaces {
         this.councilPalaceBonus = new ArrayList<>();
         this.towers = new ArrayList<>();
         this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
+        this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
         this.militaryPointsRequired = new Integer[GlobalVariables.maxNumberPlayerCards+1];
         
 	}
@@ -106,18 +106,17 @@ public class InitActionSpaces {
              
              //SAMUEL inizializzare market su Board
 
-             
-             JSONArray buildingFloorsBonusArray = (JSONArray) slides.get("FloorsBonusBuildingTower");
-             addFloorsToTower(buildingFloorsBonusArray, this.towers.get(1));
-             
-             JSONArray characterFloorsBonusArray = (JSONArray) slides.get("FloorsBonusCharacterTower");
-             addFloorsToTower(characterFloorsBonusArray, this.towers.get(3));
-             
              JSONArray territoryFloorsBonusArray = (JSONArray) slides.get("FloorsBonusTerritoryTower");
              addFloorsToTower(territoryFloorsBonusArray, this.towers.get(0));
              
+             JSONArray characterFloorsBonusArray = (JSONArray) slides.get("FloorsBonusCharacterTower");
+             addFloorsToTower(characterFloorsBonusArray, this.towers.get(1));
+             
+             JSONArray buildingFloorsBonusArray = (JSONArray) slides.get("FloorsBonusBuildingTower");
+             addFloorsToTower(buildingFloorsBonusArray, this.towers.get(2));
+                          
              JSONArray ventureFloorsBonusArray = (JSONArray) slides.get("FloorsBonusVentureTower");
-             addFloorsToTower(ventureFloorsBonusArray, this.towers.get(2));
+             addFloorsToTower(ventureFloorsBonusArray, this.towers.get(3));
 
              //SAMUEL inizializzato floors su towers su Board
              
