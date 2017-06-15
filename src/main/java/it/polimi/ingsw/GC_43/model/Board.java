@@ -129,7 +129,6 @@ public class Board implements Serializable {
 		try {
 			int index = 0;
 			this.getPlayers().add(new Player(this.getPlayersID().get(index), GlobalVariables.initialFirstPlayerCoins));
-
 			index++;
 			this.getPlayers().add(new Player(this.getPlayersID().get(index), GlobalVariables.initialSecondPlayerCoins));
 

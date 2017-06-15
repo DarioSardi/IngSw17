@@ -35,6 +35,9 @@ public class TowerAction extends Action {
 			this.resourceDiscounts.put("victoryPoint", 0);
 			this.resourceDiscounts.put("militaryPoint",0);
 			this.resourceDiscounts.put("faithPoint", 0);
+			this.defaultFamilyMember=false;
+			this.defaultTowerChoice=false;
+		
 			
 	    }
 

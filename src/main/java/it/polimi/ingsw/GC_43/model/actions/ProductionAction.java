@@ -20,6 +20,7 @@ public class ProductionAction extends Action {
     	super(playerID,player);
         this.productionChoices=new ArrayList<>();
         this.setActionID(1);
+        this.defaultFamilyMember=false;
     }
 
 

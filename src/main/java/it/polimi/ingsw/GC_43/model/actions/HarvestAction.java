@@ -19,6 +19,7 @@ public class HarvestAction extends Action {
     	super(playerID,player);
         this.harvestChoices=new ArrayList<>();
         this.setActionID(2);
+        this.defaultFamilyMember=false;
     }
 
 

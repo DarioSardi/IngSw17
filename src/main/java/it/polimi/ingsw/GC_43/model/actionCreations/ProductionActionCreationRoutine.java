@@ -26,9 +26,14 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 
 
     public ProductionActionCreationRoutine(String playerID, Player player,Board board){
-        this.productionAction=new ProductionAction(playerID, player);
-        this.board=board;
-        this.copyOfPlayerResource=CommonActionCreatorRoutine.copyPlayerResources(player);
+        try {
+			this.productionAction=new ProductionAction(playerID, player);
+			this.board=board;
+			this.copyOfPlayerResource=CommonActionCreatorRoutine.copyPlayerResources(player);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 
@@ -48,21 +53,27 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     }
     private boolean selectProductionSpace(ProductionArea productionArea) {
 
-        if(productionArea.getSpaces().isEmpty()){
-            System.out.println("\nPrimary empty cell selected\n");
-            this.productionAction.setPrimaryCellChosen(true);
-        }
-        else{
-        	if(productionArea.getPrimarySpace().execute(this.productionAction.getFamilyMember())){
+        try {
+			if(productionArea.getSpaces().isEmpty()){
+			    System.out.println("\nPrimary empty cell selected\n");
+			    this.productionAction.setPrimaryCellChosen(true);
+			}
+			else{
+				if(productionArea.getPrimarySpace().execute(this.productionAction.getFamilyMember())){
 
-        	System.out.println("\nPrimary production cell occupied, secondary production cell selected. Family Member will receive a malus on die value of \n"+GlobalVariables.malusUnlimitedCells);
-            this.productionAction.setPrimaryCellChosen(false);
-			return productionArea.check((this.productionAction.getFamilyMember()));
+				System.out.println("\nPrimary production cell occupied, secondary production cell selected. Family Member will receive a malus on die value of \n"+GlobalVariables.malusUnlimitedCells);
+			    this.productionAction.setPrimaryCellChosen(false);
+				return productionArea.check((this.productionAction.getFamilyMember()));
 
 
-        	}
-       }
-       return true;
+				}
+      }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return true;
+
     }
 
     
@@ -71,59 +82,71 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     
     /*@require bonus malus on familyMember die to be already applied, but that's normal*/
     private void getInputsForProduction(FamilyMember familyMember){
-    	int dieValue=familyMember.getDiceValue()+this.productionAction.getServantsUsed()+familyMember.getPlayer().getPlayerBounusMalus().getBonusProductionArea();
-        for(BuildingCard buildingCard: this.productionAction.getPlayer().getPlayerCards().getArrayBuildingCards()){
-            if(dieValue>=buildingCard.getProductionDice()){
-                for( Effect effect: buildingCard.getPermaBonus()){
-                    if(effect.getClass().toString().contains("MultipleChoiceEffect")){
-                        askForMultipleChoice((MultipleChoiceEffect)effect);
-                    }
-                    if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
-                        askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
-                    }
-                }
-            }
-        }
+    	try {
+			int dieValue=familyMember.getDiceValue()+this.productionAction.getServantsUsed()+familyMember.getPlayer().getPlayerBounusMalus().getBonusProductionArea();
+			for(BuildingCard buildingCard: this.productionAction.getPlayer().getPlayerCards().getArrayBuildingCards()){
+			    if(dieValue>=buildingCard.getProductionDice()){
+			        for( Effect effect: buildingCard.getPermaBonus()){
+			            if(effect.getClass().toString().contains("MultipleChoiceEffect")){
+			                askForMultipleChoice((MultipleChoiceEffect)effect);
+			            }
+			            if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
+			                askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
+			            }
+			        }
+			    }
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
     }
 
 
     private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges effect) {
-    	int numberOfCopies=effect.getNumberOfCopies();
-    	while(numberOfCopies>0){
-    		int choice= askForMultipleChoice(effect.getPrivilegeChoices());
-    		if(choice!=-1){
-    			effect.getPrivilegeChoices().getChoices().remove(choice);
-    		}
+    	try {
+			int numberOfCopies=effect.getNumberOfCopies();
+			while(numberOfCopies>0){
+				int choice= askForMultipleChoice(effect.getPrivilegeChoices());
+				if(choice!=-1){
+					effect.getPrivilegeChoices().getChoices().remove(choice);
+				}
 
-    		numberOfCopies--;
-    	}
+				numberOfCopies--;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
     private int askForMultipleChoice(MultipleChoiceEffect effect) {
-    	int maxRange=effect.getChoices().size();
-        String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
-        int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
-        if(effect.check(this.productionAction.getFamilyMember())){
-            this.productionAction.getProductionChoices().add(choice);
-            ChoiceEffect choiceEffect=effect.getChoices().get(choice);
-            
-            //Ask per privilege council SE nello scambio, MAX DA RIVEDERE;
-            
-            if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil"))
-            	askForMultipleCouncilPrivilege(new MultipleCouncilPrivileges(1));
-        }
-        else{
-            question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
-            choice= CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
-            if(choice==0){
-                System.out.println("\nChoice skipped");
-            }
-            else{
-                return askForMultipleChoice(effect);
-            }
-        }
-        return choice;
+    	
+			int maxRange=effect.getChoices().size();
+			String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
+			int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
+			if(effect.check(this.productionAction.getFamilyMember())){
+			    this.productionAction.getProductionChoices().add(choice);
+			    ChoiceEffect choiceEffect=effect.getChoices().get(choice);
+			    
+			    //Ask per privilege council SE nello scambio, MAX DA RIVEDERE;
+			    
+			    if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil"))
+			    	askForMultipleCouncilPrivilege(new MultipleCouncilPrivileges(1));
+			}
+			else{
+			    question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
+			    choice= CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
+			    if(choice==0){
+			        System.out.println("\nChoice skipped");
+			    }
+			    else{
+			        return askForMultipleChoice(effect);
+			    }
+			}
+			return choice;
+	
     }
 
 

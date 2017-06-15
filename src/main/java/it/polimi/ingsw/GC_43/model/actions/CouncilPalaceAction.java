@@ -17,6 +17,7 @@ public class CouncilPalaceAction extends Action{
     	super(playerID,player);
         this.councilPalaceChoices=new ArrayList<>();
         this.setActionID(3);
+       
     }
 
 
