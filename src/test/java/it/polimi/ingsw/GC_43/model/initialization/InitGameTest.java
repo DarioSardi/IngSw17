@@ -8,6 +8,7 @@ public class InitGameTest {
 
 	@Test
 	public void testInitGame() {
+		GlobalVariablesInit.readGlobalVariables();
 		ArrayList<String> players = new ArrayList<>();
 		players.add("Samuel");
 		players.add("Dario");

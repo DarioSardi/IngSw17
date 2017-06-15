@@ -57,13 +57,30 @@ public class CardBonusIterators {
 			bonus.add(cei.getMultChoice()); 
 		}
 		else if (effect.equals("extraCard")){
-			
-			bonus.add(new PickExtraCardFromTower(valueEffect, "buildingCards"));
+			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect);
+			pickExtraCardDiscount(slide, newExtraCard);
+			bonus.add(newExtraCard);
 		}
-		else if (effect.equals("extraBuildingCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "buildingCards"));
-		else if (effect.equals("extraCharacterCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "characterCards"));
-		else if (effect.equals("extraTerritoryCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "territoryCards"));
-		else if (effect.equals("extraVentureCard")) bonus.add(new PickExtraCardFromTower(valueEffect, "ventureCards"));
+		else if (effect.equals("extraBuildingCard")){
+			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect, "buildingCards");
+			pickExtraCardDiscount(slide, newExtraCard);
+			bonus.add(newExtraCard);
+		}
+		else if (effect.equals("extraCharacterCard")){
+			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect, "characterCards");
+			pickExtraCardDiscount(slide, newExtraCard);
+			bonus.add(newExtraCard);
+		}
+		else if (effect.equals("extraTerritoryCard")){
+			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect, "territoryCards");
+			pickExtraCardDiscount(slide, newExtraCard);
+			bonus.add(newExtraCard);
+		}
+		else if (effect.equals("extraVentureCard")){
+			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect, "ventureCards");
+			pickExtraCardDiscount(slide, newExtraCard);
+			bonus.add(newExtraCard);
+		}
  
 		else if (effect.equals("coin")) bonus.add(new ResourceEffect(new Coin(valueEffect)));
      	else if (effect.equals("servant")) bonus.add(new ResourceEffect(new Servant(valueEffect)));
