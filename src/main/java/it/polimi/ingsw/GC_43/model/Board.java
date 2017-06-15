@@ -125,6 +125,7 @@ public class Board implements Serializable {
 		if (this.players == null) {
 			this.players = new ArrayList<Player>();
 		}
+		System.out.println("\n\nplayerss are "+this.getPlayersID().size()+"\n\n");
 		
 		try {
 			int index = 0;

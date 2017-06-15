@@ -27,6 +27,7 @@ public class Controller implements IController {
 	    
 	    
 	    public Controller(ArrayList<ClientHandler> clientHandlers){
+	    	this.clientHandlers=new ArrayList<ClientHandler>();
 	    	this.clientHandlers=clientHandlers;
 	    	this.matchPlayer=new HashMap<String, Player>();
 	    	this.matchClientHandler=new HashMap<String, ClientHandler>();
@@ -75,6 +76,7 @@ public class Controller implements IController {
 		public void insertPlayers(){
 	    	ArrayList<String> playerIDs= new ArrayList<String>();
 	    	for(ClientHandler clientHandler: this.clientHandlers){
+	    		
 	    		playerIDs.add(clientHandler.getUsername());
 	    		
 	    	}
