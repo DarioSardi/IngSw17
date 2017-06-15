@@ -184,4 +184,25 @@ public class TowerActionCreationRoutine implements ActionCreation {
 	    }
 
 
+		public TowerAction getTowerAction() {
+			return towerAction;
+		}
+
+
+		public void setTowerAction(TowerAction towerAction) {
+			this.towerAction = towerAction;
+		}
+
+
+		public Board getBoard() {
+			return board;
+		}
+
+
+		public void setBoard(Board board) {
+			this.board = board;
+		}
+	    
+	    
+
 }

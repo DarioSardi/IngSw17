@@ -127,6 +127,37 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     }
 
 
+	public ProductionAction getProductionAction() {
+		return productionAction;
+	}
+
+
+	public void setProductionAction(ProductionAction productionAction) {
+		this.productionAction = productionAction;
+	}
+
+
+	public Board getBoard() {
+		return board;
+	}
+
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+
+	public HashMap<String, Integer> getCopyOfPlayerResource() {
+		return copyOfPlayerResource;
+	}
+
+
+	public void setCopyOfPlayerResource(HashMap<String, Integer> copyOfPlayerResource) {
+		this.copyOfPlayerResource = copyOfPlayerResource;
+	}
+    
+    
+
 
 }
 

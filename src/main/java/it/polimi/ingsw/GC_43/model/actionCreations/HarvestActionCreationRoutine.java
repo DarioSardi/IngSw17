@@ -129,6 +129,38 @@ public class HarvestActionCreationRoutine implements ActionCreation {
         }
         return choice;
     }
+
+
+	public HarvestAction getHarvestAction() {
+		return harvestAction;
+	}
+
+
+	public void setHarvestAction(HarvestAction harvestAction) {
+		this.harvestAction = harvestAction;
+	}
+
+
+	public Board getBoard() {
+		return board;
+	}
+
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+
+	public HashMap<String, Integer> getCopyOfPlayerResource() {
+		return copyOfPlayerResource;
+	}
+
+
+	public void setCopyOfPlayerResource(HashMap<String, Integer> copyOfPlayerResource) {
+		this.copyOfPlayerResource = copyOfPlayerResource;
+	}
+    
+    
         
 
 }

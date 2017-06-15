@@ -97,6 +97,40 @@ public class MarketActionCreationRoutine implements ActionCreation{
             }
             return choice;
         }
+
+		public MarketAction getMarketAction() {
+			return marketAction;
+		}
+
+		public void setMarketAction(MarketAction marketAction) {
+			this.marketAction = marketAction;
+		}
+
+		public Board getBoard() {
+			return board;
+		}
+
+		public void setBoard(Board board) {
+			this.board = board;
+		}
+
+		public HashMap<String, Integer> getCopyOfPlayerResource() {
+			return copyOfPlayerResource;
+		}
+
+		public void setCopyOfPlayerResource(HashMap<String, Integer> copyOfPlayerResource) {
+			this.copyOfPlayerResource = copyOfPlayerResource;
+		}
+
+		public int getIndex() {
+			return index;
+		}
+
+		public void setIndex(int index) {
+			this.index = index;
+		}
+        
+        
         
         
 

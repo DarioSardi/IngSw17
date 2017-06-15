@@ -69,4 +69,30 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
 	    	}
 		}
 
+	public CouncilPalaceAction getCouncilPalaceAction() {
+		return councilPalaceAction;
+	}
+
+	public void setCouncilPalaceAction(CouncilPalaceAction councilPalaceAction) {
+		this.councilPalaceAction = councilPalaceAction;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public HashMap<String, Integer> getCopyOfPlayerResource() {
+		return copyOfPlayerResource;
+	}
+
+	public void setCopyOfPlayerResource(HashMap<String, Integer> copyOfPlayerResource) {
+		this.copyOfPlayerResource = copyOfPlayerResource;
+	}
+	   
+	   
+
 }
