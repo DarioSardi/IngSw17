@@ -158,7 +158,24 @@ private void setPlayersFamilyMembersValue() {
         if(this.players==null){
             this.players = new ArrayList<Player>();
         }
+        int index=0;
+        this.getPlayers().add(new Player(this.getPlayersID().get(index), GlobalVariables.initialFirstPlayerCoins));
+        
+        index++;
+        this.getPlayers().add(new Player(this.getPlayersID().get(index), GlobalVariables.initialSecondPlayerCoins));
+        
+        index++;
+        if(index<this.playersID.size()){
+        	this.getPlayers().add(new Player(this.getPlayersID().get(index), GlobalVariables.initialThirdPlayerCoins));
+        	index++;
+        	
+        	if(index<this.playersID.size())
+        		this.getPlayers().add(new Player(this.getPlayersID().get(index), GlobalVariables.initialFourthPlayerCoins));
+        
+        }
     }
+    
+
     
     
     

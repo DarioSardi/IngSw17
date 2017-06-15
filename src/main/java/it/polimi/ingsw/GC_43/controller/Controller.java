@@ -98,7 +98,7 @@ public class Controller implements IController {
 	    
 	    
 	    
-	    public boolean submit(Action action){
+	    public synchronized boolean submit(Action action){
 	    	action.setPlayer(this.matchPlayer.get(action.getPlayer().getPlayerName()));
 	    	int actionID= action.getActionID();
 	    	boolean result;

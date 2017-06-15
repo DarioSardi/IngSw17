@@ -8,10 +8,10 @@ public class VictoryPointsMultiplierEffect extends Effect {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int multiplierFactor;
+	private float multiplierFactor;
 	private String multiplierType;
 	
-	public VictoryPointsMultiplierEffect(int multiplierFactor, String multiplierType){
+	public VictoryPointsMultiplierEffect(float multiplierFactor, String multiplierType){
 		this.multiplierFactor= multiplierFactor;
 		this.multiplierType = multiplierType;
 	}
@@ -24,16 +24,16 @@ public class VictoryPointsMultiplierEffect extends Effect {
 	private void getVictoryPoints(Player player){
 		int malusVictoryPoint=Math.abs(player.getPlayerBounusMalus().getMalusOnAcquiringResources().get("victoryPoint"));
 		if(this.multiplierType== "ventureCards")
-			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayVentureCards().size()-malusVictoryPoint);
+			player.addResource("victoryPoint", (int)this.multiplierFactor*player.getPlayerCards().getArrayVentureCards().size()-malusVictoryPoint);
 		
 		if(this.multiplierType== "buildingCards");
-			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size()-malusVictoryPoint);
+			player.addResource("victoryPoint", (int)this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size()-malusVictoryPoint);
 		
 		if(this.multiplierType== "territoryCards");
-			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size()-malusVictoryPoint);
+			player.addResource("victoryPoint", (int)this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size()-malusVictoryPoint);
 		
 		if(this.multiplierType== "characterCards");
-			player.addResource("victoryPoint", this.multiplierFactor*player.getPlayerCards().getArrayCharacterCards().size()-malusVictoryPoint);
+			player.addResource("victoryPoint", (int)this.multiplierFactor*player.getPlayerCards().getArrayCharacterCards().size()-malusVictoryPoint);
 		
 		
 		if(this.multiplierType== "militaryPoint");
