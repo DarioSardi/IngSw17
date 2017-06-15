@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
 
+import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 
@@ -22,27 +23,27 @@ public class ClientInHandler implements Runnable {
 
 	@Override
 	public void run() {
-		myClient.setID(Integer.parseInt(readMsg()));
-		System.out.println("client ID is now: " + myClient.getID());
+		SimpleMessage s;
+		try {
+			s = (SimpleMessage) socketIn.readObject();
+			myClient.setID(Integer.parseInt(s.getMsg()));
+			System.out.println("client ID is now: " + myClient.getID());
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		while(this.myClient.online){
-			String line=readMsg();
-			
-			if("system_ingame_switch".equals(line)){
-				this.myClient.inGame=true;
-				parseGameUpdates();
-					
-				}
-			else{
-				System.out.println(line);
-			}
+			receiveMsg();
 			}
 		}
 	private void parseGameUpdates() {
-		System.out.println("parser delgli update pronto!");
+		//System.out.println("parser delgli update pronto!");
 		System.out.println("premi un tasto per continuare.");
 		while(this.myClient.inGame){
 			Object o=receiveMsg();
 			if(o instanceof Board){
+				System.out.println("board received");
 				Board b=(Board) o;
 				this.myClient.setBoard(b);
 			}
@@ -50,10 +51,6 @@ public class ClientInHandler implements Runnable {
 		
 	}
 	
-
-	private void menu() throws InterruptedException {
-		
-	}
 	
 	
 	@Override
@@ -65,7 +62,10 @@ public class ClientInHandler implements Runnable {
 		try {
 			Object o=socketIn.readObject();
 			if(o instanceof SimpleMessage){
-				return (SimpleMessage) o;
+				readMsg((SimpleMessage) o);
+			}
+			else if(o instanceof Board){
+				this.myClient.setBoard((Board) o);
 			}
 			return null;
 		} catch (ClassNotFoundException e) {
@@ -77,8 +77,16 @@ public class ClientInHandler implements Runnable {
 		
 	}
 	
-	public String readMsg(){
-		return receiveMsg().getMsg();
+	public void readMsg(SimpleMessage s){
+		String line=s.getMsg();
+		if("system_ingame_switch".equals(line)){
+			this.myClient.inGame=true;
+			parseGameUpdates();
+				
+			}
+		else{
+			System.out.println(line);
+		}
 	}
 	
 	public Object receiveObj(){

@@ -152,6 +152,7 @@ public class ClientHandler implements Runnable{
 		sendMsgTo("You are now in game!");
 		sendMsgTo("system_ingame_switch");
 		Boolean Game=true;
+		sendObject(null);
 		while(Game){
 			
 		}
@@ -161,6 +162,7 @@ public class ClientHandler implements Runnable{
 
 	public void sendObject(Object object){
 		try {
+			System.out.println("sent "+object);
 			socketOut.writeObject(object);
 			socketOut.flush();
 		} catch (IOException e) {

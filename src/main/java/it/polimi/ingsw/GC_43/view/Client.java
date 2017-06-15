@@ -17,6 +17,7 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.model.Board;
 
 public class Client {
@@ -24,20 +25,26 @@ public class Client {
 	private Socket socket;
     private ObjectInputStream inSocket;
     private ObjectOutputStream outSocket;
-    private BufferedReader inKeyboard;
+    BufferedReader inKeyboard;
     private PrintWriter outVideo;
 	private String address,username;
 	private ClientOutHandler outStream;
 	private ClientInHandler inStream;
 	private static InetAddress ipAddr;
 	private Board board;
+	Lobby lobby;
 	Boolean idSetted,inMenu,inGame,online,actionPerformed,myTurn;
 
     public Client() throws IOException{
     	setup();
+    	this.lobby=null;
     	this.online=true;
     	this.inMenu=true;
     	this.inGame=false;
+    	//DARIO test,da settare col controller
+    	this.myTurn=true;
+    	this.actionPerformed=false;
+    	
     	connect();
     	//closeGame();
     }
@@ -56,16 +63,6 @@ public class Client {
 		
 	}
 
-
-    //DARIO temporaneo per il test
-	private void createBoardTest() {
-		ArrayList<String> playersID = new ArrayList<>();
-		playersID.add("0");
-		this.board=new Board(playersID);
-		this.board.toString();
-		this.board.getTowers().toString();
-		
-	}
 
 	
 	public void setID(int ID){
@@ -91,8 +88,8 @@ public class Client {
 
 	public void setBoard(Board board) {
 		this.board = board;
-		System.out.println("board settata");
-		System.out.println(this.board.toString());
+		System.out.println("hai ricevuto la board di gioco!");
+		//this.board.getTowers().stream().forEach(t->System.out.println(t.toString()));
 	}
 
 

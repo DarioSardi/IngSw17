@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GC_43.view;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
@@ -24,37 +25,48 @@ public class ClientOutHandler implements Runnable {
 	@Override
 	public void run() {
 		
-		Scanner userIn= new Scanner(System.in);
+		BufferedReader userIn= this.myClient.inKeyboard;
 		sendMsgTo(myClient.getUsername());
 		while(this.myClient.online){
-			if(!this.myClient.inGame){
-			String msg=userIn.nextLine();
-			sendMsgTo(msg);
-			}
-			else if(this.myClient.inGame){
-				inGameParser(userIn);
+			try {
+				if(!this.myClient.inGame){
+				String msg=userIn.readLine().toString();
+				sendMsgTo(msg);
+				}
+				else if(this.myClient.inGame){
+					inGameParser(userIn);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 
 	}
 	
-	private void inGameParser(Scanner userIn) {
+	private void inGameParser(BufferedReader userIn) {
+		
 		System.out.println("ho switchato ai comandi in gioco");
 		System.out.println("digita help per la lista dei comandi in gioco");
 		InGameMessageParser parser=new InGameMessageParser(userIn,this.myClient);
 		while(this.myClient.inGame){
-			String command=userIn.nextLine();
-			if("help".equals(command)){
-				System.out.println("i tuoi comandi sono:");
-				System.out.println("help - per visualizzare la lista dei comandi");
-				System.out.println("action - per visualizzare la lista delle azioni");
-				System.out.println("chat - per inviare un messaggio ai giocatori");
-			}
-			else if("action".equals(command)&&this.myClient.myTurn){
-				parser.actionMenu(userIn,this.myClient);				
-			}
-			else if("action".equals(command)&&!this.myClient.myTurn){
-				System.out.println("this is not your turn!");
+			try {
+				String command=userIn.readLine().toString();
+				if("help".equals(command)){
+					System.out.println("i tuoi comandi sono:");
+					System.out.println("help - per visualizzare la lista dei comandi");
+					System.out.println("action - per visualizzare la lista delle azioni");
+					System.out.println("chat - per inviare un messaggio ai giocatori");
+				}
+				else if("action".equals(command)&&this.myClient.myTurn){
+					System.out.println("ricevuto action");
+					parser.actionMenu(userIn,this.myClient);				
+				}
+				else if("action".equals(command)&&!this.myClient.myTurn){
+					System.out.println("this is not your turn!");
+				}
+			} catch (IOException e) {
+			
+				e.printStackTrace();
 			}
 
 		}

@@ -82,17 +82,21 @@ public class Floor extends ActionSpace {
 	public boolean execute(FamilyMember f) {
 		if (this.check(f)) {
 			CardHandler.buyCard(this, f, this.card, this.floorOccupied);
-			for (Effect effect : this.getBonus())
-				effect.executeEffect(f);
-			this.getFamiliarIn().add(f);
-			f.setAlreadyPlaced(true);
-			f.setFamilyMemberPosition(this);
-			this.getTower().setTowerOccupied(true);
-			this.setFloorOccupied(true);
+			actionsAfterBuy(f);
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	public void actionsAfterBuy(FamilyMember f){
+		for (Effect effect : this.getBonus())
+			effect.executeEffect(f);
+		this.getFamiliarIn().add(f);
+		f.setAlreadyPlaced(true);
+		f.setFamilyMemberPosition(this);
+		this.getTower().setTowerOccupied(true);
+		this.setFloorOccupied(true);
 	}
 
 	@Override
