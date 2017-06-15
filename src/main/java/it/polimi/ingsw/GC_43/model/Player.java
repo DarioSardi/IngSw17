@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.polimi.ingsw.GC_43.model.actions.Action;
+
 public class Player implements Serializable{
 	/**
 	 * 
@@ -15,8 +17,8 @@ public class Player implements Serializable{
 	private PlayerCards playerCards;
 	private HashMap<String, Integer> playerResources;
 	private ArrayList<FamilyMember> familyMembers;
-
 	private ArrayList<Boolean> excommunications;
+	private ArrayList<Action> extraActions;
 	
 	public Player(String name, int initCoins){
 		this.playerName = name;
@@ -24,6 +26,7 @@ public class Player implements Serializable{
     	this.familyMembers = new ArrayList<FamilyMember>();  
     	this.playerBounusMalus= new PlayerBonusMalus();
     	this.playerCards = new PlayerCards();
+    	this.extraActions = new ArrayList<>();
     	generateHashmapResources(initCoins);
     	initializeFamilyMembers();
     	initializeExcommunication();
@@ -152,8 +155,16 @@ public class Player implements Serializable{
 			if(this.familyMembers.get(i).isAlreadyPlaced() == false)
 				 free.add(this.familyMembers.get(i));
 		return free;
-	}
+	}	
 	
+	public ArrayList<Action> getExtraActions() {
+		return extraActions;
+	}
+
+	public void setExtraActions(ArrayList<Action> extraActions) {
+		this.extraActions = extraActions;
+	}
+
 	public FamilyMember findFamilyMemberByColor(int color){
 		int i=0;
 		while (this.familyMembers.get(i).getColor()!=color){i++;}

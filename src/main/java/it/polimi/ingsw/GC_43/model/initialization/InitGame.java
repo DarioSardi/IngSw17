@@ -6,7 +6,6 @@ public class InitGame {
 	private InitActionSpaces initActionSpaces;
 	
 	public InitGame(Board board){
-		initGlobalVariables();
 		initCards(board);
 		board.setPhase(0);
 		board.setRound(0);
@@ -16,10 +15,6 @@ public class InitGame {
 		setFaithVictoryPointsToBoard(board);
 		setMarketToBoard(board);		
 		setTowersToBoard(board);
-	}
-    
-	private void initGlobalVariables(){
-		GlobalVariablesInit.readGlobalVariables();
 	}
 	
 	private void initCards(Board board){

@@ -1,16 +1,19 @@
 package it.polimi.ingsw.GC_43.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
-import it.polimi.ingsw.GC_43.model.cards.Card;
 import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.cards.VentureCard;
 
-public class PlayerCards{
+public class PlayerCards implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4103134888701674175L;
 	private ArrayList<BuildingCard> buildingCards;
 	private ArrayList<VentureCard> ventureCards;
 	private ArrayList<CharacterCard> characterCards;

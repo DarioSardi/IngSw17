@@ -10,10 +10,13 @@ public class InitGameTest {
 	public void testInitGame() {
 		ArrayList<String> players = new ArrayList<>();
 		players.add("Samuel");
+		players.add("Dario");
+		players.add("Francesco");
 		Board board = new Board(players);
 		new InitGame(board);
 		
 		board.getBuildingCardPool().stream().forEach(c->System.out.println(c.toString()));
+		System.out.println(board.getBuildingCardPool().size());
 		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 		board.getCharacterCardPool().stream().forEach(c->System.out.println(c.toString()));
 		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");

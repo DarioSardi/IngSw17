@@ -3,7 +3,6 @@ package it.polimi.ingsw.GC_43.model.initialization;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,6 +19,7 @@ public class InitActionSpaces {
 	private ArrayList<ResourceEffect> councilPalaceBonus;
     private ArrayList <Tower> towers;
 	private Integer[] militaryPointsRequired;
+	
 	
 	InitActionSpaces(){
 		this.faithPoints = new int[GlobalVariables.maxFaithPoints+1];
@@ -51,7 +51,7 @@ public class InitActionSpaces {
         	 JSONObject slides = (JSONObject) actionSpaceIterator.next();
         	 
              JSONArray faithArea = (JSONArray) slides.get("FaithPoints");
-             Iterator faithAreaIterator = faithArea.iterator();
+             Iterator<?> faithAreaIterator = faithArea.iterator();
                  	             
              int position;
              int victoryPoints;
@@ -94,7 +94,7 @@ public class InitActionSpaces {
            
              
              JSONArray councilPalaceArray = (JSONArray) slides.get("CouncilPalaceBonus");
-             Iterator councilPalaceIterator = councilPalaceArray.iterator();
+             Iterator<?> councilPalaceIterator = councilPalaceArray.iterator();
              
              while (councilPalaceIterator.hasNext()) {
       			JSONObject slide1 = (JSONObject) councilPalaceIterator.next();
@@ -122,7 +122,7 @@ public class InitActionSpaces {
              
              
              JSONArray militaryPointsRequiredArray = (JSONArray) slides.get("MilitaryPointsRequired");
-             Iterator militaryPointsRequiredIterator = militaryPointsRequiredArray.iterator();
+             Iterator<?> militaryPointsRequiredIterator = militaryPointsRequiredArray.iterator();
              
              
              while (militaryPointsRequiredIterator.hasNext()) {
@@ -147,7 +147,7 @@ public class InitActionSpaces {
 		
 	private void addFloorsToTower(JSONArray floorsBonusArray, Tower tower){
 		for (int i=1; i <= GlobalVariables.floorsPerTower; i++){
-            Iterator floorsBonusIterator = floorsBonusArray.iterator();
+            Iterator<?> floorsBonusIterator = floorsBonusArray.iterator();
             
             while (floorsBonusIterator.hasNext()) {
      			JSONObject slide = (JSONObject) floorsBonusIterator.next();
@@ -178,14 +178,14 @@ public class InitActionSpaces {
 	
 	private ResourceEffect retResourceEffect(String type, int value){
 		ResourceEffect resEff;		
-		if (type.equals("coin")) resEff = (new ResourceEffect(new Coin(value)));
-     	else if (type.equals("servant")) resEff =  (new ResourceEffect(new Servant(value)));
-     	else if (type.equals("stone")) resEff =  (new ResourceEffect(new Stone(value)));
-     	else if (type.equals("wood")) resEff =  (new ResourceEffect(new Wood(value)));
-     	else if (type.equals("faithPoint")) resEff =  (new ResourceEffect(new FaithPoint(value)));
-     	else if (type.equals("militaryPoint")) resEff =  (new ResourceEffect(new MilitaryPoint(value)));
-     	else if (type.equals("victoryPoint")) resEff =  (new ResourceEffect(new VictoryPoint(value)));
-     	else if (type.equals("councilPrivilege")) resEff =  (new ResourceEffect(new CouncilPrivilege(value)));
+		if ("coin".equals(type)) resEff = (new ResourceEffect(new Coin(value)));
+     	else if ("servant".equals(type)) resEff =  (new ResourceEffect(new Servant(value)));
+     	else if ("stone".equals(type)) resEff =  (new ResourceEffect(new Stone(value)));
+     	else if ("wood".equals(type)) resEff =  (new ResourceEffect(new Wood(value)));
+     	else if ("faithPoint".equals(type)) resEff =  (new ResourceEffect(new FaithPoint(value)));
+     	else if ("militaryPoint".equals(type)) resEff =  (new ResourceEffect(new MilitaryPoint(value)));
+     	else if ("victoryPoint".equals(type)) resEff =  (new ResourceEffect(new VictoryPoint(value)));
+     	else if ("councilPrivilege".equals(type)) resEff =  (new ResourceEffect(new CouncilPrivilege(value)));
      	else resEff=null;
 		return resEff;
 		
