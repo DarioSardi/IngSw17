@@ -101,17 +101,23 @@ public class Board implements Serializable {
 	public void initialize() {
 
 		rollDice();
-
+		System.out.println("\ndice rolled\n");
 		setPlayersFamilyMembersValue();
+		System.out.println("\nfamiliar ok\n");
 
 		setTowerCards();
+		System.out.println("\tower ok\n");
+
 
 	}
 
 	private void setPlayersFamilyMembersValue() {
-		for (Player player : this.getPlayers()) {
-			for (int i = 0; i < player.getFamilyMembers().size(); i++) {
-				player.getFamilyMember(i).setDieToFamilyMember(this.getDice().get(i).getDieValue());
+		int j=0;
+		int i=0;
+		for (j=0; j<this.getPlayers().size(); j++) {
+			
+			for (i = 1; i < this.getPlayers().get(j).getFamilyMembers().size(); i++) {
+				this.getPlayers().get(j).getFamilyMember(i).setDieToFamilyMember(this.getDice().get(i-1).getDieValue());
 
 			}
 		}

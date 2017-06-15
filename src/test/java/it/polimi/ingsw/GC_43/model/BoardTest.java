@@ -24,8 +24,9 @@ public class BoardTest {
 		board=new Board(playersID);
 		new InitGame(board);
 		System.out.println("fine di tutto !!!!");
-//		board.initialize();
+		board.initialize();
 		System.out.println("Attenzione !!!!");
+		System.out.println(board.towersToString());
 
 	
 	}
