@@ -1,7 +1,6 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
 import it.polimi.ingsw.GC_43.model.Board;
-import it.polimi.ingsw.GC_43.model.actionSpace.Market;
 
 public class InitGame {
 	private InitActionSpaces initActionSpaces;
@@ -16,6 +15,7 @@ public class InitGame {
 		this.initActionSpaces.readJson(board);
 		setFaithVictoryPointsToBoard(board);
 		setMarketToBoard(board);		
+		setTowersToBoard(board);
 	}
     
 	private void initGlobalVariables(){
@@ -32,6 +32,10 @@ public class InitGame {
 	
 	private void setMarketToBoard(Board board){
 		board.setMarket(this.initActionSpaces.getMarket());
+	}
+	
+	private void setTowersToBoard(Board board){
+		board.setTowers(this.initActionSpaces.getTowers());
 	}
 
 	

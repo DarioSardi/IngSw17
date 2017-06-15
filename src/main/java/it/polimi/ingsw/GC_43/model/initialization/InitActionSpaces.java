@@ -108,16 +108,16 @@ public class InitActionSpaces {
 
              
              JSONArray buildingFloorsBonusArray = (JSONArray) slides.get("FloorsBonusBuildingTower");
-             addFloorsToTower(buildingFloorsBonusArray, 1);
+             addFloorsToTower(buildingFloorsBonusArray, this.towers.get(1));
              
              JSONArray characterFloorsBonusArray = (JSONArray) slides.get("FloorsBonusCharacterTower");
-             addFloorsToTower(characterFloorsBonusArray, 3);
+             addFloorsToTower(characterFloorsBonusArray, this.towers.get(3));
              
              JSONArray territoryFloorsBonusArray = (JSONArray) slides.get("FloorsBonusTerritoryTower");
-             addFloorsToTower(territoryFloorsBonusArray, 0);
+             addFloorsToTower(territoryFloorsBonusArray, this.towers.get(0));
              
              JSONArray ventureFloorsBonusArray = (JSONArray) slides.get("FloorsBonusVentureTower");
-             addFloorsToTower(ventureFloorsBonusArray, 2);
+             addFloorsToTower(ventureFloorsBonusArray, this.towers.get(2));
 
              //SAMUEL inizializzato floors su towers su Board
              
@@ -146,7 +146,7 @@ public class InitActionSpaces {
         
     }
 		
-	private void addFloorsToTower(JSONArray floorsBonusArray, int towerNumber){
+	private void addFloorsToTower(JSONArray floorsBonusArray, Tower tower){
 		for (int i=1; i <= GlobalVariables.floorsPerTower; i++){
             Iterator floorsBonusIterator = floorsBonusArray.iterator();
             
@@ -160,17 +160,19 @@ public class InitActionSpaces {
 	     			int minTowerDiceValue = Integer.parseInt((String)slide.get("minDiceValue")); 
 	     			
 	     			if ("noBonus".equals(bonus)){
-	     				this.towers.get(towerNumber).addFloor(minTowerDiceValue);
+	     				tower.addFloor(minTowerDiceValue);
 	     			}
 	     			else{
 	     				ResourceEffect effect = new ResourceEffect(null);
 		    			effect = retResourceEffect(bonus, value);
-		    			this.towers.get(towerNumber).addFloor(effect, minTowerDiceValue);
+		    			tower.addFloor(effect, minTowerDiceValue);
 	     			}
 	     			while (floorsBonusIterator.hasNext())
 		      			slide = (JSONObject) floorsBonusIterator.next();
      			}
    	 	 	}
+            
+            // Exception se il numero di torri è minore del massimo??
 		}
 	}
 	
@@ -190,7 +192,7 @@ public class InitActionSpaces {
 		
 	}
 	
-	public List<Tower> getTowers(){
+	public ArrayList<Tower> getTowers(){
 		return this.towers;
 	}
 	
