@@ -93,9 +93,9 @@ public class Board implements Serializable {
 	}
 
 	public void addPlayerID(String playerID) {
-		if (playersID == null)
-			playersID = new ArrayList<String>();
-		playersID.add(playerID);
+		if (this.playersID == null)
+			this.playersID = new ArrayList<String>();
+		this.playersID.add(playerID);
 	}
 
 	public void initialize() {
@@ -270,7 +270,7 @@ public class Board implements Serializable {
 	}
 
 	public ArrayList getTerritoryCardPool() {
-		return territoryCardPool;
+		return this.territoryCardPool;
 	}
 
 	public void setTerritoryCardPool(ArrayList territoryCardPool) {
@@ -278,7 +278,7 @@ public class Board implements Serializable {
 	}
 
 	public ArrayList getBuildingCardPool() {
-		return buildingCardPool;
+		return this.buildingCardPool;
 	}
 
 	public void setBuildingCardPool(ArrayList buildingCardPool) {
@@ -286,7 +286,7 @@ public class Board implements Serializable {
 	}
 
 	public ArrayList getCharacterCardPool() {
-		return characterCardPool;
+		return this.characterCardPool;
 	}
 
 	public void setCharacterCardPool(ArrayList characterCardPool) {
@@ -294,7 +294,7 @@ public class Board implements Serializable {
 	}
 
 	public ArrayList getVentureCardPool() {
-		return ventureCardPool;
+		return this.ventureCardPool;
 	}
 
 	public void setVentureCardPool(ArrayList ventureCardPool) {
@@ -302,7 +302,7 @@ public class Board implements Serializable {
 	}
 
 	public Market getMarket() {
-		return market;
+		return this.market;
 	}
 
 	public void setMarket(Market market) {
@@ -310,7 +310,7 @@ public class Board implements Serializable {
 	}
 
 	public CouncilPalace getCouncilPalace() {
-		return councilPalace;
+		return this.councilPalace;
 	}
 
 	public void setCouncilPalace(CouncilPalace councilPalace) {
@@ -318,7 +318,7 @@ public class Board implements Serializable {
 	}
 
 	public HarvestArea getHarvestArea() {
-		return harvestArea;
+		return this.harvestArea;
 	}
 
 	public void setHarvestArea(HarvestArea harvestArea) {
@@ -326,7 +326,7 @@ public class Board implements Serializable {
 	}
 
 	public ProductionArea getProductionArea() {
-		return productionArea;
+		return this.productionArea;
 	}
 
 	public void setProductionArea(ProductionArea productionArea) {
@@ -342,7 +342,7 @@ public class Board implements Serializable {
 	}
 
 	public List<String> getPlayersID() {
-		return playersID;
+		return this.playersID;
 	}
 
 	public void setPlayersID(ArrayList<String> playersID) {
@@ -350,7 +350,7 @@ public class Board implements Serializable {
 	}
 
 	public List<Player> getPlayers() {
-		return players;
+		return this.players;
 	}
 
 	public void setPlayers(ArrayList<Player> players) {
@@ -358,7 +358,7 @@ public class Board implements Serializable {
 	}
 
 	public int getPhase() {
-		return phase;
+		return this.phase;
 	}
 
 	public void setPhase(int phase) {
@@ -366,7 +366,7 @@ public class Board implements Serializable {
 	}
 
 	public int getRound() {
-		return round;
+		return this.round;
 	}
 
 	public void setRound(int round) {
@@ -374,7 +374,7 @@ public class Board implements Serializable {
 	}
 
 	public int getPeriod() {
-		return period;
+		return this.period;
 	}
 
 	public void setPeriod(int period) {
@@ -382,7 +382,7 @@ public class Board implements Serializable {
 	}
 
 	public ArrayList<ExcommunicationTile> getExcommunicationTiles() {
-		return excommunicationTiles;
+		return this.excommunicationTiles;
 	}
 
 	public void setExcommunicationTiles(ArrayList<ExcommunicationTile> excommunicationTiles) {
@@ -390,7 +390,7 @@ public class Board implements Serializable {
 	}
 
 	public int[] getFaithVictoryPoints() {
-		return faithVictoryPoints;
+		return this.faithVictoryPoints;
 	}
 
 	public void setFaithVictoryPoints(int[] faithVictoryPoints) {
