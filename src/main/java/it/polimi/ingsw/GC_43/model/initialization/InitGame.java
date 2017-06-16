@@ -3,35 +3,43 @@ package it.polimi.ingsw.GC_43.model.initialization;
 import it.polimi.ingsw.GC_43.model.Board;
 
 public class InitGame {
+	private Board board;
 	private InitActionSpaces initActionSpaces;
 	
-	public InitGame(Board board){
-		initCards(board);
-		board.setPhase(0);
-		board.setRound(0);
-		board.setPeriod(0);
+	public InitGame(Board boardReceved){
+		this.board = boardReceved;
+		initCards();
 		this.initActionSpaces = new InitActionSpaces();
-		this.initActionSpaces.readJson(board);
-		setFaithVictoryPointsToBoard(board);
-		setMarketToBoard(board);		
-		setTowersToBoard(board);
+		this.initActionSpaces.readJson();
+		setFaithVictoryPointsToBoard();
+		setMarketToBoard();		
+		setTowersToBoard();
+		//setExcommunicationTilesToBoard();
+		setCouncilPalaceToBoard();
 	}
 	
-	private void initCards(Board board){
-		new InitCards().readJson(board);
+	private void initCards(){
+		new InitCards().readJson(this.board);
 	}
 	
-	private void setFaithVictoryPointsToBoard(Board board){
-		board.setFaithVictoryPoints(this.initActionSpaces.getFaithPoints());
+	private void setFaithVictoryPointsToBoard(){
+		this.board.setFaithVictoryPoints(this.initActionSpaces.getFaithPoints());
 	}
 	
-	private void setMarketToBoard(Board board){
-		board.setMarket(this.initActionSpaces.getMarket());
+	private void setMarketToBoard(){
+		this.board.setMarket(this.initActionSpaces.getMarket());
 	}
 	
-	private void setTowersToBoard(Board board){
-		board.setTowers(this.initActionSpaces.getTowers());
+	private void setTowersToBoard(){
+		this.board.setTowers(this.initActionSpaces.getTowers());
 	}
+	/*private void setExcommunicationTilesToBoard(){
+		this.board.setExcommunicationTiles(new InitExcommunicationTiles().getMalusExcommunicationSelected());
+	}
+	*/private void setCouncilPalaceToBoard(){
+		this.board.setCouncilPalace(this.initActionSpaces.getCouncilPalace());
+	}
+	
 
 	
 }

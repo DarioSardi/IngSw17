@@ -20,11 +20,14 @@ public class InitGameTest {
 		System.out.println(board.getBuildingCardPool().size());
 		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 		board.getCharacterCardPool().stream().forEach(c->System.out.println(c.toString()));
+		System.out.println(board.getCharacterCardPool().size());
 		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 		board.getTerritoryCardPool().stream().forEach(c->System.out.println(c.toString()));
+		System.out.println(board.getTerritoryCardPool().size());
 		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 		board.getVentureCardPool().stream().forEach(c->System.out.println(c.toString()));
-		
+		System.out.println(board.getVentureCardPool().size());
+		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 	}
 
 	@Test

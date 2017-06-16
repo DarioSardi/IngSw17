@@ -6,7 +6,6 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.actionSpace.*;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
@@ -16,7 +15,7 @@ import it.polimi.ingsw.GC_43.model.resources.*;
 public class InitActionSpaces {
 	private int[] faithPoints;
 	private Market market;
-	private ArrayList<ResourceEffect> councilPalaceBonus;
+	private CouncilPalace councilPalace;
     private ArrayList <Tower> towers;
 	private Integer[] militaryPointsRequired;
 	
@@ -24,7 +23,6 @@ public class InitActionSpaces {
 	InitActionSpaces(){
 		this.faithPoints = new int[GlobalVariables.maxFaithPoints+1];
         this.market = new Market(new ArrayList<MarketActionSpace>());
-        this.councilPalaceBonus = new ArrayList<>();
         this.towers = new ArrayList<>();
         this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
@@ -34,7 +32,7 @@ public class InitActionSpaces {
         
 	}
 	
-	public void readJson(Board board) {
+	public void readJson() {
         JSONParser parser = new JSONParser();
  
         try {
@@ -95,14 +93,15 @@ public class InitActionSpaces {
              
              JSONArray councilPalaceArray = (JSONArray) slides.get("CouncilPalaceBonus");
              Iterator<?> councilPalaceIterator = councilPalaceArray.iterator();
-             
+             ArrayList<Effect> councilPalaceBonus = new ArrayList<>();
              while (councilPalaceIterator.hasNext()) {
       			JSONObject slide1 = (JSONObject) councilPalaceIterator.next();
       			String type = (String)slide1.get("type");
      			int value = Integer.parseInt((String)slide1.get("value")); 
      			
-     			this.councilPalaceBonus.add(retResourceEffect(type, value));    			
+     			councilPalaceBonus.add(retResourceEffect(type, value));    			
     	 	 }
+             this.councilPalace = new CouncilPalace(councilPalaceBonus);
              
              //SAMUEL inizializzare market su Board
 
@@ -201,5 +200,9 @@ public class InitActionSpaces {
 	
 	public Market getMarket() {
 		return this.market;
+	}
+	
+	public CouncilPalace getCouncilPalace(){
+		return this.councilPalace;
 	}
 }
