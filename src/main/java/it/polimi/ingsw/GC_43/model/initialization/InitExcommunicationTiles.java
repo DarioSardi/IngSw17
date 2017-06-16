@@ -68,4 +68,9 @@ public class InitExcommunicationTiles {
 			Collections.shuffle(this.malusExcommunicationTiles);
 			this.malusExcommunicationSelected.add(this.malusExcommunicationTiles.get(0));
 	}
+	
+	public ArrayList<Effect> getMalusExcommunicationSelected(){
+		return this.malusExcommunicationSelected;
+	}
+
 }

@@ -11,7 +11,8 @@
         },
         {
           "effect": "extraCard",
-          "valueEffect": "7"
+          "valueEffect": "7",
+          "Discount": []
         }
       ],
       "PermanentBonus": [],
@@ -153,7 +154,8 @@
         },
         {
           "effect": "extraVentureCard",
-          "valueEffect": "6"
+          "valueEffect": "6",
+          "Discount": []
         }
       ],
       "PermanentBonus": [],
@@ -175,7 +177,8 @@
         },
         {
           "effect": "extraTerritoryCard",
-          "valueEffect": "6"
+          "valueEffect": "6",
+          "Discount": []
         }
       ],
       "PermanentBonus": [],
@@ -193,7 +196,13 @@
       "InstantBonus": [
         {
           "effect": "extraCharacterCard",
-          "valueEffect": "6"
+          "valueEffect": "6",
+          "Discount": [
+            {
+              "discountType": "coin",
+              "discountValue": "2"
+            }
+          ]
         }
       ],
       "PermanentBonus": [],
@@ -211,7 +220,17 @@
       "InstantBonus": [
         {
           "effect": "extraBuildingCard",
-          "valueEffect": "6"
+          "valueEffect": "6",
+          "Discount": [
+            {
+              "discountType": "wood",
+              "discountValue": "1"
+            },
+            {
+              "discountType": "stone",
+              "discountValue": "1"
+            }
+          ]
         }
       ],
       "PermanentBonus": [],
@@ -287,7 +306,8 @@
         },
         {
           "effect": "extraCard",
-          "valueEffect": "4"
+          "valueEffect": "4",
+          "Discount": []
         }
       ],
       "PermanentBonus": [],
