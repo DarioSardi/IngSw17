@@ -16,9 +16,7 @@ public class InitActionSpaces {
 	private int[] faithPoints;
 	private Market market;
 	private CouncilPalace councilPalace;
-    private ArrayList <Tower> towers;
-	private Integer[] militaryPointsRequired;
-	
+    private ArrayList <Tower> towers;	
 	
 	InitActionSpaces(){
 		this.faithPoints = new int[GlobalVariables.maxFaithPoints+1];
@@ -27,9 +25,7 @@ public class InitActionSpaces {
         this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));
-        this.militaryPointsRequired = new Integer[GlobalVariables.maxNumberPlayerCards+1];
-        
+        this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));        
 	}
 	
 	public void readJson() {
@@ -48,62 +44,10 @@ public class InitActionSpaces {
          while (actionSpaceIterator.hasNext()) {
         	 JSONObject slides = (JSONObject) actionSpaceIterator.next();
         	 
-             JSONArray faithArea = (JSONArray) slides.get("FaithPoints");
-             Iterator<?> faithAreaIterator = faithArea.iterator();
-                 	             
-             int position;
-             int victoryPoints;
+        	 faithAreaInit(slides);
+             marketInit(slides);
+             councilPalaceBonusInit(slides);
              
-             while (faithAreaIterator.hasNext()) {
-     			JSONObject slide = (JSONObject) faithAreaIterator.next();
-     			position = Integer.parseInt((String)slide.get("position"));
-     			victoryPoints = Integer.parseInt((String)slide.get("victoryPoint"));
-     			if(position >= 0 && position <= GlobalVariables.maxFaithPoints)
-     				this.faithPoints[position] = victoryPoints;
-     		 }
-             
-             //SAMUEL inizializzare faithPoints su Board
-             
-             JSONArray marketArray = (JSONArray) slides.get("Market");
-             Iterator<?> marketIterator = marketArray.iterator();
-             
-             int minDiceValue;     
-             ArrayList<MarketActionSpace> marketSpaces = new ArrayList<>();
-             while (marketIterator.hasNext()) {
-     			JSONObject slide1 = (JSONObject) marketIterator.next();
-     			minDiceValue = Integer.valueOf((String)slide1.get("minDiceValue"));
-     			
-     			JSONArray marketBonus = (JSONArray) slide1.get("Bonus");
-                Iterator<?> marketBonusIterator = marketBonus.iterator(); 
-                
-    			ArrayList<Effect> resources = new ArrayList<>();
-
-                while (marketBonusIterator.hasNext()) {
-        			JSONObject slide2 = (JSONObject) marketBonusIterator.next();
-        			String typeBonus = (String)slide2.get("type");
-        			int valueBonus = Integer.parseInt((String)slide2.get("value"));
-        			
-        			resources.add(retResourceEffect(typeBonus, valueBonus));
-       	 	 	}                
-                marketSpaces.add(new MarketActionSpace(resources, minDiceValue));
-    	 	 }
-             
-             this.market.setMarketActionSpaces(marketSpaces);
-           
-             
-             JSONArray councilPalaceArray = (JSONArray) slides.get("CouncilPalaceBonus");
-             Iterator<?> councilPalaceIterator = councilPalaceArray.iterator();
-             ArrayList<Effect> councilPalaceBonus = new ArrayList<>();
-             while (councilPalaceIterator.hasNext()) {
-      			JSONObject slide1 = (JSONObject) councilPalaceIterator.next();
-      			String type = (String)slide1.get("type");
-     			int value = Integer.parseInt((String)slide1.get("value")); 
-     			
-     			councilPalaceBonus.add(retResourceEffect(type, value));    			
-    	 	 }
-             this.councilPalace = new CouncilPalace(councilPalaceBonus);
-             
-             //SAMUEL inizializzare market su Board
 
              JSONArray territoryFloorsBonusArray = (JSONArray) slides.get("FloorsBonusTerritoryTower");
              addFloorsToTower(territoryFloorsBonusArray, this.towers.get(0));
@@ -116,23 +60,6 @@ public class InitActionSpaces {
                           
              JSONArray ventureFloorsBonusArray = (JSONArray) slides.get("FloorsBonusVentureTower");
              addFloorsToTower(ventureFloorsBonusArray, this.towers.get(3));
-
-             //SAMUEL inizializzato floors su towers su Board
-             
-             
-             JSONArray militaryPointsRequiredArray = (JSONArray) slides.get("MilitaryPointsRequired");
-             Iterator<?> militaryPointsRequiredIterator = militaryPointsRequiredArray.iterator();
-             
-             
-             while (militaryPointsRequiredIterator.hasNext()) {
-      			JSONObject slide1 = (JSONObject) militaryPointsRequiredIterator.next();
-      			int numTerritoryCards = Integer.parseInt((String)slide1.get("numTerritoryCards"));
-     			int required = Integer.parseInt((String)slide1.get("militaryPointsRequired")); 
-     			
-     			if (numTerritoryCards >= 0 && numTerritoryCards <= GlobalVariables.maxNumberPlayerCards){
-     				this.militaryPointsRequired[numTerritoryCards] = required;
-     			}		
-    	 	 }   
          }
          
     	 System.out.println("inizializzati tutti gli spazi azione");
@@ -143,7 +70,71 @@ public class InitActionSpaces {
         }
         
     }
-		
+	
+	
+	
+	
+	
+	public void councilPalaceBonusInit(JSONObject slides){
+		JSONArray councilPalaceArray = (JSONArray) slides.get("CouncilPalaceBonus");
+        Iterator<?> councilPalaceIterator = councilPalaceArray.iterator();
+        ArrayList<Effect> councilPalaceBonus = new ArrayList<>();
+        while (councilPalaceIterator.hasNext()) {
+ 			JSONObject slide1 = (JSONObject) councilPalaceIterator.next();
+ 			String type = (String)slide1.get("type");
+			int value = Integer.parseInt((String)slide1.get("value")); 
+			
+			councilPalaceBonus.add(retResourceEffect(type, value));    			
+	 	 }
+        this.councilPalace = new CouncilPalace(councilPalaceBonus);
+	}
+	
+	public void marketInit(JSONObject slides){
+		JSONArray marketArray = (JSONArray) slides.get("Market");
+	    Iterator<?> marketIterator = marketArray.iterator();
+	    
+	    int minDiceValue;     
+	    ArrayList<MarketActionSpace> marketSpaces = new ArrayList<>();
+	    while (marketIterator.hasNext()) {
+			JSONObject slide1 = (JSONObject) marketIterator.next();
+			minDiceValue = Integer.valueOf((String)slide1.get("minDiceValue"));
+			
+			JSONArray marketBonus = (JSONArray) slide1.get("Bonus");
+	       Iterator<?> marketBonusIterator = marketBonus.iterator(); 
+	       
+			ArrayList<Effect> resources = new ArrayList<>();
+	
+	       while (marketBonusIterator.hasNext()) {
+				JSONObject slide2 = (JSONObject) marketBonusIterator.next();
+				String typeBonus = (String)slide2.get("type");
+				int valueBonus = Integer.parseInt((String)slide2.get("value"));
+				
+				resources.add(retResourceEffect(typeBonus, valueBonus));
+		 	 	}                
+	       marketSpaces.add(new MarketActionSpace(resources, minDiceValue));
+		 }
+	    
+	    this.market.setMarketActionSpaces(marketSpaces);
+	}
+  
+    
+	
+	public void faithAreaInit(JSONObject slides){
+		JSONArray faithArea = (JSONArray) slides.get("FaithPoints");
+        Iterator<?> faithAreaIterator = faithArea.iterator();
+            	             
+        int position;
+        int victoryPoints;
+        
+        while (faithAreaIterator.hasNext()) {
+			JSONObject slide = (JSONObject) faithAreaIterator.next();
+			position = Integer.parseInt((String)slide.get("position"));
+			victoryPoints = Integer.parseInt((String)slide.get("victoryPoint"));
+			if(position >= 0 && position <= GlobalVariables.maxFaithPoints)
+				this.faithPoints[position] = victoryPoints;
+		 }
+	}
+	
 	private void addFloorsToTower(JSONArray floorsBonusArray, Tower tower){
 		for (int i=1; i <= GlobalVariables.floorsPerTower; i++){
             Iterator<?> floorsBonusIterator = floorsBonusArray.iterator();

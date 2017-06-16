@@ -222,25 +222,7 @@
           "value": "2",
           "minDiceValue": "7"
         }
-      ],
-      "MilitaryPointsRequired": [
-        {
-          "numTerritoryCards": "3",
-          "militaryPointsRequired": "3"
-        },
-        {
-          "numTerritoryCards": "4",
-          "militaryPointsRequired": "7"
-        },
-        {
-          "numTerritoryCards": "5",
-          "militaryPointsRequired": "12"
-        },
-        {
-          "numTerritoryCards": "6",
-          "militaryPointsRequired": "18"
-        }
-      ]
+      ]      
     }
   ]
 }

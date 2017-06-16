@@ -69,6 +69,11 @@ public class GlobalVariablesInit implements Serializable{
 				cpi.multipleChoiceInit(slides);
 				GlobalVariables.councilPrivilegeEffect = cpi.getMultChoice();       			       	
 		       	
+				
+				MilitaryPointsRequiredInit mpi = new MilitaryPointsRequiredInit();
+				mpi.militaryPointsRequiredInit(slides);
+				GlobalVariables.militaryPointsRequired = mpi.getMilitaryPointsRequired();
+				
 		       	System.out.println("inizializzate tutte le variabili globali");
 	        }   	
 		       

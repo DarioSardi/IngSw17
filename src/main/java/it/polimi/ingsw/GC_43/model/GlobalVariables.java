@@ -43,8 +43,5 @@ public class GlobalVariables {
 	   
 	   public static MultipleChoiceEffect councilPrivilegeEffect;
 	   public static int malusUnlimitedCells;
-	   
-
-	   
-
+	   public static Integer[] militaryPointsRequired;
 }

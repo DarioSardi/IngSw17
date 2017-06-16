@@ -14,7 +14,7 @@ public class InitGame {
 		setFaithVictoryPointsToBoard();
 		setMarketToBoard();		
 		setTowersToBoard();
-		//setExcommunicationTilesToBoard();
+	//	setExcommunicationTilesToBoard();
 		setCouncilPalaceToBoard();
 	}
 	
@@ -36,10 +36,8 @@ public class InitGame {
 	/*private void setExcommunicationTilesToBoard(){
 		this.board.setExcommunicationTiles(new InitExcommunicationTiles().getMalusExcommunicationSelected());
 	}
-	*/private void setCouncilPalaceToBoard(){
+	*/
+	private void setCouncilPalaceToBoard(){
 		this.board.setCouncilPalace(this.initActionSpaces.getCouncilPalace());
-	}
-	
-
-	
+	}	
 }

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
-import it.polimi.ingsw.GC_43.model.*;
-import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 import it.polimi.ingsw.GC_43.model.effects.*;
 import it.polimi.ingsw.GC_43.model.resources.*;
 
