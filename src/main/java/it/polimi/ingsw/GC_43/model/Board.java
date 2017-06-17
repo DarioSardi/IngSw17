@@ -74,7 +74,7 @@ public class Board implements Serializable {
 
 		createCards();
 
-		createTowers();
+		createSpaces();
 
 	}
 
@@ -87,9 +87,12 @@ public class Board implements Serializable {
 
 	}
 
-	private void createTowers() {
+	private void createSpaces() {
 
 		this.towers = new ArrayList<Tower>();
+		this.harvestArea = new HarvestArea();
+		this.productionArea = new ProductionArea();
+		this.market = new Market(null);
 
 	}
 
@@ -109,31 +112,33 @@ public class Board implements Serializable {
 		setTowerCards();
 		System.out.println("\tower ok\n");
 
-
 	}
 
 	private void setPlayersFamilyMembersValue() {
-		int j=0;
-		int i=0;
-		for (j=0; j<this.getPlayers().size(); j++) {
-			
+		int j = 0;
+		int i = 0;
+		for (j = 0; j < this.getPlayers().size(); j++) {
+
 			for (i = 1; i < this.getPlayers().get(j).getFamilyMembers().size(); i++) {
-				this.getPlayers().get(j).getFamilyMember(i).setDieToFamilyMember(this.getDice().get(i-1).getDieValue());
+				this.getPlayers().get(j).getFamilyMember(i)
+						.setDieToFamilyMember(this.getDice().get(i - 1).getDieValue());
 
 			}
 		}
 
 	}
+
 	/**
-	 * create Players assigning incremental money to receive, No rolling dice to establish the first initial order of players.
+	 * create Players assigning incremental money to receive, No rolling dice to
+	 * establish the first initial order of players.
 	 */
 
 	private void createPlayers() {
 		if (this.players == null) {
 			this.players = new ArrayList<Player>();
 		}
-		System.out.println("\n\nplayerss are "+this.getPlayersID().size()+"\n\n");
-		
+		System.out.println("\n\nplayerss are " + this.getPlayersID().size() + "\n\n");
+
 		try {
 			int index = 0;
 			this.getPlayers().add(new Player(this.getPlayersID().get(index), GlobalVariables.initialFirstPlayerCoins));
@@ -142,13 +147,14 @@ public class Board implements Serializable {
 
 			index++;
 			if (index < this.playersID.size()) {
-				this.getPlayers().add(new Player(this.getPlayersID().get(index), GlobalVariables.initialThirdPlayerCoins));
+				this.getPlayers()
+						.add(new Player(this.getPlayersID().get(index), GlobalVariables.initialThirdPlayerCoins));
 				index++;
 
 				if (index < this.playersID.size())
 					this.getPlayers()
 							.add(new Player(this.getPlayersID().get(index), GlobalVariables.initialFourthPlayerCoins));
-				
+
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
