@@ -56,7 +56,7 @@ public class InitEndPoints {
      			}	     			
      		 }
              
-    	 System.out.println("inizializzati tutti gli spazi azione");
+    	 System.out.println("inizializzati gli end points");
          }
            	 	
         } catch (Exception e) {

@@ -52,7 +52,7 @@ public class InitPlayerPersonalBonus {
         			JSONObject slide2 = (JSONObject) baseProductionIterator.next();
         			String typeBonus = (String)slide2.get("bonus");
         			int value = Integer.parseInt((String)slide2.get("value")); 	
-        			new AddGainAndCostResources().addResourceEffect(typeBonus, value, this.basePersonalProductionBonusTile);
+        			this.basePersonalProductionBonusTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
         		 }
                 
                 JSONArray baseHarvestArray = (JSONArray) slide1.get("Harvest");
@@ -62,7 +62,7 @@ public class InitPlayerPersonalBonus {
         			JSONObject slide2 = (JSONObject) baseHarvestIterator.next();
         			String typeBonus = (String)slide2.get("bonus");
         			int value = Integer.parseInt((String)slide2.get("value"));
-        			new AddGainAndCostResources().addResourceEffect(typeBonus, value, this.basePersonalHarvestBonusTile);
+        			this.basePersonalHarvestBonusTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
         		 }
      		 }
              JSONArray advancedDefaultBonusArray = (JSONArray) slide.get("AdvancedDefaultBonus");
@@ -80,7 +80,7 @@ public class InitPlayerPersonalBonus {
         			JSONObject slide2 = (JSONObject) baseProductionIterator.next();
         			String typeBonus = (String)slide2.get("bonus");
         			int value = Integer.parseInt((String)slide2.get("value")); 	
-        			new AddGainAndCostResources().addResourceEffect(typeBonus, value, this.advancedPersonalProductionBonusTile);
+        			this.advancedPersonalProductionBonusTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));;
 
         		}
                 this.allAdvancedPersonalProductionBonusTiles.add(this.advancedPersonalProductionBonusTile);
@@ -94,7 +94,7 @@ public class InitPlayerPersonalBonus {
         			JSONObject slide2 = (JSONObject) baseHarvestIterator.next();
         			String typeBonus = (String)slide2.get("bonus");
         			int value = Integer.parseInt((String)slide2.get("value")); 	
-        			new AddGainAndCostResources().addResourceEffect(typeBonus, value, this.advancedPersonalHarvestBonusTile);
+        			this.advancedPersonalHarvestBonusTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
         		}
                 this.allAdvancedPersonalHarvestBonusTiles.add(this.advancedPersonalHarvestBonusTile);
 
