@@ -9,7 +9,7 @@ public class Lobby implements Runnable{
 	private ArrayList<ClientHandler> players;
 	public int ID;
 	private Controller controller;
-	private boolean exist;
+	private boolean exist,gameStarted;
 
 	public Lobby(ClientHandler lobbyAdmin,Integer ID) {
 		this.admin=lobbyAdmin;
@@ -18,6 +18,7 @@ public class Lobby implements Runnable{
 		lobbyAdmin.setLobby(this);
 		this.ID=ID;
 		this.exist=true;
+		this.gameStarted=false;
 		System.out.println("SONO LA LOBBY "+ID+" E SON VIVA!");
 	}
 
@@ -65,7 +66,7 @@ public class Lobby implements Runnable{
 		sb.append("nella lobby " + ID + " ci sono\n");
 		players.stream().forEach(p -> {
 			if (p.getUsername().equals(admin.getUsername())) {
-				sb.append(p.getUsername() + "  ADMIN");
+				sb.append(p.getUsername() + "  ADMIN\n");
 			} else {
 				sb.append(p.getUsername());
 			}
@@ -83,6 +84,14 @@ public class Lobby implements Runnable{
 		players.stream().forEach(p->p.sendMsgTo("message from "+cH.getUsername()+": "+nextLine));
 		
 	}
+	public void broadcastSwitchMsg() {
+		players.stream().forEach(p->
+		{
+			if(p!=admin){
+				p.setGame();
+				p.sendMsgTo("system_ingame_switch");}});
+		
+	}
 	
 	private void lobbyMsg(String nextLine) {
 		players.stream().forEach(p->p.sendMsgTo("message from the LOBBY: "+nextLine));
@@ -94,8 +103,10 @@ public class Lobby implements Runnable{
 			lobbyMsg("il gioco si sta iniziando");
 			this.controller=new Controller(players);
 			lobbyMsg("controller inizializzato");
-			controller.initializeGame();
+			this.controller.initializeGame();
 			lobbyMsg("gioco inizializzato");
+			this.gameStarted=true;
+			broadcastSwitchMsg();
 			return true;
 		}
 		else{

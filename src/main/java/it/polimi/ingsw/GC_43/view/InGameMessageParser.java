@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionCreations.ProductionActionCreationRoutine;
+import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
 import it.polimi.ingsw.GC_43.model.actionSpace.MarketActionSpace;
 import it.polimi.ingsw.GC_43.model.actionSpace.Space;
 
@@ -32,25 +33,37 @@ public class InGameMessageParser {
 				printActionsMenu();
 				String actionChoice = userIn.readLine().toString();
 				if ("1".equals(actionChoice)) {
-					/*if(this.myClient.getBoard().getMarket().getMarketActionSpaces()!=null){
+					if(this.myClient.getBoard().getMarket().getMarketActionSpaces()!=null){
 					ArrayList<MarketActionSpace> markets = this.myClient.getBoard().getMarket().getMarketActionSpaces();
 					while (!marketSubMenu(markets));
 					}
 					else{
 						System.out.println("nessun market ancora presente?!");
-					}*/
+					}
 					System.out.println("\nda inizializzare bene, prova un altra opzione\n");
 				}
 				
 				else if("2".equals(actionChoice)){
+					System.out.println("ho scelto di entrare nell'area di produzione");
 					if(this.myClient.getBoard().getProductionArea().getSpaces()!=null){
-						Space primaryProduction = this.myClient.getBoard().getProductionArea().getPrimarySpace();
-						Space secondaryProduction = this.myClient.getBoard().getProductionArea().getSecondarySpace();
-						while (!productionAreaSubMenu(primaryProduction,secondaryProduction));
+						System.out.println("gli spazi non sono nulli");
+						while (!productionAreaSubMenu());
 						}
 						else{
-							System.out.println("nessun market ancora presente?!");
+							System.out.println("nessun area di produzione ancora presente?!");
 						}
+					
+				}
+				else if("5".equals(actionChoice)){
+					System.out.println("ho scelto di entrare nella torre");
+					towerSubMenu();
+					/*if(!this.myClient.getBoard().getTowers().isEmpty()){
+						System.out.println("gli spazi non sono nulli");
+						while (!towerSubMenu());
+						}
+					else{
+						System.out.println("nessun area di produzione ancora presente?!");
+					}*/
 				}
 				
 				
@@ -68,33 +81,23 @@ public class InGameMessageParser {
 	}
 	
 
-	private boolean productionAreaSubMenu(Space primaryProduction, Space secondaryProduction) {
-		Boolean skipSecondary=false;
-		System.out.println("hai deciso di entrare nell'area di produzione");
-		if(!primaryProduction.isOccupied()){
-			System.out.println("1) entra nello spazio primario (LIBERO)");
+	private boolean towerSubMenu() {
+		System.out.println("towerSubmenu");
+		TowerActionCreationRoutine ta=new TowerActionCreationRoutine(this.myClient.myPlayer.getPlayerName(), this.myClient.myPlayer, this.myClient.getBoard());
+		if(ta.prepareAction()){
+			this.myClient.sendObj(ta.getTowerAction());
 		}
-		else{
-			System.out.println("1) entra nello spazio primario (OCCUPATO)");
+		return true;
+	}
+
+	private boolean productionAreaSubMenu() {
+		System.out.println("productionAreaSubmenu");
+		ProductionActionCreationRoutine pa=new ProductionActionCreationRoutine(this.myClient.myPlayer.getPlayerName(), this.myClient.myPlayer, this.myClient.getBoard());
+		if(pa.prepareAction()){
+			this.myClient.sendObj(pa.getProductionAction());
 		}
-		if (secondaryProduction!=null) {
-			if (!secondaryProduction.isOccupied()) {
-				System.out.println("2) entra nello spazio secondario con malus in ingresso (LIBERO)");
-			} else {
-				System.out.println("2) entra nello spazio secondario con malus in ingresso (OCCUPATO)");
-			} 
-		}
-		else{
-			skipSecondary=true;
-			System.out.println("2) spazio secondario non disponibile");
-		}
-		System.out.println("3) annulla");
-		String actionChoice=this.userIn.nextLine();
-		if(Integer.parseInt(actionChoice)==1){
-			//ProductionActionCreationRoutine pa= new ProductionActionCreationRoutine(this.myClient.getID(), player, board)
-			return true;
-		}
-		return false;
+		return true;
+		
 	}
 
 	public void printActionsMenu(){

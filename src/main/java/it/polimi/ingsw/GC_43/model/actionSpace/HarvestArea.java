@@ -1,11 +1,8 @@
 package it.polimi.ingsw.GC_43.model.actionSpace;
 
-import java.util.ArrayList;
-
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class HarvestArea extends ActionArea{
 		
@@ -14,10 +11,10 @@ public class HarvestArea extends ActionArea{
 	 */
 	private static final long serialVersionUID = 7626649697231179283L;
 
-	public HarvestArea(ArrayList<Effect> e) {
-		this.getSpaces().add(new Space(false,GlobalVariables.minDiceValueHarvestArea,this,e));
+	public HarvestArea() {
+		this.getSpaces().add(new Space(false,GlobalVariables.minDiceValueHarvestArea,this,null));
 		if(GlobalVariables.numberOfPlayers>=3){
-		this.getSpaces().add(new Space(true,GlobalVariables.minDiceValueHarvestArea,this,e));
+		this.getSpaces().add(new Space(true,GlobalVariables.minDiceValueHarvestArea,this,null));
 		}
 	}
 	

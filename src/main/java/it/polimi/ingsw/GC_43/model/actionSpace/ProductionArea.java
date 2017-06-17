@@ -15,9 +15,9 @@ public class ProductionArea extends ActionArea{
 	private static final long serialVersionUID = -520278630390080976L;
 
 	public ProductionArea(ArrayList<Effect> e) {
-		this.getSpaces().add(new Space(false,GlobalVariables.minDiceValueHarvestArea,this,e));
+		this.getSpaces().add(new Space(false,GlobalVariables.minDiceValueHarvestArea,this,null));
 		if(GlobalVariables.numberOfPlayers>=3){
-		this.getSpaces().add(new Space(true,GlobalVariables.minDiceValueHarvestArea,this,e));
+		this.getSpaces().add(new Space(true,GlobalVariables.minDiceValueHarvestArea,this,null));
 		}
 	}
 	

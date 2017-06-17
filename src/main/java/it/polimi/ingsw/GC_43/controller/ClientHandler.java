@@ -16,6 +16,7 @@ public class ClientHandler implements Runnable{
 	private ObjectInputStream socketIn;
 	private ObjectOutputStream socketOut;
 	private Lobby lobby;
+	private boolean Game;
 
 	public ClientHandler(Socket socket,int ID,Server myServer) throws IOException {
 		super();
@@ -107,52 +108,52 @@ public class ClientHandler implements Runnable{
 		}
 	}
 	
+	//IN LOBBY
 	private void inLobby() {
 		sendMsgTo("sei entrato nella lobby, digita 'help' per la lista dei comandi");
 		boolean inlobby=true;
+		Game=false;
 		while(inlobby){
-			String command=readMsg();
-			if(command.equals("exit_lobby")){
-				//DARIO rimuovi lobby
-				inlobby=false;
-				sendMsgTo("stai uscendo dalla lobby");
-			}
-			else if(command.equals("chat")){
-				sendMsgTo("digita il messaggio da mandare a tutti gli altri");
-				String msg=readMsg();
-				lobby.broadcastMsg(msg,this);
-			}
-			else if(command.equals("start_game")){
-				if(lobby.startGame(this)){
-					inGame();
-				}
-				else{
-					sendMsgTo("you are not the admin...");
+			if (!Game) {
+				String command = readMsg();
+				if (command.equals("exit_lobby")) {
+					//DARIO rimuovi lobby
+					inlobby = false;
+					sendMsgTo("stai uscendo dalla lobby");
+				} else if (command.equals("chat")) {
+					sendMsgTo("digita il messaggio da mandare a tutti gli altri");
+					String msg = readMsg();
+					lobby.broadcastMsg(msg, this);
+				} else if (command.equals("start_game")) {
+					if (lobby.startGame(this)) {
+						inGame();
+					} else {
+						sendMsgTo("you are not the admin...");
+						continue;
+					}
+				} else if ("players".equals(command)) {
+					sendMsgTo(lobby.whoIsIn());
+				} else if ("help".equals(command)) {
+					sendMsgTo(
+							"\nchat to chat with the other inLobby players\n" + "exit_lobby to quit the current lobby\n"
+									+ "start_game to start the game if you are the admin\n" + "help to see this\n"
+									+ "players if you want to see who is in the lobby\n");
+				} else {
+					sendMsgTo("nulla di che...");
 					continue;
-				}
+				} 
 			}
-			else if("players".equals(command)){
-				sendMsgTo(lobby.whoIsIn());
-			}
-			else if("help".equals(command)){
-				sendMsgTo("\nchat to chat with the other inLobby players\n"
-						+ "exit_lobby to quit the current lobby\n"
-						+ "start_game to start the game if you are the admin\n"
-						+ "help to see this\n"
-						+ "players if you want to see who is in the lobby\n");
-			}
-			else{
-				sendMsgTo("nulla di che...");
-				continue;}
 		}
 		
+	}
+	
+	public void setGame(){
+		this.Game=true;
 	}
 
 	private void inGame() {
 		sendMsgTo("You are now in game!");
 		sendMsgTo("system_ingame_switch");
-		Boolean Game=true;
-		sendObject(null);
 		while(Game){
 			
 		}

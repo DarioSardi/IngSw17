@@ -58,7 +58,6 @@ public class ClientOutHandler implements Runnable {
 					System.out.println("chat - per inviare un messaggio ai giocatori");
 				}
 				else if("action".equals(command)&&this.myClient.myTurn){
-					System.out.println("ricevuto action");
 					parser.actionMenu(userIn,this.myClient);				
 				}
 				else if("action".equals(command)&&!this.myClient.myTurn){
@@ -78,7 +77,15 @@ public class ClientOutHandler implements Runnable {
 			socketOut.writeObject(sm);
 			socketOut.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendObj(Object o){
+		try {
+			socketOut.writeObject(o);
+			socketOut.flush();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

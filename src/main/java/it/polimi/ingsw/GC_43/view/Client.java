@@ -19,6 +19,8 @@ import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
 
 public class Client {
 	private int port,ID;
@@ -34,6 +36,7 @@ public class Client {
 	private Board board;
 	Lobby lobby;
 	Boolean idSetted,inMenu,inGame,online,actionPerformed,myTurn;
+	Player myPlayer;
 
     public Client() throws IOException{
     	setup();
@@ -89,7 +92,16 @@ public class Client {
 	public void setBoard(Board board) {
 		this.board = board;
 		System.out.println("hai ricevuto la board di gioco!");
-		//this.board.getTowers().stream().forEach(t->System.out.println(t.toString()));
+		TowerActionCreationRoutine ta=new TowerActionCreationRoutine(this.myPlayer.getPlayerName(), this.myPlayer, board);
+		if(ta.prepareAction()){
+			this.sendObj(ta.getTowerAction());
+		}
+		this.board.getPlayers().stream().forEach(p->{
+			System.out.println(p.getPlayerName());
+			if(p.getPlayerName().equals(this.username)){
+				this.myPlayer=p;
+			}
+		});
 	}
 
 
@@ -132,6 +144,12 @@ public class Client {
         	this.port=7777;
         	this.username="PanDario7";
         }
+    	
+    	else if(answer.equals("auto1")){
+        	this.address="127.0.0.1";
+        	this.port=7777;
+        	this.username="Dario";
+        }
     	else{System.out.println("ma che cazz...");}
     	
     	System.out.println("connetto a: "+address+"/"+port);
@@ -140,5 +158,9 @@ public class Client {
 	public static void main(String [] args) throws IOException {
 		 Client c= new Client();
 	 }
+	
+	public void sendObj(Object o){
+		this.outStream.sendObj(o);
+	}
 
 }

@@ -335,7 +335,7 @@ public class Board implements Serializable {
 	}
 
 	public ArrayList<Tower> getTowers() {
-		return towers;
+		return this.towers;
 	}
 
 	public void setTowers(ArrayList<Tower> towers) {
