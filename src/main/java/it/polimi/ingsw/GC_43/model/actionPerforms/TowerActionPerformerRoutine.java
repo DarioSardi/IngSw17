@@ -154,9 +154,10 @@ public class TowerActionPerformerRoutine implements ActionPerformer{
 	    if(card.getClass().toString().contains("VentureCard")){
 	    		VentureCard ventureCard= (VentureCard) card;
 	    		if(ventureCard.getMilitaryCost()>0&&this.towerAction.getDoubleCostSelection()==1){
-	    			//TODO checcka se ha i military points e poi lancia la parte di execute sul floor senza costo, aspetta Dario
-	    			//TODO
-	    			//TODO
+	    			if(player.getPlayerResource("militaryPoints")>=ventureCard.getMilitaryMin()&&player.getPlayerResource("militaryPoints")>=ventureCard.getMilitaryCost()){
+	    				player.subResource("militaryPoint", ventureCard.getMilitaryCost());
+	    				towerFloor.actionsAfterBuy(familyMember);
+	    			}
 	    			this.index++;
 	    			
 	    		}

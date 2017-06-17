@@ -17,6 +17,7 @@ import it.polimi.ingsw.GC_43.model.cards.Card;
 import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.cards.VentureCard;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 
 public class Board implements Serializable {
@@ -36,7 +37,7 @@ public class Board implements Serializable {
 	private ArrayList buildingCardPool;
 	private ArrayList characterCardPool;
 	private ArrayList ventureCardPool;
-	private ArrayList<ExcommunicationTile> excommunicationTiles;
+	private ArrayList<Effect> excommunicationTilesEffects;
 
 	// DICE
 	private ArrayList<Die> dice;
@@ -82,7 +83,7 @@ public class Board implements Serializable {
 		this.ventureCardPool = new ArrayList<VentureCard>();
 		this.territoryCardPool = new ArrayList<TerritoryCard>();
 		this.characterCardPool = new ArrayList<CharacterCard>();
-		this.excommunicationTiles = new ArrayList<ExcommunicationTile>();
+		this.excommunicationTilesEffects = new ArrayList<Effect>();
 
 	}
 
@@ -381,12 +382,12 @@ public class Board implements Serializable {
 		this.period = period;
 	}
 
-	public ArrayList<ExcommunicationTile> getExcommunicationTiles() {
-		return this.excommunicationTiles;
+	public ArrayList<Effect> getExcommunicationTiles() {
+		return this.excommunicationTilesEffects;
 	}
 
-	public void setExcommunicationTiles(ArrayList<ExcommunicationTile> excommunicationTiles) {
-		this.excommunicationTiles = excommunicationTiles;
+	public void setExcommunicationTiles(ArrayList<Effect> excommunicationTilesEffects) {
+		this.excommunicationTilesEffects = excommunicationTilesEffects;
 	}
 
 	public int[] getFaithVictoryPoints() {
