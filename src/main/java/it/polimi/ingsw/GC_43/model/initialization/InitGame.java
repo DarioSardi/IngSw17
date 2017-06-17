@@ -14,8 +14,9 @@ public class InitGame {
 		setFaithVictoryPointsToBoard();
 		setMarketToBoard();		
 		setTowersToBoard();
-	//	setExcommunicationTilesToBoard();
+		setExcommunicationTilesToBoard();
 		setCouncilPalaceToBoard();
+		setPersonalBonusToPlayers();
 	}
 	
 	private void initCards(){
@@ -33,11 +34,33 @@ public class InitGame {
 	private void setTowersToBoard(){
 		this.board.setTowers(this.initActionSpaces.getTowers());
 	}
-	/*private void setExcommunicationTilesToBoard(){
-		this.board.setExcommunicationTiles(new InitExcommunicationTiles().getMalusExcommunicationSelected());
+	private void setExcommunicationTilesToBoard(){
+	this.board.setExcommunicationTiles(new InitExcommunicationTiles().getMalusExcommunicationSelected());
 	}
-	*/
+	
 	private void setCouncilPalaceToBoard(){
 		this.board.setCouncilPalace(this.initActionSpaces.getCouncilPalace());
 	}	
+	
+	private void setPersonalBonusToPlayers(){
+		InitPlayerPersonalBonus initPersonalBonus = new InitPlayerPersonalBonus();
+		initPersonalBonus.readJson();
+		
+		for(int i=0; i < this.board.getPlayers().size(); i++){
+			this.board.getPlayers().get(i).setPersonalProductionBonus(initPersonalBonus.getAllAdvancedPersonalProductionBonusTile().get(i));
+			this.board.getPlayers().get(i).setPersonalHarvestBonus(initPersonalBonus.getAllAdvancedPersonalHarvestBonusTile().get(i));
+		}
+		
+		for(int i=0; i < this.board.getPlayers().size(); i++){
+			this.board.getPlayers().get(i).setPersonalProductionBonus(initPersonalBonus.getBasePersonalProductionBonusTile());
+			this.board.getPlayers().get(i).setPersonalHarvestBonus(initPersonalBonus.getBasePersonalHarvestBonusTile());
+		}
+	/*	for(int i=0; i < this.board.getPlayers().size(); i++){
+			this.board.getPlayers().get(i).setPersonalProductionBonus(initPersonalBonus.getAllAdvancedPersonalProductionBonusTile().get(i));
+			this.board.getPlayers().get(i).setPersonalHarvestBonus(initPersonalBonus.getAllAdvancedPersonalHarvestBonusTile().get(i));
+		}
+	*/
+		
+		
+	}
 }

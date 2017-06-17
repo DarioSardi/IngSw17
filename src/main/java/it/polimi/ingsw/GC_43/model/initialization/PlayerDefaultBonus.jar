@@ -1,0 +1,140 @@
+{
+  "DefaultBonus": [
+    {
+      "BaseDefaultBonus": [
+        {
+          "Production": [
+            {
+              "bonus": "militaryPoint",
+              "value": "1"
+            },
+            {
+              "bonus": "coin",
+              "value": "2"
+            }
+          ],
+          "Harvest": [
+            {
+              "bonus": "wood",
+              "value": "1"
+            },
+            {
+              "bonus": "stone",
+              "value": "1"
+            },
+            {
+              "bonus": "servant",
+              "value": "1"
+            }
+          ]
+        }
+      ],
+      "AdvancedDefaultBonus": [
+        {
+          "Production": [
+            {
+              "bonus": "servant",
+              "value": "1"
+            },
+            {
+              "bonus": "coin",
+              "value": "2"
+            }
+          ],
+          "Harvest": [
+            {
+              "bonus": "wood",
+              "value": "1"
+            },
+            {
+              "bonus": "stone",
+              "value": "1"
+            },
+            {
+              "bonus": "militaryPoint",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Production": [
+            {
+              "bonus": "servant",
+              "value": "1"
+            },
+            {
+              "bonus": "militaryPoint",
+              "value": "2"
+            }
+          ],
+          "Harvest": [
+            {
+              "bonus": "wood",
+              "value": "1"
+            },
+            {
+              "bonus": "stone",
+              "value": "1"
+            },
+            {
+              "bonus": "coin",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Production": [
+            {
+              "bonus": "servant",
+              "value": "2"
+            },
+            {
+              "bonus": "coin",
+              "value": "1"
+            }
+          ],
+          "Harvest": [
+            {
+              "bonus": "wood",
+              "value": "1"
+            },
+            {
+              "bonus": "stone",
+              "value": "1"
+            },
+            {
+              "bonus": "militaryPoint",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Production": [
+            {
+              "bonus": "militaryPoint",
+              "value": "2"
+            },
+            {
+              "bonus": "coin",
+              "value": "1"
+            }
+          ],
+          "Harvest": [
+            {
+              "bonus": "wood",
+              "value": "1"
+            },
+            {
+              "bonus": "stone",
+              "value": "1"
+            },
+            {
+              "bonus": "servant",
+              "value": "1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

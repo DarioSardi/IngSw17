@@ -1,13 +1,9 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
-import it.polimi.ingsw.GC_43.model.*;
-import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 import it.polimi.ingsw.GC_43.model.effects.*;
 import it.polimi.ingsw.GC_43.model.resources.*;
-
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
  
@@ -33,9 +29,9 @@ public class ChoiceEffectInit {
                 while (costChoiceIt.hasNext()) {
                 	JSONObject slides2 = (JSONObject) costChoiceIt.next();
                 	String costCh = (String) slides2.get("costCh");
-                	int valueCh = Integer.valueOf((String) slides2.get("valueCh"));
+                	int valueCh = Integer.parseInt((String) slides2.get("valueCh"));
                 	
-                	addGainAndCostResources(costResourcesChoices, costCh, valueCh);
+                	new AddGainAndCostResources().addGainAndCostResources(costResourcesChoices, costCh, valueCh);
                 }
                 
             JSONArray gainChoice = (JSONArray) slides.get("Gain");
@@ -45,26 +41,16 @@ public class ChoiceEffectInit {
                 while (gainChoiceIt.hasNext()) {
                 	JSONObject slides2 = (JSONObject) gainChoiceIt.next();
                 	String gainType = (String) slides2.get("gainType");
-                	int valueGain = Integer.valueOf((String)slides2.get("valueGain"));
+                	int valueGain = Integer.parseInt((String)slides2.get("valueGain"));
                 	
-                	addGainAndCostResources(gainResourcesChoices, gainType, valueGain);
+                	new AddGainAndCostResources().addGainAndCostResources(gainResourcesChoices, gainType, valueGain);
                 }
                 
             ChoiceEffect choice = new ChoiceEffect(costResourcesChoices, gainResourcesChoices);
             this.multChoices.getChoices().add(choice);
         }	
 	}
-	
-	private void addGainAndCostResources(ArrayList<Resource> resources, String type, int value){
-    	if (type.equals("coin")) resources.add(new Coin(value));
-     	else if (type.equals("servant")) resources.add(new Servant(value));
-     	else if (type.equals("stone")) resources.add(new Stone(value));
-     	else if (type.equals("wood")) resources.add(new Wood(value));
-     	else if (type.equals("faithPoint")) resources.add(new FaithPoint(value));
-     	else if (type.equals("militaryPoint")) resources.add(new MilitaryPoint(value));
-     	else if (type.equals("victoryPoint")) resources.add(new VictoryPoint(value));
-	}
-	
+		
 	public MultipleChoiceEffect getMultChoice(){
 		return this.multChoices;
 	}

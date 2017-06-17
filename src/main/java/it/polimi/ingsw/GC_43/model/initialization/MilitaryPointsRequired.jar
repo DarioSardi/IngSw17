@@ -1,0 +1,32 @@
+    {
+	 "MilitaryPointsRequired": [
+        {
+          "numTerritoryCards": "0",
+          "militaryPointsRequired": "0"
+        },
+        {
+          "numTerritoryCards": "1",
+          "militaryPointsRequired": "0"
+        },
+        {
+          "numTerritoryCards": "2",
+          "militaryPointsRequired": "0"
+        },
+        {
+          "numTerritoryCards": "3",
+          "militaryPointsRequired": "3"
+        },
+        {
+          "numTerritoryCards": "4",
+          "militaryPointsRequired": "7"
+        },
+        {
+          "numTerritoryCards": "5",
+          "militaryPointsRequired": "12"
+        },
+        {
+          "numTerritoryCards": "6",
+          "militaryPointsRequired": "18"
+        }
+      ]
+    }

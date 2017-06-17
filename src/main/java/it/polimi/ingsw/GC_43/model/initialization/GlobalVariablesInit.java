@@ -27,7 +27,7 @@ public class GlobalVariablesInit implements Serializable{
         Iterator<?> iterator1 = cardContent.iterator();
 
 	        while (iterator1.hasNext()) {
-		       	 JSONObject slides = (JSONObject) iterator1.next();
+		       	JSONObject slides = (JSONObject) iterator1.next();
 		        
 		       	GlobalVariables.maxNumberOfPlayers = Integer.valueOf((String)slides.get("maxNumberOfPlayers"));
 		       	GlobalVariables.numberOfFamilyMembers = Integer.valueOf((String)slides.get("numberOfFamilyMembers"));
@@ -63,23 +63,27 @@ public class GlobalVariablesInit implements Serializable{
 		       	GlobalVariables.maxMilitaryPoints = Integer.valueOf((String)slides.get("maxMilitaryPoints"));
 		       	GlobalVariables.maxFaithPoints = Integer.valueOf((String)slides.get("maxFaithPoints"));
 		       	GlobalVariables.endResourcesToVictoryPoint = Integer.valueOf((String)slides.get("endResourcesToVictoryPoint"));
-		       	
-		       	
-		    	CouncilPrivilegeInit cpi = new CouncilPrivilegeInit();
-				cpi.multipleChoiceInit(slides);
-				GlobalVariables.councilPrivilegeEffect = cpi.getMultChoice();       			       	
-		       	
-				
-				MilitaryPointsRequiredInit mpi = new MilitaryPointsRequiredInit();
-				mpi.militaryPointsRequiredInit(slides);
-				GlobalVariables.militaryPointsRequired = mpi.getMilitaryPointsRequired();
-				
-		       	System.out.println("inizializzate tutte le variabili globali");
 	        }   	
 		       
 		    			
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        InitCouncilPrivilege cpi = new InitCouncilPrivilege();
+		cpi.readCouncilPrivilege();
+		GlobalVariables.councilPrivilegeEffect = cpi.getMultChoice();       			       	
+       	
+		
+		InitMilitaryPointsRequired mpi = new InitMilitaryPointsRequired();
+		mpi.readMilitaryPointsRequired();
+		GlobalVariables.militaryPointsRequired = mpi.getMilitaryPointsRequired();
+		
+       	System.out.println("inizializzate tutte le variabili globali");
+        
+    	InitEndPoints iep = new InitEndPoints();
+    	iep.readJson();
+    	GlobalVariables.endCharacterVictoryPoints = iep.getEndCharacterPoints();
+    	GlobalVariables.endTerritoryVictoryPoints = iep.getEndTerritoryPoints();
     }
 }

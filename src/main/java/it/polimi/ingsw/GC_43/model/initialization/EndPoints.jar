@@ -30,13 +30,11 @@
           "numCharacterCards": "6",
           "victoryPoints": "21"
         }
-      ]
-    },
-    {
+      ],
       "EndPointsTerritoryCards": [
         {
           "numTerritoryCards": "0",
-          "victoryPointss": "0"
+          "victoryPoints": "0"
         },
         {
           "numTerritoryCards": "1",

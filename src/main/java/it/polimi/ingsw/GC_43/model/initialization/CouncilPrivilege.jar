@@ -1,0 +1,48 @@
+    {
+      "CouncilPrivileges": [
+        {
+          "Bonus": [
+            {
+              "type": "wood",
+              "value": "1"
+            },
+            {
+              "type": "stone",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Bonus": [
+            {
+              "type": "servant",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "Bonus": [
+            {
+              "type": "coin",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "Bonus": [
+            {
+              "type": "militaryPoint",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "Bonus": [
+            {
+              "type": "faithPoint",
+              "value": "1"
+            }
+          ]
+        }
+      ]
+    }

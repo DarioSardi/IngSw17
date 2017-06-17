@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
 
 public class Player implements Serializable{
 	/**
@@ -19,6 +20,9 @@ public class Player implements Serializable{
 	private ArrayList<FamilyMember> familyMembers;
 	private ArrayList<Boolean> excommunications;
 	private ArrayList<Action> extraActions;
+	private ArrayList<ResourceEffect> personalProductionBonus;
+	private ArrayList<ResourceEffect> personalHarvestBonus;
+	
 	
 	public Player(String name, int initCoins){
 		this.playerName = name;
@@ -26,7 +30,10 @@ public class Player implements Serializable{
     	this.familyMembers = new ArrayList<FamilyMember>();  
     	this.playerBounusMalus= new PlayerBonusMalus();
     	this.playerCards = new PlayerCards();
+    	this.personalProductionBonus = new ArrayList<>();
+    	this.personalHarvestBonus = new ArrayList<>();
     	this.extraActions = new ArrayList<>();
+    	
     	generateHashmapResources(initCoins);
     	initializeFamilyMembers();
     	initializeExcommunication();
@@ -46,7 +53,6 @@ public class Player implements Serializable{
 		this.playerResources.put("militaryPoint", GlobalVariables.initialMilitaryPoints);
 		this.playerResources.put("faithPoint", GlobalVariables.initialFaithPoints);
 		
-		//SAMUEL Gestione delle monete iniziali
 	}
 	
 	public HashMap<String, Integer> getPlayerResources() {
@@ -88,7 +94,23 @@ public class Player implements Serializable{
 	public void setExcommunications(int period, boolean control){
 		this.excommunications.set(period-1, control);
 	}
-	
+		
+	public ArrayList<ResourceEffect> getPersonalProductionBonus() {
+		return personalProductionBonus;
+	}
+
+	public void setPersonalProductionBonus(ArrayList<ResourceEffect> personalProductionBonus) {
+		this.personalProductionBonus = personalProductionBonus;
+	}
+
+	public ArrayList<ResourceEffect> getPersonalHarvestBonus() {
+		return personalHarvestBonus;
+	}
+
+	public void setPersonalHarvestBonus(ArrayList<ResourceEffect> personalHarvestBonus) {
+		this.personalHarvestBonus = personalHarvestBonus;
+	}
+
 	/**
 	 * Returns, for the period selected, if the player has the excommunication
 	 * @param period 
@@ -133,10 +155,6 @@ public class Player implements Serializable{
 		this.familyMembers.add(familyMember);
 	}
 
-	public void printFamiliars(){
-		//SAMUEL da fare printFamiliars
-	}
-
 	public void reinitializeFamilyMemberPosition(){
 		for(int i=0; i < GlobalVariables.numberOfFamilyMembers;  i ++){
 			this.familyMembers.get(i).setFamilyMemberPosition(null);
@@ -165,6 +183,9 @@ public class Player implements Serializable{
 		this.extraActions = extraActions;
 	}
 
+	
+	
+	
 	public FamilyMember findFamilyMemberByColor(int color){
 		int i=0;
 		while (this.familyMembers.get(i).getColor()!=color){i++;}
