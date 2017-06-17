@@ -12,9 +12,9 @@ public class HarvestArea extends ActionArea{
 	private static final long serialVersionUID = 7626649697231179283L;
 
 	public HarvestArea() {
-		this.getSpaces().add(new Space(false,GlobalVariables.minDiceValueHarvestArea,this,null));
+		this.getSpaces().add(new Space(false,GlobalVariables.minDiceValueHarvestArea,this));
 		if(GlobalVariables.numberOfPlayers>=3){
-		this.getSpaces().add(new Space(true,GlobalVariables.minDiceValueHarvestArea,this,null));
+		this.getSpaces().add(new Space(true,GlobalVariables.minDiceValueHarvestArea,this));
 		}
 	}
 	

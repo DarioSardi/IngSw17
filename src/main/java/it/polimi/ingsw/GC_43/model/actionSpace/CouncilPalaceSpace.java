@@ -12,9 +12,11 @@ public class CouncilPalaceSpace extends Space {
 	 * 
 	 */
 	private static final long serialVersionUID = -4033708900462156747L;
+	private ArrayList<Effect> bonus;
 
 	public CouncilPalaceSpace(int minDiceValue, ActionArea actionArea,ArrayList<Effect> bonus) {
-		super(true, minDiceValue, actionArea,bonus);
+		super(true, minDiceValue, actionArea);
+		this.bonus=bonus;
 	}
 	
 	

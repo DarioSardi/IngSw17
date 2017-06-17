@@ -12,11 +12,10 @@ public class Space extends ActionSpace{
 	private static final long serialVersionUID = -1345677933307984329L;
 	private boolean unlimited;
 	private ActionArea actionArea;
-	public Space(boolean unlimited, int minDiceValue,ActionArea actionArea,ArrayList<Effect> bonus){
+	public Space(boolean unlimited, int minDiceValue,ActionArea actionArea){
 		this.unlimited=unlimited;
 		this.setMinDiceValue(minDiceValue);
 		this.actionArea=actionArea;
-		this.setBonus(bonus);
 		}
 	
 	/**
