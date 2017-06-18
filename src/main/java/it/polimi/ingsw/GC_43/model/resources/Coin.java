@@ -5,7 +5,7 @@ public class Coin extends Resource{
 	 * 
 	 */
 	private static final long serialVersionUID = 2434324628256766197L;
-	private String resourceType = "coins";
+	private String resourceType = "coin";
 	private int value;
 	
 	public Coin (int value) {

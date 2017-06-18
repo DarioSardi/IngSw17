@@ -16,6 +16,7 @@ public class Space extends ActionSpace{
 		this.unlimited=unlimited;
 		this.setMinDiceValue(minDiceValue);
 		this.actionArea=actionArea;
+		this.setBonus(null);
 		}
 	
 	/**

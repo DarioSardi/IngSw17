@@ -61,4 +61,5 @@ public class CouncilPalace extends ActionArea{
 	public CouncilPalaceSpace getCouncil(){
 		return (CouncilPalaceSpace) this.getSpaces().get(0);
 	}
+
 }

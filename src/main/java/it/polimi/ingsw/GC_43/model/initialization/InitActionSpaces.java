@@ -9,8 +9,6 @@ import org.json.simple.parser.JSONParser;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.actionSpace.*;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
-import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
-import it.polimi.ingsw.GC_43.model.resources.*;
 
 public class InitActionSpaces {
 	private int[] faithPoints;
@@ -72,9 +70,6 @@ public class InitActionSpaces {
     }
 	
 	
-	
-	
-	
 	public void councilPalaceBonusInit(JSONObject slides){
 		JSONArray councilPalaceArray = (JSONArray) slides.get("CouncilPalaceBonus");
         Iterator<?> councilPalaceIterator = councilPalaceArray.iterator();
@@ -84,7 +79,7 @@ public class InitActionSpaces {
  			String type = (String)slide1.get("type");
 			int value = Integer.parseInt((String)slide1.get("value")); 
 			
-			councilPalaceBonus.add(retResourceEffect(type, value));    			
+			councilPalaceBonus.add(new AddGainAndCostResources().retResourceEffect(type, value));
 	 	 }
         this.councilPalace = new CouncilPalace(councilPalaceBonus);
 	}
@@ -109,7 +104,7 @@ public class InitActionSpaces {
 				String typeBonus = (String)slide2.get("type");
 				int valueBonus = Integer.parseInt((String)slide2.get("value"));
 				
-				resources.add(retResourceEffect(typeBonus, valueBonus));
+				resources.add(new AddGainAndCostResources().retResourceEffect(typeBonus, valueBonus));
 		 	 	}                
 	       marketSpaces.add(new MarketActionSpace(resources, minDiceValue));
 		 }
@@ -152,8 +147,7 @@ public class InitActionSpaces {
 	     				tower.addFloor(minTowerDiceValue);
 	     			}
 	     			else{
-	     				ResourceEffect effect = new ResourceEffect(null);
-		    			effect = retResourceEffect(bonus, value);
+		    			Effect effect = new AddGainAndCostResources().retResourceEffect(bonus, value);
 		    			tower.addFloor(effect, minTowerDiceValue);
 	     			}
 	     			while (floorsBonusIterator.hasNext())
@@ -163,22 +157,6 @@ public class InitActionSpaces {
             
             // Exception se il numero di torri è minore del massimo??
 		}
-	}
-	
-	
-	private ResourceEffect retResourceEffect(String type, int value){
-		ResourceEffect resEff;		
-		if ("coin".equals(type)) resEff = (new ResourceEffect(new Coin(value)));
-     	else if ("servant".equals(type)) resEff =  (new ResourceEffect(new Servant(value)));
-     	else if ("stone".equals(type)) resEff =  (new ResourceEffect(new Stone(value)));
-     	else if ("wood".equals(type)) resEff =  (new ResourceEffect(new Wood(value)));
-     	else if ("faithPoint".equals(type)) resEff =  (new ResourceEffect(new FaithPoint(value)));
-     	else if ("militaryPoint".equals(type)) resEff =  (new ResourceEffect(new MilitaryPoint(value)));
-     	else if ("victoryPoint".equals(type)) resEff =  (new ResourceEffect(new VictoryPoint(value)));
-     	else if ("councilPrivilege".equals(type)) resEff =  (new ResourceEffect(new CouncilPrivilege(value)));
-     	else resEff=null;
-		return resEff;
-		
 	}
 	
 	public ArrayList<Tower> getTowers(){

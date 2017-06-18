@@ -55,8 +55,13 @@ public abstract class ActionSpace implements Serializable{
 	 */
 	public boolean execute(FamilyMember f){
 		if(check(f)){
-			for(Effect effect: this.bonus)
-				effect.executeEffect(f); 
+			if (this.bonus!=null) {
+				for (Effect effect : this.bonus)
+					effect.executeEffect(f);
+			}
+			else{
+				System.out.println("no bonus here to take!");
+			}
 			this.getFamiliarIn().add(f);
 			f.setAlreadyPlaced(true);
 			f.setFamilyMemberPosition(this);
