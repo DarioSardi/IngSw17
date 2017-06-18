@@ -32,15 +32,25 @@ public class MarketActionPerformerRoutine implements ActionPerformer {
 		HashMap<String,Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
 
 
-		checkAndTryAction(player, familyMember);
+		try {
+			checkAndTryAction(player, familyMember);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		if(this.checkResult==true){
 			return true;
 		}
 		else{
-			player.setPlayerResources(playerResourcesCopy);
-			familyMember.setAlreadyPlaced(false);
+			try {
+				player.setPlayerResources(playerResourcesCopy);
+				familyMember.setAlreadyPlaced(false);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return false;
 		}
 	}
@@ -69,25 +79,34 @@ public class MarketActionPerformerRoutine implements ActionPerformer {
 
 private void checkMarketPerform(Player player, FamilyMember familyMember) {
 
-	int dieValue=familyMember.getDiceValue()+this.marketAction.getServantsUsed();
-	int minDiceValue=this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketChoices().get(index)).getMinDiceValue();
-	if(dieValue>=minDiceValue && !(player.getPlayerBounusMalus().isNoMarketActionSpaceBonus())){
-		for(Effect effect: this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketChoices().get(this.index)).getBonus()){
-			if(effect.getClass().toString().contains("MultipleCouncilPrivileges"))
-				executeMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect, player);						
-			else
-				effect.executeEffect(familyMember);	
+	try {
+		int dieValue=familyMember.getDiceValue()+this.marketAction.getServantsUsed();
+		int minDiceValue=this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketChoices().get(index)).getMinDiceValue();
+		if(dieValue>=minDiceValue && !(player.getPlayerBounusMalus().isNoMarketActionSpaceBonus())){
+			for(Effect effect: this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketChoices().get(this.index)).getBonus()){
+				if(effect.getClass().toString().contains("MultipleCouncilPrivileges"))
+					executeMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect, player);						
+				else
+					effect.executeEffect(familyMember);	
+				}
 			}
+		} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 		}
 	}
 
 private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges effect,Player player) {
 	int numberOfCopies=effect.getNumberOfCopies();
-	while(numberOfCopies>0){
-		executeMultipleChoice(effect.getPrivilegeChoices(),player);
-		int playerChoice=this.marketAction.getMarketChoices().get(index-1);
-		effect.getPrivilegeChoices().getChoices().remove(playerChoice);
-		}
+	try {
+		while(numberOfCopies>0){
+			executeMultipleChoice(effect.getPrivilegeChoices(),player);
+			int playerChoice=this.marketAction.getMarketChoices().get(index-1);
+			effect.getPrivilegeChoices().getChoices().remove(playerChoice);
+			}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 
 		numberOfCopies--;
 	}
@@ -97,13 +116,17 @@ private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges effect,Pl
 
 private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
 	int playerChoice=this.marketAction.getMarketChoices().get(index);
-	if(playerChoice!=-1){
-		if(effect.getChoices().get(playerChoice).check(player)){
-			effect.getChoices().get(playerChoice).executeEffect(player);
-		}
-		else
-			this.checkResult=false;
-		}
+	try {
+		if(playerChoice!=-1){
+			if(effect.getChoices().get(playerChoice).check(player)){
+				effect.getChoices().get(playerChoice).executeEffect(player);
+			}
+			else
+				this.checkResult=false;
+			}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 	index++;
 }
 
@@ -118,11 +141,16 @@ private void checkFamilyMemberAlreadyPlaced(FamilyMember familyMember) {
 
 private void checkServantsUsed(Player player, FamilyMember familyMember) {
 	int servantsUsed=this.marketAction.getServantsUsed();
-	if(!CommonActionPerformerRoutine.checkServansUsed(player,servantsUsed,familyMember))
-		this.checkResult=false;
-	
-	else{
-		player.subResource("servant", servantsUsed);
+	try {
+		if(!CommonActionPerformerRoutine.checkServansUsed(player,servantsUsed,familyMember))
+			this.checkResult=false;
+		
+		else{
+			player.subResource("servant", servantsUsed);
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}		
 }
 	

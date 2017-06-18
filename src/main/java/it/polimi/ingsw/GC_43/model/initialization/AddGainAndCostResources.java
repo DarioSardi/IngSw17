@@ -6,15 +6,16 @@ import java.util.ArrayList;
   
 public class AddGainAndCostResources {	
 	
-	public void addResourceEffect(String effect, int valueEffect, ArrayList<ResourceEffect> arrayBonus){
-		if ("coin".equals(effect)) arrayBonus.add(new ResourceEffect(new Coin(valueEffect)));
-	 	else if ("servant".equals(effect)) arrayBonus.add(new ResourceEffect(new Servant(valueEffect)));
-	 	else if ("stone".equals(effect)) arrayBonus.add(new ResourceEffect(new Stone(valueEffect)));
-	 	else if ("wood".equals(effect)) arrayBonus.add(new ResourceEffect(new Wood(valueEffect)));
-	 	else if ("faithPoint".equals(effect)) arrayBonus.add(new ResourceEffect(new FaithPoint(valueEffect)));
-	 	else if ("militaryPoint".equals(effect)) arrayBonus.add(new ResourceEffect(new MilitaryPoint(valueEffect)));
-	 	else if ("victoryPoint".equals(effect)) arrayBonus.add(new ResourceEffect(new VictoryPoint(valueEffect)));
-	 	else if ("councilPrivilege".equals(effect)) arrayBonus.add(new ResourceEffect(new CouncilPrivilege(valueEffect)));
+	public Effect retResourceEffect(String effectType, int valueEffect){
+		if ("coin".equals(effectType)) return (new ResourceEffect(new Coin(valueEffect)));
+	 	else if ("servant".equals(effectType)) return (new ResourceEffect(new Servant(valueEffect)));
+	 	else if ("stone".equals(effectType)) return (new ResourceEffect(new Stone(valueEffect)));
+	 	else if ("wood".equals(effectType)) return (new ResourceEffect(new Wood(valueEffect)));
+	 	else if ("faithPoint".equals(effectType)) return (new ResourceEffect(new FaithPoint(valueEffect)));
+	 	else if ("militaryPoint".equals(effectType)) return (new ResourceEffect(new MilitaryPoint(valueEffect)));
+	 	else if ("victoryPoint".equals(effectType)) return (new ResourceEffect(new VictoryPoint(valueEffect)));
+	 	else if ("councilPrivilege".equals(effectType)) return (new MultipleCouncilPrivileges(valueEffect));
+	 	else return null;
 	}
 	
 	public void addGainAndCostResources(ArrayList<Resource> resources, String type, int value){

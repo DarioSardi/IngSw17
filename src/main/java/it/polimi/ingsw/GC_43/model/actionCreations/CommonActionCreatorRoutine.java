@@ -11,7 +11,15 @@ import java.util.Scanner;
 public class CommonActionCreatorRoutine implements Serializable {
 
 
-    public static HashMap<String,Integer> copyPlayerResources(Player player){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
+
+	public static HashMap<String,Integer> copyPlayerResources(Player player){
         HashMap<String,Integer> copyOfPlayerResources= new HashMap<String,Integer> ();
         copyOfPlayerResources.put("coin", player.getPlayerResource("coin"));
         copyOfPlayerResources.put("servant", player.getPlayerResource("servant"));

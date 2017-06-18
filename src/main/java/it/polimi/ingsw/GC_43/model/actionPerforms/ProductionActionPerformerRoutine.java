@@ -97,13 +97,18 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 
 
 	private void checkProductionCellSelection(FamilyMember familyMember) {
-		if(this.productionAction.isPrimaryCellChosen()){
-			if(!this.board.getProductionArea().getPrimarySpace().execute(familyMember))
-				this.checkResult=false;
-		}
-		else if(!this.productionAction.isPrimaryCellChosen()){
-			if(board.getProductionArea().getSecondarySpace()==null||!(this.board.getProductionArea().getSecondarySpace().execute(familyMember)))
-				this.checkResult=false;
+		try {
+			if(this.productionAction.isPrimaryCellChosen()){
+				if(!this.board.getProductionArea().getPrimarySpace().execute(familyMember))
+					this.checkResult=false;
+			}
+			else if(!this.productionAction.isPrimaryCellChosen()){
+				if(board.getProductionArea().getSecondarySpace()==null||!(this.board.getProductionArea().getSecondarySpace().execute(familyMember)))
+					this.checkResult=false;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -119,11 +124,15 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 
 	private void checkServantsUsed(Player player, FamilyMember familyMember) {
 		int servantsUsed=this.productionAction.getServantsUsed();
-		if(!CommonActionPerformerRoutine.checkServansUsed(player,servantsUsed,familyMember))
-			this.checkResult=false;
-		
-		else{
-			player.subResource("servant", servantsUsed);
+		try {
+			if(!CommonActionPerformerRoutine.checkServansUsed(player,servantsUsed,familyMember))
+				this.checkResult=false;
+			
+			else{
+				player.subResource("servant", servantsUsed);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}		
 	}
 		
@@ -137,20 +146,25 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
     	int dieValue=familyMember.getDiceValue()+this.productionAction.getServantsUsed()+player.getPlayerBounusMalus().getBonusProductionArea();
     	
   		 
-		for(BuildingCard buildingCard: this.productionAction.getPlayer().getPlayerCards().getArrayBuildingCards()){
-			if(dieValue>=buildingCard.getProductionDice()){
-				for( Effect effect: buildingCard.getPermaBonus()){
-					if(effect.getClass().toString().contains("MultipleChoiceEffect"))
-						executeMultipleChoice((MultipleChoiceEffect) effect, player);
-					if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
-						executeMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect, player);
-                    }
+		try {
+			for(BuildingCard buildingCard: this.productionAction.getPlayer().getPlayerCards().getArrayBuildingCards()){
+				if(dieValue>=buildingCard.getProductionDice()){
+					for( Effect effect: buildingCard.getPermaBonus()){
+						if(effect.getClass().toString().contains("MultipleChoiceEffect"))
+							executeMultipleChoice((MultipleChoiceEffect) effect, player);
+						if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
+							executeMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect, player);
+			            }
+						
+						else
+							effect.executeEffect(familyMember);
 					
-					else
-						effect.executeEffect(familyMember);
-				
+					}
 				}
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -171,20 +185,24 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 	private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
 		int playerChoice=this.productionAction.getProductionChoices().get(index);
 		ChoiceEffect choiceEffect=(ChoiceEffect)effect.getChoices().get(playerChoice);
-		if(playerChoice!=-1){
-			if(choiceEffect.check(player)){
-				
-				//Se risorsa == privilege council, nel execute effect di choiceEffect verrà skippato il gain perchè già preso prima
-				if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil")){
-					MultipleCouncilPrivileges privilege= new MultipleCouncilPrivileges(1);
-					executeMultipleCouncilPrivilege(privilege, player);
+		try {
+			if(playerChoice!=-1){
+				if(choiceEffect.check(player)){
+					
+					//Se risorsa == privilege council, nel execute effect di choiceEffect verrà skippato il gain perchè già preso prima
+					if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil")){
+						MultipleCouncilPrivileges privilege= new MultipleCouncilPrivileges(1);
+						executeMultipleCouncilPrivilege(privilege, player);
+					}
+					effect.getChoices().get(playerChoice).executeEffect(player);
 				}
-				effect.getChoices().get(playerChoice).executeEffect(player);
+				
+				else{
+					this.checkResult=false;
+				}
 			}
-			
-			else{
-				this.checkResult=false;
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	
 		this.index++;
