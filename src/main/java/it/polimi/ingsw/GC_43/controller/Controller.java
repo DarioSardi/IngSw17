@@ -128,7 +128,11 @@ public class Controller implements IController {
 	    			MarketActionPerformerRoutine marketActionImpl= new MarketActionPerformerRoutine(marketAction, this.board);
 	    			result = marketActionImpl.performAction();
 	    			return result;
-	    			
+	    		case 5:
+	    			TowerAction towerAction=(TowerAction) action;
+	    			TowerActionPerformerRoutine towerActionImpl= new TowerActionPerformerRoutine(towerAction, this.board);
+	    			result = towerActionImpl.performAction();
+	    			return result;
 	    			
 	    		
 	    		default:

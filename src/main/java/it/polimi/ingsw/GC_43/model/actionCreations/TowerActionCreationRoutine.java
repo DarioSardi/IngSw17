@@ -43,6 +43,8 @@ public class TowerActionCreationRoutine implements ActionCreation {
 
 	        selectTowerAndFloor(board.getTowers());
 	        
+	        System.out.println("\n TOWER ACTION ENDS HERE\n");
+	        
 	        
 	        
 	        
@@ -68,7 +70,7 @@ public class TowerActionCreationRoutine implements ActionCreation {
 			
 			
 	    	//FLOOR CHOICE
-	    	question= towers.get(towerChoice).toStringAll();
+	    	question= towers.get(towerChoice).toString();
 	    	int floorChoice=CommonActionCreatorRoutine.askForSingleChoice(question, 0, towers.get(towerChoice).getFloors().size());
 	    	
 	    	

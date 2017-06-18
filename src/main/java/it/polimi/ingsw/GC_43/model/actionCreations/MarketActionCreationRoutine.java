@@ -39,8 +39,9 @@ public class MarketActionCreationRoutine implements ActionCreation{
 	        	System.out.println("\nYou can not access to Market Action Spaces, since you have the related malus, no possibility to perform this action\n");
 	        	return false;
 	        }
-	        
+	        System.out.println("\nServants OF PLAYER ! "+ this.marketAction.getPlayer().getPlayerResource("servant")+"\n\n");
 
+	        System.out.println("\nMarket Action completed !\n");
 	        return true;
 	    }
 
@@ -53,17 +54,24 @@ public class MarketActionCreationRoutine implements ActionCreation{
 			}
 			else{
 				System.out.println("\nSuccessful selection!\n");
-				this.marketAction.getChoices().add(choice);
+				this.marketAction.getMarketChoices().add(choice);
+				System.out.println("\n Entering checking for effects!\n");
+
 		        checkChoiceNature(familyMember.getPlayer(), choice);
 
 			}
 		}
 		
         public void checkChoiceNature(Player player, int choice){
+			System.out.println("\n checking for effects!\n");
+			
         	for( Effect effect: this.board.getMarket().getMarketActionSpaces().get(choice).getBonus()){
+        		System.out.println("nature of effect = "+effect.getClass().toString());
 				if(effect.getClass().toString().contains("MultipleCouncilPrivileges"))
 					 askForMultipleCouncilPrivilege((MultipleCouncilPrivileges) effect);	   	
         	}
+			System.out.println("\nNothing to check for effects!\n");
+
         }
         
         private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges effect) {

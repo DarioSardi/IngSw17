@@ -44,8 +44,8 @@ public class ProductionActionCreationRoutine implements ActionCreation {
         
     	
     	this.productionAction.setFamilyMemberColor(this.productionAction.getFamilyMember().getColor());
-        this.productionAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),this.productionAction.getFamilyMember().getDiceValue()));
-
+        int servantsChosed=CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),this.productionAction.getFamilyMember().getDiceValue());
+        this.productionAction.setServantsUsed(servantsChosed);
         selectProductionSpace(board.getProductionArea());
         getInputsForProduction(this.productionAction.getFamilyMember());
 
@@ -54,7 +54,7 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     private boolean selectProductionSpace(ProductionArea productionArea) {
 
         try {
-			if(productionArea.getSpaces().isEmpty()){
+			if(!productionArea.getSpaces().get(0).isOccupied()){
 			    System.out.println("\nPrimary empty cell selected\n");
 			    this.productionAction.setPrimaryCellChosen(true);
 			}

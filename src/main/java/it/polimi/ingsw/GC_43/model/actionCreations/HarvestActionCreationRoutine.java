@@ -72,7 +72,7 @@ public class HarvestActionCreationRoutine implements ActionCreation {
 //TODO ricordati di fare execute effect sugli space se l'azione va buon fine
     private boolean selectHarvestSpace(HarvestArea harvestArea) {
 
-        if(harvestArea.getSpaces().isEmpty()){
+        if(!harvestArea.getSpaces().get(0).isOccupied()){
             System.out.println("\nPrimary empty cell selected\n");
             this.harvestAction.setPrimaryCellChosen(true);
         }

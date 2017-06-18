@@ -65,6 +65,10 @@ public class Board implements Serializable {
 
 		this.playersID = new ArrayList<String>();
 		this.playersID = playersID;
+		
+		this.setPeriod(1);
+		this.setPhase(1);
+		this.setRound(1);
 
 		GlobalVariables.numberOfPlayers = playersID.size();
 
@@ -92,7 +96,6 @@ public class Board implements Serializable {
 		this.towers = new ArrayList<Tower>();
 		this.harvestArea = new HarvestArea();
 		this.productionArea = new ProductionArea();
-		this.market = new Market(null);
 
 	}
 
@@ -172,13 +175,13 @@ public class Board implements Serializable {
 					.setCard((TerritoryCard) this.territoryCardPool.get(startingCardToDraw + index));
 		for (int index = 0; index < GlobalVariables.towerCardsPerRound; index++)
 			this.getTowers().get(1).getFloors().get(index)
-					.setCard((BuildingCard) this.buildingCardPool.get(startingCardToDraw + index));
+					.setCard((CharacterCard) this.characterCardPool.get(startingCardToDraw + index));
 		for (int index = 0; index < GlobalVariables.towerCardsPerRound; index++)
 			this.getTowers().get(2).getFloors().get(index)
-					.setCard((VentureCard) this.ventureCardPool.get(startingCardToDraw + index));
+					.setCard((BuildingCard) this.buildingCardPool.get(startingCardToDraw + index));
 		for (int index = 0; index < GlobalVariables.towerCardsPerRound; index++)
 			this.getTowers().get(3).getFloors().get(index)
-					.setCard((CharacterCard) this.characterCardPool.get(startingCardToDraw + index));
+					.setCard((VentureCard) this.ventureCardPool.get(startingCardToDraw + index));
 	}
 
 	private void createDice() {

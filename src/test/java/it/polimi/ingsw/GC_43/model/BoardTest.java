@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.polimi.ingsw.GC_43.model.actionCreations.MarketActionCreationRoutine;
+import it.polimi.ingsw.GC_43.model.actionCreations.ProductionActionCreationRoutine;
+import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
+import it.polimi.ingsw.GC_43.model.actionPerforms.MarketActionPerformerRoutine;
+import it.polimi.ingsw.GC_43.model.actionPerforms.TowerActionPerformerRoutine;
 import it.polimi.ingsw.GC_43.model.initialization.GlobalVariablesInit;
 import it.polimi.ingsw.GC_43.model.initialization.InitGame;
 
@@ -26,7 +31,29 @@ public class BoardTest {
 		System.out.println("fine di tutto !!!!");
 		board.initialize();
 		System.out.println("Attenzione !!!!");
-		System.out.println(board.towersToString());
+		//System.out.println(board.towersToString());
+		//ProductionActionCreationRoutine p = new ProductionActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
+		//p.prepareAction();
+		//System.out.println("production done!");
+		//System.out.println("\n INITIAL servants of player\n" +board.getPlayers().get(0).toString());
+		/*MarketActionCreationRoutine m = new MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
+		
+		m.prepareAction();
+		System.out.println("\nalmost starting performing\n");
+
+		MarketActionPerformerRoutine mp= new MarketActionPerformerRoutine(m.getMarketAction(),board);
+		System.out.println("started performing");
+
+		mp.performAction();
+		System.out.println("finished performing");
+		System.out.println("\n FINAL servants of player\n" +board.getPlayers().get(0).toString()+"\n\nPlayer in memory "+board.getPlayers().get(0));
+		
+		*/
+		TowerActionCreationRoutine t = new TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
+		t.prepareAction();
+		TowerActionPerformerRoutine tp= new TowerActionPerformerRoutine(t.getTowerAction(),board);
+		System.out.println("\n\n\n\nstarting to perform\n\n\n\n\n\n\n");
+		tp.performAction();
 
 	
 	}

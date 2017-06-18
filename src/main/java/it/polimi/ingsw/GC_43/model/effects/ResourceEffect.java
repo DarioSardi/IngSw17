@@ -96,13 +96,14 @@ public class ResourceEffect extends Effect {
 
 
        public void addResources(Player player){
-                int newValue=resource.getValue()+player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getResourceType());
-                player.addResource(resource.getResourceType(), newValue);
+    	   System.out.println("Resource type input "+this.resource.getResourceType()+" value of "+this.resource.getValue()+ " malus "+ player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(this.resource.getResourceType()));
+                player.addResource(this.resource.getResourceType(), this.resource.getValue()-Math.abs(player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(this.resource.getResourceType())));
             }
         
 
         public void executeEffect(FamilyMember familyMember){
             addResources(familyMember.getPlayer());
+
             
         }
 

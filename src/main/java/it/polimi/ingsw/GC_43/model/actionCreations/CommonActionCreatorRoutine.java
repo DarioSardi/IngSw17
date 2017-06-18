@@ -50,11 +50,13 @@ public class CommonActionCreatorRoutine implements Serializable {
         if(numberOfServants>0){
             String question= "Please insert how many servants you want to use to increase your familiar current die value of "+currentDieValue;
             question= question +"\n You have a maximum of "+numberOfServants+ " servants available and isTwoServantsCountAsOne malus is set "+isTwoServantsCountAsOne;
-            choice=askForSingleChoice(question,0,numberOfServants);
+            choice=askForSingleChoice(question,0,numberOfServants+1);
+
             if(isTwoServantsCountAsOne)
                 choice=choice/2;
 
         }
+        
         return choice;
 
     }
@@ -68,20 +70,25 @@ public class CommonActionCreatorRoutine implements Serializable {
         while(!choiceOk){
             Scanner reader= new Scanner(System.in);
 
-            System.out.println("Please select the familiar you want to use to perform the action:\n");
+            System.out.println("\n"+question+"\n");
 
             try{
                 int choice=reader.nextInt();
-                if(choice>=minRange&&choice<=maxRange){
+                if(choice>=minRange&&choice<maxRange){
+                	System.out.println("Choice ok");
                     choiceOk=true;
                     choiceTaken=choice;
+                }
+                else{
+                    System.out.println("\ninput choice not valid");
+
                 }
             }
             catch(Exception e){
                 e.printStackTrace();
-                System.out.println("\ninput choice not valid");
             }
         }
+
         return choiceTaken;
     }
 

@@ -31,7 +31,6 @@ public class MarketActionPerformerRoutine implements ActionPerformer {
 		FamilyMember familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, this.marketAction.getFamilyMemberColor());
 		HashMap<String,Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
 
-
 		try {
 			checkAndTryAction(player, familyMember);
 		} catch (Exception e) {
@@ -60,11 +59,14 @@ public class MarketActionPerformerRoutine implements ActionPerformer {
 	private void checkAndTryAction(Player player, FamilyMember familyMember){
 		
 		
+		System.out.println("\n checking family member\n");
 
 		checkFamilyMemberAlreadyPlaced(familyMember);
+		System.out.println("\n ok family member\n"+this.marketAction.getFamilyMember().toString());
 		
 		checkServantsUsed(player, familyMember);
-				
+		System.out.println("\n ok servants number used\n"+this.marketAction.getServantsUsed());
+	
 		checkMarketPerform(player, familyMember);
 		
 		
@@ -86,11 +88,18 @@ private void checkMarketPerform(Player player, FamilyMember familyMember) {
 			for(Effect effect: this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketChoices().get(this.index)).getBonus()){
 				if(effect.getClass().toString().contains("MultipleCouncilPrivileges"))
 					executeMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect, player);						
-				else
+				else{
+					System.out.println("\n executing effect "+ effect.toString());
+					System.out.println("\n\n player BEFORE EFFECT\n"+familyMember.getPlayer().toString());
+
+					this.board.getMarket().getMarketActionSpaces().get(this.index).execute(familyMember);
 					effect.executeEffect(familyMember);	
+					System.out.println("\n\n"+familyMember.getPlayer().toString());
+					System.out.println("\n\nplayer AFTER EFFECT\n"+familyMember.toString());
 				}
 			}
-		} catch (Exception e) {
+		}
+	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}
@@ -144,10 +153,7 @@ private void checkServantsUsed(Player player, FamilyMember familyMember) {
 	try {
 		if(!CommonActionPerformerRoutine.checkServansUsed(player,servantsUsed,familyMember))
 			this.checkResult=false;
-		
-		else{
-			player.subResource("servant", servantsUsed);
-		}
+	
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

@@ -76,7 +76,7 @@ public class Player implements Serializable{
 	}
 	
 	public void addResource(String resource, int value){
-		this.playerResources.put(resource, getPlayerResource(resource) + value);
+		this.playerResources.put(resource, this.getPlayerResource(resource) + value);
 	}
 	
 	public void subResource(String resource, int value){
