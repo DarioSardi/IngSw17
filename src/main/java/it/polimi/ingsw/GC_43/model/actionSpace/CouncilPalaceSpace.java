@@ -26,6 +26,11 @@ public class CouncilPalaceSpace extends Space {
 	}
 	
 	@Override
+	public boolean check(FamilyMember f) {
+		return f.getDiceValue()>=this.getMinDiceValue();
+	}
+	
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("council palace players:");

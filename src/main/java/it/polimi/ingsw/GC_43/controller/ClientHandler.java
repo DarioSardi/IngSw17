@@ -143,6 +143,9 @@ public class ClientHandler implements Runnable{
 					continue;
 				} 
 			}
+			else{
+				inGame();
+			}
 		}
 		
 	}
