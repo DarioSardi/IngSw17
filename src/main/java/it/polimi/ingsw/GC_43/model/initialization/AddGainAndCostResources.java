@@ -6,7 +6,7 @@ import java.util.ArrayList;
   
 public class AddGainAndCostResources {	
 	
-	public ResourceEffect retResourceEffect(String effectType, int valueEffect){
+	public Effect retResourceEffect(String effectType, int valueEffect){
 		if ("coin".equals(effectType)) return (new ResourceEffect(new Coin(valueEffect)));
 	 	else if ("servant".equals(effectType)) return (new ResourceEffect(new Servant(valueEffect)));
 	 	else if ("stone".equals(effectType)) return (new ResourceEffect(new Stone(valueEffect)));
@@ -14,7 +14,7 @@ public class AddGainAndCostResources {
 	 	else if ("faithPoint".equals(effectType)) return (new ResourceEffect(new FaithPoint(valueEffect)));
 	 	else if ("militaryPoint".equals(effectType)) return (new ResourceEffect(new MilitaryPoint(valueEffect)));
 	 	else if ("victoryPoint".equals(effectType)) return (new ResourceEffect(new VictoryPoint(valueEffect)));
-	 	else if ("councilPrivilege".equals(effectType)) return (new ResourceEffect(new CouncilPrivilege(valueEffect)));
+	 	else if ("councilPrivilege".equals(effectType)) return (new MultipleCouncilPrivileges(valueEffect));
 	 	else return null;
 	}
 	

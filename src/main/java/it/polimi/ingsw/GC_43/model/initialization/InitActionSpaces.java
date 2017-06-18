@@ -9,7 +9,6 @@ import org.json.simple.parser.JSONParser;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.actionSpace.*;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
-import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
 
 public class InitActionSpaces {
 	private int[] faithPoints;
@@ -148,8 +147,7 @@ public class InitActionSpaces {
 	     				tower.addFloor(minTowerDiceValue);
 	     			}
 	     			else{
-	     				ResourceEffect effect = new ResourceEffect(null);
-		    			effect = new AddGainAndCostResources().retResourceEffect(bonus, value);
+		    			Effect effect = new AddGainAndCostResources().retResourceEffect(bonus, value);
 		    			tower.addFloor(effect, minTowerDiceValue);
 	     			}
 	     			while (floorsBonusIterator.hasNext())

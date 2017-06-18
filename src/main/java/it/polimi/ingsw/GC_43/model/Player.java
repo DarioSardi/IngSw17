@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.GC_43.model.actions.Action;
-import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
+import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class Player implements Serializable{
 	/**
@@ -20,8 +20,8 @@ public class Player implements Serializable{
 	private ArrayList<FamilyMember> familyMembers;
 	private ArrayList<Boolean> excommunications;
 	private ArrayList<Action> extraActions;
-	private ArrayList<ResourceEffect> personalProductionBonus;
-	private ArrayList<ResourceEffect> personalHarvestBonus;
+	private ArrayList<Effect> personalProductionBonus;
+	private ArrayList<Effect> personalHarvestBonus;
 	
 	
 	public Player(String name, int initCoins){
@@ -95,19 +95,19 @@ public class Player implements Serializable{
 		this.excommunications.set(period-1, control);
 	}
 		
-	public ArrayList<ResourceEffect> getPersonalProductionBonus() {
+	public ArrayList<Effect> getPersonalProductionBonus() {
 		return personalProductionBonus;
 	}
 
-	public void setPersonalProductionBonus(ArrayList<ResourceEffect> personalProductionBonus) {
+	public void setPersonalProductionBonus(ArrayList<Effect> personalProductionBonus) {
 		this.personalProductionBonus = personalProductionBonus;
 	}
 
-	public ArrayList<ResourceEffect> getPersonalHarvestBonus() {
+	public ArrayList<Effect> getPersonalHarvestBonus() {
 		return personalHarvestBonus;
 	}
 
-	public void setPersonalHarvestBonus(ArrayList<ResourceEffect> personalHarvestBonus) {
+	public void setPersonalHarvestBonus(ArrayList<Effect> personalHarvestBonus) {
 		this.personalHarvestBonus = personalHarvestBonus;
 	}
 
