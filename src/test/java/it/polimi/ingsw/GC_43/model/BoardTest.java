@@ -36,7 +36,7 @@ public class BoardTest {
 		//p.prepareAction();
 		//System.out.println("production done!");
 		//System.out.println("\n INITIAL servants of player\n" +board.getPlayers().get(0).toString());
-		sMarketActionCreationRoutine m = new MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
+		MarketActionCreationRoutine m = new MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		
 		m.prepareAction();
 		System.out.println("\nalmost starting performing\n");
