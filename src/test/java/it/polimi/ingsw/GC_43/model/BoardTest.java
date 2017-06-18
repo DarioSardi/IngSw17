@@ -36,7 +36,7 @@ public class BoardTest {
 		//p.prepareAction();
 		//System.out.println("production done!");
 		//System.out.println("\n INITIAL servants of player\n" +board.getPlayers().get(0).toString());
-		/*MarketActionCreationRoutine m = new MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
+		sMarketActionCreationRoutine m = new MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		
 		m.prepareAction();
 		System.out.println("\nalmost starting performing\n");
@@ -48,7 +48,7 @@ public class BoardTest {
 		System.out.println("finished performing");
 		System.out.println("\n FINAL servants of player\n" +board.getPlayers().get(0).toString()+"\n\nPlayer in memory "+board.getPlayers().get(0));
 		
-		*/
+		
 		TowerActionCreationRoutine t = new TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		t.prepareAction();
 		TowerActionPerformerRoutine tp= new TowerActionPerformerRoutine(t.getTowerAction(),board);
