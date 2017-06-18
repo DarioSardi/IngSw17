@@ -29,9 +29,12 @@ public class Market implements Serializable {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		int i=0;
 		for (MarketActionSpace marketActionSpace: this.getMarketActionSpaces()) {
+			sb.append("MARKET N°"+i);
 			sb.append(marketActionSpace.toString());
 			sb.append("\n");
+			i++;
 		}
 		return sb.toString();
 	}

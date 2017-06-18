@@ -46,18 +46,15 @@ public class ClientOutHandler implements Runnable {
 	
 	private void inGameParser(BufferedReader userIn) {
 		
-		System.out.println("ho switchato ai comandi in gioco");
-		System.out.println("digita help per la lista dei comandi in gioco");
+		System.out.println("switched to in-game commands");
+		
 		InGameMessageParser parser=new InGameMessageParser(userIn,this);
 		while(this.myClient.inGame){
+			inGameCommandsPrint();
 			try {
 				String command=userIn.readLine().toString();
 				if("help".equals(command)){
-					System.out.println("your commands are:");
-					System.out.println("help - to see this message");
-					System.out.println("action - to show the list of actions");
-					System.out.println("chat - for sending a message to all the players in the game");
-					System.out.println("info- to see the list of possible infos");
+					inGameCommandsPrint();
 				}
 				else if("action".equals(command)&&this.myClient.myTurn){
 					parser.actionMenu();				
@@ -101,6 +98,14 @@ public class ClientOutHandler implements Runnable {
 			}
 
 		}
+	}
+	
+	public void inGameCommandsPrint(){
+		System.out.println("You are in the Game-mode menu;your commands are:");
+		System.out.println("help - to see this message");
+		System.out.println("action - to show the list of actions");
+		System.out.println("chat - for sending a message to all the players in the game");
+		System.out.println("info- to see the list of possible infos");
 	}
 
 	public void sendMsgTo(String string){

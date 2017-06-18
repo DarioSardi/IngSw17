@@ -103,7 +103,6 @@ public class Client {
 			}
 		});
 		System.out.println("\nI TUOI DATI:\n"+this.myPlayer.toString());
-		System.out.println(this.board.getMarket().toString());
 	}
 
 

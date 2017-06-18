@@ -10,6 +10,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.junit.rules.Timeout;
+
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionCreations.CouncilPalaceActionCreationRoutine;
@@ -22,84 +24,76 @@ public class InGameMessageParser {
 
 	private BufferedReader userIn;
 	private ClientOutHandler clientHandler;
+	private long timeoutLimit;
 
 	public InGameMessageParser(BufferedReader userIn, ClientOutHandler clientOutHandler) {
 		this.userIn=userIn;
 		this.clientHandler=clientOutHandler;
+		this.timeoutLimit=1000*60*1;
 	}
 
 
 	public void actionMenu() {
-		ExecutorService service = Executors.newSingleThreadExecutor();
 		Client myClient=this.clientHandler.getMyClient();
 		Player myp=myClient.getMyPlayer();
 		Board b=myClient.getBoard();
-		try {
-		    Runnable r = new Runnable() {
-		        @Override
-		        public void run() {
-		        	
-		    		while (!myClient.actionPerformed) {
-		    			try {
+		long startTime = System.currentTimeMillis();
+					while (!myClient.actionPerformed&&System.currentTimeMillis()-startTime<=timeoutLimit) {
 		    				printActionsMenu();
-		    				String actionChoice = userIn.readLine().toString();
-		    				if ("1".equals(actionChoice)) {
-		    					b.getDice().get(1).setDieValue(5);;
-		    					myp.getFamilyMember(1).setDieToFamilyMember(1);
-		    					MarketActionCreationRoutine ta=new MarketActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
-		    					if(ta.prepareAction()){myClient.sendObj(ta.getMarketAction());}
-		    					
-		    				}
+		    				try {
+								String actionChoice = userIn.readLine().toString();
+								if ("1".equals(actionChoice)) {
+									startTime = System.currentTimeMillis();
+									b.getDice().get(1).setDieValue(5);;
+									myp.getFamilyMember(1).setDieToFamilyMember(1);
+									MarketActionCreationRoutine ta=new MarketActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(ta.prepareAction()){myClient.sendObj(ta.getMarketAction());}
+									
+								}
+								
+								else if("2".equals(actionChoice)){
+									startTime = System.currentTimeMillis();
+									ProductionActionCreationRoutine pa=new ProductionActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(pa.prepareAction()){myClient.sendObj(pa.getProductionAction());}
+									
+								}
+								else if("3".equals(actionChoice)){
+									startTime = System.currentTimeMillis();
+									HarvestActionCreationRoutine ha=new HarvestActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(ha.prepareAction()){myClient.sendObj(ha.getHarvestAction());}
+									
+								}
+								else if("4".equals(actionChoice)){
+									startTime = System.currentTimeMillis();
+									CouncilPalaceActionCreationRoutine ca=new CouncilPalaceActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(ca.prepareAction()){myClient.sendObj(ca.getCouncilPalaceAction());}
+									
+								}
+								else if("5".equals(actionChoice)){
+									startTime = System.currentTimeMillis();
+									TowerActionCreationRoutine ta=new TowerActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(ta.prepareAction()){myClient.sendObj(ta.getTowerAction());}
+								}
+								else if("6".equals(actionChoice)){
+									startTime=0;
+								}
+							} catch (IOException e) {
+								e.printStackTrace();
+							}}
+					if(System.currentTimeMillis()-startTime>=timeoutLimit&&startTime!=0){
+						System.out.println("time is over!");
+					}
+					else{
+						System.out.println("returning to main menu");
+					}
 		    				
-		    				else if("2".equals(actionChoice)){
-		    					ProductionActionCreationRoutine pa=new ProductionActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
-		    					if(pa.prepareAction()){myClient.sendObj(pa.getProductionAction());}
-		    					
-		    				}
-		    				else if("3".equals(actionChoice)){
-		    					HarvestActionCreationRoutine ha=new HarvestActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
-		    					if(ha.prepareAction()){myClient.sendObj(ha.getHarvestAction());}
-		    					
-		    				}
-		    				else if("4".equals(actionChoice)){
-		    					CouncilPalaceActionCreationRoutine ca=new CouncilPalaceActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
-		    					if(ca.prepareAction()){myClient.sendObj(ca.getCouncilPalaceAction());}
-		    					
-		    				}
-		    				else if("5".equals(actionChoice)){
-		    					TowerActionCreationRoutine ta=new TowerActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
-		    					if(ta.prepareAction()){myClient.sendObj(ta.getTowerAction());}
-		    				}
 		    				
 		    				
 		    				
 		    				
 		    				
 		    				
-		    			} catch (IOException e) {
-		    				e.printStackTrace();
-		    			} 
 		    			
-		    		}
-		        }
-		    };
-
-		    Future<?> f = service.submit(r);
-
-		    f.get(1, TimeUnit.MINUTES);     // attempt the task for two minutes
-		}
-		catch (final InterruptedException e) {
-		    // The thread was interrupted during sleep, wait or join
-		}
-		catch (final TimeoutException e) {
-		    System.out.println("time is over, turn passed");
-		}
-		catch (final ExecutionException e) {
-		    // An exception from within the Runnable task
-		}
-		finally {
-		    service.shutdown();
-		}
 		
 		
 		
