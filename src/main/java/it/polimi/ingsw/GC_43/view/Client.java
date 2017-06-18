@@ -20,6 +20,7 @@ import java.util.concurrent.Executors;
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionCreations.MarketActionCreationRoutine;
 import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
 
 public class Client {
@@ -36,7 +37,7 @@ public class Client {
 	private Board board;
 	Lobby lobby;
 	Boolean idSetted,inMenu,inGame,online,actionPerformed,myTurn;
-	Player myPlayer;
+	private Player myPlayer;
 
     public Client() throws IOException{
     	setup();
@@ -65,6 +66,10 @@ public class Client {
 	
 		
 	}
+    
+    public Player getMyPlayer(){
+    	return this.myPlayer;
+    }
 
 
 	
@@ -92,16 +97,13 @@ public class Client {
 	public void setBoard(Board board) {
 		this.board = board;
 		System.out.println("hai ricevuto la board di gioco!");
-		TowerActionCreationRoutine ta=new TowerActionCreationRoutine(this.myPlayer.getPlayerName(), this.myPlayer, board);
-		if(ta.prepareAction()){
-			this.sendObj(ta.getTowerAction());
-		}
 		this.board.getPlayers().stream().forEach(p->{
-			System.out.println(p.getPlayerName());
 			if(p.getPlayerName().equals(this.username)){
 				this.myPlayer=p;
 			}
 		});
+		System.out.println("\nI TUOI DATI:\n"+this.myPlayer.toString());
+		System.out.println(this.board.getMarket().toString());
 	}
 
 

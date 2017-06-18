@@ -6,13 +6,14 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import it.polimi.ingsw.GC_43.controller.ChatMsg;
+import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 
 public class ClientOutHandler implements Runnable {
 
 	private ObjectOutputStream socketOut;
 	private Client myClient;
-	private InGameMessageParser gameParser;
 	/**
 	 * handle the message sent to the server
 	 * @param socketOut
@@ -47,21 +48,52 @@ public class ClientOutHandler implements Runnable {
 		
 		System.out.println("ho switchato ai comandi in gioco");
 		System.out.println("digita help per la lista dei comandi in gioco");
-		InGameMessageParser parser=new InGameMessageParser(userIn,this.myClient);
+		InGameMessageParser parser=new InGameMessageParser(userIn,this);
 		while(this.myClient.inGame){
 			try {
 				String command=userIn.readLine().toString();
 				if("help".equals(command)){
-					System.out.println("i tuoi comandi sono:");
-					System.out.println("help - per visualizzare la lista dei comandi");
-					System.out.println("action - per visualizzare la lista delle azioni");
-					System.out.println("chat - per inviare un messaggio ai giocatori");
+					System.out.println("your commands are:");
+					System.out.println("help - to see this message");
+					System.out.println("action - to show the list of actions");
+					System.out.println("chat - for sending a message to all the players in the game");
+					System.out.println("info- to see the list of possible infos");
 				}
 				else if("action".equals(command)&&this.myClient.myTurn){
-					parser.actionMenu(userIn,this.myClient);				
+					parser.actionMenu();				
 				}
 				else if("action".equals(command)&&!this.myClient.myTurn){
 					System.out.println("this is not your turn!");
+				}
+				else if("chat".equals(command)){
+					System.out.println("write the message and then press enter, to abort write 'exit_chat'");
+					String msg=userIn.readLine().toString();
+					if(!"exit_chat".equals(msg)){
+						this.socketOut.writeObject(new ChatMsg(msg));
+					}
+				}
+				else if("info".equals(command)){
+					System.out.println("1) to see personal data");
+					System.out.println("2) to see the board infos");
+					System.out.println("3) to see the list of the players with their resources");
+					String subchoice=userIn.readLine().toString();
+					if("1".equals(subchoice)){
+						System.out.println(this.myClient.getMyPlayer().toString());
+					}
+					else if("2".equals(subchoice)){
+						System.out.println(this.myClient.getBoard().toString());
+					}
+					else if("3".equals(subchoice)){
+						this.myClient.getBoard().getPlayers().stream().forEach(p->System.out.println(p.toString()));
+						
+					}
+					else{
+						System.out.println("not a valid choice, returning to game menu");
+					}
+					
+				}
+				else{
+					System.out.println("command "+command+" is not a valid command");
 				}
 			} catch (IOException e) {
 			
@@ -89,5 +121,11 @@ public class ClientOutHandler implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
+	public Client getMyClient() {
+		return myClient;
+	}
+	
+	
 
 }

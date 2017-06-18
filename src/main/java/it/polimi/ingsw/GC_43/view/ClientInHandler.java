@@ -39,17 +39,13 @@ public class ClientInHandler implements Runnable {
 		}
 	private void parseGameUpdates() {
 		//System.out.println("parser delgli update pronto!");
-		System.out.println("premi un tasto per continuare.");
+		System.out.println("press enter to continue");
 		while(this.myClient.inGame){
-			Object o=receiveMsg();
-			if(o instanceof Board){
-				System.out.println("board received");
-				Board b=(Board) o;
-				this.myClient.setBoard(b);
+			
 			}
 		}
 		
-	}
+	
 	
 	
 	
@@ -58,7 +54,7 @@ public class ClientInHandler implements Runnable {
 		return "handler with ID: "+myClient.getID();
 	}
 	
-	public SimpleMessage receiveMsg(){
+	public void receiveMsg(){
 		try {
 			Object o=socketIn.readObject();
 			if(o instanceof SimpleMessage){
@@ -67,13 +63,13 @@ public class ClientInHandler implements Runnable {
 			else if(o instanceof Board){
 				this.myClient.setBoard((Board) o);
 			}
-			return null;
+		
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+	
 		
 	}
 	
@@ -84,6 +80,13 @@ public class ClientInHandler implements Runnable {
 			parseGameUpdates();
 				
 			}
+		else if("now_is_my_turn".equals(line)){
+			this.myClient.myTurn=true;
+			}
+		else if("end_of_my_turn".equals(line)){
+			this.myClient.myTurn=false;
+			}
+		
 		else{
 			System.out.println(line);
 		}
