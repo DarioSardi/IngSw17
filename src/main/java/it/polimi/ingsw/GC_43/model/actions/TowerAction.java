@@ -97,5 +97,9 @@ public class TowerAction extends Action {
 	public void setResourceDiscounts(HashMap<String, Integer> resourceDiscounts) {
 		this.resourceDiscounts = resourceDiscounts;
 	}
+	
+	public String toString(){
+		return super.toString()+"Action performed: Tower Action\n"+"Tower chosen :"+this.towerChoice+"\nFloor Choice: "+this.floorChoice;
+	}
 
 }

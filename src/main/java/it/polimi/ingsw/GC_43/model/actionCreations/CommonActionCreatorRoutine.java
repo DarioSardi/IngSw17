@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
         import it.polimi.ingsw.GC_43.model.FamilyMember;
-        import it.polimi.ingsw.GC_43.model.GlobalVariables;
         import it.polimi.ingsw.GC_43.model.Player;
 
 public class CommonActionCreatorRoutine implements Serializable {
@@ -36,7 +35,7 @@ public class CommonActionCreatorRoutine implements Serializable {
 
     public static FamilyMember askForFamilyMemberChoice(Player player) {
         String question="Please select the familiar you want to use to perform the action:\n"+player.printFreeFamilyMembers();
-        int choice=askForSingleChoice(question,0,GlobalVariables.numberOfFamilyMembers);
+        int choice=askForSingleChoice(question,0,player.getFamilyMembers().size());
 
         return player.getFamilyMember(choice);
     }

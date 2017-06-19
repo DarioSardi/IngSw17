@@ -25,5 +25,8 @@ public class MarketAction extends Action {
 	public void setMarketChoices(ArrayList<Integer> marketChoices) {
 		MarketChoices = marketChoices;
 	}
+	public String toString(){
+		return super.toString()+"Action performed: Market Action\n";
+	}
 
 }

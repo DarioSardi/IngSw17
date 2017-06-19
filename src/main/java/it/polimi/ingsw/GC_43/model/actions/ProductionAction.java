@@ -44,5 +44,9 @@ public class ProductionAction extends Action {
 	public void setDefaultFamilyMember(boolean defaultFamilyMember) {
 		this.defaultFamilyMember = defaultFamilyMember;
 	}
+	
+	public String toString(){
+		return super.toString()+"Action performed: Production Action\n";
+	}
 
 }

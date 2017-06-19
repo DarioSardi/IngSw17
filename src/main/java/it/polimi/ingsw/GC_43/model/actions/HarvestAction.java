@@ -45,5 +45,8 @@ public class HarvestAction extends Action {
 	public void setDefaultFamilyMember(boolean defaultFamilyMember) {
 		this.defaultFamilyMember = defaultFamilyMember;
 	}
+	public String toString(){
+		return super.toString()+"Action performed: Harvest Action\n";
+	}
 
 }

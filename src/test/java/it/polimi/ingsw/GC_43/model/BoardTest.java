@@ -49,11 +49,11 @@ public class BoardTest {
 		System.out.println("\n FINAL servants of player\n" +board.getPlayers().get(0).toString()+"\n\nPlayer in memory "+board.getPlayers().get(0));
 		
 		
-		TowerActionCreationRoutine t = new TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
+		/*TowerActionCreationRoutine t = new TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		t.prepareAction();
 		TowerActionPerformerRoutine tp= new TowerActionPerformerRoutine(t.getTowerAction(),board);
 		System.out.println("\n\n\n\nstarting to perform\n\n\n\n\n\n\n");
-		tp.performAction();
+		tp.performAction();*/
 
 	
 	}

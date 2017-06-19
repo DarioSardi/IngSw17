@@ -19,6 +19,15 @@ public abstract class Action implements Serializable {
 	// THINK OF ACTION ID BEST PRACTICE WAY
 	private int servantsUsed;
 	private ArrayList<Integer> Choices;
+	
+	
+	public String toString(){
+		String toString="Action of player "+this.getPlayerID()+":\n\n";
+		toString=toString+"family member used: "+this.getFamilyMember().toString()+"\n";
+		toString=toString+"servants used: "+this.servantsUsed+"\n";
+		
+		return toString;
+	}
 
 	public Action(String playerID, Player player) {
 		this.servantsUsed = 0;

@@ -70,18 +70,23 @@ public class MarketActionCreationRoutine implements ActionCreation{
 				if(effect.getClass().toString().contains("MultipleCouncilPrivileges"))
 					 askForMultipleCouncilPrivilege((MultipleCouncilPrivileges) effect);	   	
         	}
-			System.out.println("\nNothing to check for effects!\n");
 
         }
         
         private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges effect) {
         	int numberOfCopies=effect.getNumberOfCopies();
         	while(numberOfCopies>0){
+        		System.out.println("\n\nnumber of copies\n"+numberOfCopies );
+
         		int choice= askForMultipleChoice(effect.getPrivilegeChoices());
+        		System.out.println("\n\nnumber of copies\n"+numberOfCopies );
+
         		if(choice!=-1){
         			effect.getPrivilegeChoices().getChoices().remove(choice);
-        		}
+            		System.out.println("\n\nchoice removed\n" );
 
+        		}
+        		System.out.println("\n\nnumber of copies\n"+numberOfCopies );
         		numberOfCopies--;
         	}
     	}
@@ -90,8 +95,13 @@ public class MarketActionCreationRoutine implements ActionCreation{
         	int maxRange=effect.getChoices().size();
             String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
             int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
+            System.out.println("\n Choice taken is "+choice);
             if(effect.check(this.marketAction.getFamilyMember())){
-                this.marketAction.getChoices().add(choice);
+                System.out.println("\n Choice taken is ok");
+
+                this.marketAction.getMarketChoices().add(choice);
+                System.out.println("\n Choice added\n");
+
             }
             else{
                 question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
@@ -103,6 +113,8 @@ public class MarketActionCreationRoutine implements ActionCreation{
                     return askForMultipleChoice(effect);
                 }
             }
+            System.out.println("\nChoice RETURNE");
+
             return choice;
         }
 

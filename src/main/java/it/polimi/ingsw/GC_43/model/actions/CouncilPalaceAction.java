@@ -27,5 +27,10 @@ public class CouncilPalaceAction extends Action {
 	public void setCouncilPalaceChoices(ArrayList<Integer> councilPalaceChoices) {
 		this.councilPalaceChoices = councilPalaceChoices;
 	}
+	
+	public String toString(){
+		return super.toString()+"Action performed: Council Palace Action\n";
+		
+	}
 
 }

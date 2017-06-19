@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionPerforms.*;
 import it.polimi.ingsw.GC_43.model.actions.*;
@@ -20,10 +21,12 @@ public class Controller implements IController {
 	    private Map<String, Player> matchPlayer;
 	    private Map<String, ClientHandler> matchClientHandler;
 	    private ArrayList<ClientHandler> clientHandlers;
+	    private Lobby playersLobby;
 
 	    
 	//REFERENCE OF THE MODEL ON SERVER
 	    private Board board;
+	    private GlobalVariables globalVariables;
 	    
 	    
 	    public Controller(ArrayList<ClientHandler> clientHandlers){
@@ -31,6 +34,7 @@ public class Controller implements IController {
 	    	this.clientHandlers=clientHandlers;
 	    	this.matchPlayer=new HashMap<String, Player>();
 	    	this.matchClientHandler=new HashMap<String, ClientHandler>();
+	    	this.playersLobby=clientHandlers.get(0).getLobby();
 	    }
 	    
 	    
@@ -45,11 +49,27 @@ public class Controller implements IController {
 	    	sendModelToClients();
 	    	System.out.println("model sent");
 
+	    	//TODO wait form SAM
+	    	//	    	sendGlobalVariablesToClients();	    	
+	    	System.out.println("global variables sent");
+
+
 	    	
 	    	
 	    }
 	    
-	    private void sendModelToClients() {
+	    
+	    
+	 /*   private void sendGlobalVariablesToClients() {
+	    	for(ClientHandler clientHandler : this.clientHandlers){
+    			clientHandler.sendObject(this.globalVariables);
+    		}		
+		}*/
+
+
+
+
+		private void sendModelToClients() {
 	    		for(ClientHandler clientHandler : this.clientHandlers){
 	    			clientHandler.sendObject(this.board);
 	    		}			
@@ -80,10 +100,17 @@ public class Controller implements IController {
 	    		playerIDs.add(clientHandler.getUsername());
 	    		
 	    	}
-	    	GlobalVariablesInit.readGlobalVariables();
+	    	GlobalVariables globalVariables= new GlobalVariables();
+	    	
+	    	
+//	    	GlobalVariablesInit.readGlobalVariables(globalVariables);
+	    	
+	    	
+	    	this.globalVariables=globalVariables;
 	    	this.board=new Board(playerIDs);
 	    	System.out.println("sto per inizializzare il gioco");
 	    	new InitGame(board);
+	    	
 	    	
 	    	
 	    }
@@ -100,9 +127,39 @@ public class Controller implements IController {
 	    
 //TODO AGGIUNGI BOOLEANO PER VEDERE SE PLAYER CONNESSO O NO;
 	    
+	    public synchronized void submitClientAction(Action action){
+	    	boolean actionResult=false;
+	    	actionResult= submit(action);
+	    	
+	    	
+	    	if(actionResult){
+	    		
+	    		playersLobby.broadcastMsg(action.toString(), this.getPlayerOfTurn());
+	    		for(ClientHandler clientHandler: this.clientHandlers){
+	    			clientHandler.sendObject(this.board);
+		    	}
+	    		if(action.getActionID()!=0){
+	    			
+	    			//////TODODOPDODODODPEN
+	    			//////TODODOPDODODODPEN
+	    			//////TODODOPDODODODPEN
+	    			//////TODODOPDODODODPEN
+	    			//////TODODOPDODODODPEN
+	    			//////TODODOPDODODODPEN
+	    			//////TODODOPDODODODPEN
+	    			//////TODODOPDODODODPEN
+	    			this.board.nextPlayerPhase();
+	    			this.board.getPhasePlayer();
+	    		}
+		    }
+	    	
+	    	else{
+	    		this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
+	    	}
 	    
+	    }
 	    
-	    public synchronized boolean submit(Action action){
+	    public boolean submit(Action action){
 	    	action.setPlayer(this.matchPlayer.get(action.getPlayer().getPlayerName()));
 	    	int actionID= action.getActionID();
 	    	boolean result;

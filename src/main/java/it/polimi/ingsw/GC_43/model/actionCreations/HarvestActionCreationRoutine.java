@@ -1,6 +1,5 @@
 package it.polimi.ingsw.GC_43.model.actionCreations;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.polimi.ingsw.GC_43.model.Board;
@@ -9,9 +8,7 @@ import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionSpace.HarvestArea;
 import it.polimi.ingsw.GC_43.model.actions.HarvestAction;
-import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
-import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
