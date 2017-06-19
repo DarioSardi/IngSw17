@@ -11,7 +11,6 @@ import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionPerforms.*;
 import it.polimi.ingsw.GC_43.model.actions.*;
-import it.polimi.ingsw.GC_43.model.initialization.GlobalVariablesInit;
 import it.polimi.ingsw.GC_43.model.initialization.InitGame;
 
 public class Controller implements IController {
