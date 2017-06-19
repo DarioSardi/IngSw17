@@ -78,12 +78,12 @@ public class GlobalVariablesInit implements Serializable{
 		InitMilitaryPointsRequired mpi = new InitMilitaryPointsRequired();
 		mpi.readMilitaryPointsRequired();
 		GlobalVariables.militaryPointsRequired = mpi.getMilitaryPointsRequired();
-		
-       	System.out.println("inizializzate tutte le variabili globali");
         
     	InitEndPoints iep = new InitEndPoints();
     	iep.readJson();
     	GlobalVariables.endCharacterVictoryPoints = iep.getEndCharacterPoints();
     	GlobalVariables.endTerritoryVictoryPoints = iep.getEndTerritoryPoints();
+    	
+       	System.out.println("inizializzate tutte le variabili globali");
     }
 }

@@ -1,9 +1,15 @@
 package it.polimi.ingsw.GC_43.model;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 
-public class GlobalVariables {
-	   public static int maxNumberOfPlayers;
+public class GlobalVariables implements Serializable{
+	   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 128365450850396921L;
+	public static int maxNumberOfPlayers;
 	   public static int numberOfFamilyMembers;
 	   public static int numberOfTowers;
 	   public static int numberOfDice;
