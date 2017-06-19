@@ -52,6 +52,8 @@ public class Controller implements IController {
 	    	//TODO wait form SAM
 	    	//	    	sendGlobalVariablesToClients();	    	
 	    	System.out.println("global variables sent");
+	    	
+	    	startGame();
 
 
 	    	
@@ -59,7 +61,16 @@ public class Controller implements IController {
 	    }
 	    
 	    
-	    
+	    private void startGame() {
+	    	ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(0));
+	    	changePhases(initialPlayer);
+	    	
+		}
+
+
+
+
+		//TODO to decommenti, wait for SAM
 	 /*   private void sendGlobalVariablesToClients() {
 	    	for(ClientHandler clientHandler : this.clientHandlers){
     			clientHandler.sendObject(this.globalVariables);
@@ -77,7 +88,7 @@ public class Controller implements IController {
 
 
 
-	// MATCH PLAYER REQUIRE 
+	// MATCH PLAYER WITH CLIENT HANDLERS
 		private void setMatches() {
 			int i=0;
 	    	for(ClientHandler clientHandler: this.clientHandlers){
@@ -102,13 +113,17 @@ public class Controller implements IController {
 	    	}
 	    	GlobalVariables globalVariables= new GlobalVariables();
 	    	
-	    	
+	    	System.out.println("Initializing globalVariables");
+
 //	    	GlobalVariablesInit.readGlobalVariables(globalVariables);
 	    	
 	    	
 	    	this.globalVariables=globalVariables;
+	    	
+	    	System.out.println("Creating board");
+
 	    	this.board=new Board(playerIDs);
-	    	System.out.println("sto per inizializzare il gioco");
+	    	System.out.println("Initializing game board");
 	    	new InitGame(board);
 	    	
 	    	
@@ -128,12 +143,20 @@ public class Controller implements IController {
 //TODO AGGIUNGI BOOLEANO PER VEDERE SE PLAYER CONNESSO O NO;
 	    
 	    public synchronized void submitClientAction(Action action){
+	    	
+	    	System.out.println("\nclient Action received from client "+action.getPlayerID());
+	    	
 	    	boolean actionResult=false;
 	    	actionResult= submit(action);
 	    	
+	    	System.out.println("\n Action successfully submitted");
+
+	    	
 	    	
 	    	if(actionResult){
-	    		
+		    	
+	    		System.out.println("\n Action successfully completed, broadcasting notifications and calling for next player phase");
+
 	    		playersLobby.broadcastMsg(action.toString(), this.getPlayerOfTurn());
 	    		for(ClientHandler clientHandler: this.clientHandlers){
 	    			clientHandler.sendObject(this.board);
@@ -157,21 +180,37 @@ public class Controller implements IController {
 	    	
 			this.board.nextPlayerPhase();
 			ClientHandler playerOfTurn=this.matchClientHandler.get(this.board.getPhasePlayer());
-			for(ClientHandler client: this.clientHandlers){
-				if(client.getUsername().equals(playerOfTurn.getUsername()))
-					client.setMyturn(true);
-				else
-					client.setMyturn(false);
-			}
+			System.out.println("\nChanging phases of players");
+			changePhases(playerOfTurn);
+			System.out.println("\nNext turn logic ended successfully");
+
 	    }
 
 
 
-	    //CALL submitClientAction
+	    private void changePhases(ClientHandler playerOfTurn) {
+	    	for(ClientHandler client: this.clientHandlers){
+				if(client.getUsername().equals(playerOfTurn.getUsername()))
+					client.setMyturn(true);
+				else
+					client.setMyturn(false);
+			}			
+		}
+
+
+
+
+		//CALL submitClientAction
 		private boolean submit(Action action){
+
+			System.out.println("\nAttempting to match player on server to perform action");
+
 	    	action.setPlayer(this.matchPlayer.get(action.getPlayer().getPlayerName()));
 	    	int actionID= action.getActionID();
 	    	boolean result;
+	    	
+			System.out.println("\nAttempting to perform the action submitted");
+
 	    	switch(actionID){
 	    		case 1:
 	    			ProductionAction productionAction=(ProductionAction) action;
@@ -204,6 +243,8 @@ public class Controller implements IController {
 	    		default:
 	    			return false;
 	    	}
+
+
 	    }
 
 
