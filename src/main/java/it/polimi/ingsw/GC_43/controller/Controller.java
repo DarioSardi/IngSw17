@@ -138,20 +138,11 @@ public class Controller implements IController {
 	    		for(ClientHandler clientHandler: this.clientHandlers){
 	    			clientHandler.sendObject(this.board);
 		    	}
-	    		if(action.getActionID()!=0){
-	    			
-	    			//////TODODOPDODODODPEN
-	    			//////TODODOPDODODODPEN
-	    			//////TODODOPDODODODPEN
-	    			//////TODODOPDODODODPEN
-	    			//////TODODOPDODODODPEN
-	    			//////TODODOPDODODODPEN
-	    			//////TODODOPDODODODPEN
-	    			//////TODODOPDODODODPEN
-	    			this.board.nextPlayerPhase();
-	    			this.board.getPhasePlayer();
-	    		}
-		    }
+	    		
+	    		nextPlayerPhase();
+	    		
+	    	}
+		    
 	    	
 	    	else{
 	    		this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
@@ -159,7 +150,25 @@ public class Controller implements IController {
 	    
 	    }
 	    
-	    public boolean submit(Action action){
+	    
+	    //MANAGING PHASE OF PLAYERS
+	    
+	    private void nextPlayerPhase() {
+	    	
+			this.board.nextPlayerPhase();
+			ClientHandler playerOfTurn=this.matchClientHandler.get(this.board.getPhasePlayer());
+			for(ClientHandler client: this.clientHandlers){
+				if(client.getUsername().equals(playerOfTurn.getUsername()))
+					client.setMyturn(true);
+				else
+					client.setMyturn(false);
+			}
+	    }
+
+
+
+	    //CALL submitClientAction
+		private boolean submit(Action action){
 	    	action.setPlayer(this.matchPlayer.get(action.getPlayer().getPlayerName()));
 	    	int actionID= action.getActionID();
 	    	boolean result;
