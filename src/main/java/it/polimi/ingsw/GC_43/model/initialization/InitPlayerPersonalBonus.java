@@ -99,8 +99,6 @@ public class InitPlayerPersonalBonus {
                 this.allAdvancedPersonalHarvestBonusTiles.add(this.advancedPersonalHarvestBonusTile);
 
      		 }
-             
-    	 System.out.println("inizializzati tutti gli spazi azione");
          }
            	 	
         } catch (Exception e) {

@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import it.polimi.ingsw.GC_43.model.actions.Action;
+
 public class ClientHandler implements Runnable{
 	private Socket socket;
 	private int ID;
@@ -17,10 +19,12 @@ public class ClientHandler implements Runnable{
 	private ObjectOutputStream socketOut;
 	private Lobby lobby;
 	private boolean Game;
+	private boolean myturn;
 
 	public ClientHandler(Socket socket,int ID,Server myServer) throws IOException {
 		super();
 		this.socket = socket;
+		this.lobby=null;
 		this.ID=ID;
 		this.myServer=myServer;
 		this.socketIn = new ObjectInputStream(this.socket.getInputStream());
@@ -158,9 +162,29 @@ public class ClientHandler implements Runnable{
 		sendMsgTo("You are now in game!");
 		sendMsgTo("system_ingame_switch");
 		while(Game){
-			
+			receive();
 		}
-		// TODO Auto-generated method stub
+		
+		
+	}
+
+	private void receive() {
+		try {
+			Object o=socketIn.readObject();
+			if(o instanceof ChatMsg&&this.lobby!=null){
+				ChatMsg msg=(ChatMsg) o;
+				this.lobby.broadcastMsg(msg.getMsg(),this);
+			}
+			if(o instanceof Action){
+				Action action=(Action) o;
+				this.lobby.getController().submit(action);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 
@@ -211,4 +235,17 @@ public class ClientHandler implements Runnable{
 	public String toString() {
 		return username;
 	}
+
+	public void setMyturn(boolean myturn) {
+		if(myturn){
+		sendMsgTo("now_is_my_turn");
+		}
+		else{
+		sendMsgTo("end_of_my_turn");
+		}
+		this.myturn = myturn;
+	}
+	
+	
+	
 }

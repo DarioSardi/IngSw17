@@ -2,103 +2,103 @@ package it.polimi.ingsw.GC_43.view;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
+import org.junit.rules.Timeout;
+
+import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionCreations.CouncilPalaceActionCreationRoutine;
+import it.polimi.ingsw.GC_43.model.actionCreations.HarvestActionCreationRoutine;
+import it.polimi.ingsw.GC_43.model.actionCreations.MarketActionCreationRoutine;
 import it.polimi.ingsw.GC_43.model.actionCreations.ProductionActionCreationRoutine;
 import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
-import it.polimi.ingsw.GC_43.model.actionSpace.MarketActionSpace;
-import it.polimi.ingsw.GC_43.model.actionSpace.Space;
 
 public class InGameMessageParser {
 
-	private Scanner userIn;
-	private Client myClient;
+	private BufferedReader userIn;
+	private ClientOutHandler clientHandler;
+	private long timeoutLimit;
 
-	public InGameMessageParser(Scanner userIn, Client myClient) {
+	public InGameMessageParser(BufferedReader userIn, ClientOutHandler clientOutHandler) {
 		this.userIn=userIn;
-		this.myClient=myClient;
+		this.clientHandler=clientOutHandler;
+		this.timeoutLimit=1000*60*1;
 	}
 
-	public InGameMessageParser(BufferedReader userIn2, Client myClient2) {
-		// TODO Auto-generated constructor stub
-	}
 
-	public void actionMenu(BufferedReader userIn,Client myclient) {
-		//TIMER ALL'INGRESSO DI QUESTA SEZIONE DA RESETTARE SE ESCO.
-		while (!myclient.actionPerformed) {
-			try {
-				printActionsMenu();
-				String actionChoice = userIn.readLine().toString();
-				if ("1".equals(actionChoice)) {
-					if(this.myClient.getBoard().getMarket().getMarketActionSpaces()!=null){
-					ArrayList<MarketActionSpace> markets = this.myClient.getBoard().getMarket().getMarketActionSpaces();
-					while (!marketSubMenu(markets));
+	public void actionMenu() {
+		Client myClient=this.clientHandler.getMyClient();
+		Player myp=myClient.getMyPlayer();
+		Board b=myClient.getBoard();
+		long startTime = System.currentTimeMillis();
+					while (!myClient.actionPerformed&&System.currentTimeMillis()-startTime<=timeoutLimit) {
+		    				printActionsMenu();
+		    				try {
+								String actionChoice = userIn.readLine().toString();
+								if ("1".equals(actionChoice)) {
+									startTime = System.currentTimeMillis();
+									b.getDice().get(1).setDieValue(5);;
+									myp.getFamilyMember(1).setDieToFamilyMember(1);
+									MarketActionCreationRoutine ta=new MarketActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(ta.prepareAction()){myClient.sendObj(ta.getMarketAction());}
+									
+								}
+								
+								else if("2".equals(actionChoice)){
+									startTime = System.currentTimeMillis();
+									ProductionActionCreationRoutine pa=new ProductionActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(pa.prepareAction()){myClient.sendObj(pa.getProductionAction());}
+									
+								}
+								else if("3".equals(actionChoice)){
+									startTime = System.currentTimeMillis();
+									HarvestActionCreationRoutine ha=new HarvestActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(ha.prepareAction()){myClient.sendObj(ha.getHarvestAction());}
+									
+								}
+								else if("4".equals(actionChoice)){
+									startTime = System.currentTimeMillis();
+									CouncilPalaceActionCreationRoutine ca=new CouncilPalaceActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(ca.prepareAction()){myClient.sendObj(ca.getCouncilPalaceAction());}
+									
+								}
+								else if("5".equals(actionChoice)){
+									startTime = System.currentTimeMillis();
+									TowerActionCreationRoutine ta=new TowerActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
+									if(ta.prepareAction()){myClient.sendObj(ta.getTowerAction());}
+								}
+								else if("6".equals(actionChoice)){
+									startTime=0;
+								}
+							} catch (IOException e) {
+								e.printStackTrace();
+							}}
+					if(System.currentTimeMillis()-startTime>=timeoutLimit&&startTime!=0){
+						System.out.println("time is over!");
 					}
 					else{
-						System.out.println("nessun market ancora presente?!");
+						System.out.println("returning to main menu");
 					}
-					System.out.println("\nda inizializzare bene, prova un altra opzione\n");
-				}
-				
-				else if("2".equals(actionChoice)){
-					System.out.println("ho scelto di entrare nell'area di produzione");
-					if(this.myClient.getBoard().getProductionArea().getSpaces()!=null){
-						System.out.println("gli spazi non sono nulli");
-						while (!productionAreaSubMenu());
-						}
-						else{
-							System.out.println("nessun area di produzione ancora presente?!");
-						}
-					
-				}
-				else if("5".equals(actionChoice)){
-					System.out.println("ho scelto di entrare nella torre");
-					towerSubMenu();
-					/*if(!this.myClient.getBoard().getTowers().isEmpty()){
-						System.out.println("gli spazi non sono nulli");
-						while (!towerSubMenu());
-						}
-					else{
-						System.out.println("nessun area di produzione ancora presente?!");
-					}*/
-				}
-				
-				
-				
-				
-				
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			} 
-			
-		}
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    			
+		
 		
 		
 	}
 	
-
-	private boolean towerSubMenu() {
-		System.out.println("towerSubmenu");
-		TowerActionCreationRoutine ta=new TowerActionCreationRoutine(this.myClient.myPlayer.getPlayerName(), this.myClient.myPlayer, this.myClient.getBoard());
-		if(ta.prepareAction()){
-			this.myClient.sendObj(ta.getTowerAction());
-		}
-		return true;
-	}
-
-	private boolean productionAreaSubMenu() {
-		System.out.println("productionAreaSubmenu");
-		ProductionActionCreationRoutine pa=new ProductionActionCreationRoutine(this.myClient.myPlayer.getPlayerName(), this.myClient.myPlayer, this.myClient.getBoard());
-		if(pa.prepareAction()){
-			this.myClient.sendObj(pa.getProductionAction());
-		}
-		return true;
-		
-	}
 
 	public void printActionsMenu(){
 		System.out.println("MENU AZIONE!");
@@ -110,29 +110,5 @@ public class InGameMessageParser {
 		System.out.println("5) torri");
 		System.out.println("6) annulla azione");
 	}
-	
-	public boolean marketSubMenu(List<MarketActionSpace> markets){
-		int i=0;
-		for (i = 0;  i< markets.size(); i++) {
-			System.out.println(i + ") per ricevere: " + markets.get(i).getBonus().toString());
-		}
-		System.out.println(i+") per annullare");
-		System.out.println("seleziona uno spazio del mercato dove andare");
-		String actionChoice=this.userIn.nextLine();
-		if(0>=Integer.parseInt(actionChoice)||i<Integer.parseInt(actionChoice)){
-			System.out.println("eseguo azione sullo spazio numero "+ Integer.parseInt(actionChoice));
-			//AZIONE MERCATO 
-			//se viene eseguita
-			//this.myClient.actionPerformed=true;
-			return true;
-		}
-		else if(Integer.parseInt(actionChoice)==i){
-			return true;
-		}
-		else{
-			System.out.println("not a valid number!");
-			return false;
-		}
-	}
-
 }
+	

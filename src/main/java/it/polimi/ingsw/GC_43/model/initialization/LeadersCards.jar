@@ -1,0 +1,392 @@
+{
+  "Cards": [
+    {
+      "name": "Francesco Sforza",
+      "Requirements": [
+        {
+          "typeReq": "numVentureCards",
+          "valueReq": "5"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "extraHarvest",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Ludovico Ariosto",
+      "Requirements": [
+        {
+          "typeReq": "numCharacterCards",
+          "valueReq": "5"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "placeInOccupiedSpace",
+          "valueEffect": "0"
+        }
+      ]
+    },
+    {
+      "name": "Filippo Brunelleschi",
+      "Requirements": [
+        {
+          "typeReq": "numBuildingCards",
+          "valueReq": "5"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "noCoinsInTowerOccupied",
+          "valueEffect": "0"
+        }
+      ]
+    },
+    {
+      "name": "Sigismondo Malatesta",
+      "Requirements": [
+        {
+          "typeReq": "militaryPoint",
+          "valueReq": "7"
+        },
+        {
+          "typeReq": "faithPoint",
+          "valueReq": "3"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "bonusOnNeutralMember",
+          "valueEffect": "3"
+        }
+      ]
+    },
+    {
+      "name": "Girolamo Savonarola",
+      "Requirements": [
+        {
+          "typeReq": "coin",
+          "valueReq": "18"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "faithPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Michelangelo Buonarroti",
+      "Requirements": [
+        {
+          "typeReq": "stone",
+          "valueReq": "10"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "coin",
+          "valueEffect": "3"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Giovanni dalle Bande Nere",
+      "Requirements": [
+        {
+          "typeReq": "militaryPoint",
+          "valueReq": "12"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "wood",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "stone",
+          "valueEffect": "1"
+        },
+        {
+          "effect": "coin",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Leonardo da Vinci",
+      "Requirements": [
+        {
+          "typeReq": "numCharacterCards",
+          "valueReq": "4"
+        },
+        {
+          "typeReq": "numTerritoryCards",
+          "valueReq": "2"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "extraProduction",
+          "valueEffect": "0"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Sandro Botticelli",
+      "Requirements": [
+        {
+          "typeReq": "wood",
+          "valueReq": "10"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "miliaryPoint",
+          "valueEffect": "2"
+        },
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Ludovico il Moro",
+      "Requirements": [
+        {
+          "typeReq": "numTerritoryCards",
+          "valueReq": "2"
+        },
+        {
+          "typeReq": "numCharacterCards",
+          "valueReq": "2"
+        },
+        {
+          "typeReq": "numBuildingCards",
+          "valueReq": "2"
+        },
+        {
+          "typeReq": "numVentureCards",
+          "valueReq": "2"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "newMembersValue",
+          "valueEffect": "5"
+        }
+      ]
+    },
+    {
+      "name": "Lucrezia Borgia",
+      "Requirements": [
+        {
+          "typeReq": "numCardsSameType",
+          "valueReq": "6"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "bonusColouredFamilyMemberValue",
+          "valueEffect": "2"
+        }
+      ]
+    },
+    {
+      "name": "Federico da Montefeltro",
+      "Requirements": [
+        {
+          "typeReq": "numTerritoryCards",
+          "valueReq": "5"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "newMemberValue",
+          "valueEffect": "6"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Lorenzo de' Medici",
+      "Requirements": [
+        {
+          "typeReq": "victoryPoint",
+          "valueReq": "35"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "copyTheAbility",
+          "valueEffect": "0"
+        }
+      ]
+    },
+    {
+      "name": "Sisto IV",
+      "Requirements": [
+        {
+          "typeReq": "wood",
+          "valueReq": "6"
+        },
+        {
+          "typeReq": "stone",
+          "valueReq": "6"
+        },
+        {
+          "typeReq": "coin",
+          "valueReq": "6"
+        },
+        {
+          "typeReq": "servant",
+          "valueReq": "6"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "bonusVictoryPointsOnChurch",
+          "valueEffect": "5"
+        }
+      ]
+    },
+    {
+      "name": "Cesare Borgia",
+      "Requirements": [
+        {
+          "typeReq": "numBuildingCards",
+          "valueReq": "3"
+        },
+        {
+          "typeReq": "coin",
+          "valueReq": "12"
+        },
+        {
+          "typeReq": "faithPoint",
+          "valueReq": "2"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "noMilitaryPointsRequirement",
+          "valueEffect": "0"
+        }
+      ]
+    },
+    {
+      "name": "Santa Rita",
+      "Requirements": [
+        {
+          "typeReq": "faithPoint",
+          "valueReq": "8"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "doubleGainFromCards",
+          "valueEffect": "0"
+        }
+      ]
+    },
+    {
+      "name": "Cosimo de' Medici",
+      "Requirements": [
+        {
+          "typeReq": "numCharacterCards",
+          "valueReq": "2"
+        },
+        {
+          "typeReq": "numBuildingCards",
+          "valueReq": "4"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "servant",
+          "valueEffect": "3"
+        },
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Bartolomeo Colleoni",
+      "Requirements": [
+        {
+          "typeReq": "numVentureCards",
+          "valueReq": "2"
+        },
+        {
+          "typeReq": "numTerritoryCards",
+          "valueReq": "4"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "victoryPoint",
+          "valueEffect": "4"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Ludovico III Gonzaga",
+      "Requirements": [
+        {
+          "typeReq": "servant",
+          "valueReq": "15"
+        }
+      ],
+      "OncePerRound": [
+        {
+          "effect": "councilPrivilege",
+          "valueEffect": "1"
+        }
+      ],
+      "PermanentBonus": []
+    },
+    {
+      "name": "Pico della Mirandola",
+      "Requirements": [
+        {
+          "typeReq": "numVentureCards",
+          "valueReq": "4"
+        },
+        {
+          "typeReq": "numBuildingCards",
+          "valueReq": "2"
+        }
+      ],
+      "OncePerRound": [],
+      "PermanentBonus": [
+        {
+          "effect": "coinsDiscountOnTakeCard",
+          "valueEffect": "3"
+        }
+      ]
+    }
+  ]
+}

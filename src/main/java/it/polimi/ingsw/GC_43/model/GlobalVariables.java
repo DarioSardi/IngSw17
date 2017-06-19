@@ -1,9 +1,15 @@
 package it.polimi.ingsw.GC_43.model;
 
+import java.io.Serializable;
+
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 
-public class GlobalVariables {
-	   public static int maxNumberOfPlayers;
+public class GlobalVariables implements Serializable{
+	   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 128365450850396921L;
+	public static int maxNumberOfPlayers;
 	   public static int numberOfFamilyMembers;
 	   public static int numberOfTowers;
 	   public static int numberOfDice;
@@ -12,12 +18,12 @@ public class GlobalVariables {
 	   public static int towerCardsPerRound;
 	   public static int towerCardsPerPeriod;
 	   public static int floorsPerTower;
-	   public static int totalNumberOfPeriods;		//TODO Per chi la usa cambi il nome, si chiamano periodi, non ere
+	   public static int totalNumberOfPeriods;
 	   public static int maxNumberPlayerCards;
 	   public static int initialWoods;
 	   public static int initialStones;
 	   public static int initialServants;
-	   public static int initialFirstPlayerCoins;	//FRANCESCO-SAMUEL dobbiamo pensare a come gestire le monete
+	   public static int initialFirstPlayerCoins;
 	   public static int initialSecondPlayerCoins;	
 	   public static int initialThirdPlayerCoins;	
 	   public static int initialFourthPlayerCoins;	
