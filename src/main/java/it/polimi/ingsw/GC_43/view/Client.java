@@ -35,7 +35,7 @@ public class Client {
 	private ClientInHandler inStream;
 	private static InetAddress ipAddr;
 	private Board board;
-	Lobby lobby;
+	private Lobby lobby;
 	Boolean idSetted,inMenu,inGame,online,actionPerformed,myTurn;
 	private Player myPlayer;
 
@@ -69,6 +69,10 @@ public class Client {
     
     public Player getMyPlayer(){
     	return this.myPlayer;
+    }
+    
+    public Lobby getLobby(){
+    	return this.lobby;
     }
 
 

@@ -43,6 +43,9 @@ public class Lobby implements Runnable{
 		}
 	}
 
+	public Controller getController(){
+		return this.controller;
+	}
 	
 	public void run() {
 		while(exist){
@@ -84,6 +87,12 @@ public class Lobby implements Runnable{
 		players.stream().forEach(p->p.sendMsgTo("message from "+cH.getUsername()+": "+nextLine));
 		
 	}
+	
+	public void broadcastObject(Object o) {
+		players.stream().forEach(p->p.sendObject(o));
+		
+	}
+	
 	public void broadcastSwitchMsg() {
 		players.stream().forEach(p->
 		{

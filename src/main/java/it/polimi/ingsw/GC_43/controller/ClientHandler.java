@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import it.polimi.ingsw.GC_43.model.actions.Action;
+
 public class ClientHandler implements Runnable{
 	private Socket socket;
 	private int ID;
@@ -172,6 +174,10 @@ public class ClientHandler implements Runnable{
 			if(o instanceof ChatMsg&&this.lobby!=null){
 				ChatMsg msg=(ChatMsg) o;
 				this.lobby.broadcastMsg(msg.getMsg(),this);
+			}
+			if(o instanceof Action){
+				Action action=(Action) o;
+				this.lobby.getController().submit(action);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
