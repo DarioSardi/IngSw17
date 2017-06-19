@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 
 public class InitGameTest {
+	private GlobalVariables globalVar;
 	private Board board;
 	
 	@Before
 	public void testInitGame() {
-		
-		GlobalVariablesInit.readGlobalVariables();
+		this.globalVar = new GlobalVariables();
+		GlobalVariablesInit.readGlobalVariables(globalVar);
 		ArrayList<String> players = new ArrayList<>();
 		players.add("Samuel");
 		players.add("Dario");
