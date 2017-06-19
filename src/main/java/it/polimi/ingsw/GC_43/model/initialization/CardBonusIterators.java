@@ -12,86 +12,104 @@ import org.json.simple.JSONObject;
  
 public class CardBonusIterators {	
 	
+	/**
+	 * @param bonus
+	 * @param iter
+	 */
 	public void iterator(ArrayList<Effect> bonus, Iterator<?> iter){
 		while (iter.hasNext()) {
 			JSONObject slide = (JSONObject) iter.next(); 
 			effectIterator(bonus, slide);
 		}
 	}
-		
+	
+	/**
+	 * Cards effects
+	 * @param bonus 
+	 * @param slide
+	 */
 	private void effectIterator(ArrayList<Effect> bonus, JSONObject slide){
 		String effect = (String)slide.get("effect");
 		float valueFloat = Float.parseFloat((String)slide.get("valueEffect"));
 		int valueEffect = (int) valueFloat;
-		if ("addDiceValueBuildingTower".equalsIgnoreCase(effect)) bonus.add(new AdditionalDiceValueToTower("buildingTower", valueEffect));
-		else if ("addDiceValueCharacterTower".equalsIgnoreCase(effect)) bonus.add(new AdditionalDiceValueToTower("characterTower", valueEffect));
-		else if (effect.equals("addDiceValueTerritoryTower")) bonus.add(new AdditionalDiceValueToTower("territoryTower", valueEffect));
-		else if (effect.equals("addDiceValueVentureTower")) bonus.add(new AdditionalDiceValueToTower("ventureTower", valueEffect));	
-		else if (effect.equals("addProductionDiceValue")) bonus.add(new AdditionalValueToDiceOnProduction(valueEffect));
-		else if (effect.equals("addHarvestDiceValue")) bonus.add(new AdditionalValueToDiceOnHarvest(valueEffect));
 		
-		else if (effect.equals("coinsMultiplierBuilding")) bonus.add(new CoinsMultiplierEffect(valueEffect, "buildingCards"));
-     	else if (effect.equals("coinsMultiplierTerritory")) bonus.add(new CoinsMultiplierEffect(valueEffect, "territoryCards"));
-     
-     	else if (effect.equals("disableFloorBonusEffect")) bonus.add(new DisableFloorBonusEffect());
-     	else if (effect.equals("disableMarketEffect")) bonus.add(new DisableMarketActionSpacesEffect());		
+		if(valueEffect>=0)
 		
-		else if (effect.equals("extraProduction")) bonus.add(new ExtraProductionAction(valueEffect));
-		else if (effect.equals("extraHarvest")) bonus.add(new ExtraHarvestAction(valueEffect));
-
-		else if (effect.equals("malusColouredFamilyMemberValue")) bonus.add(new MalusOnColouredFamilyMemberDiceValue(valueEffect));
-		else if (effect.equals("malusServant")) bonus.add(new TwoServantsCountAsOne());
-
-		else if (effect.equals("multCouncilPrivileges")) bonus.add(new MultipleCouncilPrivileges(valueEffect));
-		else if (effect.equals("multVictoryPointsBuilding")) bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "buildingCards"));
-		else if (effect.equals("multVictoryPointsCharacter")) bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "characterCards"));
-		else if (effect.equals("multVictoryPointsTerritory")) bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "territoryCards"));
-		else if (effect.equals("multVictoryPointsVenture")) bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "ventureCards"));
-		else if (effect.equals("multVictoryPointsMilitaryPoint")) bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "militaryPoint"));
-	
-		else if (effect.equals("multCoinsBuilding")) bonus.add(new CoinsMultiplierEffect(valueEffect, "buildingCards"));
-		else if (effect.equals("multCoinsTerritory")) bonus.add(new CoinsMultiplierEffect(valueEffect, "territoryCards"));
-		else if (effect.equals("multExchange")) {			
-			ChoiceEffectInit cei = new ChoiceEffectInit();
-			cei.multipleChoiceInit(slide);
-			bonus.add(cei.getMultChoice()); 
+		switch (effect) {
+		 
+		    case "addDiceValueBuildingTower": bonus.add(new AdditionalDiceValueToTower("buildingTower", valueEffect)); break;	     
+		    case "addDiceValueCharacterTower":  bonus.add(new AdditionalDiceValueToTower("characterTower", valueEffect)); break;	 
+		    case "addDiceValueTerritoryTower": bonus.add(new AdditionalDiceValueToTower("territoryTower", valueEffect)); break;	 
+		    case "addDiceValueVentureTower": bonus.add(new AdditionalDiceValueToTower("ventureTower", valueEffect)); break;	 
+		    case "addProductionDiceValue":  bonus.add(new AdditionalValueToDiceOnProduction(valueEffect)); break;
+		    case "addHarvestDiceValue":  bonus.add(new AdditionalValueToDiceOnHarvest(valueEffect)); break;
+		    
+		    case "disableFloorBonusEffect":  bonus.add(new DisableFloorBonusEffect()); break;
+		    case "disableMarketEffect":  bonus.add(new DisableMarketActionSpacesEffect()); break;
+		    
+		    case "extraProduction":  bonus.add(new ExtraProductionAction(valueEffect)); break;
+		    case "extraHarvest":  bonus.add(new ExtraHarvestAction(valueEffect)); break;
+		    
+		    case "malusColouredFamilyMemberValue": bonus.add(new MalusOnColouredFamilyMemberDiceValue(valueEffect)); break;
+		    case "malusServant": bonus.add(new TwoServantsCountAsOne()); break;
+		    
+		    case "multCouncilPrivileges": bonus.add(new MultipleCouncilPrivileges(valueEffect)); break;
+		    case "multVictoryPointsBuilding": bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "buildingCards")); break;
+		    case "multVictoryPointsCharacter": bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "characterCards")); break;
+		    case "multVictoryPointsTerritory": bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "territoryCards")); break;
+		    case "multVictoryPointsVenture": bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "ventureCards")); break;
+		    case "multVictoryPointsMilitaryPoint": bonus.add(new VictoryPointsMultiplierEffect(valueFloat, "militaryPoint")); break;
+		    case "multCoinsBuilding": bonus.add(new CoinsMultiplierEffect(valueEffect, "buildingCards")); break;
+		    case "multCoinsTerritory": bonus.add(new CoinsMultiplierEffect(valueEffect, "territoryCards")); break;
+		    case "multExchange": 
+		    	ChoiceEffectInit cei = new ChoiceEffectInit();
+		    	cei.multipleChoiceInit(slide);
+		    	bonus.add(cei.getMultChoice());  
+		    	break;
+		    case "extraCard": 
+				PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect);
+				pickExtraCardDiscount(slide, newExtraCard);
+				bonus.add(newExtraCard);
+		    	break;	     
+		    case "extraBuildingCard": 
+				PickExtraCardFromTower newExtraBuildingCard = new PickExtraCardFromTower(valueEffect, "buildingCards");
+				pickExtraCardDiscount(slide, newExtraBuildingCard);
+				bonus.add(newExtraBuildingCard);
+		    	break;	 
+		    case "extraCharacterCard": 
+		    	PickExtraCardFromTower newExtraCharacterCard = new PickExtraCardFromTower(valueEffect, "characterCards");
+		    	pickExtraCardDiscount(slide, newExtraCharacterCard);
+		    	bonus.add(newExtraCharacterCard);
+		    	break;	 
+		    case "extraTerritoryCard": 
+				PickExtraCardFromTower newExtraTerritoryCard = new PickExtraCardFromTower(valueEffect, "territoryCards");
+				pickExtraCardDiscount(slide, newExtraTerritoryCard);
+				bonus.add(newExtraTerritoryCard);
+		    	break;	 
+		    case "extraVentureCard": 
+		    	PickExtraCardFromTower newExtraVentureCard = new PickExtraCardFromTower(valueEffect, "ventureCards");
+		    	pickExtraCardDiscount(slide, newExtraVentureCard);
+		    	bonus.add(newExtraVentureCard);
+		    	break;	 
+		    	
+		    case "coin": bonus.add(new ResourceEffect(new Coin(valueEffect))); break;	 
+		    case "servant": bonus.add(new ResourceEffect(new Servant(valueEffect))); break;	 
+		    case "stone": bonus.add(new ResourceEffect(new Stone(valueEffect))); break;	 
+		    case "wood": bonus.add(new ResourceEffect(new Wood(valueEffect))); break;	 
+		    case "faithPoint": bonus.add(new ResourceEffect(new FaithPoint(valueEffect))); break;	 
+		    case "militaryPoint": bonus.add(new ResourceEffect(new MilitaryPoint(valueEffect))); break;	 
+		    case "victoryPoint": bonus.add(new ResourceEffect(new VictoryPoint(valueEffect))); break;	 
+		    case "councilPrivilege": bonus.add(new ResourceEffect(new CouncilPrivilege(valueEffect))); break;	 
+		    default: System.out.println("Effect: " + effect + "not found");
 		}
-		else if (effect.equals("extraCard")){
-			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect);
-			pickExtraCardDiscount(slide, newExtraCard);
-			bonus.add(newExtraCard);
-		}
-		else if (effect.equals("extraBuildingCard")){
-			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect, "buildingCards");
-			pickExtraCardDiscount(slide, newExtraCard);
-			bonus.add(newExtraCard);
-		}
-		else if (effect.equals("extraCharacterCard")){
-			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect, "characterCards");
-			pickExtraCardDiscount(slide, newExtraCard);
-			bonus.add(newExtraCard);
-		}
-		else if (effect.equals("extraTerritoryCard")){
-			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect, "territoryCards");
-			pickExtraCardDiscount(slide, newExtraCard);
-			bonus.add(newExtraCard);
-		}
-		else if (effect.equals("extraVentureCard")){
-			PickExtraCardFromTower newExtraCard = new PickExtraCardFromTower(valueEffect, "ventureCards");
-			pickExtraCardDiscount(slide, newExtraCard);
-			bonus.add(newExtraCard);
-		}
- 
-		else if (effect.equals("coin")) bonus.add(new ResourceEffect(new Coin(valueEffect)));
-     	else if (effect.equals("servant")) bonus.add(new ResourceEffect(new Servant(valueEffect)));
-     	else if (effect.equals("stone")) bonus.add(new ResourceEffect(new Stone(valueEffect)));
-     	else if (effect.equals("wood")) bonus.add(new ResourceEffect(new Wood(valueEffect)));
-     	else if (effect.equals("faithPoint")) bonus.add(new ResourceEffect(new FaithPoint(valueEffect)));
-     	else if (effect.equals("militaryPoint")) bonus.add(new ResourceEffect(new MilitaryPoint(valueEffect)));
-     	else if (effect.equals("victoryPoint")) bonus.add(new ResourceEffect(new VictoryPoint(valueEffect)));
-     	else if (effect.equals("councilPrivilege")) bonus.add(new ResourceEffect(new CouncilPrivilege(valueEffect)));
+		else System.out.println("Negative value to effect " + effect + "not accepted");
 	}
 	
+	/**
+	 * Import discount to PickExtraCardFromTower effect
+	 * @param slide Discount's JSONOBject
+	 * @param newExtraCard Effect
+	 */
 	private void pickExtraCardDiscount(JSONObject slide, PickExtraCardFromTower newExtraCard){
 		JSONArray discountArray = (JSONArray) slide.get("Discount");
         Iterator<?> discountIterator = discountArray.iterator();
@@ -100,7 +118,9 @@ public class CardBonusIterators {
 			JSONObject slide2 = (JSONObject) discountIterator.next();
 			String discountType = (String)slide2.get("discountType");
 			int discountValue = Integer.parseInt((String)slide2.get("discountValue"));
+			if(discountValue > 0)
 			newExtraCard.setDiscount(discountType, discountValue);
+			else System.out.println("Negative discount value not possible");
 		 }
 	}
 }

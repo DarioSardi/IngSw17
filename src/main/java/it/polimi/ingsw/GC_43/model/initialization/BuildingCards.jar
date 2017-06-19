@@ -457,7 +457,7 @@
       ],
       "PermanentBonus": [
         {
-          "effect": "multVictoryPointsTerritory",
+          "effect": "multCoinsTerritory",
           "valueEffect": "1"
         }
       ],
@@ -735,7 +735,7 @@
       ],
       "PermanentBonus": [
         {
-          "effect": "multVictoryPointsCharacter",
+          "effect": "multCoinsBuilding",
           "valueEffect": "1"
         }
       ],

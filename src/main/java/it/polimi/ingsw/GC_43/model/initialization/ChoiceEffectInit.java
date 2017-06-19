@@ -7,8 +7,8 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
  
- 
 public class ChoiceEffectInit {	
+	
 	MultipleChoiceEffect multChoices;
 	
 	public ChoiceEffectInit (){
@@ -16,6 +16,10 @@ public class ChoiceEffectInit {
 	}
 		
 	
+	/**
+	 * Imports building cards and privilege council multiple choices
+	 * @param slide
+	 */
 	public void multipleChoiceInit(JSONObject slide){	
 		JSONArray choices = (JSONArray) slide.get("Choices");
         Iterator<?> iter = choices.iterator();
