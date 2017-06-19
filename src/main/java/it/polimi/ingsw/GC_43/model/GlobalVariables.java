@@ -18,12 +18,12 @@ public class GlobalVariables implements Serializable{
 	   public static int towerCardsPerRound;
 	   public static int towerCardsPerPeriod;
 	   public static int floorsPerTower;
-	   public static int totalNumberOfPeriods;		//TODO Per chi la usa cambi il nome, si chiamano periodi, non ere
+	   public static int totalNumberOfPeriods;
 	   public static int maxNumberPlayerCards;
 	   public static int initialWoods;
 	   public static int initialStones;
 	   public static int initialServants;
-	   public static int initialFirstPlayerCoins;	//FRANCESCO-SAMUEL dobbiamo pensare a come gestire le monete
+	   public static int initialFirstPlayerCoins;
 	   public static int initialSecondPlayerCoins;	
 	   public static int initialThirdPlayerCoins;	
 	   public static int initialFourthPlayerCoins;	

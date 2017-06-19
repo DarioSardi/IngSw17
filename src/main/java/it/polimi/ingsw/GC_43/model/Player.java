@@ -182,9 +182,6 @@ public class Player implements Serializable{
 	public void setExtraActions(ArrayList<Action> extraActions) {
 		this.extraActions = extraActions;
 	}
-
-	
-	
 	
 	public FamilyMember findFamilyMemberByColor(int color){
 		int i=0;
@@ -193,17 +190,17 @@ public class Player implements Serializable{
 	}
 	
 	public String printFamilyMembers(){
-		String s = "";
+		String s="Family Members:\n";
 		for (int i=0; i < this.familyMembers.size(); i++)
-			s = s + "FamilyMember "+ i +") " +'\n' + this.familyMembers.get(i).toString()+'\n';	
+			s = s + i +") " +'\n' + this.familyMembers.get(i).toString()+"\n\n";
 		return s;
 	}
 	
 	public String printFreeFamilyMembers(){
-		String s="";
+		String s="Family Members:\n";
 		for (int i=0; i < this.familyMembers.size(); i++)
 			if(this.familyMembers.get(i).getFamilyMemberPosition() == null)
-				s = s + "FamilyMember "+ i +") " +'\n' + this.familyMembers.get(i).toString()+'\n';
+				s = s + i +") " +'\n' + this.familyMembers.get(i).toString()+"\n\n";
 		return s;
 	}
 	
