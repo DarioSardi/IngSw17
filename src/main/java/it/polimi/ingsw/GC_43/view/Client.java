@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionCreations.MarketActionCreationRoutine;
 import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
@@ -38,6 +39,7 @@ public class Client {
 	private Lobby lobby;
 	Boolean idSetted,inMenu,inGame,online,actionPerformed,myTurn;
 	private Player myPlayer;
+	private GlobalVariables gameGlobalVariables;
 
     public Client() throws IOException{
     	setup();
@@ -46,7 +48,7 @@ public class Client {
     	this.inMenu=true;
     	this.inGame=false;
     	//DARIO test,da settare col controller
-    	this.myTurn=true;
+    	this.myTurn=false;
     	this.actionPerformed=false;
     	
     	connect();
@@ -74,9 +76,20 @@ public class Client {
     public Lobby getLobby(){
     	return this.lobby;
     }
+    
+    
+	public GlobalVariables getGameGlobalVariables() {
+		return this.gameGlobalVariables;
+	}
 
 
-	
+
+	public void setGameGlobalVariables(GlobalVariables gameGlobalVariables) {
+		this.gameGlobalVariables = gameGlobalVariables;
+	}
+
+
+
 	public void setID(int ID){
 		this.ID=ID;
 		

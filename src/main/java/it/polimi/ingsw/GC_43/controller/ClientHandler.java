@@ -177,7 +177,7 @@ public class ClientHandler implements Runnable{
 			}
 			if(o instanceof Action){
 				Action action=(Action) o;
-				this.lobby.getController().submit(action);
+				this.lobby.getController().submitClientAction(action);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
