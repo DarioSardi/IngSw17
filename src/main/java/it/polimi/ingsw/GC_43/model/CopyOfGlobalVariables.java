@@ -10,7 +10,7 @@ public class CopyOfGlobalVariables implements Serializable{
 	 */
 	private static final long serialVersionUID = 128365450850396921L;
 	
-	   CopyOfGlobalVariables(){
+	   public CopyOfGlobalVariables(){
 		   maxNumberOfPlayers = GlobalVariables.maxNumberOfPlayers;
 	   }
 	   public int maxNumberOfPlayers;
