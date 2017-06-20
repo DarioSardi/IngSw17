@@ -81,7 +81,10 @@ public class Server {
 	}
 	
 	public boolean joinLobby(Integer lobbyNumber,ClientHandler cH){
-		return this.lobbies.get(lobbyNumber).addPlayer(cH);
+		if (this.lobbies.containsKey(lobbyNumber)) {
+			return this.lobbies.get(lobbyNumber).addPlayer(cH);
+		}
+		else return false;
 	}
 
 
