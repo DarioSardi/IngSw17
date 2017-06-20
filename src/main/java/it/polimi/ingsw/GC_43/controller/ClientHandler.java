@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.model.actions.MarketAction;
 
 public class ClientHandler implements Runnable{
 	private Socket socket;
@@ -118,7 +119,7 @@ public class ClientHandler implements Runnable{
 		boolean inlobby=true;
 		Game=false;
 		while(inlobby){
-			if (!Game) {
+			if (!this.Game) {
 				String command = readMsg();
 				if (command.equals("exit_lobby")) {
 					//DARIO rimuovi lobby
@@ -130,6 +131,7 @@ public class ClientHandler implements Runnable{
 					lobby.broadcastMsg(msg, this);
 				} else if (command.equals("start_game")) {
 					if (lobby.startGame(this)) {
+						this.Game=true;
 						inGame();
 					} else {
 						sendMsgTo("you are not the admin...");
@@ -161,7 +163,8 @@ public class ClientHandler implements Runnable{
 	private void inGame() {
 		sendMsgTo("You are now in game!");
 		sendMsgTo("system_ingame_switch");
-		while(Game){
+		System.out.println("ready to recive"+Game);
+		while(this.Game){
 			receive();
 		}
 		
@@ -171,11 +174,13 @@ public class ClientHandler implements Runnable{
 	private void receive() {
 		try {
 			Object o=socketIn.readObject();
+			System.out.println(o.toString());
 			if(o instanceof ChatMsg&&this.lobby!=null){
 				ChatMsg msg=(ChatMsg) o;
 				this.lobby.broadcastMsg(msg.getMsg(),this);
 			}
-			if(o instanceof Action){
+			else if(o instanceof Action){
+				System.out.println("action received!"+ o.toString());
 				Action action=(Action) o;
 				this.lobby.getController().submitClientAction(action);
 			}

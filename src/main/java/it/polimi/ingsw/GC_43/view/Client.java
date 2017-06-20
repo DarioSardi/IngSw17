@@ -23,6 +23,7 @@ import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionCreations.MarketActionCreationRoutine;
 import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
+import it.polimi.ingsw.GC_43.model.initialization.GlobalVariablesInit;
 
 public class Client {
 	private int port,ID;
@@ -47,6 +48,7 @@ public class Client {
     	this.online=true;
     	this.inMenu=true;
     	this.inGame=false;
+    	this.gameGlobalVariables=new GlobalVariables();
     	//DARIO test,da settare col controller
     	this.myTurn=false;
     	this.actionPerformed=false;
@@ -86,6 +88,8 @@ public class Client {
 
 	public void setGameGlobalVariables(GlobalVariables gameGlobalVariables) {
 		this.gameGlobalVariables = gameGlobalVariables;
+	    GlobalVariablesInit.readGlobalVariables(this.gameGlobalVariables);
+	    System.out.println("familiars: "+ this.gameGlobalVariables.numberOfFamilyMembers);
 	}
 
 
@@ -178,6 +182,7 @@ public class Client {
 	 }
 	
 	public void sendObj(Object o){
+		System.out.println("invio oggetto "+o.toString());
 		this.outStream.sendObj(o);
 	}
 
