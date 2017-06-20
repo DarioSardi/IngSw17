@@ -77,14 +77,11 @@ public class FamilyMember implements Serializable{
     public ActionSpace getFamilyMemberPosition() {
         return familyMemberPosition;
     }
+    
     public void setFamilyMemberPosition(ActionSpace actionSpace) {
         this.familyMemberPosition = actionSpace;
      }
- /*   
-    public int getDiceValue(){ //SAMUEL da far togliere a Dario
-    	return this.die.getDieValue();
-    }
- */
+    
     public int getDiceValue(){
     	return this.diceValue;
     }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.cards.Card;
 import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.cards.VentureCard;
@@ -18,23 +19,13 @@ public class PlayerCards implements Serializable{
 	private ArrayList<VentureCard> ventureCards;
 	private ArrayList<CharacterCard> characterCards;
 	private ArrayList<TerritoryCard> territoryCards;
-	/*
-	private ArrayList<Bonus> defaultBonusHarvest;
-	private ArrayList<Bonus> defaultBonusBuildings;
-	*/
 	public PlayerCards (){
-		this.buildingCards = new ArrayList<BuildingCard>();
-    	this.ventureCards = new ArrayList<VentureCard>();
-    	this.territoryCards= new ArrayList<TerritoryCard>();
-    	this.characterCards = new ArrayList<CharacterCard>();
-    /*
-    	this.defaultBonusHarvest = new ArrayList<Bonus>();
-    	this.defaultBonusBuildings = new ArrayList<Bonus>();
-    */
+		this.buildingCards = new ArrayList<>();
+    	this.ventureCards = new ArrayList<>();
+    	this.territoryCards= new ArrayList<>();
+    	this.characterCards = new ArrayList<>();
 	}
 	
-	//DARIO-SAMUEL implementare minMilitaryPoints per l'acquisto carta verde
-	//TODO Aggiungere hashmap militaryPointRequirements per carte verdi
 	public BuildingCard getBuildingCard(int numCarta){
 		return buildingCards.get(numCarta);	
 	}
@@ -78,11 +69,26 @@ public class PlayerCards implements Serializable{
 	}
 	
 	public boolean canIAdd(int actualNumCards){
-		if(actualNumCards <= GlobalVariables.maxNumberPlayerCards) return true;
-		else return false;
+		return (actualNumCards <= GlobalVariables.maxNumberPlayerCards);
 	}
 	
+	
+	public String toStringForType(ArrayList<? extends Card> cardsList){
+		String s ="";	
+		for (int i=0; i < this.territoryCards.size(); i++)
+			s = s + this.territoryCards.get(i).toString() + '\n';
+		return s;
+	}
 	public String toString(){
-		return "";
+		String s="";
+		s = s + TerritoryCard.TYPE +'\n';
+		s = s + toStringForType(this.territoryCards);
+		s = s + CharacterCard.TYPE +'\n';
+		s = s + toStringForType(this.characterCards);			
+		s = s + BuildingCard.TYPE +'\n';
+		s = s + toStringForType(this.buildingCards);			
+		s = s + VentureCard.TYPE +'\n';
+		s = s + toStringForType(this.ventureCards);			
+		return s;
 	}
 }

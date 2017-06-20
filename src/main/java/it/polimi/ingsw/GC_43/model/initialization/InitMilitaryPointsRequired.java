@@ -17,6 +17,9 @@ public class InitMilitaryPointsRequired {
 		this.militaryPointsRequired = new Integer[GlobalVariables.maxNumberPlayerCards+1];
 	}
 
+	/**
+	 * Initializes an array that tell how many military points are required to buy a territory card
+	 */
 	public void readMilitaryPointsRequired() {
         JSONParser parser = new JSONParser();
  

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
 import it.polimi.ingsw.GC_43.model.effects.*;
+import it.polimi.ingsw.GC_43.model.resources.Coin;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -14,6 +16,11 @@ public class ExcommunicationTilesIterators {
 		this.malus = new ArrayList<>();
 	}
 	
+	/**
+	 * Add malus to Excommunication Tiles
+	 * 
+	 * @param iter
+	 */
 	public void iterator(Iterator<?> iter){
 		while (iter.hasNext()) {
 			JSONObject slide = (JSONObject) iter.next(); 
@@ -23,25 +30,29 @@ public class ExcommunicationTilesIterators {
 				this.malus.add(new MalusOnFinalVictoryPoints(malusOn));
 			}
 			else{
-				int valueEffect = Integer.valueOf((String)slide.get("value"));
-				if (type.equals("malusOnGetMilitaryPoints")) this.malus.add(new MalusOnGetResources("militaryPoint", valueEffect));
-				else if (type.equals("malusOnGetCoins")) this.malus.add(new MalusOnGetResources("coin", valueEffect));
-				else if (type.equals("malusOnGetWood")) this.malus.add(new MalusOnGetResources("wood", valueEffect));
-				else if (type.equals("malusOnGetStone")) this.malus.add(new MalusOnGetResources("stone", valueEffect));
-				else if (type.equals("malusOnGetServant")) this.malus.add(new MalusOnGetResources("servant", valueEffect));
-				else if (type.equals("malusOnFamilyMemberDiceValue")) this.malus.add(new MalusOnColouredFamilyMemberDiceValue(valueEffect));
-				else if (type.equals("malusOnBuildingTower")) this.malus.add(new AdditionalDiceValueToTower("buildingTower", -valueEffect));
-				else if (type.equals("malusOnCharacterTower")) this.malus.add(new AdditionalDiceValueToTower("characterTower", -valueEffect));
-				else if (type.equals("malusOnTerritoryTower")) this.malus.add(new AdditionalDiceValueToTower("territoryTower", -valueEffect));
-				else if (type.equals("malusOnVentureTower")) this.malus.add(new AdditionalDiceValueToTower("ventureTower", -valueEffect));
-				else if (type.equals("malusOnProduction")) this.malus.add(new AdditionalValueToDiceOnProduction(-valueEffect));
-				else if (type.equals("malusOnHarvest")) this.malus.add(new AdditionalValueToDiceOnHarvest(-valueEffect));
-				else if (type.equals("twoServantsCountAsOne")) this.malus.add(new TwoServantsCountAsOne());
-				else if (type.equals("malusOnFirstTurn")) this.malus.add(new GetBackMoveAtTheEnd());
-				else if (type.equals("malusOnMarket")) this.malus.add(new DisableMarketActionSpacesEffect());	
-				else System.out.println("Effetto non trovato");
-			}		
-	    }
+				int valueEffect = Integer.parseInt((String)slide.get("value"));
+			
+				switch (type) {     	
+			    case "malusOnGetMilitaryPoints": this.malus.add(new MalusOnGetResources("militaryPoint", valueEffect)); break;
+			    case "malusOnGetCoins": this.malus.add(new MalusOnGetResources("coin", valueEffect)); break;
+			    case "malusOnGetWood": this.malus.add(new MalusOnGetResources("wood", valueEffect)); break;
+			    case "malusOnGetStone": this.malus.add(new MalusOnGetResources("stone", valueEffect)); break;
+			    case "malusOnGetServant": this.malus.add(new MalusOnGetResources("servant", valueEffect)); break;
+			    case "malusOnFamilyMemberDiceValue": this.malus.add(new MalusOnColouredFamilyMemberDiceValue(valueEffect)); break;
+			    case "malusOnBuildingTower": this.malus.add(new AdditionalDiceValueToTower("buildingTower", -valueEffect)); break;
+			    case "malusOnCharacterTower": this.malus.add(new AdditionalDiceValueToTower("characterTower", -valueEffect)); break;
+			    case "malusOnTerritoryTower": this.malus.add(new AdditionalDiceValueToTower("territoryTower", -valueEffect)); break;
+			    case "malusOnVentureTower": this.malus.add(new AdditionalDiceValueToTower("ventureTower", -valueEffect)); break;
+			    case "malusOnProduction": this.malus.add(new AdditionalValueToDiceOnProduction(-valueEffect)); break;
+			    case "malusOnHarvest": this.malus.add(new AdditionalValueToDiceOnHarvest(-valueEffect)); break;
+			    case "twoServantsCountAsOne": this.malus.add(new TwoServantsCountAsOne()); break;
+			    case "malusOnFirstTurn": this.malus.add(new GetBackMoveAtTheEnd()); break;
+			    case "malusOnMarket": this.malus.add(new DisableMarketActionSpacesEffect()); break;
+			    
+				default: System.out.println("Effetto non trovato");
+				}		
+		    }
+		}
 	}
 	
 	public ArrayList<Effect> getMalus(){

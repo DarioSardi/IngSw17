@@ -23,6 +23,9 @@ public class InitPlayerPersonalBonus {
 		this.allAdvancedPersonalHarvestBonusTiles = new ArrayList<>();
 	}
 	
+	/**
+	 * Initialize players personal bonus
+	 */
 	public void readJson() {
         JSONParser parser = new JSONParser();
  
