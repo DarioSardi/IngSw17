@@ -72,8 +72,10 @@ public class Controller implements IController {
 
 		//TODO to decommenti, wait for SAM
 	    private void sendGlobalVariablesToClients() {
+	    	GlobalVariables gv = this.globalVariables;
 	    	for(ClientHandler clientHandler : this.clientHandlers){
-    			clientHandler.sendObject(this.globalVariables);
+    			clientHandler.sendObject(gv);
+    			System.out.println("numberOfFamliars "+this.globalVariables.numberOfFamilyMembers);
     		}		
 		}
 
@@ -119,6 +121,7 @@ public class Controller implements IController {
 	    	
 	    	
 	    	this.globalVariables=globalVariables;
+	    	
 	    	
 	    	System.out.println("Creating board");
 
