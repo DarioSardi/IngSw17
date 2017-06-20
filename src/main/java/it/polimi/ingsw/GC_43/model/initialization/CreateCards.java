@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
+import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 import it.polimi.ingsw.GC_43.model.cards.*;
 import it.polimi.ingsw.GC_43.model.effects.*;
 
@@ -27,11 +28,14 @@ public class CreateCards {
 		this.cards = new ArrayList<>();
     	this.instantBonus = new ArrayList<>();		
     	this.permanentBonus = new ArrayList<>();
-    	//this.costEffect = new CostEffect(null);
     	this.cardBonusIterators = new CardBonusIterators();
-    	//this.cardCostIterators = new CardCostIterators();
 	}
     
+	/**
+	 * Import all the cards of a specific tower
+	 * @param obj
+	 * @return type
+	 */
 	public ArrayList<Card> readCards(Object obj) { 
     	
          JSONObject jsonObject = (JSONObject) obj;
@@ -42,13 +46,11 @@ public class CreateCards {
          while (iterator1.hasNext()) {
         	 JSONObject slides = (JSONObject) iterator1.next();
          
-             // First I take the global data
              this.name = (String) slides.get("Name");
              this.type = (String) slides.get("Type");
         	 this.period = Integer.valueOf((String)slides.get("Period"));
 
 
-             // Now we try to take the data from "presentationSlides" array
              JSONArray instantBonusIterator = (JSONArray) slides.get("InstantBonus");
              this.cardBonusIterators.iterator(this.instantBonus, instantBonusIterator.iterator());
              
@@ -97,7 +99,10 @@ public class CreateCards {
          return selectRandomCards();
     }
 	
-	private ArrayList<Card> selectRandomCards(){
+	/**
+	 * @return selectRandomCards Return the cards selected for the game.
+	 */
+	private ArrayList<Card> selectRandomCards() throws ExceptionInInitializerError{
 		ArrayList<Card> cardsByType = new ArrayList<>();
 		ArrayList<Card> cardsByPeriod;
 		for(int i=1; i <= GlobalVariables.totalNumberOfPeriods; i++){
@@ -107,6 +112,9 @@ public class CreateCards {
 				if(cards.get(j).getCardEra() == i) cardsByPeriod.add(cards.get(j));
 			}
 			
+				if (cardsByPeriod.size() < GlobalVariables.towerCardsPerPeriod) {
+					throw new ExceptionInInitializerError("Insufficient number of cards!");
+				}
 			Collections.shuffle(cardsByPeriod);
 			while (cardsByPeriod.size() > GlobalVariables.towerCardsPerPeriod){
 				cardsByPeriod.remove(cardsByPeriod.size()-1);

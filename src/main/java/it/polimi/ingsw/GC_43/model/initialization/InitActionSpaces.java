@@ -23,7 +23,8 @@ public class InitActionSpaces {
         this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));        
+        this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));     
+        //Add here a new tower
 	}
 	
 	public void readJson() {
@@ -154,8 +155,6 @@ public class InitActionSpaces {
 		      			slide = (JSONObject) floorsBonusIterator.next();
      			}
    	 	 	}
-            
-            // Exception se il numero di torri è minore del massimo??
 		}
 	}
 	

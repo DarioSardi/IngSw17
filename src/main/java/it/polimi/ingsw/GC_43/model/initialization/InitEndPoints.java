@@ -16,6 +16,9 @@ public class InitEndPoints {
         this.endTerritoryPoints = new Integer[GlobalVariables.maxNumberPlayerCards+1];
 	}
 	
+	/**
+	 * Initialize victory points at the end of the game 
+	 */
 	public void readJson() {
         JSONParser parser = new JSONParser();
  
@@ -56,7 +59,7 @@ public class InitEndPoints {
      			}	     			
      		 }
              
-    	 System.out.println("inizializzati gli end points");
+    	 System.out.println("Inizializzati gli end points");
          }
            	 	
         } catch (Exception e) {

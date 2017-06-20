@@ -67,20 +67,32 @@ public class Player implements Serializable{
 		this.playerResources = resources;
 	}
 	
-	public void setPlayerResource(String resource, int value){
+	public void setPlayerResource(String resource, int value) throws Exception{
+		if ("coin".equals(resource)||"servant".equals(resource)||"stone".equals(resource)||"wood".equals(resource)||
+			"victoryPoint".equals(resource)||"militaryPoint".equals(resource)||"faithPoint".equals(resource))
 		this.playerResources.put(resource, value);
+		else throw new Exception();
 	}
 	
 	public int getPlayerResource(String resource){
 		return this.playerResources.get(resource);
 	}
 	
-	public void addResource(String resource, int value){
+	public void addResource(String resource, int value) throws Exception{
+		if ("coin".equals(resource)||"servant".equals(resource)||"stone".equals(resource)||"wood".equals(resource)||
+				"victoryPoint".equals(resource)||"militaryPoint".equals(resource)||"faithPoint".equals(resource))
 		this.playerResources.put(resource, this.getPlayerResource(resource) + value);
+		else throw new Exception();
+//Far controllare a Fra che i valori siano > 0
 	}
 	
-	public void subResource(String resource, int value){
-		this.playerResources.put(resource, getPlayerResource(resource) - value);
+	public void subResource(String resource, int value)throws Exception{
+		if (
+			"coin".equals(resource)||"servant".equals(resource)||"stone".equals(resource)||"wood".equals(resource)||
+			"victoryPoint".equals(resource)||"militaryPoint".equals(resource)||"faithPoint".equals(resource))
+				this.playerResources.put(resource, this.getPlayerResource(resource) - value);
+		else throw new Exception();
+//Far controllare a Fra che i valori siano > 0
 	}
 	
 	public PlayerCards getPlayerCards() {
@@ -112,13 +124,15 @@ public class Player implements Serializable{
 	}
 
 	/**
-	 * Returns, for the period selected, if the player has the excommunication
+	 * Returns a boolean that tells if the player has the excommunication in the period
 	 * @param period 
 	 * @return if true, the player has an excommunication 
 	 */
 	
 	public boolean getExcommunications(int period){
+		if (period >= 0 && period <= GlobalVariables.totalNumberOfPeriods)
 		return this.excommunications.get(period-1);
+		else return false;
 	}
 		
 	public PlayerBonusMalus getPlayerBounusMalus() {
@@ -155,18 +169,29 @@ public class Player implements Serializable{
 		this.familyMembers.add(familyMember);
 	}
 
+	/**
+	 * Set the family members position to null.
+	 */
 	public void reinitializeFamilyMemberPosition(){
 		for(int i=0; i < GlobalVariables.numberOfFamilyMembers;  i ++){
 			this.familyMembers.get(i).setFamilyMemberPosition(null);
 		}
 	}
 	
+	/**
+	 * Set the value of the malus on die for each family member.
+	 * 
+	 * @param malusOnDie Value of the malus on die.
+	 */
 	public void assignsDieMalusToFamilyMembers(int malusOnDie){ //FRANCESCO-SAMUEL Metodo per settare il malus
 		for(int i = 0; i < this.familyMembers.size(); i++){
 			this.familyMembers.get(i).setMalusOnDie(malusOnDie);
 		}
 	}	
 
+	/**
+	 * @return free Returns an ArrayList of family members not yet positioned
+	 */
 	public ArrayList<FamilyMember> getFreeFamilyMembers(){
 		ArrayList<FamilyMember> free = new ArrayList<FamilyMember>();
 		for (int i=0; i < this.familyMembers.size(); i++)
@@ -183,6 +208,10 @@ public class Player implements Serializable{
 		this.extraActions = extraActions;
 	}
 	
+	/**
+	 * @param color 
+	 * @return Returns the familyMember with the required color.
+	 */
 	public FamilyMember findFamilyMemberByColor(int color){
 		int i=0;
 		while (this.familyMembers.get(i).getColor()!=color){i++;}
@@ -205,6 +234,7 @@ public class Player implements Serializable{
 	}
 	
 	@Override
+	//Player resources
 	public String toString(){
 		String s="Player: " + this.getPlayerName() + '\n';	  
 		for (Map.Entry<String, Integer> entry : this.playerResources.entrySet()) {

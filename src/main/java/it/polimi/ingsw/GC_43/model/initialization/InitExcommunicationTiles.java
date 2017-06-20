@@ -64,6 +64,9 @@ public class InitExcommunicationTiles {
 	}
 	
 	
+	/**
+	 * Select only one effect from a list of effects of the same period
+	 */
 	private void selectRandomExcommTiles(){
 			Collections.shuffle(this.malusExcommunicationTiles);
 			this.malusExcommunicationSelected.add(this.malusExcommunicationTiles.get(0));

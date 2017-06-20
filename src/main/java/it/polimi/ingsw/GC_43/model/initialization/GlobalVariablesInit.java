@@ -16,7 +16,7 @@ public class GlobalVariablesInit implements Serializable{
 	 */
 	private static final long serialVersionUID = -2631448818732722455L;
 
-	public static void readGlobalVariables(GlobalVariables globalVar) {
+	public static void readGlobalVariables() {
         JSONParser parser = new JSONParser();
  
         try {
@@ -29,40 +29,40 @@ public class GlobalVariablesInit implements Serializable{
 	        while (iterator1.hasNext()) {
 		       	JSONObject slides = (JSONObject) iterator1.next();
 		        
-		       	globalVar.maxNumberOfPlayers = Integer.valueOf((String)slides.get("maxNumberOfPlayers"));
-		       	globalVar.numberOfFamilyMembers = Integer.valueOf((String)slides.get("numberOfFamilyMembers"));
-		       	globalVar.numberOfTowers = Integer.valueOf((String)slides.get("numberOfTowers"));
-		       	globalVar.numberOfDice = Integer.valueOf((String)slides.get("numberOfDice"));
-		       	globalVar.excommunicationRound = Integer.valueOf((String)slides.get("excommunicationRound"));
-		       	globalVar.totalNumberOfCardsPerSet = Integer.valueOf((String)slides.get("totalNumberOfCardsPerSet"));
-		       	globalVar.towerCardsPerRound = Integer.valueOf((String)slides.get("towerCardsPerRound"));
-		       	globalVar.towerCardsPerPeriod = Integer.valueOf((String)slides.get("towerCardsPerPeriod"));
-		       	globalVar.floorsPerTower = Integer.valueOf((String)slides.get("floorsPerTower"));
-		       	globalVar.totalNumberOfPeriods = Integer.valueOf((String)slides.get("totalNumberOfPeriods"));
-		       	globalVar.maxNumberPlayerCards = Integer.valueOf((String)slides.get("maxNumberPlayerCards"));
-		       	globalVar.initialWoods = Integer.valueOf((String)slides.get("initialWoods"));
-		       	globalVar.initialStones = Integer.valueOf((String)slides.get("initialStones"));
-		       	globalVar.initialServants = Integer.valueOf((String)slides.get("initialServants"));
-		       	globalVar.initialFirstPlayerCoins = Integer.valueOf((String)slides.get("initialFirstPlayerCoins"));
-		       	globalVar.initialSecondPlayerCoins = Integer.valueOf((String)slides.get("initialSecondPlayerCoins"));
-		       	globalVar.initialThirdPlayerCoins = Integer.valueOf((String)slides.get("initialThirdPlayerCoins"));
-		       	globalVar.initialFourthPlayerCoins = Integer.valueOf((String)slides.get("initialFourthPlayerCoins"));
+		       	GlobalVariables.maxNumberOfPlayers = Integer.valueOf((String)slides.get("maxNumberOfPlayers"));
+		       	GlobalVariables.numberOfFamilyMembers = Integer.valueOf((String)slides.get("numberOfFamilyMembers"));
+		       	GlobalVariables.numberOfTowers = Integer.valueOf((String)slides.get("numberOfTowers"));
+		       	GlobalVariables.numberOfDice = Integer.valueOf((String)slides.get("numberOfDice"));
+		       	GlobalVariables.excommunicationRound = Integer.valueOf((String)slides.get("excommunicationRound"));
+		       	GlobalVariables.totalNumberOfCardsPerSet = Integer.valueOf((String)slides.get("totalNumberOfCardsPerSet"));
+		       	GlobalVariables.towerCardsPerRound = Integer.valueOf((String)slides.get("towerCardsPerRound"));
+		       	GlobalVariables.towerCardsPerPeriod = Integer.valueOf((String)slides.get("towerCardsPerPeriod"));
+		       	GlobalVariables.floorsPerTower = Integer.valueOf((String)slides.get("floorsPerTower"));
+		       	GlobalVariables.totalNumberOfPeriods = Integer.valueOf((String)slides.get("totalNumberOfPeriods"));
+		       	GlobalVariables.maxNumberPlayerCards = Integer.valueOf((String)slides.get("maxNumberPlayerCards"));
+		       	GlobalVariables.initialWoods = Integer.valueOf((String)slides.get("initialWoods"));
+		       	GlobalVariables.initialStones = Integer.valueOf((String)slides.get("initialStones"));
+		       	GlobalVariables.initialServants = Integer.valueOf((String)slides.get("initialServants"));
+		       	GlobalVariables.initialFirstPlayerCoins = Integer.valueOf((String)slides.get("initialFirstPlayerCoins"));
+		       	GlobalVariables.initialSecondPlayerCoins = Integer.valueOf((String)slides.get("initialSecondPlayerCoins"));
+		       	GlobalVariables.initialThirdPlayerCoins = Integer.valueOf((String)slides.get("initialThirdPlayerCoins"));
+		       	GlobalVariables.initialFourthPlayerCoins = Integer.valueOf((String)slides.get("initialFourthPlayerCoins"));
 		       	// Add here for add coins to another player   	
-		       	globalVar.initialVictoryPoints = Integer.valueOf((String)slides.get("initialVictoryPoints"));
-		       	globalVar.initialMilitaryPoints = Integer.valueOf((String)slides.get("initialMilitaryPoints"));
-		       	globalVar.initialFaithPoints = Integer.valueOf((String)slides.get("initialFaithPoints"));
-		       	globalVar.minDiceFirstHarvestArea = Integer.valueOf((String)slides.get("minDiceFirstHarvestArea"));
-		       	globalVar.minDiceSecondHarvestArea = Integer.valueOf((String)slides.get("minDiceSecondHarvestArea"));
-		       	globalVar.minDiceFirstProductionArea = Integer.valueOf((String)slides.get("minDiceFirstProductionArea"));
-		       	globalVar.minDiceSecondProductionArea = Integer.valueOf((String)slides.get("minDiceSecondProductionArea"));
-		       	globalVar.minDiceValueCouncilPalace = Integer.valueOf((String)slides.get("minDiceValueCouncilPalace"));
-		       	globalVar.towerTax = Integer.valueOf((String)slides.get("towerTax"));
-		       	globalVar.victoryPointsFirstMilitaryPower = Integer.valueOf((String)slides.get("victoryPointsFirstMilitaryPower"));
-		       	globalVar.victoryPointsSecondMilitaryPower = Integer.valueOf((String)slides.get("victoryPointsSecondMilitaryPower"));
-		       	globalVar.maxVictoryPoints = Integer.valueOf((String)slides.get("maxVictoryPoints"));
-		       	globalVar.maxMilitaryPoints = Integer.valueOf((String)slides.get("maxMilitaryPoints"));
-		       	globalVar.maxFaithPoints = Integer.valueOf((String)slides.get("maxFaithPoints"));
-		       	globalVar.endResourcesToVictoryPoint = Integer.valueOf((String)slides.get("endResourcesToVictoryPoint"));
+		       	GlobalVariables.initialVictoryPoints = Integer.valueOf((String)slides.get("initialVictoryPoints"));
+		       	GlobalVariables.initialMilitaryPoints = Integer.valueOf((String)slides.get("initialMilitaryPoints"));
+		       	GlobalVariables.initialFaithPoints = Integer.valueOf((String)slides.get("initialFaithPoints"));
+		       	GlobalVariables.minDiceFirstHarvestArea = Integer.valueOf((String)slides.get("minDiceFirstHarvestArea"));
+		       	GlobalVariables.minDiceSecondHarvestArea = Integer.valueOf((String)slides.get("minDiceSecondHarvestArea"));
+		       	GlobalVariables.minDiceFirstProductionArea = Integer.valueOf((String)slides.get("minDiceFirstProductionArea"));
+		       	GlobalVariables.minDiceSecondProductionArea = Integer.valueOf((String)slides.get("minDiceSecondProductionArea"));
+		       	GlobalVariables.minDiceValueCouncilPalace = Integer.valueOf((String)slides.get("minDiceValueCouncilPalace"));
+		       	GlobalVariables.towerTax = Integer.valueOf((String)slides.get("towerTax"));
+		       	GlobalVariables.victoryPointsFirstMilitaryPower = Integer.valueOf((String)slides.get("victoryPointsFirstMilitaryPower"));
+		       	GlobalVariables.victoryPointsSecondMilitaryPower = Integer.valueOf((String)slides.get("victoryPointsSecondMilitaryPower"));
+		       	GlobalVariables.maxVictoryPoints = Integer.valueOf((String)slides.get("maxVictoryPoints"));
+		       	GlobalVariables.maxMilitaryPoints = Integer.valueOf((String)slides.get("maxMilitaryPoints"));
+		       	GlobalVariables.maxFaithPoints = Integer.valueOf((String)slides.get("maxFaithPoints"));
+		       	GlobalVariables.endResourcesToVictoryPoint = Integer.valueOf((String)slides.get("endResourcesToVictoryPoint"));
 	        }   	
 		       
 		    			

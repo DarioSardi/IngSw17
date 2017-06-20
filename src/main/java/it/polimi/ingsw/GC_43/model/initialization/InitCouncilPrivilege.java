@@ -18,6 +18,9 @@ public class InitCouncilPrivilege {
 		this.multChoices = new MultipleChoiceEffect(new ArrayList<ChoiceEffect>());
 	}
 
+	/**
+	 * Add effects to Council Privilege
+	 */
 	public void readCouncilPrivilege() {
         JSONParser parser = new JSONParser();
  
