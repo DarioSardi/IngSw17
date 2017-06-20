@@ -53,8 +53,7 @@ public class GlobalVariables implements Serializable{
    public static Integer[] endTerritoryVictoryPoints;
    
    
-   public void createCopyGlobalVariables(){
-	   CopyOfGlobalVariables copyVariables = new CopyOfGlobalVariables();
+   public void createCopyGlobalVariables(CopyOfGlobalVariables copyVariables){
 	   
 	   copyVariables.maxNumberOfPlayers = GlobalVariables.maxNumberPlayerCards;
 	   copyVariables.numberOfFamilyMembers = GlobalVariables.numberOfFamilyMembers;

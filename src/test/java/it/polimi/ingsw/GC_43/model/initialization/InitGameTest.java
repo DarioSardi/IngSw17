@@ -8,13 +8,11 @@ import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 
 public class InitGameTest {
-	private GlobalVariables globalVar;
 	private Board board;
 	
 	@Before
 	public void testInitGame() {
-		this.globalVar = new GlobalVariables();
-		GlobalVariablesInit.readGlobalVariables(globalVar);
+		GlobalVariablesInit.readGlobalVariables();
 		ArrayList<String> players = new ArrayList<>();
 		players.add("Samuel");
 		players.add("Dario");

@@ -78,20 +78,28 @@ public class Player implements Serializable{
 		return this.playerResources.get(resource);
 	}
 	
-	public void addResource(String resource, int value) throws Exception{
-		if ("coin".equals(resource)||"servant".equals(resource)||"stone".equals(resource)||"wood".equals(resource)||
-				"victoryPoint".equals(resource)||"militaryPoint".equals(resource)||"faithPoint".equals(resource))
-		this.playerResources.put(resource, this.getPlayerResource(resource) + value);
-		else throw new Exception();
+	public void addResource(String resource, int value){
+		try {
+			if ("coin".equals(resource)||"servant".equals(resource)||"stone".equals(resource)||"wood".equals(resource)||
+					"victoryPoint".equals(resource)||"militaryPoint".equals(resource)||"faithPoint".equals(resource))
+			this.playerResources.put(resource, this.getPlayerResource(resource) + value);
+		} catch (Exception e) {
+			System.out.println("addResource: Resource not found.");
+			e.printStackTrace();
+		}
 //Far controllare a Fra che i valori siano > 0
 	}
 	
-	public void subResource(String resource, int value)throws Exception{
-		if (
-			"coin".equals(resource)||"servant".equals(resource)||"stone".equals(resource)||"wood".equals(resource)||
-			"victoryPoint".equals(resource)||"militaryPoint".equals(resource)||"faithPoint".equals(resource))
-				this.playerResources.put(resource, this.getPlayerResource(resource) - value);
-		else throw new Exception();
+	public void subResource(String resource, int value){
+		try {
+			if (
+				"coin".equals(resource)||"servant".equals(resource)||"stone".equals(resource)||"wood".equals(resource)||
+				"victoryPoint".equals(resource)||"militaryPoint".equals(resource)||"faithPoint".equals(resource))
+					this.playerResources.put(resource, this.getPlayerResource(resource) - value);
+		} catch (Exception e) {
+			System.out.println("subResource: Resource not found.");
+			e.printStackTrace();
+		}
 //Far controllare a Fra che i valori siano > 0
 	}
 	
