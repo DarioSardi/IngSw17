@@ -25,7 +25,9 @@ public class Board implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6362079383828595044L;
+
+	
 	// CONFIGURATION SETTINGS
 	private int phase;
 	private int round;
@@ -237,7 +239,10 @@ public class Board implements Serializable {
 	}
 
 	public String getPhasePlayer() {
-		return this.getPlayers().get(this.phase % 4).getPlayerName();
+		System.out.println("\nplayer of phase on board"+this.phase);
+		System.out.println("\nplayer of phase on board"+this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName());
+
+		return this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName();
 	}
 
 	private void establishNewPlayerOrder() {

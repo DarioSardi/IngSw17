@@ -17,7 +17,9 @@ public class HarvestActionCreationRoutine implements ActionCreation {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 789823128986699469L;
+
+	
 	private HarvestAction harvestAction;
     private Board board;
     private HashMap<String,Integer>copyOfPlayerResource;

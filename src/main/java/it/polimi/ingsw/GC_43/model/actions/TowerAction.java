@@ -8,9 +8,12 @@ import it.polimi.ingsw.GC_43.model.Player;
 
 public class TowerAction extends Action {
 	/**
-	* 
-	*/
-	private static final long serialVersionUID = 1L;
+	 * 
+	 */
+	private static final long serialVersionUID = -3415208390394786168L;
+
+	
+	
 	private ArrayList<Integer> effectChoices;
 	private int towerChoice;
 	private int floorChoice;

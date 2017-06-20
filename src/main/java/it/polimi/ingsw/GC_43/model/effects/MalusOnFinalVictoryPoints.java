@@ -6,7 +6,10 @@ public class MalusOnFinalVictoryPoints extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2364974166010498125L;
+
+
+	
 	private String malusTypeOnVictoryPoint;
 	
 	public MalusOnFinalVictoryPoints(String malusType){

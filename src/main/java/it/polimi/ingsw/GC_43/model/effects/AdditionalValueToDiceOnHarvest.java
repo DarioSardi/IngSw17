@@ -6,7 +6,8 @@ public class AdditionalValueToDiceOnHarvest extends Effect{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2044624723506224749L;
+
 	private int valueToAddOnDice;
 	
 	public AdditionalValueToDiceOnHarvest(int valueToAddOnDice){

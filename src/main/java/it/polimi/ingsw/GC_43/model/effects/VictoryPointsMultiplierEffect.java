@@ -7,7 +7,8 @@ public class VictoryPointsMultiplierEffect extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2021299320955602646L;
+
 	private float multiplierFactor;
 	private String multiplierType;
 	

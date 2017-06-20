@@ -10,7 +10,8 @@ public class MultipleResourceEffect extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3160289279354755668L;
+
 	private ArrayList<ResourceEffect> resourcesToGet;
 
     public MultipleResourceEffect(ArrayList <ResourceEffect> resourcesToGet){ 

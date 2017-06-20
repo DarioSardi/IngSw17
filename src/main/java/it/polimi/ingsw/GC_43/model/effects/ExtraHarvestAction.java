@@ -8,7 +8,8 @@ public class ExtraHarvestAction extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7578656817232346166L;
+	
 	private int dieValue;
 
 	public ExtraHarvestAction(int dieValue) {

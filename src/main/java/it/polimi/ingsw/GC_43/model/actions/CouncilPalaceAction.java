@@ -10,7 +10,8 @@ public class CouncilPalaceAction extends Action {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4264774839187858037L;
+
 	private ArrayList<Integer> councilPalaceChoices;
 
 	public CouncilPalaceAction(String playerID, Player player) {

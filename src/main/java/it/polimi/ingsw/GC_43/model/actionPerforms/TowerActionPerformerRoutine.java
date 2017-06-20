@@ -151,18 +151,24 @@ public class TowerActionPerformerRoutine implements ActionPerformer {
 					if (player.getPlayerResource("militaryPoints") >= ventureCard.getMilitaryMin()
 							&& player.getPlayerResource("militaryPoints") >= ventureCard.getMilitaryCost()) {
 						player.subResource("militaryPoint", ventureCard.getMilitaryCost());
-						towerFloor.actionsAfterBuy(familyMember);
+						if (!CardHandler.buyCard(towerFloor, familyMember, card, chosenTower.check(familyMember),
+								true)) {
+							this.checkResult = false;
+						} else {
+							towerFloor.actionsAfterBuy(familyMember);
+						}
+					}
+					else{
+						this.checkResult = false;
 					}
 					this.index++;
 
 				} else {
-					if (!(CardHandler.buyCard(towerFloor, familyMember, card, chosenTower.check(familyMember))))
+					if (!(CardHandler.buyCard(towerFloor, familyMember, card, chosenTower.check(familyMember), false)))
 						this.checkResult = false;
 					this.index++;
 				}
-			} else {
-				if (!(CardHandler.buyCard(towerFloor, familyMember, card, chosenTower.check(familyMember))))
-					this.checkResult = false;
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

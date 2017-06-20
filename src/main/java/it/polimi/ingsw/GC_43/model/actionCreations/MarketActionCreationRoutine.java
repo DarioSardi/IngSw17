@@ -15,7 +15,8 @@ public class MarketActionCreationRoutine implements ActionCreation{
 	 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7728764206540843326L;
+
 		private MarketAction marketAction;
 	    private Board board;
 	    private HashMap<String,Integer>copyOfPlayerResource;

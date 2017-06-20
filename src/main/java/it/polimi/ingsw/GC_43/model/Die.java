@@ -7,7 +7,10 @@ public class Die extends Observable implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7038764233797221676L;
+
+
+	
 	private int dieValue;
 	private int dieColor;
 	private int range=6;

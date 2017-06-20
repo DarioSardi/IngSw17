@@ -6,7 +6,9 @@ public class AdditionalDiceValueToTower extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5232001138766919311L;
+
+
 	private String towerType;
 	private int extraValue;
 	

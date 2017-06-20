@@ -78,7 +78,8 @@ public class ResourceEffect extends Effect {
 		/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3792623150854244242L;
+
 		private Resource resource;
 
         public ResourceEffect(Resource resource){

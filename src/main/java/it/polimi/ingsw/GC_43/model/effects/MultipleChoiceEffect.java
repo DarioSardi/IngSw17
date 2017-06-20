@@ -10,7 +10,8 @@ public class MultipleChoiceEffect extends Effect {
 		/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7770326772860231768L;
+
 		private ArrayList<ChoiceEffect> choices;
 		
 		public String toString(){

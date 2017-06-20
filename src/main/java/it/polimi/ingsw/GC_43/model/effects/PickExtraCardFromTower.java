@@ -12,7 +12,8 @@ public class PickExtraCardFromTower extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -79143056820303425L;
+
 	private int dieValue;
 	private String towerType;
 	private HashMap<String, Integer> resourceDiscounted;

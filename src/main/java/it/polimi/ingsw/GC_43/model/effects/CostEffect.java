@@ -11,7 +11,8 @@ public class CostEffect extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1415260103830730178L;
+
 	private ArrayList<Resource> Costs;
 	
 	public CostEffect(ArrayList<Resource> Costs){

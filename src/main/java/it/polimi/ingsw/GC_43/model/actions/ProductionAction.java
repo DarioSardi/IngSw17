@@ -9,7 +9,9 @@ public class ProductionAction extends Action {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6213037905283945105L;
+
+	
 	private ArrayList<Integer> productionChoices;
 	private boolean primaryCellChosen;
 	private boolean defaultFamilyMember;

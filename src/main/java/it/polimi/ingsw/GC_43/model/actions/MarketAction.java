@@ -9,7 +9,9 @@ public class MarketAction extends Action {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7726659991783448046L;
+
+	
 	private ArrayList<Integer> MarketChoices;
 
 	public MarketAction(String playerID, Player player) {

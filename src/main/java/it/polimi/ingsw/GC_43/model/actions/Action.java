@@ -10,7 +10,8 @@ public abstract class Action implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7839396036880842087L;
+
 	private Player player;
 	private String playerID;
 	private int familyMemberColor;

@@ -6,7 +6,9 @@ public class MalusOnColouredFamilyMemberDiceValue extends Effect{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2559893639950369774L;
+
+
 	private int valueDecreasedBy;
 	
 	public MalusOnColouredFamilyMemberDiceValue(int valueDecreasedBy){
