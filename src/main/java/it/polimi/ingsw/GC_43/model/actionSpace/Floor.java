@@ -11,7 +11,7 @@ public class Floor extends ActionSpace {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2689065494333771693L;
+	
 	private boolean floorOccupied;
 	private Card card;
 	private Tower tower;
@@ -41,7 +41,8 @@ public class Floor extends ActionSpace {
 	public void setFloorOccupied(boolean floorOccupied) {
 		this.floorOccupied = floorOccupied;
 	}
-
+	
+	@Override
 	public void addFamiliarIn(FamilyMember f) {
 		this.getFamiliarIn().add(f);
 		this.setFloorOccupied(true);
@@ -73,20 +74,16 @@ public class Floor extends ActionSpace {
 				&& CardHandler.checkBuy(this, f.getPlayer(), this.getCard(), this.getTower().check(f))
 				&& this.getTower().checkColor(f) && !this.floorOccupied;
 	}
-	// DARIO tower tax!
+
 
 	/**
 	 * buy the card,get the floor bonus,set the familiar,set the floor and the
 	 * tower as occupied
 	 */
+	@Override
 	public boolean execute(FamilyMember f) {
-		if (this.check(f)) {
-			CardHandler.buyCard(this, f, this.card, this.floorOccupied);
-			actionsAfterBuy(f);
-			return true;
-		} else {
-			return false;
-		}
+		actionsAfterBuy(f);
+		return true;
 	}
 	
 	public void actionsAfterBuy(FamilyMember f){
@@ -115,13 +112,14 @@ public class Floor extends ActionSpace {
 		} else
 			return false;
 	}
-
+	@Override
 	public void resetSpace() {
 		this.removeCard();
 		this.floorOccupied = false;
 		this.removeAllFamiliars();
 	}
-
+	
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("||||||||||||||||||||||||||||||||||||||||");
