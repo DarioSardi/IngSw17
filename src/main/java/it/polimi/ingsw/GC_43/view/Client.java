@@ -88,7 +88,7 @@ public class Client {
 
 	public void setGameGlobalVariables(GlobalVariables gameGlobalVariables) {
 		this.gameGlobalVariables = gameGlobalVariables;
-	    GlobalVariablesInit.readGlobalVariables(this.gameGlobalVariables);
+	    GlobalVariablesInit.readGlobalVariables();
 	    System.out.println("familiars: "+ this.gameGlobalVariables.numberOfFamilyMembers);
 	}
 
