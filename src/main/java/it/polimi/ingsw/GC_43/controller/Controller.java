@@ -63,7 +63,7 @@ public class Controller implements IController {
 	    
 	    private void startGame() {
 	    	System.out.println("start Game");
-	    	ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(0));
+	    	ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(1));
 	    	System.out.println("changing phase "+initialPlayer.getUsername());
 
 	    	changePhases(initialPlayer);
@@ -117,12 +117,16 @@ public class Controller implements IController {
 	    		playerIDs.add(clientHandler.getUsername());
 	    		
 	    	}
-	    	GlobalVariables globalVariables= new GlobalVariables();
 	    	
+	    
 	    	System.out.println("Initializing globalVariables");
 
-	    	GlobalVariablesInit.readGlobalVariables(globalVariables);
+/*	    	GlobalVariablesInit.readGlobalVariables();
 	    	
+	    	CopyOfGlobalVariables globalVariables= new CopyOfGlobalVariables();
+	    	
+	    	new GlobalVariables().createCopyGlobalVariables(globalVariables);
+	    	*/
 	    	
 	    	this.globalVariables=globalVariables;
 	    	
@@ -193,6 +197,10 @@ public class Controller implements IController {
 
 			this.board.nextPlayerPhase();
 			System.out.println("\n Attemping Changing phases of players"+this.board.getPhase());
+			System.out.println("\n Attemping match player name"+this.board.getPhasePlayer());
+
+			System.out.println("\n Attemping match"+this.matchClientHandler.get(this.board.getPhasePlayer()));
+
 
 			ClientHandler playerOfTurn=this.matchClientHandler.get(this.board.getPhasePlayer());
 			System.out.println("\nChanging phases of players");

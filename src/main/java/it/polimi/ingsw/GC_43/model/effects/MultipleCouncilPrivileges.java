@@ -9,7 +9,8 @@ public class MultipleCouncilPrivileges extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4860860385168175171L;
+
 	private int numberOfCopies;
 	private MultipleChoiceEffect privilegeChoices;
 

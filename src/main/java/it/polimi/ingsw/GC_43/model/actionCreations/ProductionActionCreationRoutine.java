@@ -18,7 +18,9 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4848735135668204658L;
+
+	
 	private ProductionAction productionAction;
     private Board board;
     private HashMap<String,Integer>copyOfPlayerResource;

@@ -8,7 +8,8 @@ public class DisableFloorBonusEffect extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5848060648308579367L;
+
 
 	public void executeEffect(FamilyMember familyMember){
 		familyMember.getPlayer().getPlayerBounusMalus().setNoFloorBonus(true);

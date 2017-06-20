@@ -15,7 +15,9 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5363739742293403421L;
+
+	
 	private CouncilPalaceAction councilPalaceAction;
     private Board board;
     private HashMap<String,Integer>copyOfPlayerResource;

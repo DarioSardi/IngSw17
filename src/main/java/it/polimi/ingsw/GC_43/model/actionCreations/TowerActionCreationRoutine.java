@@ -20,7 +20,8 @@ public class TowerActionCreationRoutine implements ActionCreation {
 	   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -366294267217777321L;
+
 	private TowerAction towerAction;
 	    private Board board;
 	    //player ID will be the ID of the instance of playerImpl != player of the model

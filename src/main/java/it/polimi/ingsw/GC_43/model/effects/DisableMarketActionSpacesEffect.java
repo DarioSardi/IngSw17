@@ -7,7 +7,9 @@ public class DisableMarketActionSpacesEffect extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7919714609006212294L;
+
+	
 
 	public String toString(){
 		String toString="Player will NOT have access to market action space anymore";

@@ -9,7 +9,8 @@ public class ExtraProductionAction extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3813372879381142737L;
+
 	private int dieValue;
 
 	public ExtraProductionAction(int dieValue) {

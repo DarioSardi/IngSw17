@@ -6,7 +6,9 @@ public class AdditionalValueToDiceOnProduction extends Effect{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1291812244387527174L;
+
+
 	private int valueToAddOnDice;
 	
 	public AdditionalValueToDiceOnProduction(int valueToAddOnDice){

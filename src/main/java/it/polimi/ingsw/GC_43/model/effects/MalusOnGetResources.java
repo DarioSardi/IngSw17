@@ -6,7 +6,8 @@ public class MalusOnGetResources extends Effect{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2396328772180992446L;
+	
 	private String resourceType;
 	private int value;
 	

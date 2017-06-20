@@ -10,13 +10,14 @@ import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class PlayerBonusMalus implements Serializable {
 	
-	//BONUS ADDED EACH TIME NEEDED, THEY COULD BE NEGATIVE TOO
-	//COMING FROM BOTH CHARACTER CARDS AND FROM EXCOMMUNICATION TILES
-	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4249606445500235712L;
+	//BONUS ADDED EACH TIME NEEDED, THEY COULD BE NEGATIVE TOO
+	//COMING FROM BOTH CHARACTER CARDS AND FROM EXCOMMUNICATION TILES
+	
+
 	private int bonusDiceCharacterTower;
 	private int bonusDiceTerritoryTower;
 	private int bonusDiceBuildingTower;

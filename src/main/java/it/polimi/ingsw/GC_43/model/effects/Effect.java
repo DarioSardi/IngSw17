@@ -11,7 +11,11 @@ public abstract class Effect implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3322020192223760014L;
+
+	/**
+	 * 
+	 */
 
 	public String toString(){
 		String toString=null;

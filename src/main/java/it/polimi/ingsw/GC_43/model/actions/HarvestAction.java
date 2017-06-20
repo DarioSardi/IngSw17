@@ -10,7 +10,8 @@ public class HarvestAction extends Action {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5938202309982578718L;
+
 	private ArrayList<Integer> harvestChoices;
 	private boolean primaryCellChosen;
 	private boolean defaultFamilyMember;

@@ -7,7 +7,8 @@ public class TwoServantsCountAsOne extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8106938090065823704L;
+
 	public String toString(){
 		String toString="Malus on player: his servant will count as just a half";
 		return toString;

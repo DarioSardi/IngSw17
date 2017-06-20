@@ -6,7 +6,8 @@ public class CoinsMultiplierEffect extends Effect {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5652201306557534096L;
+	
 	private int multiplierFactor;
 	private String multiplierType;
 	
