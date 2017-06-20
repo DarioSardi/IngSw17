@@ -25,7 +25,9 @@ public class BoardTest {
 		playersID.add("ermione");
 		playersID.add("gigi");
 		playersID.add("ruben");
-		GlobalVariablesInit.readGlobalVariables();
+    	GlobalVariables globalVariables= new GlobalVariables();
+
+		GlobalVariablesInit.readGlobalVariables(globalVariables);
 		board=new Board(playersID);
 		new InitGame(board);
 		System.out.println("fine di tutto !!!!");

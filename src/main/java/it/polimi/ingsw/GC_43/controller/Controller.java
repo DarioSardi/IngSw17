@@ -11,6 +11,7 @@ import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionPerforms.*;
 import it.polimi.ingsw.GC_43.model.actions.*;
+import it.polimi.ingsw.GC_43.model.initialization.GlobalVariablesInit;
 import it.polimi.ingsw.GC_43.model.initialization.InitGame;
 
 public class Controller implements IController {
@@ -49,7 +50,7 @@ public class Controller implements IController {
 	    	System.out.println("model sent");
 
 	    	//TODO wait form SAM
-	    	//	    	sendGlobalVariablesToClients();	    	
+	    	sendGlobalVariablesToClients();	    	
 	    	System.out.println("global variables sent");
 	    	
 	    	startGame();
@@ -70,11 +71,11 @@ public class Controller implements IController {
 
 
 		//TODO to decommenti, wait for SAM
-	 /*   private void sendGlobalVariablesToClients() {
+	    private void sendGlobalVariablesToClients() {
 	    	for(ClientHandler clientHandler : this.clientHandlers){
     			clientHandler.sendObject(this.globalVariables);
     		}		
-		}*/
+		}
 
 
 
@@ -114,7 +115,7 @@ public class Controller implements IController {
 	    	
 	    	System.out.println("Initializing globalVariables");
 
-//	    	GlobalVariablesInit.readGlobalVariables(globalVariables);
+	    	GlobalVariablesInit.readGlobalVariables(globalVariables);
 	    	
 	    	
 	    	this.globalVariables=globalVariables;
