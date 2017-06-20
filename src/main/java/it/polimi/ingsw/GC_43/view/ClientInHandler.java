@@ -7,6 +7,7 @@ import java.util.Scanner;
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 
 public class ClientInHandler implements Runnable {
@@ -64,8 +65,8 @@ public class ClientInHandler implements Runnable {
 			else if(o instanceof Board){
 				this.myClient.setBoard((Board) o);
 			}
-			else if(o instanceof GlobalVariables){
-				this.myClient.setGameGlobalVariables((GlobalVariables) o);
+			else if(o instanceof CopyOfGlobalVariables){
+				this.myClient.setGameGlobalVariables((CopyOfGlobalVariables) o);
 			}
 		
 		} catch (ClassNotFoundException e) {

@@ -8,22 +8,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.actionCreations.MarketActionCreationRoutine;
-import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
-import it.polimi.ingsw.GC_43.model.initialization.GlobalVariablesInit;
 
 public class Client {
 	private int port,ID;
@@ -86,10 +81,40 @@ public class Client {
 
 
 
-	public void setGameGlobalVariables(GlobalVariables gameGlobalVariables) {
-		this.gameGlobalVariables = gameGlobalVariables;
-	    GlobalVariablesInit.readGlobalVariables(this.gameGlobalVariables);
-	    System.out.println("familiars: "+ this.gameGlobalVariables.numberOfFamilyMembers);
+	public void setGameGlobalVariables(CopyOfGlobalVariables o) {
+		   GlobalVariables.maxNumberOfPlayers = o.maxNumberPlayerCards;
+		   GlobalVariables.numberOfFamilyMembers = o.numberOfFamilyMembers;
+		   GlobalVariables.numberOfTowers = o.numberOfTowers;
+		   GlobalVariables.numberOfDice = o.numberOfDice;
+		   GlobalVariables.excommunicationRound = o.excommunicationRound;
+		   GlobalVariables.totalNumberOfCardsPerSet = o.totalNumberOfCardsPerSet;
+		   GlobalVariables.towerCardsPerRound = o.towerCardsPerRound;
+		   GlobalVariables.towerCardsPerPeriod = o.towerCardsPerPeriod;
+		   GlobalVariables.floorsPerTower = o.floorsPerTower;
+		   GlobalVariables.totalNumberOfPeriods = o.totalNumberOfPeriods;
+		   GlobalVariables.maxNumberPlayerCards = o.maxNumberPlayerCards;
+		   GlobalVariables.initialWoods = o.initialWoods;
+		   GlobalVariables.initialStones = o.initialStones;
+		   GlobalVariables.initialServants = o.initialServants;
+		   GlobalVariables.initialFirstPlayerCoins = o.initialFirstPlayerCoins;
+		   GlobalVariables.initialSecondPlayerCoins = o.initialSecondPlayerCoins;	
+		   GlobalVariables.initialThirdPlayerCoins = o.initialThirdPlayerCoins;	
+		   GlobalVariables.initialFourthPlayerCoins = o.initialFourthPlayerCoins;	
+		   GlobalVariables.initialVictoryPoints = o.initialVictoryPoints;
+		   GlobalVariables.initialMilitaryPoints = o.initialMilitaryPoints;
+		   GlobalVariables.initialFaithPoints = o.initialFaithPoints;
+		   GlobalVariables.minDiceFirstHarvestArea = o.minDiceFirstHarvestArea;
+		   GlobalVariables.minDiceSecondHarvestArea = o.minDiceSecondHarvestArea;
+		   GlobalVariables.minDiceFirstProductionArea = o.minDiceFirstProductionArea;
+		   GlobalVariables.minDiceSecondProductionArea = o.minDiceSecondProductionArea;
+		   GlobalVariables.minDiceValueCouncilPalace = o.minDiceValueCouncilPalace;
+		   GlobalVariables.towerTax = o.towerTax;
+		   GlobalVariables.numberOfPlayers = o.numberOfPlayers;
+		   GlobalVariables.victoryPointsFirstMilitaryPower = o.victoryPointsFirstMilitaryPower;
+		   GlobalVariables.victoryPointsSecondMilitaryPower = o.victoryPointsSecondMilitaryPower;
+		   GlobalVariables.maxVictoryPoints = o.maxVictoryPoints;
+		   GlobalVariables.maxMilitaryPoints = o.maxMilitaryPoints;
+		   GlobalVariables.maxFaithPoints = o.maxFaithPoints;
 	}
 
 
