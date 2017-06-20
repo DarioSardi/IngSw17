@@ -177,6 +177,7 @@ public class ClientHandler implements Runnable{
 			System.out.println(o.toString());
 			if(o instanceof ChatMsg&&this.lobby!=null){
 				ChatMsg msg=(ChatMsg) o;
+				System.out.println("chat message :"+msg.getMsg());
 				this.lobby.broadcastMsg(msg.getMsg(),this);
 			}
 			else if(o instanceof Action){
@@ -208,9 +209,7 @@ public class ClientHandler implements Runnable{
 		SimpleMessage sm=new SimpleMessage(string);
 		try {
 			socketOut.writeObject(sm);
-			System.out.println(sm.getMsg());
 			socketOut.flush();
-			System.out.println(sm.getMsg());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -245,7 +244,8 @@ public class ClientHandler implements Runnable{
 
 	public void setMyturn(boolean myturn) {
 		if(myturn){
-		sendMsgTo("now_is_my_turn");
+			System.out.println("is my turn to"+ this);
+			sendMsgTo("now_is_my_turn");
 		}
 		else{
 		sendMsgTo("end_of_my_turn");

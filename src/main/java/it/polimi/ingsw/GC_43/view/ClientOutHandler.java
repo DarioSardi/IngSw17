@@ -64,9 +64,10 @@ public class ClientOutHandler implements Runnable {
 				}
 				else if("chat".equals(command)){
 					System.out.println("write the message and then press enter, to abort write 'exit_chat'");
-					String msg=userIn.readLine().toString();
+					String msg=userIn.readLine();
 					if(!"exit_chat".equals(msg)){
 						this.socketOut.writeObject(new ChatMsg(msg));
+						this.socketOut.flush();
 					}
 				}
 				else if("info".equals(command)){

@@ -42,7 +42,7 @@ public class ClientInHandler implements Runnable {
 		//System.out.println("parser delgli update pronto!");
 		System.out.println("press enter to continue");
 		while(this.myClient.inGame){
-			
+			receiveMsg();
 			}
 		}
 		
@@ -85,9 +85,11 @@ public class ClientInHandler implements Runnable {
 				
 			}
 		else if("now_is_my_turn".equals(line)){
+			System.out.println("IS NOW MY TURN!");
 			this.myClient.myTurn=true;
 			}
 		else if("end_of_my_turn".equals(line)){
+			System.out.println("END OF MY TURN!");
 			this.myClient.myTurn=false;
 			}
 		

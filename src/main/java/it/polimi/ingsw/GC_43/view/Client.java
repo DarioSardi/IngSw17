@@ -38,7 +38,7 @@ public class Client {
 	private static InetAddress ipAddr;
 	private Board board;
 	private Lobby lobby;
-	Boolean idSetted,inMenu,inGame,online,actionPerformed,myTurn;
+	Boolean idSetted,inMenu,inGame,online,myTurn;
 	private Player myPlayer;
 	private GlobalVariables gameGlobalVariables;
 
@@ -51,7 +51,7 @@ public class Client {
     	this.gameGlobalVariables=new GlobalVariables();
     	//DARIO test,da settare col controller
     	this.myTurn=false;
-    	this.actionPerformed=false;
+    	
     	
     	connect();
     	//closeGame();
