@@ -20,13 +20,14 @@ public class MarketActionPerformerRoutine implements ActionPerformer {
 	
 	public MarketActionPerformerRoutine(MarketAction marketAction, Board board){
 		this.marketAction=marketAction;
-		this.checkResult=false;
+		this.checkResult=true;
 		this.board=board;
 		this.index=0;	
 	}
 
 	
 	public boolean performAction(){
+		System.out.println("\nEnterned in Market performer routine");
 		Player player=this.marketAction.getPlayer();
 		FamilyMember familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, this.marketAction.getFamilyMemberColor());
 		HashMap<String,Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);

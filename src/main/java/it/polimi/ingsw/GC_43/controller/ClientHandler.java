@@ -208,7 +208,9 @@ public class ClientHandler implements Runnable{
 		SimpleMessage sm=new SimpleMessage(string);
 		try {
 			socketOut.writeObject(sm);
+			System.out.println(sm.getMsg());
 			socketOut.flush();
+			System.out.println(sm.getMsg());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

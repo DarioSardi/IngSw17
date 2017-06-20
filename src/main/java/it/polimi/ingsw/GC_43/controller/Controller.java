@@ -62,9 +62,13 @@ public class Controller implements IController {
 	    
 	    
 	    private void startGame() {
+	    	System.out.println("start Game");
 	    	ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(0));
+	    	System.out.println("changing phase "+initialPlayer.getUsername());
+
 	    	changePhases(initialPlayer);
-	    	
+	    	System.out.println("changing phase finished");
+
 		}
 
 
@@ -139,6 +143,7 @@ public class Controller implements IController {
 	//GET CLIENT HANDLER OF TURN    
 	    private ClientHandler getPlayerOfTurn(){
 	    	String playerID=this.board.getPhasePlayer();
+	    	
 	    	return this.matchClientHandler.get(playerID);
 	    	
 	    }
@@ -152,13 +157,13 @@ public class Controller implements IController {
 	    	boolean actionResult=false;
 	    	actionResult= submit(action);
 	    	
-	    	System.out.println("\n Action successfully submitted");
+	    	System.out.println("\n Action successfully submitted "+actionResult);
 
 	    	
 	    	
 	    	if(actionResult){
 		    	
-	    		System.out.println("\n Action successfully completed, broadcasting notifications and calling for next player phase");
+	    		System.out.println("\nAction successfully completed, broadcasting notifications and calling for next player phase");
 
 	    		playersLobby.broadcastMsg(action.toString(), this.getPlayerOfTurn());
 	    		for(ClientHandler clientHandler: this.clientHandlers){
@@ -171,7 +176,11 @@ public class Controller implements IController {
 		    
 	    	
 	    	else{
+		    	System.out.println("\n Action UNsuccessfully submitted "+actionResult+ "action to strng\n"+action.toString());
+		    	System.out.println(this.getPlayerOfTurn().getUsername());
 	    		this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
+	    		System.out.println("\nAction finished !!! \n");
+
 	    	}
 	    
 	    }
@@ -180,8 +189,11 @@ public class Controller implements IController {
 	    //MANAGING PHASE OF PLAYERS
 	    
 	    private void nextPlayerPhase() {
-	    	
+			System.out.println("\n Attemping to get firstPlayr"+this.board.getPhase());
+
 			this.board.nextPlayerPhase();
+			System.out.println("\n Attemping Changing phases of players"+this.board.getPhase());
+
 			ClientHandler playerOfTurn=this.matchClientHandler.get(this.board.getPhasePlayer());
 			System.out.println("\nChanging phases of players");
 			changePhases(playerOfTurn);
@@ -193,11 +205,19 @@ public class Controller implements IController {
 
 	    private void changePhases(ClientHandler playerOfTurn) {
 	    	for(ClientHandler client: this.clientHandlers){
-				if(client.getUsername().equals(playerOfTurn.getUsername()))
+				if(client.getUsername().equals(playerOfTurn.getUsername())){
 					client.setMyturn(true);
-				else
+					System.out.println("ojfhbeuhgif player "+ client.getUsername() );
+					
+					
+				}
+				else{
 					client.setMyturn(false);
-			}			
+					System.out.println("ojfhbeuhgif player not in turn "+ client.getUsername() );
+
+				}
+				}
+	    	
 		}
 
 
