@@ -17,11 +17,11 @@ public class AdditionalDieValueAndResourceDiscountToTower extends Effect {
 	
 	//FOR SAM aggiungi "CharacterCard" o "VentureCard" o "BuildingCard" o "TerritoryCard"
 	//
-	public AdditionalDieValueAndResourceDiscountToTower(String cardType,int extraValue, String resourceType, int resourceValue) {
+	public AdditionalDieValueAndResourceDiscountToTower(String cardType,int extraValue, int coinValue) {
 		this.cardType=cardType;
 		this.extraValue=extraValue;
-		this.resourceType=resourceType;
-		this.resourceValue=resourceValue;
+		this.resourceValue=coinValue;
+		this.resourceType="coin";
 		
 	}
     public String toString(){
@@ -36,7 +36,7 @@ public class AdditionalDieValueAndResourceDiscountToTower extends Effect {
 			int oldValue=familyMember.getPlayer().getPlayerBounusMalus().getBonusDiceVentureTower();
 			familyMember.getPlayer().getPlayerBounusMalus().setBonusDiceVentureTower(oldValue+this.extraValue);
 			int oldDiscountValue=familyMember.getPlayer().getPlayerBounusMalus().getBonusCoinsOnBuyInTowers().get(this.cardType);
-			familyMember.getPlayer().getPlayerBounusMalus().getBonusCoinsOnBuyInTowers().put(this.resourceType,oldDiscountValue+this.resourceValue);
+			familyMember.getPlayer().getPlayerBounusMalus().getBonusCoinsOnBuyInTowers().put(resourceType,oldDiscountValue+this.resourceValue);
 		}
 		else if(cardType.equals("TerritoryCard")){
 			int oldValue=familyMember.getPlayer().getPlayerBounusMalus().getBonusDiceTerritoryTower();
