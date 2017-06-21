@@ -147,6 +147,8 @@ public class Controller implements IController {
 		this.board = new Board(playerIDs);
 		System.out.println("Initializing game board");
 		new InitGame(board);
+		this.board.initialize();
+
 
 	}
 

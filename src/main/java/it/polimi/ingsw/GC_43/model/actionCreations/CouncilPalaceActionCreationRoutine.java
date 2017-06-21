@@ -36,18 +36,21 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
         this.councilPalaceAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(councilPalaceAction.getPlayer(),this.councilPalaceAction.getFamilyMember().getDiceValue()));
         
         getInputsForCouncilPalace(this.councilPalaceAction.getFamilyMember());
+		System.out.println("Finished market action creation routine!");
+
 
         return true;
     }
 
 	private void getInputsForCouncilPalace(FamilyMember familyMember) {
+		System.out.println("Getting council palace inputs");
     	int dieValue=familyMember.getDiceValue()+this.councilPalaceAction.getServantsUsed();
     	if(dieValue>=this.board.getCouncilPalace().getCouncil().getMinDiceValue()){
- /*   	for(Effect effect: this.board.getCouncilPalace().getCouncil().getBonus()){
+    	for(Effect effect: this.board.getCouncilPalace().getCouncil().getBonus()){
     		  if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
                   askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
               }
-    	}*/
+    	}
     		
     }
     	
@@ -60,9 +63,13 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
     }
 
 	   private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges effect) {
+			System.out.println("Asking for multiple council privilege choice");
+
 	    	int numberOfCopies=effect.getNumberOfCopies();
 	    	while(numberOfCopies>0){
 	    		int choice= askForMultipleChoice(effect.getPrivilegeChoices());
+				System.out.println("Asking for multiple council privilege choice");
+
 	    		if(choice!=-1){
 	    			effect.getPrivilegeChoices().getChoices().remove(choice);
 	    		}
