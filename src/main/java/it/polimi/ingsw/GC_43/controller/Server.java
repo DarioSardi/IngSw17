@@ -63,10 +63,10 @@ public class Server {
 		return clients.get(key);
 	}
 
-	public boolean newLobby(ClientHandler clientHandler,Integer lobbyNumber) {
+	public boolean newLobby(ClientHandler clientHandler,Integer lobbyNumber,Integer maxPlayers) {
 		System.out.println("provo a creare la lobby numero "+lobbyNumber);
 		if(!(this.lobbies.containsKey(lobbyNumber))){
-			this.lobbies.put(lobbyNumber,new Lobby(clientHandler,lobbyNumber));
+			this.lobbies.put(lobbyNumber,new Lobby(clientHandler,lobbyNumber,maxPlayers));
 			//lobbies.get(lobbyNumber).run();
 			System.out.println("added lobby number "+this.lobbies.size());	
 			return true;
@@ -82,18 +82,41 @@ public class Server {
 	
 	public boolean joinLobby(Integer lobbyNumber,ClientHandler cH){
 		if (this.lobbies.containsKey(lobbyNumber)) {
-			return this.lobbies.get(lobbyNumber).addPlayer(cH);
+			if (this.lobbies.get(lobbyNumber).addPlayer(cH)==1){
+				return true;
+			}
+			else if(this.lobbies.get(lobbyNumber).addPlayer(cH)==2){
+				cH.sendMsgTo("ENTER THE PASSWORD");
+				Object o = cH.readObject();
+				if (o instanceof SimpleMessage){
+					SimpleMessage sm=(SimpleMessage) o;
+					if(this.lobbies.get(lobbyNumber).reconnectPlayer(cH,sm.getMsg())){
+						cH.setGame(true);
+						return true;
+					}
+				}
+				else{
+					cH.sendMsgTo("autentication failed!");
+					return false;
+				}
+			}
+			else return false;
 		}
-		else return false;
+		return false;
 	}
 
 
 
 	public String getLobbiesToString() {
 		StringBuilder sb= new StringBuilder();
-		lobbies.entrySet().stream().forEach(lobby->sb.append(lobby.toString()));
-		System.out.println(sb.toString());
-		return sb.toString();
+		if (this.lobbies.size()!=0) {
+			this.lobbies.entrySet().stream().forEach(lobby -> sb.append(lobby.toString()));
+			System.out.println(sb.toString());
+			return sb.toString();
+		}
+		else{
+			return "there are no lobbies on this server!";
+		}
 	}
 	
 	//MAIN

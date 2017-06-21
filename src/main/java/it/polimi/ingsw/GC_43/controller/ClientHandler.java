@@ -3,13 +3,13 @@ package it.polimi.ingsw.GC_43.controller;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
+import java.nio.file.WatchKey;
 
+import javax.swing.plaf.SliderUI;
+
+import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.actions.Action;
-import it.polimi.ingsw.GC_43.model.actions.MarketAction;
 
 public class ClientHandler implements Runnable{
 	private Socket socket;
@@ -20,12 +20,14 @@ public class ClientHandler implements Runnable{
 	private ObjectOutputStream socketOut;
 	private Lobby lobby;
 	private boolean Game;
-	private boolean myturn;
+	private boolean myturn,inLobby;
 
 	public ClientHandler(Socket socket,int ID,Server myServer) throws IOException {
 		super();
 		this.socket = socket;
 		this.lobby=null;
+		this.inLobby=false;
+		this.Game=false;
 		this.ID=ID;
 		this.myServer=myServer;
 		this.socketIn = new ObjectInputStream(this.socket.getInputStream());
@@ -63,18 +65,25 @@ public class ClientHandler implements Runnable{
 			//MENU
 			while (!exit) {
 				sendMsgTo("\n"
-						+ "Menu di gioco\n"
-						+ "1.crea nuova lobby\n"
-						+ "2.unisciti alla lobby\n"
-						+ "3.esci dal gioco\n");
+						+ "MAIN MENU:\n"
+						+ "1.Create new lobby!\n"
+						+ "2.Join a lobby\n"
+						+ "3.Exit the game\n");
 				
 				//NEW LOBBY
 				String choice=readMsg();
 				if (choice.equals("1")) {
-					sendMsgTo("seleziona un numero di lobby");
+					sendMsgTo("Lobbies on this server:");
+					sendMsgTo(myServer.getLobbiesToString());
+					sendMsgTo("select a number for the lobby");
 					Integer lobbyNumber = Integer.parseInt(readMsg());
-					if (myServer.newLobby(this, lobbyNumber)) {
-						sendMsgTo("sei nella lobby");
+					Integer maxPlayers=0;
+					while (!(maxPlayers<=4&&maxPlayers>=2)) {
+						sendMsgTo("select the max number of players in the lobby/game (min 2 max 4)");
+						maxPlayers = Integer.parseInt(readMsg());
+					}
+					if (myServer.newLobby(this, lobbyNumber,maxPlayers)) {
+						sendMsgTo("you are in the lobby now!");
 						inLobby();
 					} else {
 						sendMsgTo("lobby number unaviable");
@@ -82,11 +91,11 @@ public class ClientHandler implements Runnable{
 				
 				//ENTER LOBBY
 				} else if (choice.equals("2")) {
-					sendMsgTo("seleziona una lobby");
+					sendMsgTo("select a lobby to join!");
 					sendMsgTo(myServer.getLobbiesToString());
 					Integer lobbyNumber=Integer.parseInt(readMsg());
 					if(myServer.joinLobby(lobbyNumber, this)){
-					inLobby();
+						inLobby();
 					}
 					else{sendMsgTo("unable to join lobby");}
 					
@@ -115,21 +124,20 @@ public class ClientHandler implements Runnable{
 	
 	//IN LOBBY
 	private void inLobby() {
-		sendMsgTo("sei entrato nella lobby, digita 'help' per la lista dei comandi");
-		boolean inlobby=true;
-		Game=false;
-		while(inlobby){
+		inLobby=true;
+		while(inLobby){
 			if (!this.Game) {
+				helpMsgLobby();
 				String command = readMsg();
 				if (command.equals("exit_lobby")) {
 					//DARIO rimuovi lobby
-					inlobby = false;
-					sendMsgTo("stai uscendo dalla lobby");
-				} else if (command.equals("chat")) {
-					sendMsgTo("digita il messaggio da mandare a tutti gli altri");
+					inLobby = false;
+					sendMsgTo("exiting the lobby");
+				} else if ("chat".equals(command)) {
+					sendMsgTo("write the message that you want to send!");
 					String msg = readMsg();
 					lobby.broadcastMsg(msg, this);
-				} else if (command.equals("start_game")) {
+				} else if ("start_game".equals(command)) {
 					if (lobby.startGame(this)) {
 						this.Game=true;
 						inGame();
@@ -140,13 +148,11 @@ public class ClientHandler implements Runnable{
 				} else if ("players".equals(command)) {
 					sendMsgTo(lobby.whoIsIn());
 				} else if ("help".equals(command)) {
-					sendMsgTo(
-							"\nchat to chat with the other inLobby players\n" + "exit_lobby to quit the current lobby\n"
-									+ "start_game to start the game if you are the admin\n" + "help to see this\n"
-									+ "players if you want to see who is in the lobby\n");
+					helpMsgLobby();
 				} else {
 					sendMsgTo("nulla di che...");
 					continue;
+
 				} 
 			}
 			else{
@@ -156,8 +162,16 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
-	public void setGame(){
-		this.Game=true;
+	private void helpMsgLobby() {
+		sendMsgTo(
+				"\nCOMANDI LOBBY:\n"
+				+ "chat to chat with the other inLobby players\n" + "exit_lobby to quit the current lobby\n"
+						+ "start_game to start the game if you are the admin\n" + "help to see this\n"
+						+ "players if you want to see who is in the lobby\n");		
+	}
+
+	public void setGame(Boolean inGame){
+		this.Game=inGame;
 	}
 
 	private void inGame() {
@@ -180,10 +194,21 @@ public class ClientHandler implements Runnable{
 				System.out.println("chat message :"+msg.getMsg());
 				this.lobby.broadcastMsg(msg.getMsg(),this);
 			}
-			else if(o instanceof Action){
+			else if(o instanceof Action&&this.myturn){
 				System.out.println("action received!"+ o.toString());
 				Action action=(Action) o;
 				this.lobby.getController().submitClientAction(action);
+			}
+			else if(o instanceof Action&&!this.myturn){
+				this.lobby.broadcastMsg("\n\nthe player "+this.getUsername()+"is trying to cheat and think that the GM is a noob, cute!\n\n", this);
+			}
+			else if(o instanceof QuitMsg){
+				String password=((QuitMsg) o).getPassword();
+				this.lobby.disconnectPlayer(this, password);
+				this.lobby=null;
+				this.inLobby=false;
+				this.Game=false;
+
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -197,10 +222,12 @@ public class ClientHandler implements Runnable{
 	public void sendObject(Object object){
 		try {
 			System.out.println("sent "+object);
+			if(object instanceof Board){
+				socketOut.reset();
+			}
 			socketOut.writeObject(object);
 			socketOut.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -211,7 +238,6 @@ public class ClientHandler implements Runnable{
 			socketOut.writeObject(sm);
 			socketOut.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -236,6 +262,18 @@ public class ClientHandler implements Runnable{
 		return receiveMsg().getMsg();
 	}
 	
+	public Object readObject(){
+		try {
+			Object o=socketIn.readObject();
+			return o;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	@Override
 	public String toString() {
@@ -244,13 +282,21 @@ public class ClientHandler implements Runnable{
 
 	public void setMyturn(boolean myturn) {
 		if(myturn){
-			System.out.println("is my turn to"+ this);
 			sendMsgTo("now_is_my_turn");
 		}
 		else{
 		sendMsgTo("end_of_my_turn");
 		}
 		this.myturn = myturn;
+	}
+
+	public void changeName() {
+		sendMsgTo("choose another username, "+this.getUsername()+" is already taken");
+		String newUsername=receiveMsg().getMsg();
+		this.username=newUsername;
+		sendObject(new ChangeUsernameMessage(newUsername) );
+		
+		
 	}
 	
 	

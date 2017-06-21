@@ -74,6 +74,9 @@ public class Client {
     	return this.lobby;
     }
     
+    public void setInGame(Boolean inG){
+    	this.inGame=inG;
+    }
     
 	public GlobalVariables getGameGlobalVariables() {
 		return this.gameGlobalVariables;
@@ -136,6 +139,11 @@ public class Client {
 
 	public Board getBoard() {
 		return this.board;
+	}
+	
+	public void changeUsername(String newUsername){
+		System.out.println("changed your username in " + newUsername);
+		this.username=newUsername;
 	}
 
 

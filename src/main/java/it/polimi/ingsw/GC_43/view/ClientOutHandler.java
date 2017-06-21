@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import it.polimi.ingsw.GC_43.controller.ChatMsg;
 import it.polimi.ingsw.GC_43.controller.Lobby;
+import it.polimi.ingsw.GC_43.controller.QuitMsg;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 
 public class ClientOutHandler implements Runnable {
@@ -90,6 +91,22 @@ public class ClientOutHandler implements Runnable {
 					}
 					
 				}
+				
+				else if("quit".equals(command)){
+					System.out.println("are you sure? write 'yes' to exit the game");
+					String quitString=userIn.readLine().toString();
+					if(quitString.equalsIgnoreCase("yes")){
+						System.out.println("select a password to re-enter the game");
+						String password=userIn.readLine().toString();
+						System.out.print("now you are leaving the game!Press Enter to continue to the lobby");
+						QuitMsg quit=new QuitMsg(password, this.myClient.getID());
+						this.sendObj(quit);
+						this.myClient.setInGame(false);
+					}
+					else{
+						System.out.println("...so you don't want to leave? good! returning to the game.");
+					}
+				}
 				else{
 					System.out.println("command "+command+" is not a valid command");
 				}
@@ -102,11 +119,13 @@ public class ClientOutHandler implements Runnable {
 	}
 	
 	public void inGameCommandsPrint(){
-		System.out.println("You are in the Game-mode menu;your commands are:");
+		System.out.println("You are in the Game-mode menu;"
+				+ "\nyour commands are:");
 		System.out.println("help - to see this message");
 		System.out.println("action - to show the list of actions");
 		System.out.println("chat - for sending a message to all the players in the game");
 		System.out.println("info- to see the list of possible infos");
+		System.out.println("quit- to exit the game!");
 	}
 
 	public void sendMsgTo(String string){
