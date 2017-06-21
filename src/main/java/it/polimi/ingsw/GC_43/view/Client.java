@@ -36,7 +36,6 @@ public class Client {
 	private Lobby lobby;
 	Boolean idSetted,inMenu,inGame,online,myTurn,excommunicationRound;
 	private Player myPlayer;
-	private GlobalVariables gameGlobalVariables;
 	private ExecutorService executor;
 	public ReentrantLock locker;
 
@@ -46,8 +45,6 @@ public class Client {
     	this.online=true;
     	this.inMenu=true;
     	this.inGame=false;
-    	this.gameGlobalVariables=new GlobalVariables();
-    	//DARIO test,da settare col controller
     	this.myTurn=false;
     	
     	
@@ -81,47 +78,45 @@ public class Client {
     	this.inGame=inG;
     }
     
-	public GlobalVariables getGameGlobalVariables() {
-		return this.gameGlobalVariables;
-	}
+
 
 
 
 	public void setGameGlobalVariables(CopyOfGlobalVariables o) {
-		   this.gameGlobalVariables.maxNumberOfPlayers = o.maxNumberPlayerCards;
-		   this.gameGlobalVariables.numberOfFamilyMembers = o.numberOfFamilyMembers;
-		   this.gameGlobalVariables.numberOfTowers = o.numberOfTowers;
-		   this.gameGlobalVariables.numberOfDice = o.numberOfDice;
-		   this.gameGlobalVariables.excommunicationRound = o.excommunicationRound;
-		   this.gameGlobalVariables.totalNumberOfCardsPerSet = o.totalNumberOfCardsPerSet;
-		   this.gameGlobalVariables.towerCardsPerRound = o.towerCardsPerRound;
-		   this.gameGlobalVariables.towerCardsPerPeriod = o.towerCardsPerPeriod;
-		   this.gameGlobalVariables.floorsPerTower = o.floorsPerTower;
-		   this.gameGlobalVariables.totalNumberOfPeriods = o.totalNumberOfPeriods;
-		   this.gameGlobalVariables.maxNumberPlayerCards = o.maxNumberPlayerCards;
-		   this.gameGlobalVariables.initialWoods = o.initialWoods;
-		   this.gameGlobalVariables.initialStones = o.initialStones;
-		   this.gameGlobalVariables.initialServants = o.initialServants;
-		   this.gameGlobalVariables.initialFirstPlayerCoins = o.initialFirstPlayerCoins;
-		   this.gameGlobalVariables.initialSecondPlayerCoins = o.initialSecondPlayerCoins;	
-		   this.gameGlobalVariables.initialThirdPlayerCoins = o.initialThirdPlayerCoins;	
-		   this.gameGlobalVariables.initialFourthPlayerCoins = o.initialFourthPlayerCoins;	
-		   this.gameGlobalVariables.initialVictoryPoints = o.initialVictoryPoints;
-		   this.gameGlobalVariables.initialMilitaryPoints = o.initialMilitaryPoints;
-		   this.gameGlobalVariables.initialFaithPoints = o.initialFaithPoints;
-		   this.gameGlobalVariables.minDiceFirstHarvestArea = o.minDiceFirstHarvestArea;
-		   this.gameGlobalVariables.minDiceSecondHarvestArea = o.minDiceSecondHarvestArea;
-		   this.gameGlobalVariables.minDiceFirstProductionArea = o.minDiceFirstProductionArea;
-		   this.gameGlobalVariables.minDiceSecondProductionArea = o.minDiceSecondProductionArea;
-		   this.gameGlobalVariables.minDiceValueCouncilPalace = o.minDiceValueCouncilPalace;
-		   this.gameGlobalVariables.towerTax = o.towerTax;
-		   this.gameGlobalVariables.numberOfPlayers = o.numberOfPlayers;
-		   this.gameGlobalVariables.victoryPointsFirstMilitaryPower = o.victoryPointsFirstMilitaryPower;
-		   this.gameGlobalVariables.victoryPointsSecondMilitaryPower = o.victoryPointsSecondMilitaryPower;
-		   this.gameGlobalVariables.maxVictoryPoints = o.maxVictoryPoints;
-		   this.gameGlobalVariables.maxMilitaryPoints = o.maxMilitaryPoints;
-		   this.gameGlobalVariables.maxFaithPoints = o.maxFaithPoints;
-		   this.gameGlobalVariables.faithPointExcomRequired=o.faithPointExcomRequired;
+		   GlobalVariables.maxNumberOfPlayers = o.maxNumberPlayerCards;
+		   GlobalVariables.numberOfFamilyMembers = o.numberOfFamilyMembers;
+		   GlobalVariables.numberOfTowers = o.numberOfTowers;
+		   GlobalVariables.numberOfDice = o.numberOfDice;
+		   GlobalVariables.excommunicationRound = o.excommunicationRound;
+		   GlobalVariables.totalNumberOfCardsPerSet = o.totalNumberOfCardsPerSet;
+		   GlobalVariables.towerCardsPerRound = o.towerCardsPerRound;
+		   GlobalVariables.towerCardsPerPeriod = o.towerCardsPerPeriod;
+		   GlobalVariables.floorsPerTower = o.floorsPerTower;
+		   GlobalVariables.totalNumberOfPeriods = o.totalNumberOfPeriods;
+		   GlobalVariables.maxNumberPlayerCards = o.maxNumberPlayerCards;
+		   GlobalVariables.initialWoods = o.initialWoods;
+		   GlobalVariables.initialStones = o.initialStones;
+		   GlobalVariables.initialServants = o.initialServants;
+		   GlobalVariables.initialFirstPlayerCoins = o.initialFirstPlayerCoins;
+		   GlobalVariables.initialSecondPlayerCoins = o.initialSecondPlayerCoins;	
+		   GlobalVariables.initialThirdPlayerCoins = o.initialThirdPlayerCoins;	
+		   GlobalVariables.initialFourthPlayerCoins = o.initialFourthPlayerCoins;	
+		   GlobalVariables.initialVictoryPoints = o.initialVictoryPoints;
+		   GlobalVariables.initialMilitaryPoints = o.initialMilitaryPoints;
+		   GlobalVariables.initialFaithPoints = o.initialFaithPoints;
+		   GlobalVariables.minDiceFirstHarvestArea = o.minDiceFirstHarvestArea;
+		   GlobalVariables.minDiceSecondHarvestArea = o.minDiceSecondHarvestArea;
+		   GlobalVariables.minDiceFirstProductionArea = o.minDiceFirstProductionArea;
+		   GlobalVariables.minDiceSecondProductionArea = o.minDiceSecondProductionArea;
+		   GlobalVariables.minDiceValueCouncilPalace = o.minDiceValueCouncilPalace;
+		   GlobalVariables.towerTax = o.towerTax;
+		   GlobalVariables.numberOfPlayers = o.numberOfPlayers;
+		   GlobalVariables.victoryPointsFirstMilitaryPower = o.victoryPointsFirstMilitaryPower;
+		   GlobalVariables.victoryPointsSecondMilitaryPower = o.victoryPointsSecondMilitaryPower;
+		   GlobalVariables.maxVictoryPoints = o.maxVictoryPoints;
+		   GlobalVariables.maxMilitaryPoints = o.maxMilitaryPoints;
+		   GlobalVariables.maxFaithPoints = o.maxFaithPoints;
+		   GlobalVariables.faithPointExcomRequired=o.faithPointExcomRequired;
 	}
 
 
