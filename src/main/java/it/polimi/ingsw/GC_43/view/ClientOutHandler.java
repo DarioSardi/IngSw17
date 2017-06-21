@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.GC_43.controller.ChatMsg;
+import it.polimi.ingsw.GC_43.controller.ExcommunicationChoiceMsg;
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.controller.QuitMsg;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
@@ -26,20 +28,31 @@ public class ClientOutHandler implements Runnable {
 
 	@Override
 	public void run() {
-		
+		this.myClient.excommunicationRound=false;
 		BufferedReader userIn= this.myClient.inKeyboard;
 		sendMsgTo(myClient.getUsername());
-		while(this.myClient.online){
-			try {
-				if(!this.myClient.inGame){
-				String msg=userIn.readLine().toString();
-				sendMsgTo(msg);
-				}
-				else if(this.myClient.inGame){
-					inGameParser(userIn);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+		while(!Thread.currentThread().isInterrupted()){
+			if (this.myClient.online) {
+				try {
+					if (!this.myClient.inGame) {
+						String msg = userIn.readLine().toString();
+						sendMsgTo(msg);
+					} else if (this.myClient.inGame) {
+						if(!this.myClient.excommunicationRound){
+							
+							inGameParser(userIn);
+							
+						}
+						if(this.myClient.excommunicationRound){
+							excomunicationRound(userIn);
+							this.myClient.excommunicationRound=false;
+						}
+					}
+				} catch (IOException e) {
+				
+					e.printStackTrace();
+					
+				} 
 			}
 		}
 
@@ -107,6 +120,7 @@ public class ClientOutHandler implements Runnable {
 						System.out.println("...so you don't want to leave? good! returning to the game.");
 					}
 				}
+				
 				else{
 					System.out.println("command "+command+" is not a valid command");
 				}
@@ -117,6 +131,31 @@ public class ClientOutHandler implements Runnable {
 
 		}
 	}
+	
+	public void excomunicationRound(BufferedReader userIn) {
+		Boolean done=false;
+		try {
+			while (!done) {
+				System.out.println("EXCOMUNICATION TIME! ALL PROCESS ABORTED");
+				String choice = userIn.readLine();
+				if ("yes".equals(choice)) {
+					System.out.println("good boy");
+					sendObj(new ExcommunicationChoiceMsg(true));
+					done = true;
+
+				} else if ("no".equals(choice)) {
+					System.out.println("WTF DI U SAY ABOUT THE POPE?");
+					sendObj(new ExcommunicationChoiceMsg(false));
+					done = true;
+				} else
+					System.out.println("Shame! Not even a yes or no answer...retry!");
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+		
 	
 	public void inGameCommandsPrint(){
 		System.out.println("You are in the Game-mode menu;"

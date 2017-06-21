@@ -103,6 +103,10 @@ public class ClientInHandler implements Runnable {
 			System.out.println("END OF MY TURN!");
 			this.myClient.myTurn=false;
 			}
+		else if("excommunication_round".equals(line)){
+			System.out.println("\n\n\nEXCOMMUNICATION ROUND PRESS ENTER OR FINISH THE MENU QUERY TO ANSWER THE CHOICE, YOU HAVE 2 MINUTES!\n\n");
+			this.myClient.excommunicationRound=true;
+		}
 		
 		else{
 			System.out.println(line);

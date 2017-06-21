@@ -80,6 +80,7 @@ public class InGameMessageParser {
 								else if("6".equals(actionChoice)){
 									startTime=0;
 								}
+								
 							} catch (IOException e) {
 								e.printStackTrace();
 							}}
@@ -89,20 +90,14 @@ public class InGameMessageParser {
 					else{
 						System.out.println("returning to main menu");
 					}
-		    				
-		    				
-		    				
-		    				
-		    				
-		    				
-		    				
-		    			
-		
-		
-		
 	}
 	
-
+	    				
+		    				
+		    				
+		    				
+	
+	
 	public void printActionsMenu(){
 		System.out.println("MENU AZIONE!");
 		System.out.println("Seleziona l'area a cui vuoi accedere:");

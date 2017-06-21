@@ -210,6 +210,10 @@ public class ClientHandler implements Runnable{
 				this.Game=false;
 
 			}
+			else if(o instanceof ExcommunicationChoiceMsg){
+				Boolean answer=((ExcommunicationChoiceMsg) o).getChoice();
+				this.lobby.getController().submitExcommunicationChoice(this.username, answer);
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

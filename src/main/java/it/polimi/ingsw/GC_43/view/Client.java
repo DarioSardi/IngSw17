@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.model.Board;
@@ -33,9 +34,11 @@ public class Client {
 	private static InetAddress ipAddr;
 	private Board board;
 	private Lobby lobby;
-	Boolean idSetted,inMenu,inGame,online,myTurn;
+	Boolean idSetted,inMenu,inGame,online,myTurn,excommunicationRound;
 	private Player myPlayer;
 	private GlobalVariables gameGlobalVariables;
+	private ExecutorService executor;
+	public ReentrantLock locker;
 
     public Client() throws IOException{
     	setup();
@@ -85,39 +88,40 @@ public class Client {
 
 
 	public void setGameGlobalVariables(CopyOfGlobalVariables o) {
-		   GlobalVariables.maxNumberOfPlayers = o.maxNumberPlayerCards;
-		   GlobalVariables.numberOfFamilyMembers = o.numberOfFamilyMembers;
-		   GlobalVariables.numberOfTowers = o.numberOfTowers;
-		   GlobalVariables.numberOfDice = o.numberOfDice;
-		   GlobalVariables.excommunicationRound = o.excommunicationRound;
-		   GlobalVariables.totalNumberOfCardsPerSet = o.totalNumberOfCardsPerSet;
-		   GlobalVariables.towerCardsPerRound = o.towerCardsPerRound;
-		   GlobalVariables.towerCardsPerPeriod = o.towerCardsPerPeriod;
-		   GlobalVariables.floorsPerTower = o.floorsPerTower;
-		   GlobalVariables.totalNumberOfPeriods = o.totalNumberOfPeriods;
-		   GlobalVariables.maxNumberPlayerCards = o.maxNumberPlayerCards;
-		   GlobalVariables.initialWoods = o.initialWoods;
-		   GlobalVariables.initialStones = o.initialStones;
-		   GlobalVariables.initialServants = o.initialServants;
-		   GlobalVariables.initialFirstPlayerCoins = o.initialFirstPlayerCoins;
-		   GlobalVariables.initialSecondPlayerCoins = o.initialSecondPlayerCoins;	
-		   GlobalVariables.initialThirdPlayerCoins = o.initialThirdPlayerCoins;	
-		   GlobalVariables.initialFourthPlayerCoins = o.initialFourthPlayerCoins;	
-		   GlobalVariables.initialVictoryPoints = o.initialVictoryPoints;
-		   GlobalVariables.initialMilitaryPoints = o.initialMilitaryPoints;
-		   GlobalVariables.initialFaithPoints = o.initialFaithPoints;
-		   GlobalVariables.minDiceFirstHarvestArea = o.minDiceFirstHarvestArea;
-		   GlobalVariables.minDiceSecondHarvestArea = o.minDiceSecondHarvestArea;
-		   GlobalVariables.minDiceFirstProductionArea = o.minDiceFirstProductionArea;
-		   GlobalVariables.minDiceSecondProductionArea = o.minDiceSecondProductionArea;
-		   GlobalVariables.minDiceValueCouncilPalace = o.minDiceValueCouncilPalace;
-		   GlobalVariables.towerTax = o.towerTax;
-		   GlobalVariables.numberOfPlayers = o.numberOfPlayers;
-		   GlobalVariables.victoryPointsFirstMilitaryPower = o.victoryPointsFirstMilitaryPower;
-		   GlobalVariables.victoryPointsSecondMilitaryPower = o.victoryPointsSecondMilitaryPower;
-		   GlobalVariables.maxVictoryPoints = o.maxVictoryPoints;
-		   GlobalVariables.maxMilitaryPoints = o.maxMilitaryPoints;
-		   GlobalVariables.maxFaithPoints = o.maxFaithPoints;
+		   this.gameGlobalVariables.maxNumberOfPlayers = o.maxNumberPlayerCards;
+		   this.gameGlobalVariables.numberOfFamilyMembers = o.numberOfFamilyMembers;
+		   this.gameGlobalVariables.numberOfTowers = o.numberOfTowers;
+		   this.gameGlobalVariables.numberOfDice = o.numberOfDice;
+		   this.gameGlobalVariables.excommunicationRound = o.excommunicationRound;
+		   this.gameGlobalVariables.totalNumberOfCardsPerSet = o.totalNumberOfCardsPerSet;
+		   this.gameGlobalVariables.towerCardsPerRound = o.towerCardsPerRound;
+		   this.gameGlobalVariables.towerCardsPerPeriod = o.towerCardsPerPeriod;
+		   this.gameGlobalVariables.floorsPerTower = o.floorsPerTower;
+		   this.gameGlobalVariables.totalNumberOfPeriods = o.totalNumberOfPeriods;
+		   this.gameGlobalVariables.maxNumberPlayerCards = o.maxNumberPlayerCards;
+		   this.gameGlobalVariables.initialWoods = o.initialWoods;
+		   this.gameGlobalVariables.initialStones = o.initialStones;
+		   this.gameGlobalVariables.initialServants = o.initialServants;
+		   this.gameGlobalVariables.initialFirstPlayerCoins = o.initialFirstPlayerCoins;
+		   this.gameGlobalVariables.initialSecondPlayerCoins = o.initialSecondPlayerCoins;	
+		   this.gameGlobalVariables.initialThirdPlayerCoins = o.initialThirdPlayerCoins;	
+		   this.gameGlobalVariables.initialFourthPlayerCoins = o.initialFourthPlayerCoins;	
+		   this.gameGlobalVariables.initialVictoryPoints = o.initialVictoryPoints;
+		   this.gameGlobalVariables.initialMilitaryPoints = o.initialMilitaryPoints;
+		   this.gameGlobalVariables.initialFaithPoints = o.initialFaithPoints;
+		   this.gameGlobalVariables.minDiceFirstHarvestArea = o.minDiceFirstHarvestArea;
+		   this.gameGlobalVariables.minDiceSecondHarvestArea = o.minDiceSecondHarvestArea;
+		   this.gameGlobalVariables.minDiceFirstProductionArea = o.minDiceFirstProductionArea;
+		   this.gameGlobalVariables.minDiceSecondProductionArea = o.minDiceSecondProductionArea;
+		   this.gameGlobalVariables.minDiceValueCouncilPalace = o.minDiceValueCouncilPalace;
+		   this.gameGlobalVariables.towerTax = o.towerTax;
+		   this.gameGlobalVariables.numberOfPlayers = o.numberOfPlayers;
+		   this.gameGlobalVariables.victoryPointsFirstMilitaryPower = o.victoryPointsFirstMilitaryPower;
+		   this.gameGlobalVariables.victoryPointsSecondMilitaryPower = o.victoryPointsSecondMilitaryPower;
+		   this.gameGlobalVariables.maxVictoryPoints = o.maxVictoryPoints;
+		   this.gameGlobalVariables.maxMilitaryPoints = o.maxMilitaryPoints;
+		   this.gameGlobalVariables.maxFaithPoints = o.maxFaithPoints;
+		   this.gameGlobalVariables.faithPointExcomRequired=o.faithPointExcomRequired;
 	}
 
 
@@ -165,7 +169,7 @@ public class Client {
     	System.out.println("tento di connettermi...");
     	socket = new Socket(address, port);
     	//thread per gestione I/O
-    	ExecutorService executor = Executors.newFixedThreadPool(2);
+    	executor = Executors.newFixedThreadPool(2);
     	this.outStream=new ClientOutHandler(new ObjectOutputStream(socket.getOutputStream()),this);
     	this.inStream=new ClientInHandler(new ObjectInputStream(socket.getInputStream()),this);
     	executor.submit(inStream);
@@ -218,5 +222,8 @@ public class Client {
 		System.out.println("invio oggetto "+o.toString());
 		this.outStream.sendObj(o);
 	}
+	
+	
+	
 
 }
