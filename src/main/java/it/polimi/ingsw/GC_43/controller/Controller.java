@@ -285,6 +285,9 @@ private void nextRoundLogic() {
 	this.board.nextTurn();
 	}
 
+public void submitExcommunicationChoice(String playerID, boolean decision){
+	//TODO to implement
+}
 private void askPlayersForExcommunication() {
 	System.out.println("Entered in Excommunication logic function");
 	this.board.nextPeriod();
