@@ -6,7 +6,7 @@
       "Type": "CharacterCard",
       "InstantBonus": [
         {
-          "effect": "multipleCouncilPrivilege",
+          "effect": "multCouncilPrivileges",
           "valueEffect": "1"
         },
         {
@@ -91,7 +91,7 @@
       "Type": "CharacterCard",
       "InstantBonus": [
         {
-          "effect": "MultVictPointsVentureCard",
+          "effect": "multVictoryPointsVenture",
           "valueEffect": "2"
         }
       ],
@@ -109,7 +109,7 @@
       "Type": "CharacterCard",
       "InstantBonus": [
         {
-          "effect": "MultVictPointsBuildingCard",
+          "effect": "multVictoryPointsBuilding",
           "valueEffect": "2"
         }
       ],
@@ -149,7 +149,7 @@
       "Type": "CharacterCard",
       "InstantBonus": [
         {
-          "effect": "multipleCouncilPrivilege",
+          "effect": "multCouncilPrivileges",
           "valueEffect": "1"
         },
         {
@@ -283,7 +283,7 @@
       "Type": "CharacterCard",
       "InstantBonus": [
         {
-          "effect": "MultVictPointsBuildingCard",
+          "effect": "multVictoryPointsBuilding",
           "valueEffect": "2"
         }
       ],
@@ -389,7 +389,7 @@
       ],
       "PermanentBonus": [
         {
-          "effect": "addTerritoryDiceValue",
+          "effect": "addDiceValueTerritoryTower",
           "valueEffect": "2"
         }
       ],

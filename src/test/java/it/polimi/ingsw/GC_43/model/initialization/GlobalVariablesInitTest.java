@@ -11,7 +11,7 @@ public class GlobalVariablesInitTest {
 	@Test
 	public void testReadGlobalVariables() {
 		GlobalVariablesInit.readGlobalVariables();
-		System.out.println(GlobalVariables.numberOfFamilyMembers);
+		System.out.println(GlobalVariables.councilPrivilegeEffect);
 	}
 
 }
