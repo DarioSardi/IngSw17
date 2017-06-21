@@ -207,7 +207,7 @@ public class TowerActionPerformerRoutine implements ActionPerformer {
 			if (tower.checkColor(familyMember))
 				this.checkResult = false;
 
-			if (tower.getFloors().get(this.towerAction.getFloorChoice()).isOccupied())
+			if (tower.getFloors().get(this.towerAction.getFloorChoice()).check(familyMember))
 				this.checkResult = false;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -105,6 +105,9 @@ public class Controller implements IController {
 			this.matchClientHandler.put(playerID, clientHandler);
 			playerDisconnected--;
 
+			clientHandler.sendObject(this.globalVariables);
+			clientHandler.sendObject(this.board);
+
 		}
 		
 	}
@@ -164,7 +167,7 @@ public class Controller implements IController {
 		boolean actionResult = false;
 		actionResult = submit(action);
 
-		System.out.println("\n Action successfully submitted " + actionResult);
+		System.out.println("\n Action submission = " + actionResult);
 
 		if (actionResult) {
 
@@ -172,7 +175,9 @@ public class Controller implements IController {
 					"\nAction successfully completed, broadcasting notifications and calling for next player phase");
 
 			playersLobby.broadcastMsg(action.toString(), this.getPlayerOfTurn());
+			
 			for (ClientHandler clientHandler : this.clientHandlers) {
+				System.out.println("Sending updated board to client"+clientHandler.getUsername());
 				clientHandler.sendObject(this.board);
 			}
 
@@ -193,10 +198,24 @@ public class Controller implements IController {
 	// MANAGING PLAYERS PHASES
 
 	private void nextPlayerPhase() {
-		System.out.println("\n Attemping to get firstPlayr" + this.board.getPhase());
+		System.out.println("\n Attemping to get old phase player" + this.board.getPhasePlayer());
 		
 		if(this.playerDisconnected==this.clientHandlers.size())
 			endGame();
+		
+		
+		
+	//CHECKING EXCOMMUNICATION TIME	
+	/*	if(this.board.getPlayers().size()==this.board.getPhase()&&this.board.getRound()%GlobalVariables.excommunicationRound==0&&this.board.getRound()!=0){
+			
+			fkn+mldà
+
+		}
+		*/
+		
+		
+		
+		
 		
 		while (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())){
 			this.board.nextPlayerPhase();
@@ -245,26 +264,23 @@ public class Controller implements IController {
 		int actionID = action.getActionID();
 		boolean result;
 
-		System.out.println("\nAttempting to perform the action submitted");
+		System.out.println("\nAttempting to perform the action submitted "+action.toString()+"\n with ID: "+action.getActionID());
 
 		switch (actionID) {
 		case 1:
 			ProductionAction productionAction = (ProductionAction) action;
-			ProductionActionPerformerRoutine productionActionImpl = new ProductionActionPerformerRoutine(
-					productionAction, this.board);
+			ProductionActionPerformerRoutine productionActionImpl = new ProductionActionPerformerRoutine(productionAction, this.board);
 			result = productionActionImpl.performAction();
 			return result;
 		case 2:
 			HarvestAction harvestAction = (HarvestAction) action;
-			HarvestActionPerformerRoutine harvestActionImpl = new HarvestActionPerformerRoutine(harvestAction,
-					this.board);
+			HarvestActionPerformerRoutine harvestActionImpl = new HarvestActionPerformerRoutine(harvestAction,this.board);
 			result = harvestActionImpl.performAction();
 			return result;
 
 		case 3:
 			CouncilPalaceAction councilPalaceAction = (CouncilPalaceAction) action;
-			CouncilPalacePerformerRoutine councilPalaceActionImpl = new CouncilPalacePerformerRoutine(
-					councilPalaceAction, this.board);
+			CouncilPalacePerformerRoutine councilPalaceActionImpl = new CouncilPalacePerformerRoutine(councilPalaceAction, this.board);
 			result = councilPalaceActionImpl.performAction();
 			return result;
 		case 4:

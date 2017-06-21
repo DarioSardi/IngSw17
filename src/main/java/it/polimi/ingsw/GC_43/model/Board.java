@@ -68,9 +68,9 @@ public class Board implements Serializable {
 		this.playersID = new ArrayList<String>();
 		this.playersID = playersID;
 		
-		this.setPeriod(1);
-		this.setPhase(1);
-		this.setRound(1);
+		this.setPeriod(0);
+		this.setPhase(0);
+		this.setRound(0);
 
 		GlobalVariables.numberOfPlayers = playersID.size();
 
@@ -171,7 +171,9 @@ public class Board implements Serializable {
 	// BOTTOM TO TOP
 
 	private void setTowerCards() {
+
 		int startingCardToDraw = this.round * GlobalVariables.towerCardsPerRound;
+		System.out.println("Setting card on tower starting from card: "+startingCardToDraw);
 		for (int index = 0; index < GlobalVariables.towerCardsPerRound; index++)
 			this.getTowers().get(0).getFloors().get(index)
 					.setCard((TerritoryCard) this.territoryCardPool.get(startingCardToDraw + index));
