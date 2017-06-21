@@ -39,10 +39,10 @@ public class ExcommunicationTilesIterators {
 			    case "malusOnGetStone": this.malus.add(new MalusOnGetResources("stone", valueEffect)); break;
 			    case "malusOnGetServant": this.malus.add(new MalusOnGetResources("servant", valueEffect)); break;
 			    case "malusOnFamilyMemberDiceValue": this.malus.add(new MalusOnColouredFamilyMemberDiceValue(valueEffect)); break;
-			    case "malusOnBuildingTower": this.malus.add(new AdditionalDiceValueToTower("buildingTower", -valueEffect)); break;
-			    case "malusOnCharacterTower": this.malus.add(new AdditionalDiceValueToTower("characterTower", -valueEffect)); break;
-			    case "malusOnTerritoryTower": this.malus.add(new AdditionalDiceValueToTower("territoryTower", -valueEffect)); break;
-			    case "malusOnVentureTower": this.malus.add(new AdditionalDiceValueToTower("ventureTower", -valueEffect)); break;
+			    case "malusOnBuildingTower": this.malus.add(new AdditionalDieValueAndResourceDiscountToTower("BuildingCard", -valueEffect, 0)); break;
+			    case "malusOnCharacterTower": this.malus.add(new AdditionalDieValueAndResourceDiscountToTower("CharacterCard", -valueEffect, 0)); break;
+			    case "malusOnTerritoryTower": this.malus.add(new AdditionalDieValueAndResourceDiscountToTower("TerritoryCard", -valueEffect, 0)); break;
+			    case "malusOnVentureTower": this.malus.add(new AdditionalDieValueAndResourceDiscountToTower("VentureCard", -valueEffect, 0)); break;
 			    case "malusOnProduction": this.malus.add(new AdditionalValueToDiceOnProduction(-valueEffect)); break;
 			    case "malusOnHarvest": this.malus.add(new AdditionalValueToDiceOnHarvest(-valueEffect)); break;
 			    case "twoServantsCountAsOne": this.malus.add(new TwoServantsCountAsOne()); break;

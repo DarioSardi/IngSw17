@@ -133,7 +133,9 @@
         },
         {
           "effect": "addDiceValueCharacterTower",
-          "valueEffect": "2"
+          "valueEffect": "2",
+		"discountType" : "coin",
+		"discountValue": "1"
         }
       ],
       "Cost": [
@@ -267,7 +269,9 @@
       "PermanentBonus": [
         {
           "effect": "addDiceValueBuildingTower",
-          "valueEffect": "2"
+          "valueEffect": "2",
+		"discountType" : "special",
+		"discountValue" : "0"
         }
       ],
       "Cost": [
@@ -331,7 +335,9 @@
       "PermanentBonus": [
         {
           "effect": "addDiceValueVentureTower",
-          "valueEffect": "2"
+          "valueEffect": "2",
+		"discountType" : "",
+		"discountValue" : "0"
         }
       ],
       "Cost": [
@@ -390,7 +396,9 @@
       "PermanentBonus": [
         {
           "effect": "addDiceValueTerritoryTower",
-          "valueEffect": "2"
+          "valueEffect": "2",
+		"discountType" : "",
+		"discountValue": "0"
         }
       ],
       "Cost": [

@@ -46,6 +46,7 @@ public class GlobalVariables implements Serializable{
    public static MultipleChoiceEffect councilPrivilegeEffect;
    public static int malusUnlimitedCells;
    public static Integer[] militaryPointsRequired;
+   public static Integer[] faithPointExcomRequired;
    
 
    public static int endResourcesToVictoryPoint;

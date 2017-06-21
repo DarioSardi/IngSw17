@@ -37,10 +37,34 @@ public class CardBonusIterators {
 		
 		switch (effect) {
 		 
-		    case "addDiceValueBuildingTower": bonus.add(new AdditionalDiceValueToTower("buildingTower", valueEffect)); break;	     
-		    case "addDiceValueCharacterTower":  bonus.add(new AdditionalDiceValueToTower("characterTower", valueEffect)); break;	 
-		    case "addDiceValueTerritoryTower": bonus.add(new AdditionalDiceValueToTower("territoryTower", valueEffect)); break;	 
-		    case "addDiceValueVentureTower": bonus.add(new AdditionalDiceValueToTower("ventureTower", valueEffect)); break;	 
+		    case "addDiceValueBuildingTower": 
+		    	int discountBValue = Integer.parseInt((String)slide.get("discountValue"));
+		    	String discountBType = (String)slide.get("discountType");
+		    	bonus.add(new AdditionalDieValueAndResourceDiscountToTower("BuildingCard", valueEffect, discountBValue)); 
+		    	if ("special".equals(discountBType))
+			    	bonus.add(new DoubleChoiceOnDiscountBuildingCard()); 
+		    	break;	     
+		    case "addDiceValueCharacterTower":
+		    	int discountCValue = Integer.parseInt((String)slide.get("discountValue"));
+		    	String discountCType = (String)slide.get("discountType");
+		    	bonus.add(new AdditionalDieValueAndResourceDiscountToTower("CharacterCard", valueEffect, discountCValue));
+		    	if ("special".equals(discountCType))
+			    	bonus.add(new DoubleChoiceOnDiscountBuildingCard()); 
+		    	break;	 
+		    case "addDiceValueTerritoryTower": 
+		    	int discountTValue = Integer.parseInt((String)slide.get("discountValue"));
+		    	String discountTType = (String)slide.get("discountType");
+		    	bonus.add(new AdditionalDieValueAndResourceDiscountToTower("TerritoryCard", valueEffect, discountTValue)); 
+		    	if ("special".equals(discountTType))
+			    	bonus.add(new DoubleChoiceOnDiscountBuildingCard()); 
+		    	break;	 
+		    case "addDiceValueVentureTower": 
+		    	int discountVValue = Integer.parseInt((String)slide.get("discountValue"));
+		    	String discountVType = (String)slide.get("discountType");
+		    	bonus.add(new AdditionalDieValueAndResourceDiscountToTower("VentureCard", valueEffect, discountVValue)); 
+		    	if ("special".equals(discountVType))
+			    	bonus.add(new DoubleChoiceOnDiscountBuildingCard());
+		    	break;	 
 		    case "addProductionDiceValue":  bonus.add(new AdditionalValueToDiceOnProduction(valueEffect)); break;
 		    case "addHarvestDiceValue":  bonus.add(new AdditionalValueToDiceOnHarvest(valueEffect)); break;
 		    

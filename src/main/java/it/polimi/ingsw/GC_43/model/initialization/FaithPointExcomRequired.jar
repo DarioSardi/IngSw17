@@ -1,0 +1,16 @@
+    {
+	 "MilitaryPointsRequired": [
+        {
+          "period": "0",
+          "numFaithPoints": "3"
+        },
+        {
+          "period": "1",
+          "numFaithPoints": "4"
+        },
+        {
+          "period": "2",
+          "numFaithPoints": "5"
+        }
+      ]
+    }

@@ -78,6 +78,10 @@ public class GlobalVariablesInit implements Serializable{
 		InitMilitaryPointsRequired mpi = new InitMilitaryPointsRequired();
 		mpi.readMilitaryPointsRequired();
 		GlobalVariables.militaryPointsRequired = mpi.getMilitaryPointsRequired();
+		
+		InitFaithPointExcomRequired fperi = new InitFaithPointExcomRequired();
+		fperi.readFaithPointExcomRequired();
+		GlobalVariables.faithPointExcomRequired = fperi.getFaithPointExcom();
         
     	InitEndPoints iep = new InitEndPoints();
     	iep.readJson();
