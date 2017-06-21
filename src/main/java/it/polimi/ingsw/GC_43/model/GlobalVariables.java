@@ -48,7 +48,6 @@ public class GlobalVariables implements Serializable{
    public static Integer[] militaryPointsRequired;
    public static Integer[] faithPointExcomRequired;
    
-
    public static int endResourcesToVictoryPoint;
    public static Integer[] endCharacterVictoryPoints;
    public static Integer[] endTerritoryVictoryPoints;
@@ -89,5 +88,13 @@ public class GlobalVariables implements Serializable{
 	   copyVariables.maxVictoryPoints = GlobalVariables.maxVictoryPoints;
 	   copyVariables.maxMilitaryPoints = GlobalVariables.maxMilitaryPoints;
 	   copyVariables.maxFaithPoints = GlobalVariables.maxFaithPoints;
+	   
+	   copyVariables.councilPrivilegeEffect = GlobalVariables.councilPrivilegeEffect;
+	   copyVariables.malusUnlimitedCells = GlobalVariables.malusUnlimitedCells;
+	   copyVariables.militaryPointsRequired = GlobalVariables.militaryPointsRequired;
+	   copyVariables.faithPointExcomRequired = GlobalVariables.faithPointExcomRequired;
+	   copyVariables.endResourcesToVictoryPoint = GlobalVariables.endResourcesToVictoryPoint;
+	   copyVariables.endCharacterVictoryPoints = GlobalVariables.endCharacterVictoryPoints;
+	   copyVariables.endTerritoryVictoryPoints = GlobalVariables.endTerritoryVictoryPoints;
    }
 }

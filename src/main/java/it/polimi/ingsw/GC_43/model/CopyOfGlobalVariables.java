@@ -10,9 +10,6 @@ public class CopyOfGlobalVariables implements Serializable{
 	 */
 	private static final long serialVersionUID = 128365450850396921L;
 	
-	   public CopyOfGlobalVariables(){
-		   maxNumberOfPlayers = GlobalVariables.maxNumberOfPlayers;
-	   }
 	   public int maxNumberOfPlayers;
 	   public int numberOfFamilyMembers;
 	   public int numberOfTowers;
@@ -50,8 +47,8 @@ public class CopyOfGlobalVariables implements Serializable{
 	   public MultipleChoiceEffect councilPrivilegeEffect;
 	   public int malusUnlimitedCells;
 	   public Integer[] militaryPointsRequired;
-	   
-
+	   public Integer[] faithPointExcomRequired;
+  
 	   public int endResourcesToVictoryPoint;
 	   public Integer[] endCharacterVictoryPoints;
 	   public Integer[] endTerritoryVictoryPoints;
