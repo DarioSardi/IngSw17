@@ -79,8 +79,9 @@ public class TowerActionCreationRoutine implements ActionCreation {
 	    	int familyMemberDie=this.towerAction.getFamilyMember().getDiceValue();
 	    	int floorMinDieValue=towers.get(towerChoice).getFloors().get(floorChoice).getMinDiceValue();
 	    	int extraBonusOnTower=lookForExtraBonus(towers.get(towerChoice));
-	    	
-	    	if(familyMemberDie+servantsUsed+extraBonusOnTower<floorMinDieValue||!(towers.get(towerChoice).check(this.towerAction.getFamilyMember()))){
+	    	System.out.println("servants used: "+servantsUsed+" die value: "+familyMemberDie+" floor die value: "+floorMinDieValue+" extra bonus on die: "+extraBonusOnTower);
+	    	System.out.println("\n tower boolean set to:"+towers.get(towerChoice).check(this.towerAction.getFamilyMember()));
+	    	if(familyMemberDie+servantsUsed+extraBonusOnTower<floorMinDieValue||towers.get(towerChoice).check(this.towerAction.getFamilyMember())){
 	    		System.out.println("You can not access this floor, please try again");
 	    		return selectTowerAndFloor(towers);
 	    	}

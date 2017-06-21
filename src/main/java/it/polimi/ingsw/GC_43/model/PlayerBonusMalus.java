@@ -78,10 +78,10 @@ public class PlayerBonusMalus implements Serializable {
 		this.malusOnFinalVictoryPoints.put("territoryCard",false);
 		this.malusOnFinalVictoryPoints.put("characterCard",false);
 		this.bonusCoinsOnBuyInTowers= new HashMap<String,Integer>();
-		this.bonusCoinsOnBuyInTowers.put("territoryCard", 0);
-		this.bonusCoinsOnBuyInTowers.put("characterCard", 0);
-		this.bonusCoinsOnBuyInTowers.put("ventureCard", 0);
-		this.bonusCoinsOnBuyInTowers.put("buildingCard", 0);
+		this.bonusCoinsOnBuyInTowers.put("TerritoryCard", 0);
+		this.bonusCoinsOnBuyInTowers.put("CharacterCard", 0);
+		this.bonusCoinsOnBuyInTowers.put("VentureCard", 0);
+		this.bonusCoinsOnBuyInTowers.put("BuildingCard", 0);
 		bonusHarvestEffect=new ArrayList<Effect>();
 		bonusProductionEffect=new ArrayList<Effect>();
 		

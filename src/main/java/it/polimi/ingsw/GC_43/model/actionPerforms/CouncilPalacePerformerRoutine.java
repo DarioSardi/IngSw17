@@ -80,6 +80,8 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 		System.out.println("Checking Action parameters");
 
 		checkCouncilPalacePerform(player, familyMember);
+		
+		System.out.println("\nCheck and try finished");
 
 	}
 
@@ -100,18 +102,27 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 
 		try {
 			if (dieValue >= this.board.getCouncilPalace().getCouncil().getMinDiceValue()) {
+				
 				System.out.println("Minimum die value to enter in this action space is "+this.board.getCouncilPalace().getCouncil().getMinDiceValue());
 
 				for (Effect effect : this.board.getCouncilPalace().getCouncil().getBonus()) {
+					if(effect==null){
+						System.out.println("Effect is null");
+
+					}
 					System.out.println("Bonus in in council palace action are "+this.board.getCouncilPalace().getCouncil().getBonus().toString());
 
 					if (effect.getClass().toString().contains("MultipleCouncilPrivileges"))
 						executeMultipleCouncilPrivileges((MultipleCouncilPrivileges) effect, player);
 					
-					else
+					else{
+						System.out.println("trying to execute effect");
 						effect.executeEffect(familyMember);
-
+					}
 				}
+				System.out.println("check choices ended");
+
+				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

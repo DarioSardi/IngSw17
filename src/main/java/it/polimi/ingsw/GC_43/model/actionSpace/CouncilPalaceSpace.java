@@ -19,6 +19,11 @@ public class CouncilPalaceSpace extends Space {
 		this.bonus=bonus;
 	}
 	
+	@Override
+	public ArrayList<Effect> getBonus(){
+		return this.bonus;
+	}
+	
 	
 	@Override
 	public boolean familiarValueCheck(FamilyMember f) {
