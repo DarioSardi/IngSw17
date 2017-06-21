@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
 
+import it.polimi.ingsw.GC_43.controller.ChangeUsernameMessage;
 import it.polimi.ingsw.GC_43.controller.Lobby;
+import it.polimi.ingsw.GC_43.controller.ReconnectToLobbyMsg;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
@@ -68,6 +70,9 @@ public class ClientInHandler implements Runnable {
 			else if(o instanceof CopyOfGlobalVariables){
 				this.myClient.setGameGlobalVariables((CopyOfGlobalVariables) o);
 			}
+			else if(o instanceof ChangeUsernameMessage){
+				this.myClient.changeUsername(((ChangeUsernameMessage)o).getMsg());
+			}
 		
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -85,6 +90,11 @@ public class ClientInHandler implements Runnable {
 			parseGameUpdates();
 				
 			}
+		if("system_outgame_switch".equals(line)){
+			this.myClient.inGame=false;
+			
+		}
+		
 		else if("now_is_my_turn".equals(line)){
 			System.out.println("IS NOW MY TURN!");
 			this.myClient.myTurn=true;

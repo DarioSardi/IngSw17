@@ -59,13 +59,16 @@ public class CardHandler {
 			}
 		
 		if(towerTax){p.subResource("coin", GlobalVariables.towerTax);}  //DARIO  modificare il 3 in una globale
-		if(c.getCost().check(p,c.getType())){
-			return true;
+		if(!(c instanceof VentureCard)){
+			if(c.getCost().check(p,c.getType())){
+				return true;
+			}
 		}
 		else{
 			if(towerTax){p.addResource("coin", GlobalVariables.towerTax);}
 			return false;
 		}
+		return false;
 		
 		
 	}
