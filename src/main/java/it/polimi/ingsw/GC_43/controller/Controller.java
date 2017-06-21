@@ -61,8 +61,13 @@ public class Controller implements IController {
 
 	private void startGame() {
 		System.out.println("start Game");
-		ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(1));
-		System.out.println("changing phase " + initialPlayer.getUsername());
+		ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(0));
+		String initialPlayerBroadcast="Initial phase goes to " + initialPlayer.getUsername();
+		System.out.println(initialPlayerBroadcast);
+		
+	//SCOMMENTA DOPO DARIO PER AVERE BROADCAST MESAGE DA SYSTEM	
+	//	this.playersLobby.broadcastMsg(initialPlayerBroadcast);
+		
 
 		changePhases(initialPlayer);
 		System.out.println("changing phase finished");
@@ -118,8 +123,10 @@ public class Controller implements IController {
 	}
 
 	private void switchPlayerStatus(String playerID) {
-		// TODO
-		this.matchClientHandlerStatus.put(playerID, false);
+		if(matchClientHandlerStatus.get(playerID)==true)
+			this.matchClientHandlerStatus.put(playerID, false);
+		else
+			this.matchClientHandlerStatus.put(playerID, true);
 
 	}
 	
@@ -158,6 +165,13 @@ public class Controller implements IController {
 
 		return this.matchClientHandler.get(playerID);
 
+	}
+	
+	public void clientTimeIsOver(String playerUsername){
+		if(this.matchClientHandler.get(playerUsername)!=null){
+			nextPlayerPhase();
+			this.matchClientHandler.get(playerUsername).sendMsgTo("Phase has been skipped for inactivity");
+		}
 	}
 
 	// TODO AGGIUNGI BOOLEANO PER VEDERE SE PLAYER CONNESSO O NO;
@@ -205,22 +219,24 @@ public class Controller implements IController {
 		if(this.playerDisconnected==this.clientHandlers.size())
 			endGame();
 		
-		
-		
-	//CHECKING EXCOMMUNICATION TIME	
-	/*	if(this.board.getPlayers().size()==this.board.getPhase()&&this.board.getRound()%GlobalVariables.excommunicationRound==0&&this.board.getRound()!=0){
-			
-			fkn+mldà
+		this.board.nextPhase();
 
+		
+		
+	//CHECKING FOR EXCOMMUNICATION ROUND
+		if(this.board.getPlayers().size()==this.board.getPhase()){
+		/*	
+			fkn+mldà
+*/
 		}
-		*/
+		
 		
 		
 		
 		
 		
 		while (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())){
-			this.board.nextPlayerPhase();
+			this.board.nextPhase();
 
 		}
 		System.out.println("\n Attemping Changing phases of players" + this.board.getPhase());

@@ -51,7 +51,8 @@ public class PlayerBonusMalus implements Serializable {
 //Bonus (coins discount) on acquiring cards in towers
 	
 	private HashMap<String,Integer> bonusCoinsOnBuyInTowers;
-	
+
+
 	
 	//BONUS PRODUCTION AREA 
 	
@@ -61,6 +62,7 @@ public class PlayerBonusMalus implements Serializable {
 	
 	
 	public PlayerBonusMalus(){
+		
 		this.malusOnAcquiringResources= new HashMap<String,Integer>();
 		this.malusOnAcquiringResources.put("wood", 0);
 		this.malusOnAcquiringResources.put("coin", 0);
@@ -69,6 +71,7 @@ public class PlayerBonusMalus implements Serializable {
 		this.malusOnAcquiringResources.put("faithPoint", 0);
 		this.malusOnAcquiringResources.put("servant", 0);
 		this.malusOnAcquiringResources.put("victoryPoint", 0);
+		
 		this.malusOnFinalVictoryPoints= new HashMap<String,Boolean>();
 		this.malusOnFinalVictoryPoints.put("victoryPoint",false);
 		this.malusOnFinalVictoryPoints.put("militaryPoint",false);
@@ -77,11 +80,15 @@ public class PlayerBonusMalus implements Serializable {
 		this.malusOnFinalVictoryPoints.put("ventureCard",false);
 		this.malusOnFinalVictoryPoints.put("territoryCard",false);
 		this.malusOnFinalVictoryPoints.put("characterCard",false);
-		this.bonusCoinsOnBuyInTowers= new HashMap<String,Integer>();
-		this.bonusCoinsOnBuyInTowers.put("TerritoryCard", 0);
-		this.bonusCoinsOnBuyInTowers.put("CharacterCard", 0);
+		
+		this.bonusCoinsOnBuyInTowers= new HashMap<String, Integer>();
 		this.bonusCoinsOnBuyInTowers.put("VentureCard", 0);
+		this.bonusCoinsOnBuyInTowers.put("CharacterCard", 0);
 		this.bonusCoinsOnBuyInTowers.put("BuildingCard", 0);
+		this.bonusCoinsOnBuyInTowers.put("TerritoryCard", 0);
+		
+		
+		
 		bonusHarvestEffect=new ArrayList<Effect>();
 		bonusProductionEffect=new ArrayList<Effect>();
 		
@@ -181,9 +188,7 @@ public class PlayerBonusMalus implements Serializable {
 	public void setDoubleChoiceDiscountOnBuildingCard(boolean doubleChoiceDiscountOnBuildingCard) {
 		this.doubleChoiceDiscountOnBuildingCard = doubleChoiceDiscountOnBuildingCard;
 	}
-	public HashMap<String, Integer> getBonusCoinsOnBuyInTowers() {
-		return bonusCoinsOnBuyInTowers;
-	}
+
 
 	public ArrayList<Effect> getBonusHarvestEffect() {
 		return bonusHarvestEffect;
@@ -201,9 +206,17 @@ public class PlayerBonusMalus implements Serializable {
 		this.bonusProductionEffect = bonusProductionEffect;
 	}
 
+	public HashMap<String, Integer> getBonusCoinsOnBuyInTowers() {
+		return bonusCoinsOnBuyInTowers;
+	}
+
 	public void setBonusCoinsOnBuyInTowers(HashMap<String, Integer> bonusCoinsOnBuyInTowers) {
 		this.bonusCoinsOnBuyInTowers = bonusCoinsOnBuyInTowers;
 	}
+
+
+	
+
 	
 
 	

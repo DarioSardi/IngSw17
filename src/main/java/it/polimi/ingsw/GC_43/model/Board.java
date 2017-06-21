@@ -236,7 +236,7 @@ public class Board implements Serializable {
 			this.getTowers().get(i).resetArea();
 	}
 
-	public void nextPlayerPhase() {
+	public void nextPhase() {
 		this.phase++;
 	}
 
