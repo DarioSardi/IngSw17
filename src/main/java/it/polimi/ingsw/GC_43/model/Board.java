@@ -265,6 +265,10 @@ public class Board implements Serializable {
 		}
 
 	}
+	
+	public nextRound(){
+		this.round++;
+	}
 
 	public String towersToString() {
 		String toString = "\nTowers in game are :\n\n";
