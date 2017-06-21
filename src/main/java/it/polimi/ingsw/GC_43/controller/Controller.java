@@ -105,10 +105,19 @@ public class Controller implements IController {
 	//ROUTINES OF DISCONNECTIONS AND RECONNECTIONS OF PLAYERS
 	
 	public void playerInGameAgain(String playerID, ClientHandler clientHandler){
+		System.out.println("Attempting to reconnect "+playerID);
 		if(this.matchClientHandlerStatus.get(playerID)!=null){
 			switchPlayerStatus(playerID);
+			System.out.println("Switching his status in Game again ");
+
 			this.matchClientHandler.put(playerID, clientHandler);
+			System.out.println("added to client Handlers "+this.matchClientHandler.get(playerID));
+
 			playerDisconnected--;
+			System.out.println("Decrementing number of disconnected players");
+
+
+			System.out.println("Sending global variables and model to the reconnected player");
 
 			clientHandler.sendObject(this.globalVariables);
 			clientHandler.sendObject(this.board);
@@ -119,6 +128,7 @@ public class Controller implements IController {
 	
 	public void playerDisconnected(String playerID){
 		switchPlayerStatus(playerID);
+		System.out.println("Incrementing number of disconnected players");
 		playerDisconnected++;
 	}
 
@@ -161,7 +171,10 @@ public class Controller implements IController {
 
 	// GET CLIENT HANDLER OF TURN
 	private ClientHandler getPlayerOfTurn() {
+		
 		String playerID = this.board.getPhasePlayer();
+		System.out.println("player of turn is "+playerID);
+
 
 		return this.matchClientHandler.get(playerID);
 
@@ -180,7 +193,7 @@ public class Controller implements IController {
 
 		System.out.println("\nclient Action received from client " + action.getPlayerID());
 
-		boolean actionResult = false;
+		boolean actionResult = true;
 		actionResult = submit(action);
 
 		System.out.println("\n Action submission = " + actionResult);
@@ -216,34 +229,49 @@ public class Controller implements IController {
 	private void nextPlayerPhase() {
 		System.out.println("\n Attemping to get old phase player" + this.board.getPhasePlayer());
 		
-		if(this.playerDisconnected==this.clientHandlers.size())
+		if(this.playerDisconnected==this.clientHandlers.size()){
+			System.out.println("No players in game, game over");
 			endGame();
+		}
 		
+
 		this.board.nextPhase();
 
 		
 		
-	//CHECKING FOR EXCOMMUNICATION ROUND
-		if(this.board.getPlayers().size()==this.board.getPhase()){
-		/*	
-			fkn+mldà
-*/
+	//CHECKING FOR EXCOMMUNICATION ROUND AND END GAME
+		if(this.board.getPhase()%this.board.getPlayers().size()==0){
+			
+			System.out.println("Ongoing next round logic, round was number "+this.board.getRound());
+						
+			this.board.nextRound();
+			
+			//CHECKING EXCOMMUNICATION
+			if(this.board.getRound()%GlobalVariables.excommunicationRound==0){
+				System.out.println("Excommunication time on round "+this.board.getRound()+" and period "+this.board.getPeriod());
+
+				askPlayersForExcommunication();
+			    //waitForAllResponses()
+			}
+			
+			//END GAME
+			if(this.board.getPeriod()==GlobalVariables.totalNumberOfPeriods&&this.board.getRound()%this.board.getPlayers().size()==0){
+				System.out.println("Game is finished!\n Period= "+this.board.getPeriod()+"\nRound= "+this.board.getRound()+"\nPhase= "+this.board.getPhase());
+				endGame();
+			}
+			System.out.println("Resetting board spaces, geting ready for next round number"+this.board.getRound());
+			nextRoundLogic();
+
 		}
-		
-		
-		
-		
-		
+			
+
 		
 		while (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())){
 			this.board.nextPhase();
-
 		}
-		System.out.println("\n Attemping Changing phases of players" + this.board.getPhase());
+		
+		
 		System.out.println("\n Attemping match player name" + this.board.getPhasePlayer());
-
-		System.out.println("\n Attemping match" + this.matchClientHandler.get(this.board.getPhasePlayer()));
-
 		ClientHandler playerOfTurn = this.matchClientHandler.get(this.board.getPhasePlayer());
 		System.out.println("\nChanging phases of players");
 		changePhases(playerOfTurn);
@@ -251,6 +279,36 @@ public class Controller implements IController {
 
 	}
 	
+//TODO to be completed nextRoundLogic, askPlayersForExcommunication, endGame
+	
+private void nextRoundLogic() {
+	this.board.nextTurn();
+	}
+
+private void askPlayersForExcommunication() {
+	System.out.println("Entered in Excommunication logic function");
+	this.board.nextPeriod();
+	
+	for(ClientHandler clientHandler: this.clientHandlers){
+		if(this.matchClientHandlerStatus.get(clientHandler.getUsername())&&checkExcommunicationFaithPoints(clientHandler.getUsername())){
+			clientHandler.sendMsgTo("\n\nExcommunication round has come, do your choice\n");
+			//DARIO non devono poter fare azioni di altro tipo in questo periodo di scelta
+			clientHandler.setMyturn(true);
+	}
+		else{
+			
+		}
+	
+		
+	}
+}
+
+private boolean checkExcommunicationFaithPoints(String playerID) {
+	boolean result=true;
+//	if(this.matchPlayer.get(playerID).getPlayerResource("faithPoint")<globalVariables.fa
+	return result;
+}
+
 //TODO to implement
 	
 	private void endGame() {
@@ -258,15 +316,19 @@ public class Controller implements IController {
 		
 	}
 
+	
+	
+	
+	
 	private void changePhases(ClientHandler playerOfTurn) {
 		for (ClientHandler client : this.clientHandlers) {
 			if (client.getUsername().equals(playerOfTurn.getUsername())) {
 				client.setMyturn(true);
-				System.out.println("ojfhbeuhgif player " + client.getUsername());
+				System.out.println("Player of turn now is " + client.getUsername());
 
 			} else {
 				client.setMyturn(false);
-				System.out.println("ojfhbeuhgif player not in turn " + client.getUsername());
+				System.out.println("Player not in turn " + client.getUsername());
 
 			}
 		}

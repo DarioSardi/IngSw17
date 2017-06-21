@@ -113,7 +113,6 @@ public class Board implements Serializable {
 		System.out.println("\ndice rolled\n");
 		setPlayersFamilyMembersValue();
 		System.out.println("\nfamiliar ok\n");
-
 		setTowerCards();
 		System.out.println("\tower ok\n");
 
@@ -201,29 +200,27 @@ public class Board implements Serializable {
 	}
 
 	public void nextTurn() {
-		this.round++;
+		System.out.println("\nOngoing next round logic on board:\n");
 
-		if (this.round % GlobalVariables.excommunicationRound == 0) {
-			// TODO to decide whether to implement it on controller, it requires
-			// interaction
-			// checkPlayerExcommunication();
-			this.period++;
-		}
-
+		System.out.println("Establishing new player order");
 		establishNewPlayerOrder();
-
+		
+		System.out.println("Resetting board areas");
 		resetAreas();
-
+		
+		System.out.println("Resetting tower cards");
 		setTowerCards();
 
+		System.out.println("Rolling dices");
 		rollDice();
 
+		System.out.println("Setting new die value to familyMembers");
 		setPlayersFamilyMembersValue();
 
 	}
 
 	private void resetAreas() {
-		resetTowers();
+		this.resetTowers();
 		this.harvestArea.resetArea();
 		this.productionArea.resetArea();
 		this.councilPalace.resetArea();
@@ -246,7 +243,8 @@ public class Board implements Serializable {
 
 		return this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName();
 	}
-
+	
+	//NEW PLAYER ORDER EACH ROUND
 	private void establishNewPlayerOrder() {
 		if (!this.getCouncilPalace().entryOrder().isEmpty()) {
 			ArrayList<Player> newPlayerOrder = new ArrayList<Player>();
@@ -266,8 +264,11 @@ public class Board implements Serializable {
 
 	}
 	
-	public nextRound(){
+	public void nextRound(){
 		this.round++;
+	}
+	public void nextPeriod(){
+		this.period++;
 	}
 
 	public String towersToString() {
