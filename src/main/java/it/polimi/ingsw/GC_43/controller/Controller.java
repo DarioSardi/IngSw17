@@ -285,6 +285,10 @@ private void nextRoundLogic() {
 	this.board.nextTurn();
 	}
 
+
+
+
+
 public void submitExcommunicationChoice(String playerID, boolean decision){
 	//TODO to implement
 }
@@ -305,6 +309,10 @@ private void askPlayersForExcommunication() {
 		
 	}
 }
+
+
+
+
 
 private boolean checkExcommunicationFaithPoints(String playerID) {
 	boolean result=true;
