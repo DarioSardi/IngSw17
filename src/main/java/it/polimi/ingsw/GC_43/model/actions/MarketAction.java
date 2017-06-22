@@ -13,11 +13,13 @@ public class MarketAction extends Action {
 
 	
 	private ArrayList<Integer> MarketChoices;
+	private int marketActionSpaceSelected;
 
 	public MarketAction(String playerID, Player player) {
 		super(playerID, player);
 		this.setActionID(4);
 		this.MarketChoices = new ArrayList<Integer>();
+		this.marketActionSpaceSelected=0;
 	}
 
 	public ArrayList<Integer> getMarketChoices() {
@@ -31,4 +33,13 @@ public class MarketAction extends Action {
 		return super.toString()+"Action performed: Market Action\n";
 	}
 
+	public int getMarketActionSpaceSelected() {
+		return marketActionSpaceSelected;
+	}
+
+	public void setMarketActionSpaceSelected(int marketActionSpaceSelected) {
+		this.marketActionSpaceSelected = marketActionSpaceSelected;
+	}
+	
+	
 }

@@ -1,11 +1,24 @@
 package it.polimi.ingsw.GC_43.model.actionCreations;
 
         import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
         import it.polimi.ingsw.GC_43.model.FamilyMember;
-        import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
+import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
+import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
+import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
+import it.polimi.ingsw.GC_43.model.resources.Coin;
+import it.polimi.ingsw.GC_43.model.resources.FaithPoint;
+import it.polimi.ingsw.GC_43.model.resources.MilitaryPoint;
+import it.polimi.ingsw.GC_43.model.resources.Resource;
+import it.polimi.ingsw.GC_43.model.resources.Servant;
+import it.polimi.ingsw.GC_43.model.resources.Stone;
+import it.polimi.ingsw.GC_43.model.resources.VictoryPoint;
+import it.polimi.ingsw.GC_43.model.resources.Wood;
 
 public class CommonActionCreatorRoutine implements Serializable {
 
@@ -19,7 +32,48 @@ public class CommonActionCreatorRoutine implements Serializable {
 
 
 
+	public static MultipleCouncilPrivileges copyMultiplePrivileges(int numberOfCopies){
+		MultipleCouncilPrivileges multipleCopy= new MultipleCouncilPrivileges(numberOfCopies);
+		ArrayList<ChoiceEffect> choiceEffects= new ArrayList<ChoiceEffect>();
+		for(ChoiceEffect choiceEffect: GlobalVariables.councilPrivilegeEffect.getChoices()){
+			System.out.println("In loop choice");
 
+			ArrayList<Resource> costs= new ArrayList<Resource>();
+			ArrayList<Resource> gains= new ArrayList<Resource>();
+
+			for(Resource resource: choiceEffect.getGains()){
+				gains.add(createCorrespondingResource(resource));					
+			}
+			choiceEffects.add(new ChoiceEffect(costs,gains));
+			
+
+	}
+	multipleCopy.setPrivilegeChoices(new MultipleChoiceEffect(choiceEffects));
+//	System.out.println("\nOut of loop, multiple choice result: \n"+multipleCopy.toString());
+
+	return multipleCopy;
+}
+
+	private static Resource createCorrespondingResource(Resource resource) {
+		System.out.println("create resource costs");
+
+		if(resource.getResourceType().equals("coin"))
+			return new Coin(resource.getValue());
+		if(resource.getResourceType().equals("stone"))
+			return new Stone(resource.getValue());
+		if(resource.getResourceType().equals("wood"))
+			return new Wood(resource.getValue());
+		if(resource.getResourceType().equals("faithPoint"))
+			return new FaithPoint(resource.getValue());
+		if(resource.getResourceType().equals("servant"))
+			return new Servant(resource.getValue());
+		if(resource.getResourceType().equals("victoryPoint"))
+			return new VictoryPoint(resource.getValue());
+		if(resource.getResourceType().equals("militaryPoint"))
+			return new MilitaryPoint(resource.getValue());
+		
+		return null;
+	}
 
 	public static HashMap<String,Integer> copyPlayerResources(Player player){
         HashMap<String,Integer> copyOfPlayerResources= new HashMap<String,Integer> ();

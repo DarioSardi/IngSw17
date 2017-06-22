@@ -37,12 +37,11 @@ public class MarketActionCreationRoutine implements ActionCreation{
 	        if(!this.marketAction.getPlayer().getPlayerBounusMalus().isNoMarketActionSpaceBonus())
 	        	getMarketChoices(this.marketAction.getFamilyMember());
 	        else{
-	        	System.out.println("\nYou can not access to Market Action Spaces, since you have the related malus, no possibility to perform this action\n");
+	        	System.out.println("You can not access to Market Action Spaces, since you have the related malus, no possibility to perform this action\n");
 	        	return false;
 	        }
-	        System.out.println("\nServants OF PLAYER ! "+ this.marketAction.getPlayer().getPlayerResource("servant")+"\n\n");
 
-	        System.out.println("\nMarket Action completed !\n");
+	        System.out.println("Market Action completed !\n");
 	        return true;
 	    }
 
@@ -50,13 +49,13 @@ public class MarketActionCreationRoutine implements ActionCreation{
 			String toString="Please select the market action space you prefer: \n"+this.board.getMarket().toString();
 			int choice = CommonActionCreatorRoutine.askForSingleChoice(toString, 0, this.board.getMarket().getMarketActionSpaces().size());
 			if(board.getMarket().getMarketActionSpaces().get(choice).isOccupied()||familyMember.getDiceValue()+this.marketAction.getServantsUsed()<this.board.getMarket().getMarketActionSpaces().get(choice).getMinDiceValue()){
-				System.out.println("\n You cannot select this market action space. You will be asked again");
+				System.out.println("You cannot select this market action space. You will be asked again");
 				getMarketChoices(familyMember);
 			}
 			else{
-				System.out.println("\nSuccessful selection!\n");
-				this.marketAction.getMarketChoices().add(choice);
-				System.out.println("\n Entering checking for effects!\n");
+				System.out.println("Successful selection!");
+				this.marketAction.setMarketActionSpaceSelected(choice);
+				System.out.println("Entering checking for effects..");
 
 		        checkChoiceNature(familyMember.getPlayer(), choice);
 
@@ -64,30 +63,29 @@ public class MarketActionCreationRoutine implements ActionCreation{
 		}
 		
         public void checkChoiceNature(Player player, int choice){
-			System.out.println("\n checking for effects!\n");
 			
         	for( Effect effect: this.board.getMarket().getMarketActionSpaces().get(choice).getBonus()){
         		System.out.println("nature of effect = "+effect.getClass().toString());
-				if(effect.getClass().toString().contains("MultipleCouncilPrivileges"))
-					 askForMultipleCouncilPrivilege((MultipleCouncilPrivileges) effect);	   	
+				if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
+					askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
+				}
         	}
 
         }
         
-        private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges effect) {
+        private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect) {
+        	MultipleCouncilPrivileges effect=CommonActionCreatorRoutine.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
         	int numberOfCopies=effect.getNumberOfCopies();
         	while(numberOfCopies>0){
-        		System.out.println("\n\nnumber of copies\n"+numberOfCopies );
 
         		int choice= askForMultipleChoice(effect.getPrivilegeChoices());
-        		System.out.println("\n\nnumber of copies\n"+numberOfCopies );
 
         		if(choice!=-1){
         			effect.getPrivilegeChoices().getChoices().remove(choice);
-            		System.out.println("\n\nchoice removed\n" );
+            		System.out.println("choice removed.." );
 
         		}
-        		System.out.println("\n\nnumber of copies\n"+numberOfCopies );
+        		System.out.println("remaining number of copies"+numberOfCopies );
         		numberOfCopies--;
         	}
     	}
@@ -96,25 +94,24 @@ public class MarketActionCreationRoutine implements ActionCreation{
         	int maxRange=effect.getChoices().size();
             String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
             int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
-            System.out.println("\n Choice taken is "+choice);
+            System.out.println("Choice taken is "+choice);
             if(effect.check(this.marketAction.getFamilyMember())){
-                System.out.println("\n Choice taken is ok");
+                System.out.println("Choice taken is ok");
 
                 this.marketAction.getMarketChoices().add(choice);
-                System.out.println("\n Choice added\n");
+                System.out.println("Choice added..");
 
             }
             else{
                 question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
                 choice= CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
                 if(choice==0){
-                    System.out.println("\nChoice skipped");
+                    System.out.println("Choice skipped");
                 }
                 else{
                     return askForMultipleChoice(effect);
                 }
             }
-            System.out.println("\nChoice RETURNE");
 
             return choice;
         }

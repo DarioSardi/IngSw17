@@ -19,7 +19,6 @@ public abstract class Action implements Serializable {
 	private int ActionID;
 	// THINK OF ACTION ID BEST PRACTICE WAY
 	private int servantsUsed;
-	private ArrayList<Integer> Choices;
 	
 	
 	public String toString(){
@@ -85,12 +84,5 @@ public abstract class Action implements Serializable {
 		this.servantsUsed = servantsUsed;
 	}
 
-	public ArrayList<Integer> getChoices() {
-		return Choices;
-	}
-
-	public void setChoices(ArrayList<Integer> choices) {
-		Choices = choices;
-	}
 
 }

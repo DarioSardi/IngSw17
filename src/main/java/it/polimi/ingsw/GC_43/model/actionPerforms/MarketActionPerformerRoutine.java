@@ -5,6 +5,7 @@ import java.util.HashMap;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.actions.HarvestAction;
 import it.polimi.ingsw.GC_43.model.actions.MarketAction;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
@@ -27,10 +28,13 @@ public class MarketActionPerformerRoutine implements ActionPerformer {
 
 	
 	public boolean performAction(){
-		System.out.println("\nEnterned in Market performer routine");
+		System.out.println("\nEntered in Market performer routine");
 		Player player=this.marketAction.getPlayer();
+		System.out.println("Checking familyMember..");
 		FamilyMember familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, this.marketAction.getFamilyMemberColor());
+		System.out.println("Copying player resources..");
 		HashMap<String,Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
+		System.out.println("Starting check and try..");
 
 		try {
 			checkAndTryAction(player, familyMember);
@@ -60,15 +64,21 @@ public class MarketActionPerformerRoutine implements ActionPerformer {
 	private void checkAndTryAction(Player player, FamilyMember familyMember){
 		
 		
-		System.out.println("\n checking family member\n");
+		System.out.println("\nchecking family member values..");
 
 		checkFamilyMemberAlreadyPlaced(familyMember);
-		System.out.println("\n ok family member\n"+this.marketAction.getFamilyMember().toString());
+		System.out.println("ok family member values.."+this.marketAction.getFamilyMember().toString());
 		
 		checkServantsUsed(player, familyMember);
-		System.out.println("\n ok servants number used\n"+this.marketAction.getServantsUsed());
+		System.out.println("ok servants number used"+this.marketAction.getServantsUsed());
 	
+		
+		System.out.println("\nOLD PLAYER RESOURCES\n"+player.toString());
+
+		
 		checkMarketPerform(player, familyMember);
+		
+		System.out.println("\nNEW PLAYER RESOURCES\n"+player.toString());
 		
 		
 	
@@ -84,21 +94,19 @@ private void checkMarketPerform(Player player, FamilyMember familyMember) {
 
 	try {
 		int dieValue=familyMember.getDiceValue()+this.marketAction.getServantsUsed();
-		int minDiceValue=this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketChoices().get(index)).getMinDiceValue();
+
+		int minDiceValue=this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketActionSpaceSelected()).getMinDiceValue();
+
 		if(dieValue>=minDiceValue && !(player.getPlayerBounusMalus().isNoMarketActionSpaceBonus())){
-			for(Effect effect: this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketChoices().get(this.index)).getBonus()){
-				if(effect.getClass().toString().contains("MultipleCouncilPrivileges"))
-					executeMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect, player);						
+			for(Effect effect: this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketActionSpaceSelected()).getBonus()){
+
+				if(effect.getClass().toString().contains("\nMultipleCouncilPrivileges"))
+					executeMultipleCouncilPrivilege(new MultipleCouncilPrivileges(2), player);						
 				else{
-					System.out.println("\n executing effect "+ effect.toString());
-					System.out.println("\nplayer BEFORE EFFECT\n"+familyMember.getPlayer().toString());
+					System.out.println("executing effect: "+ effect.toString());
 
 					this.board.getMarket().getMarketActionSpaces().get(this.index).execute(familyMember);
-					
-					//effect.executeEffect(familyMember);	
-					System.out.println("\nplayer AFTER EFFECT\n"+familyMember.getPlayer().toString());
-					System.out.println("FAMILY MEMBER AFTER PERFORMING ROUTINE \n"+familyMember.toString());
-				}
+									}
 			}
 		}
 	} catch (Exception e) {
@@ -107,32 +115,44 @@ private void checkMarketPerform(Player player, FamilyMember familyMember) {
 		}
 	}
 
-private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges effect,Player player) {
-	System.out.println("Multiple council privilege choice detected, checking choices of player");
+private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect,Player player) {
+	MultipleCouncilPrivileges effect=CommonActionCreatorRoutine.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
+
+	System.out.println("\nMultiple council privilege choice detected, checking choices of player");
 	int numberOfCopies=effect.getNumberOfCopies();
+
 	try {
 		while(numberOfCopies>0){
 
 			System.out.println("Market choices index is "+this.index+" and player choice is"+this.marketAction.getMarketChoices().get(index));
-			executeMultipleChoice(effect.getPrivilegeChoices(),player);
 			int playerChoice=this.marketAction.getMarketChoices().get(index);
+
+			executeMultipleChoice(effect.getPrivilegeChoices(),player);
+
 			effect.getPrivilegeChoices().getChoices().remove(playerChoice);
+			numberOfCopies--;
+			System.out.println("numberOfCopies: "+numberOfCopies);
+
+
 			
 			}
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
+	System.out.println("Finished executeMultipleCouncilPrivilege !\n");
 
-		numberOfCopies--;
-	}
+}
+
 
 
 
 
 private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
 	int playerChoice=this.marketAction.getMarketChoices().get(index);
+
 	try {
 		if(playerChoice!=-1){
+
 			if(effect.getChoices().get(playerChoice).check(player)){
 				effect.getChoices().get(playerChoice).executeEffect(player);
 			}
@@ -142,7 +162,8 @@ private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-	index++;
+	this.index++;
+	System.out.println("index after multiple choice execution is: "+this.index);
 }
 
 
