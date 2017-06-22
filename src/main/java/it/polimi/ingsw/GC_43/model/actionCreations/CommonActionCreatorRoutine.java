@@ -36,7 +36,6 @@ public class CommonActionCreatorRoutine implements Serializable {
 		MultipleCouncilPrivileges multipleCopy= new MultipleCouncilPrivileges(numberOfCopies);
 		ArrayList<ChoiceEffect> choiceEffects= new ArrayList<ChoiceEffect>();
 		for(ChoiceEffect choiceEffect: GlobalVariables.councilPrivilegeEffect.getChoices()){
-			System.out.println("In loop choice");
 
 			ArrayList<Resource> costs= new ArrayList<Resource>();
 			ArrayList<Resource> gains= new ArrayList<Resource>();
@@ -55,7 +54,6 @@ public class CommonActionCreatorRoutine implements Serializable {
 }
 
 	private static Resource createCorrespondingResource(Resource resource) {
-		System.out.println("create resource costs");
 
 		if(resource.getResourceType().equals("coin"))
 			return new Coin(resource.getValue());

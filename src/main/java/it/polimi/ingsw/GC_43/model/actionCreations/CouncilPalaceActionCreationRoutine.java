@@ -36,7 +36,7 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
         this.councilPalaceAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(councilPalaceAction.getPlayer(),this.councilPalaceAction.getFamilyMember().getDiceValue()));
         
         getInputsForCouncilPalace(this.councilPalaceAction.getFamilyMember());
-		System.out.println("Finished market action creation routine!");
+		System.out.println("Finished council palace action creation routine!");
 
 
         return true;
@@ -55,6 +55,56 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
     }
     	
  }
+	
+	
+	
+	
+	
+	
+	
+	 private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect) {
+     	MultipleCouncilPrivileges effect=CommonActionCreatorRoutine.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
+     	int numberOfCopies=effect.getNumberOfCopies();
+     	while(numberOfCopies>0){
+
+     		int choice= askForMultipleChoice(effect.getPrivilegeChoices());
+
+     		if(choice!=-1){
+     			effect.getPrivilegeChoices().getChoices().remove(choice);
+         		System.out.println("choice removed.." );
+
+     		}
+     		System.out.println("remaining number of copies"+numberOfCopies );
+     		numberOfCopies--;
+     	}
+ 	}
+     
+     private int askForMultipleChoice(MultipleChoiceEffect effect) {
+     	int maxRange=effect.getChoices().size();
+         String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
+         int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
+         System.out.println("Choice taken is "+choice);
+         if(effect.check(this.councilPalaceAction.getFamilyMember())){
+             System.out.println("Choice taken is ok");
+
+             this.councilPalaceAction.getCouncilPalaceChoices().add(choice);
+             System.out.println("Choice added..");
+
+         }
+         else{
+             question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
+             choice= CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
+             if(choice==0){
+                 System.out.println("Choice skipped");
+             }
+             else{
+                 return askForMultipleChoice(effect);
+             }
+         }
+
+         return choice;
+     }
+     /*
     private int askForMultipleChoice(MultipleChoiceEffect effect) {
     	int maxRange=effect.getChoices().size();
         String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
@@ -77,7 +127,7 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
 	    		numberOfCopies--;
 	    	}
 		}
-
+*/
 	public CouncilPalaceAction getCouncilPalaceAction() {
 		return councilPalaceAction;
 	}

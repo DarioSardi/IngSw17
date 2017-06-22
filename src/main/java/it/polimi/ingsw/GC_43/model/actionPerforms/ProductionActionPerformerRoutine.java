@@ -54,7 +54,7 @@ public class ProductionActionPerformerRoutine implements ActionPerformer{
 
 
 		checkAndTryAction(player, familyMember);
-		
+		System.out.println("check and try finished");
 		
 		if(checkResult==true){
 			return true;

@@ -13,6 +13,7 @@ import it.polimi.ingsw.GC_43.model.actionCreations.ProductionActionCreationRouti
 import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
 import it.polimi.ingsw.GC_43.model.actionPerforms.CouncilPalacePerformerRoutine;
 import it.polimi.ingsw.GC_43.model.actionPerforms.MarketActionPerformerRoutine;
+import it.polimi.ingsw.GC_43.model.actionPerforms.ProductionActionPerformerRoutine;
 import it.polimi.ingsw.GC_43.model.actionPerforms.TowerActionPerformerRoutine;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.initialization.GlobalVariablesInit;
@@ -42,37 +43,29 @@ public class BoardTest {
 			System.out.println("\n"+effect.toString()+"\n");
 		
 		
-	//	EXCOMMUNICATION NOT WORKING!!!
-//		EXCOMMUNICATION NOT WORKING!!!
-//		EXCOMMUNICATION NOT WORKING!!!
-//		EXCOMMUNICATION NOT WORKING!!!
-//		EXCOMMUNICATION NOT WORKING!!!
-//		EXCOMMUNICATION NOT WORKING!!!
+
 		
-		//this.board.excommunicatePlayer(this.board.getPlayers().get(1));
-//		EXCOMMUNICATION NOT WORKING!!!
-//		EXCOMMUNICATION NOT WORKING!!!
-//		EXCOMMUNICATION NOT WORKING!!!
+		this.board.excommunicatePlayer(this.board.getPlayers().get(1));
+
+
 		
 		/*
-		//ProductionActionCreationRoutine p = new ProductionActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
-		//p.prepareAction();
-		//System.out.println("production done!");
-		//System.out.println("\n INITIAL servants of player\n" +board.getPlayers().get(0).toString());
-	    */
+		ProductionActionCreationRoutine p = new ProductionActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
+		p.prepareAction();
+		System.out.println("production action creation done!");
+		ProductionActionPerformerRoutine pp= new ProductionActionPerformerRoutine(p.getProductionAction(),board);
+		pp.performAction();
+		
+	/*
 		MarketActionCreationRoutine m = new MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		
 		m.prepareAction();
-		System.out.println("\nalmost starting performing\n");
 
 		MarketActionPerformerRoutine mp= new MarketActionPerformerRoutine(m.getMarketAction(),board);
-		System.out.println("started performing");
+		System.out.println("started performing market action in board test");
 		mp.performAction();
-		System.out.println("\n\nPRINTING MARKET STATISTICS\n\n"+this.board.getMarket().toString()+"\n\n");
-		System.out.println("\n\nFAMILY MEMBER PRINTED:"+ m.getMarketAction().getPlayer().printFamilyMembers()+"\n\n");
-		System.out.println("finished performing");
-		System.out.println("\n FINAL servants of player\n" +board.getPlayers().get(0).toString()+"\n\nPlayer in memory "+board.getPlayers().get(0));
-		/*
+		System.out.println("finished performing market action in board test");
+		
 		
 		TowerActionCreationRoutine t = new TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		t.prepareAction();
@@ -80,13 +73,14 @@ public class BoardTest {
 		System.out.println("\n\n\n\nstarting to perform\n\n\n\n\n\n\n");
 		tp.performAction();
 		
+		*/
 		CouncilPalaceActionCreationRoutine c = new CouncilPalaceActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		c.prepareAction();
 		CouncilPalacePerformerRoutine cp= new CouncilPalacePerformerRoutine(c.getCouncilPalaceAction(),board);
 		System.out.println("\n\n\n\nstarting to perform\n\n\n\n\n\n\n");
 		cp.performAction();
 		System.out.println("bonus "+this.board.getCouncilPalace().getCouncil().getMinDiceValue());
-*/
+
 
 	
 	}

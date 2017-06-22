@@ -5,6 +5,7 @@ import java.util.HashMap;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.actions.CouncilPalaceAction;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
@@ -113,13 +114,12 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 					System.out.println("Bonus in in council palace action are "+this.board.getCouncilPalace().getCouncil().getBonus().toString());
 
 					if (effect.getClass().toString().contains("MultipleCouncilPrivileges"))
-						executeMultipleCouncilPrivileges((MultipleCouncilPrivileges) effect, player);
-					
-					else{
-						System.out.println("trying to execute effect");
-						effect.executeEffect(familyMember);
-					}
+						executeMultipleCouncilPrivilege((MultipleCouncilPrivileges) effect, player);
+
 				}
+				
+				this.board.getCouncilPalace().getCouncil().execute(familyMember);
+
 				System.out.println("check choices ended");
 
 				
@@ -130,6 +130,63 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 		}
 	}
 
+	
+	
+	
+	private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect,Player player) {
+		MultipleCouncilPrivileges effect=CommonActionCreatorRoutine.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
+
+		System.out.println("\nMultiple council privilege choice detected, checking choices of player");
+		int numberOfCopies=effect.getNumberOfCopies();
+
+		try {
+			while(numberOfCopies>0){
+
+				System.out.println("Council Palace choices index is "+this.index+" and player choice is"+this.councilPalaceAction.getCouncilPalaceChoices().get(index));
+				int playerChoice=this.councilPalaceAction.getCouncilPalaceChoices().get(index);
+
+				executeMultipleChoice(effect.getPrivilegeChoices(),player);
+
+				effect.getPrivilegeChoices().getChoices().remove(playerChoice);
+				numberOfCopies--;
+				System.out.println("numberOfCopies: "+numberOfCopies);
+
+
+				
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("Finished executeMultipleCouncilPrivilege !\n");
+
+	}
+
+
+
+
+
+	private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
+		int playerChoice=this.councilPalaceAction.getCouncilPalaceChoices().get(index);
+
+		try {
+			if(playerChoice!=-1){
+
+				if(effect.getChoices().get(playerChoice).check(player)){
+					effect.getChoices().get(playerChoice).executeEffect(player);
+				}
+				else
+					this.checkResult=false;
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.index++;
+		System.out.println("index after multiple choice execution is: "+this.index);
+	}
+
+
+	
+	/*
 	private void executeMultipleCouncilPrivileges(MultipleCouncilPrivileges effect, Player player) {
 		System.out.println("Multiple council privilege found, attempting to execute the effect");
 
@@ -155,5 +212,5 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 			e.printStackTrace();
 		}
 	}
-
+*/
 }
