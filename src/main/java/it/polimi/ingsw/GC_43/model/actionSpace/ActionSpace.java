@@ -64,6 +64,7 @@ public abstract class ActionSpace implements Serializable{
 			}
 			this.getFamiliarIn().add(f);
 			f.setAlreadyPlaced(true);
+			System.out.println("FAMILY MEMBER STATE NOW IS "+f.isAlreadyPlaced());
 			f.setFamilyMemberPosition(this);
 			return true;
 		}

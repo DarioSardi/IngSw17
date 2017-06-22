@@ -364,7 +364,7 @@ public class Board implements Serializable {
 		this.towers = towers;
 	}
 
-	public List<String> getPlayersID() {
+	public ArrayList<String> getPlayersID() {
 		return this.playersID;
 	}
 
@@ -372,7 +372,7 @@ public class Board implements Serializable {
 		this.playersID = playersID;
 	}
 
-	public List<Player> getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return this.players;
 	}
 
@@ -450,6 +450,12 @@ public class Board implements Serializable {
 		System.out.println("Resetting his faith points to 0");
 		player.getPlayerResources().put("faithPoint", 0);
 
+	}
+
+	public String establishWinner() {
+		FinalCalculationVictoryPoints victoryPointsDecider= new FinalCalculationVictoryPoints();
+		Player player= victoryPointsDecider.decideForWinner(this.getPlayers());
+		return player.getPlayerName();
 	}
 
 }

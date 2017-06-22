@@ -68,16 +68,16 @@ public class Controller implements IController {
 		ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(0));
 		String initialPlayerBroadcast = "Initial phase goes to " + initialPlayer.getUsername();
 		System.out.println(initialPlayerBroadcast);
-
-		// SCOMMENTA DOPO DARIO PER AVERE BROADCAST MESAGE DA SYSTEM
-		// this.playersLobby.broadcastMsg(initialPlayerBroadcast);
+		
+		//NOTIFYING OF FIRST PLAYER PHASE
+		this.playersLobby.lobbyMsg(initialPlayerBroadcast);
 
 		changePhases(initialPlayer);
 		System.out.println("changing phase finished");
 
 	}
 
-	// TODO to decommenti, wait for SAM
+	
 	private void sendGlobalVariablesToClients() {
 		for (ClientHandler clientHandler : this.clientHandlers) {
 			clientHandler.sendObject(this.globalVariables);
@@ -343,19 +343,19 @@ public class Controller implements IController {
 
 			this.board.excommunicatePlayer(this.matchPlayer.get(playerUsername));
 			this.excommunicationSubmission++;
-
-			// WAIT FOR DARIO BROADCAST MESSAGE FROM SYSTEM WITHOUT CLIENT
-			// HANDLER INPUT
+			
+			//NOTIFYING ALL PLAYER OF EXCOMMUNICATED PLAYER
 			this.playersLobby.lobbyMsg("Player "+playerUsername+" has been excommunicated");;
 		}
 		return result;
 	}
 
-	// TODO to implement
 
 	private void endGame() {
-		// TODO Auto-generated method stub
+		String winnerIs = this.board.establishWinner();
+		this.playersLobby.lobbyMsg("\n\nAND THE WINNER IS "+winnerIs+" with a total amount of "+this.matchPlayer.get(winnerIs).getPlayerResource("victoryPoint")+" victory points!!");
 
+		//TODO decide how to terminate the game
 	}
 
 	private void changePhases(ClientHandler playerOfTurn) {
@@ -373,7 +373,7 @@ public class Controller implements IController {
 
 	}
 
-	// CALL submitClientAction
+	//called by submitClientAction
 	private boolean submit(Action action) {
 
 		System.out.println("\nAttempting to match player on server to perform action");

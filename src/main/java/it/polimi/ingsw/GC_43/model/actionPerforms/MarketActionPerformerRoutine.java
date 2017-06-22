@@ -91,12 +91,13 @@ private void checkMarketPerform(Player player, FamilyMember familyMember) {
 					executeMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect, player);						
 				else{
 					System.out.println("\n executing effect "+ effect.toString());
-					System.out.println("\n\n player BEFORE EFFECT\n"+familyMember.getPlayer().toString());
+					System.out.println("player BEFORE EFFECT"+familyMember.getPlayer().toString());
 
 					this.board.getMarket().getMarketActionSpaces().get(this.index).execute(familyMember);
+					
 					effect.executeEffect(familyMember);	
-					System.out.println("\n\n"+familyMember.getPlayer().toString());
-					System.out.println("\n\nplayer AFTER EFFECT\n"+familyMember.toString());
+					System.out.println(familyMember.getPlayer().toString());
+					System.out.println("player AFTER EFFECT\n"+familyMember.toString());
 				}
 			}
 		}

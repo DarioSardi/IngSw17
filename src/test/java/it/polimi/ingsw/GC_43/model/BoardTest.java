@@ -30,7 +30,9 @@ public class BoardTest {
 		playersID.add("ruben");
 
 		GlobalVariablesInit.readGlobalVariables();
+		
 		board=new Board(playersID);
+		
 		new InitGame(board);
 		System.out.println("fine di tutto !!!!");
 		board.initialize();
@@ -38,13 +40,27 @@ public class BoardTest {
 		//System.out.println("\n"+board.towersToString());
 		for(Effect effect : this.board.getCouncilPalace().getSpaces().get(0).getBonus())
 			System.out.println("\n"+effect.toString()+"\n");
-		this.board.excommunicatePlayer(this.board.getPlayers().get(1));
-/*
+		
+		
+	//	EXCOMMUNICATION NOT WORKING!!!
+//		EXCOMMUNICATION NOT WORKING!!!
+//		EXCOMMUNICATION NOT WORKING!!!
+//		EXCOMMUNICATION NOT WORKING!!!
+//		EXCOMMUNICATION NOT WORKING!!!
+//		EXCOMMUNICATION NOT WORKING!!!
+		
+		//this.board.excommunicatePlayer(this.board.getPlayers().get(1));
+//		EXCOMMUNICATION NOT WORKING!!!
+//		EXCOMMUNICATION NOT WORKING!!!
+//		EXCOMMUNICATION NOT WORKING!!!
+		
+		/*
 		//ProductionActionCreationRoutine p = new ProductionActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		//p.prepareAction();
 		//System.out.println("production done!");
 		//System.out.println("\n INITIAL servants of player\n" +board.getPlayers().get(0).toString());
-/*		MarketActionCreationRoutine m = new MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
+	    *//*
+		MarketActionCreationRoutine m = new MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		
 		m.prepareAction();
 		System.out.println("\nalmost starting performing\n");

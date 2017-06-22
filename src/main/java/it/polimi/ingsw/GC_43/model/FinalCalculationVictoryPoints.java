@@ -8,28 +8,11 @@ import it.polimi.ingsw.GC_43.model.cards.VentureCard;
 import it.polimi.ingsw.GC_43.model.resources.Resource;
 
 public class FinalCalculationVictoryPoints{
-	private ArrayList<Integer> victoryPointsForTerritoryCards;
-	private ArrayList<Integer> victoryPointsForCharacterCards;
+
 	
 	
 	public FinalCalculationVictoryPoints() {
-		//TODO to put these in the initialization and in future global Variable as ArrayLists
-		this.victoryPointsForCharacterCards=new ArrayList<Integer>();
-		this.victoryPointsForTerritoryCards=new ArrayList<Integer>();
-		
-		this.victoryPointsForCharacterCards.add(1);
-		this.victoryPointsForCharacterCards.add(3);
-		this.victoryPointsForCharacterCards.add(6);
-		this.victoryPointsForCharacterCards.add(10);
-		this.victoryPointsForCharacterCards.add(15);
-		this.victoryPointsForCharacterCards.add(21);
-		
-		this.victoryPointsForTerritoryCards.add(0);
-		this.victoryPointsForTerritoryCards.add(0);
-		this.victoryPointsForTerritoryCards.add(1);
-		this.victoryPointsForTerritoryCards.add(4);
-		this.victoryPointsForTerritoryCards.add(10);
-		this.victoryPointsForTerritoryCards.add(20);
+
 	}
 	
 //@require playerList in order of turn 
@@ -42,6 +25,7 @@ public class FinalCalculationVictoryPoints{
 		int secondMaxVictoryPoint=0;
 		int positionMax1=0;
 		int positionMax2=0;
+		
 		ArrayList<Integer> victoryPointsPlayers= new ArrayList();
 		for(Player player:players)
 			victoryPointsPlayers.add(player.getPlayerResource("victoryPoint"));
@@ -83,16 +67,16 @@ public class FinalCalculationVictoryPoints{
 			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("ventureCard")){
 				for(VentureCard ventureCard: player.getPlayerCards().getArrayVentureCards())
 					
-					//assigned a random familyMember, doesn't count
+					//assigned a random familyMember, doesn't matter
 					ventureCard.getPermaBonus().get(0).executeEffect(player.getFamilyMember(1));
 			}
 					
 				
 			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("characterCard"))
-				player.addResource("victoryPoint", this.victoryPointsForCharacterCards.get(player.getPlayerCards().getArrayCharacterCards().size()));
+				player.addResource("victoryPoint", GlobalVariables.endCharacterVictoryPoints[player.getPlayerCards().getArrayCharacterCards().size()]);
 		
 			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("territoryCard"))
-				player.addResource("victoryPoint", this.victoryPointsForTerritoryCards.get(player.getPlayerCards().getArrayTerritoryCards().size()));
+				player.addResource("victoryPoint", GlobalVariables.endTerritoryVictoryPoints[player.getPlayerCards().getArrayTerritoryCards().size()]);
 			
 			if(player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("buildingCardCost")){
 				int victoryPointsToSubtract= calculateBuildindCardsCost(player);
