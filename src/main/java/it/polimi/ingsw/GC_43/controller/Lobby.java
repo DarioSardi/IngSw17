@@ -179,7 +179,7 @@ public class Lobby implements Runnable{
 	 * broadcast message sent by system
 	 * @param nextLine text of the message
 	 */
-	private void lobbyMsg(String nextLine) {
+	public void lobbyMsg(String nextLine) {
 		players.stream().forEach(p->p.sendMsgTo(nextLine));
 	}
 
