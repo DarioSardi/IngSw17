@@ -19,11 +19,12 @@ public class InitGameTest {
 		players.add("Francesco");
 		this.board = new Board(players);
 		new InitGame(board);
+		
 	}
 
 	
 	@Test
 	public void councilPrivilegeBonus(){
-		System.out.println(board.getCouncilPalace().getSpaces().get(0).getBonus());
+		System.out.println(board.getExcommunicationTiles());
 	}
 }

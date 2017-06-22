@@ -43,7 +43,7 @@ public class InitExcommunicationTiles {
 	        	 JSONObject slides = (JSONObject) excommunicationTilesIterator.next();
 	        	 
 	        	 int period = Integer.parseInt((String)slides.get("period"));
-	
+	        	 
 	             JSONArray malus = (JSONArray) slides.get("Malus");
 	             if (i == period){
 	            	 this.excommTilesIterators.iterator(malus.iterator());    
@@ -68,6 +68,7 @@ public class InitExcommunicationTiles {
 	 * Select only one effect from a list of effects of the same period
 	 */
 	private void selectRandomExcommTiles(){
+
 			Collections.shuffle(this.malusExcommunicationTiles);
 			this.malusExcommunicationSelected.add(this.malusExcommunicationTiles.get(0));
 	}
