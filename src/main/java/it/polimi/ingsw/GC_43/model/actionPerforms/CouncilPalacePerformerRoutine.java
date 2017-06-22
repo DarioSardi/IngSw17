@@ -184,33 +184,4 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 		System.out.println("index after multiple choice execution is: "+this.index);
 	}
 
-
-	
-	/*
-	private void executeMultipleCouncilPrivileges(MultipleCouncilPrivileges effect, Player player) {
-		System.out.println("Multiple council privilege found, attempting to execute the effect");
-
-		executeMultipleChoice(effect.getPrivilegeChoices(), player);
-	}
-
-	private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
-		int playerChoice = this.councilPalaceAction.getCouncilPalaceChoices().get(index);
-		System.out.println("player choice is = "+playerChoice);
-
-		try {
-			if (playerChoice != -1) {
-				if (effect.getChoices().get(playerChoice).check(player)) {
-					effect.getChoices().get(playerChoice).executeEffect(player);
-				} else
-					this.checkResult = false;
-			}
-			index++;
-			System.out.println("effect executed is "+effect.getChoices().get(playerChoice).toString());
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-*/
 }

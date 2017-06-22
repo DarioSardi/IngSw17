@@ -104,30 +104,10 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
 
          return choice;
      }
-     /*
-    private int askForMultipleChoice(MultipleChoiceEffect effect) {
-    	int maxRange=effect.getChoices().size();
-        String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
-        int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
-        return choice;
-    }
 
-	   private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges effect) {
-			System.out.println("Asking for multiple council privilege choice");
-
-	    	int numberOfCopies=effect.getNumberOfCopies();
-	    	while(numberOfCopies>0){
-	    		int choice= askForMultipleChoice(effect.getPrivilegeChoices());
-				System.out.println("Asking for multiple council privilege choice");
-
-	    		if(choice!=-1){
-	    			effect.getPrivilegeChoices().getChoices().remove(choice);
-	    		}
-
-	    		numberOfCopies--;
-	    	}
-		}
-*/
+     
+     
+     
 	public CouncilPalaceAction getCouncilPalaceAction() {
 		return councilPalaceAction;
 	}
