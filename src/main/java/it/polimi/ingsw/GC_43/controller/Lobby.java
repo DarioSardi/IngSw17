@@ -175,18 +175,22 @@ public class Lobby implements Runnable{
 		
 	}
 	
+	/**
+	 * broadcast message sent by system
+	 * @param nextLine text of the message
+	 */
 	private void lobbyMsg(String nextLine) {
-		players.stream().forEach(p->p.sendMsgTo("message from the LOBBY: "+nextLine));
+		players.stream().forEach(p->p.sendMsgTo(nextLine));
 	}
 
 	public boolean startGame(ClientHandler clientHandler) {
 		if(this.admin==clientHandler){
 			//INIZIA GIOCO
-			lobbyMsg("il gioco si sta iniziando");
+			lobbyMsg("message from the lobby:il gioco si sta iniziando");
 			this.controller=new Controller(players);
-			lobbyMsg("controller inizializzato");
+			lobbyMsg("message from the lobby:controller inizializzato");
 			this.controller.initializeGame();
-			lobbyMsg("gioco inizializzato");
+			lobbyMsg("message from the lobby:gioco inizializzato");
 			this.gameStarted=true;
 			initializeUserPass();
 			broadcastSwitchMsg();

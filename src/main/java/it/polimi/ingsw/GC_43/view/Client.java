@@ -78,49 +78,6 @@ public class Client {
     	this.inGame=inG;
     }
     
-
-
-
-
-	public void setGameGlobalVariables(CopyOfGlobalVariables o) {
-		   GlobalVariables.maxNumberOfPlayers = o.maxNumberPlayerCards;
-		   GlobalVariables.numberOfFamilyMembers = o.numberOfFamilyMembers;
-		   GlobalVariables.numberOfTowers = o.numberOfTowers;
-		   GlobalVariables.numberOfDice = o.numberOfDice;
-		   GlobalVariables.excommunicationRound = o.excommunicationRound;
-		   GlobalVariables.totalNumberOfCardsPerSet = o.totalNumberOfCardsPerSet;
-		   GlobalVariables.towerCardsPerRound = o.towerCardsPerRound;
-		   GlobalVariables.towerCardsPerPeriod = o.towerCardsPerPeriod;
-		   GlobalVariables.floorsPerTower = o.floorsPerTower;
-		   GlobalVariables.totalNumberOfPeriods = o.totalNumberOfPeriods;
-		   GlobalVariables.maxNumberPlayerCards = o.maxNumberPlayerCards;
-		   GlobalVariables.initialWoods = o.initialWoods;
-		   GlobalVariables.initialStones = o.initialStones;
-		   GlobalVariables.initialServants = o.initialServants;
-		   GlobalVariables.initialFirstPlayerCoins = o.initialFirstPlayerCoins;
-		   GlobalVariables.initialSecondPlayerCoins = o.initialSecondPlayerCoins;	
-		   GlobalVariables.initialThirdPlayerCoins = o.initialThirdPlayerCoins;	
-		   GlobalVariables.initialFourthPlayerCoins = o.initialFourthPlayerCoins;	
-		   GlobalVariables.initialVictoryPoints = o.initialVictoryPoints;
-		   GlobalVariables.initialMilitaryPoints = o.initialMilitaryPoints;
-		   GlobalVariables.initialFaithPoints = o.initialFaithPoints;
-		   GlobalVariables.minDiceFirstHarvestArea = o.minDiceFirstHarvestArea;
-		   GlobalVariables.minDiceSecondHarvestArea = o.minDiceSecondHarvestArea;
-		   GlobalVariables.minDiceFirstProductionArea = o.minDiceFirstProductionArea;
-		   GlobalVariables.minDiceSecondProductionArea = o.minDiceSecondProductionArea;
-		   GlobalVariables.minDiceValueCouncilPalace = o.minDiceValueCouncilPalace;
-		   GlobalVariables.towerTax = o.towerTax;
-		   GlobalVariables.numberOfPlayers = o.numberOfPlayers;
-		   GlobalVariables.victoryPointsFirstMilitaryPower = o.victoryPointsFirstMilitaryPower;
-		   GlobalVariables.victoryPointsSecondMilitaryPower = o.victoryPointsSecondMilitaryPower;
-		   GlobalVariables.maxVictoryPoints = o.maxVictoryPoints;
-		   GlobalVariables.maxMilitaryPoints = o.maxMilitaryPoints;
-		   GlobalVariables.maxFaithPoints = o.maxFaithPoints;
-		   GlobalVariables.faithPointExcomRequired=o.faithPointExcomRequired;
-	}
-
-
-
 	public void setID(int ID){
 		this.ID=ID;
 		
@@ -180,33 +137,38 @@ public class Client {
     	inKeyboard = new BufferedReader(new InputStreamReader(System.in));
         outVideo = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
     	ipAddr=InetAddress.getLoopbackAddress();
-    	System.out.println("Benvenuto su Lorenzo il magnifico in JAVA");
-    	System.out.println("scegli configurazione: manual o auto?");
-    	String answer=inKeyboard.readLine().toString();
-    	
-    	if(answer.equals("manual")){
-    	System.out.println("seleziona l'indirizzo del server: ");
-    	this.address=inKeyboard.readLine();
-    	System.out.println("seleziona la porta del server: ");
-    	this.port=Integer.parseInt(inKeyboard.readLine());
-    	System.out.println("Username: ");
-    	this.username=inKeyboard.readLine();
-        }
-        
-    	else if(answer.equals("auto")){
-        	this.address="127.0.0.1";
-        	this.port=7777;
-        	this.username="PanDario7";
-        }
-    	
-    	else if(answer.equals("auto1")){
-        	this.address="127.0.0.1";
-        	this.port=7777;
-        	this.username="Dario";
-        }
-    	else{System.out.println("ma che cazz...");}
-    	
-    	System.out.println("connetto a: "+address+"/"+port);
+    	Boolean correctAnswer=false;
+    	while (!correctAnswer) {
+			System.out.println("Benvenuto su Lorenzo il magnifico in JAVA");
+			System.out.println("scegli configurazione: manual o auto?");
+			String answer = inKeyboard.readLine().toString();
+			if (answer.equals("manual")) {
+				System.out.println("seleziona l'indirizzo del server: ");
+				this.address = inKeyboard.readLine();
+				System.out.println("seleziona la porta del server: ");
+				this.port = Integer.parseInt(inKeyboard.readLine());
+				System.out.println("Username: ");
+				this.username = inKeyboard.readLine();
+				correctAnswer=true;
+			}
+
+			else if (answer.equals("auto")) {
+				this.address = "127.0.0.1";
+				this.port = 7777;
+				this.username = "PanDario7";
+				correctAnswer=true;
+			}
+
+			else if (answer.equals("auto1")) {
+				this.address = "127.0.0.1";
+				this.port = 7777;
+				this.username = "Dario";
+				correctAnswer=true;
+			} else {
+				System.out.println("ma che cazz...");
+			} 
+		}
+		System.out.println("connetto a: "+address+"/"+port);
     }
 	
 	public static void main(String [] args) throws IOException {
@@ -216,6 +178,43 @@ public class Client {
 	public void sendObj(Object o){
 		System.out.println("invio oggetto "+o.toString());
 		this.outStream.sendObj(o);
+	}
+	
+	public void setGameGlobalVariables(CopyOfGlobalVariables o) {
+		   GlobalVariables.maxNumberOfPlayers = o.maxNumberPlayerCards;
+		   GlobalVariables.numberOfFamilyMembers = o.numberOfFamilyMembers;
+		   GlobalVariables.numberOfTowers = o.numberOfTowers;
+		   GlobalVariables.numberOfDice = o.numberOfDice;
+		   GlobalVariables.excommunicationRound = o.excommunicationRound;
+		   GlobalVariables.totalNumberOfCardsPerSet = o.totalNumberOfCardsPerSet;
+		   GlobalVariables.towerCardsPerRound = o.towerCardsPerRound;
+		   GlobalVariables.towerCardsPerPeriod = o.towerCardsPerPeriod;
+		   GlobalVariables.floorsPerTower = o.floorsPerTower;
+		   GlobalVariables.totalNumberOfPeriods = o.totalNumberOfPeriods;
+		   GlobalVariables.maxNumberPlayerCards = o.maxNumberPlayerCards;
+		   GlobalVariables.initialWoods = o.initialWoods;
+		   GlobalVariables.initialStones = o.initialStones;
+		   GlobalVariables.initialServants = o.initialServants;
+		   GlobalVariables.initialFirstPlayerCoins = o.initialFirstPlayerCoins;
+		   GlobalVariables.initialSecondPlayerCoins = o.initialSecondPlayerCoins;	
+		   GlobalVariables.initialThirdPlayerCoins = o.initialThirdPlayerCoins;	
+		   GlobalVariables.initialFourthPlayerCoins = o.initialFourthPlayerCoins;	
+		   GlobalVariables.initialVictoryPoints = o.initialVictoryPoints;
+		   GlobalVariables.initialMilitaryPoints = o.initialMilitaryPoints;
+		   GlobalVariables.initialFaithPoints = o.initialFaithPoints;
+		   GlobalVariables.minDiceFirstHarvestArea = o.minDiceFirstHarvestArea;
+		   GlobalVariables.minDiceSecondHarvestArea = o.minDiceSecondHarvestArea;
+		   GlobalVariables.minDiceFirstProductionArea = o.minDiceFirstProductionArea;
+		   GlobalVariables.minDiceSecondProductionArea = o.minDiceSecondProductionArea;
+		   GlobalVariables.minDiceValueCouncilPalace = o.minDiceValueCouncilPalace;
+		   GlobalVariables.towerTax = o.towerTax;
+		   GlobalVariables.numberOfPlayers = o.numberOfPlayers;
+		   GlobalVariables.victoryPointsFirstMilitaryPower = o.victoryPointsFirstMilitaryPower;
+		   GlobalVariables.victoryPointsSecondMilitaryPower = o.victoryPointsSecondMilitaryPower;
+		   GlobalVariables.maxVictoryPoints = o.maxVictoryPoints;
+		   GlobalVariables.maxMilitaryPoints = o.maxMilitaryPoints;
+		   GlobalVariables.maxFaithPoints = o.maxFaithPoints;
+		   GlobalVariables.faithPointExcomRequired=o.faithPointExcomRequired;
 	}
 	
 	
