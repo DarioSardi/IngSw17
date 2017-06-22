@@ -31,7 +31,7 @@ public class Server {
 		sSocket= new ServerSocket(PORT);
 		System.out.println("Socket ready on Port:"+PORT);
 		players= Executors.newCachedThreadPool();
-		acceptConnections();
+		acceptConnectionsSocket();
 		
 	}
 
@@ -44,13 +44,15 @@ public class Server {
 	}
 
 
-	private Runnable acceptConnections() throws IOException {
+	private Runnable acceptConnectionsSocket() throws IOException {
 		int numberOfClients=0;
 		boolean online=true;
 		while(online){
 			Socket cSocket= sSocket.accept();
 			System.out.println("connessione accettata! indirizzo Giocatore: "+cSocket.getInetAddress());
-			players.submit(new ClientHandler(cSocket,numberOfClients,this));
+			ClientHandler ch=new ClientHandler(numberOfClients,this,false);
+			ch.setSocket(cSocket);
+			players.submit(ch);
 			System.out.println("giocatore assegnato all'handler con ID: "+numberOfClients);
 			clients.put(numberOfClients,cSocket);
 			numberOfClients++;

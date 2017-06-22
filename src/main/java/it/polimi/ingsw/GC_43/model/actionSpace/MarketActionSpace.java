@@ -20,7 +20,7 @@ public class MarketActionSpace extends ActionSpace {
 
 	@Override
 	public boolean check(FamilyMember f) {
-		return familiarValueCheck(f)&&!this.isOccupied()&&f.getPlayer().getPlayerBounusMalus().isNoMarketActionSpaceBonus(); //TODO isNoMarketActionSpaceBonus return true if i can go in the market?!
+		return familiarValueCheck(f)&&!this.isOccupied();
 	}
 
 	@Override

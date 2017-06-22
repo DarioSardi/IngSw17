@@ -20,16 +20,23 @@ public class ClientHandler implements Runnable{
 	private ObjectOutputStream socketOut;
 	private Lobby lobby;
 	private boolean Game;
-	private boolean myturn,inLobby;
+	private boolean myturn,inLobby,exit;
+	/**
+	 * false socket true RMI
+	 */
+	private boolean RMI;
 
-	public ClientHandler(Socket socket,int ID,Server myServer) throws IOException {
-		super();
-		this.socket = socket;
+	public ClientHandler(int ID,Server myServer,Boolean connectionType){
+		this.RMI=connectionType;
 		this.lobby=null;
 		this.inLobby=false;
 		this.Game=false;
 		this.ID=ID;
 		this.myServer=myServer;
+	}
+	
+	public void setSocket(Socket socket) throws IOException{
+		this.socket = socket;
 		this.socketIn = new ObjectInputStream(this.socket.getInputStream());
 		this.socketOut = new ObjectOutputStream(this.socket.getOutputStream());
 	}
@@ -37,14 +44,10 @@ public class ClientHandler implements Runnable{
 	public Lobby getLobby() {
 		return lobby;
 	}
-
-
-
+	
 	public void setLobby(Lobby lobby) {
 		this.lobby = lobby;
 	}
-
-
 
 	public String getUsername() {
 		return username;
@@ -52,76 +55,105 @@ public class ClientHandler implements Runnable{
 
 	@Override
 	public void run() {
-		try {
-			boolean exit = false;
-			
-			//SETUP
-			System.out.println("ClientHandler starting up!");
-			this.username=readMsg();
-			System.out.println("username of the player is "+username);
-			sendMsgTo(String.valueOf(this.ID));
-			socketOut.flush();
-			
-			//MENU
-			while (!exit) {
-				sendMsgTo("\n"
-						+ "MAIN MENU:\n"
-						+ "1.Create new lobby!\n"
-						+ "2.Join a lobby\n"
-						+ "3.Exit the game\n");
-				
-				//NEW LOBBY
-				String choice=readMsg();
-				if (choice.equals("1")) {
-					sendMsgTo("Lobbies on this server:");
-					sendMsgTo(myServer.getLobbiesToString());
-					sendMsgTo("select a number for the lobby");
-					Integer lobbyNumber = Integer.parseInt(readMsg());
-					Integer maxPlayers=0;
-					while (!(maxPlayers<=4&&maxPlayers>=2)) {
-						sendMsgTo("select the max number of players in the lobby/game (min 2 max 4)");
-						maxPlayers = Integer.parseInt(readMsg());
-					}
-					if (myServer.newLobby(this, lobbyNumber,maxPlayers)) {
-						sendMsgTo("you are in the lobby now!");
-						inLobby();
-					} else {
-						sendMsgTo("lobby number unaviable");
-					}
-				
-				//ENTER LOBBY
-				} else if (choice.equals("2")) {
-					sendMsgTo("select a lobby to join!");
-					sendMsgTo(myServer.getLobbiesToString());
-					Integer lobbyNumber=Integer.parseInt(readMsg());
-					if(myServer.joinLobby(lobbyNumber, this)){
-						inLobby();
-					}
-					else{sendMsgTo("unable to join lobby");}
-					
-				
-				//QUIT
-				} else if (choice.equals("3")) {
-					exit = true;
-				}
-				
-				//FKING MORON
-				else{
-					sendMsgTo("invalid choice");
-				}
+		this.exit = false;
+		//SETUP
+		if(!RMI){
+		readUsername("");
+		}
+		sendID();
+		//MENU
+		while (!this.exit) {
+			//socket
+			if (!RMI) {
+				mainMenuChoicesPrint();
+				mainMenuChoicesRoutineSocket();
 			}
+		}
+		//CLOSE CLIENT
+		closeCLientHandler();
+	}
+	
+	private void mainMenuChoicesRoutineSocket() {
+		//NEW LOBBY
+		String choice=readMsg();
+		if (choice.equals("1")) {
+			sendMsgTo("Lobbies on this server:");
+			sendMsgTo(myServer.getLobbiesToString());
+			sendMsgTo("select a number for the lobby");
+			Integer lobbyNumber = Integer.parseInt(readMsg());
+			Integer maxPlayers=0;
+			while (!(maxPlayers<=4&&maxPlayers>=2)) {
+				sendMsgTo("select the max number of players in the lobby/game (min 2 max 4)");
+				maxPlayers = Integer.parseInt(readMsg());
+			}
+			if (myServer.newLobby(this, lobbyNumber,maxPlayers)) {
+				sendMsgTo("you are in the lobby now!");
+				inLobby();
+			} else {
+				sendMsgTo("lobby number unaviable");
+			}
+		
+		//ENTER LOBBY
+		} else if (choice.equals("2")) {
+			sendMsgTo("select a lobby to join!");
+			sendMsgTo(myServer.getLobbiesToString());
+			Integer lobbyNumber=Integer.parseInt(readMsg());
+			if(myServer.joinLobby(lobbyNumber, this)){
+				inLobby();
+			}
+			else{sendMsgTo("unable to join lobby");}
 			
-			//CLOSE CLIENT
+		
+		//QUIT
+		} else if (choice.equals("3")) {
+			this.exit = true;
+		}
+		
+		//FKING MORON
+		else{
+			sendMsgTo("invalid choice");
+		}
+		
+	}
+
+	private void closeCLientHandler(){
+		try {
 			socketOut.close();
 			socketIn.close();
 			socket.close();
-		}
-		
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private void mainMenuChoicesPrint() {
+		sendMsgTo("\n"
+				+ "MAIN MENU:\n"
+				+ "1.Create new lobby!\n"
+				+ "2.Join a lobby\n"
+				+ "3.Exit the game\n");
+	}
+
+	private void sendID() {
+		if(RMI){
+			//RMI SET ID
+		}
+		else{
+			sendMsgTo(String.valueOf(this.ID));
+		}
+		
+	}
+
+	private void readUsername(String username) {
+		if(RMI){
+			this.username=username;
+		}
+		else{
+			this.username=readMsg();
+		}
+		System.out.println("username of the player is "+username);
+	}
+
 	//IN LOBBY
 	private void inLobby() {
 		inLobby=true;
