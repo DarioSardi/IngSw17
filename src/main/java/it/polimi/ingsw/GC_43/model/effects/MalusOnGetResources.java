@@ -22,6 +22,8 @@ public class MalusOnGetResources extends Effect{
 	}
 	
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing MalusOnGetResources Effect");
+
 		familyMember.getPlayer().getPlayerBounusMalus().getMalusOnAcquiringResources().put(this.resourceType, this.value);
 		
 	}

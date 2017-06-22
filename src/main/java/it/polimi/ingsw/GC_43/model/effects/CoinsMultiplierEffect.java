@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GC_43.model.effects;
 
+import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
 
 public class CoinsMultiplierEffect extends Effect {
@@ -29,5 +30,10 @@ public class CoinsMultiplierEffect extends Effect {
 		if(this.multiplierType== "territoryCards");
 			player.addResource("coin", this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size()-Math.abs(player.getPlayerBounusMalus().getMalusOnAcquiringResources().get("coin")));
 
+	}
+	
+	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing CoinsMultiplierEffect Effect");
+		getVictoryPoints(familyMember.getPlayer());
 	}
 }

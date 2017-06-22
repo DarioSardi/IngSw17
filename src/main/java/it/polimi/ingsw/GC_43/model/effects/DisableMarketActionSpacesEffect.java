@@ -17,6 +17,8 @@ public class DisableMarketActionSpacesEffect extends Effect {
 	}
 	
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing DisableMarketActionSpacesEffect Effect");
+
 		familyMember.getPlayer().getPlayerBounusMalus().setNoMarketActionSpaceBonus(true);
 	}
 

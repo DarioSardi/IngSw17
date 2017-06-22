@@ -29,9 +29,13 @@ public class MultipleCouncilPrivileges extends Effect {
 	
 
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing FAKE MultipleCouncilPrivileges Effect");
+
 		
 	}
 	public void executeEffect(FamilyMember familyMember, int playerChoice){
+		System.out.println("Executing MultipleCouncilPrivileges Effect OK");
+
 		this.getPrivilegeChoices().executeEffect(familyMember, playerChoice);
 	}
 	

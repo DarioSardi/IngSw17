@@ -48,6 +48,8 @@ public class MalusOnFinalVictoryPoints extends Effect {
 		this.malusOnFinalVictoryPoints.put("territoryCard",false);
 		this.malusOnFinalVictoryPoints.put("characterCard",false);*/
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing MalusOnFinalVictoryPoints Effect");
+
 		familyMember.getPlayer().getPlayerBounusMalus().getMalusOnFinalVictoryPoints().put(this.malusTypeOnVictoryPoint,true);
 		
 	}

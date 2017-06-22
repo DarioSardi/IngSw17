@@ -27,7 +27,6 @@ public class Board implements Serializable {
 	 */
 	private static final long serialVersionUID = 6362079383828595044L;
 
-	
 	// CONFIGURATION SETTINGS
 	private int phase;
 	private int round;
@@ -67,7 +66,7 @@ public class Board implements Serializable {
 
 		this.playersID = new ArrayList<String>();
 		this.playersID = playersID;
-		
+
 		this.setPeriod(0);
 		this.setPhase(0);
 		this.setRound(0);
@@ -172,7 +171,7 @@ public class Board implements Serializable {
 	private void setTowerCards() {
 
 		int startingCardToDraw = this.round * GlobalVariables.towerCardsPerRound;
-		System.out.println("Setting card on tower starting from card: "+startingCardToDraw);
+		System.out.println("Setting card on tower starting from card: " + startingCardToDraw);
 		for (int index = 0; index < GlobalVariables.towerCardsPerRound; index++)
 			this.getTowers().get(0).getFloors().get(index)
 					.setCard((TerritoryCard) this.territoryCardPool.get(startingCardToDraw + index));
@@ -204,10 +203,10 @@ public class Board implements Serializable {
 
 		System.out.println("Establishing new player order");
 		establishNewPlayerOrder();
-		
+
 		System.out.println("Resetting board areas");
 		resetAreas();
-		
+
 		System.out.println("Resetting tower cards");
 		setTowerCards();
 
@@ -238,13 +237,14 @@ public class Board implements Serializable {
 	}
 
 	public String getPhasePlayer() {
-		System.out.println("\nplayer of phase on board"+this.phase);
-		System.out.println("\nplayer of phase on board"+this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName());
+		System.out.println("\nplayer of phase on board" + this.phase);
+		System.out.println("\nplayer of phase on board"
+				+ this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName());
 
 		return this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName();
 	}
-	
-	//NEW PLAYER ORDER EACH ROUND
+
+	// NEW PLAYER ORDER EACH ROUND
 	private void establishNewPlayerOrder() {
 		if (!this.getCouncilPalace().entryOrder().isEmpty()) {
 			ArrayList<Player> newPlayerOrder = new ArrayList<Player>();
@@ -263,11 +263,12 @@ public class Board implements Serializable {
 		}
 
 	}
-	
-	public void nextRound(){
+
+	public void nextRound() {
 		this.round++;
 	}
-	public void nextPeriod(){
+
+	public void nextPeriod() {
 		this.period++;
 	}
 
@@ -417,6 +418,38 @@ public class Board implements Serializable {
 
 	public void setFaithVictoryPoints(int[] faithVictoryPoints) {
 		this.faithVictoryPoints = faithVictoryPoints;
+	}
+
+	public void excommunicatePlayer(Player player) {
+		int relativePeriod = this.getPeriod();
+		System.out.println("Message from board: Excommunicating player " + player.getPlayerName() + " during period "
+				+ relativePeriod);
+		// DEBUGGING TO BE CANCELLED
+		
+		System.out.println("excommunication effect "+ this.getExcommunicationTiles());
+		System.out.println("excommunication effect "+ this.getExcommunicationTiles().get(0));
+
+		if (this.getExcommunicationTiles().get(relativePeriod) != null) {
+			System.out.println("Message from board: Attempting to get "
+					+ this.getExcommunicationTiles().get(relativePeriod).toString());
+
+			this.getExcommunicationTiles().get(relativePeriod).executeEffect(player.findFamilyMemberByColor(1));
+		}
+		if (this.getExcommunicationTiles().get(relativePeriod + 1) != null) {
+			System.out.println("Message from board: Attempting to get "
+					+ this.getExcommunicationTiles().get(relativePeriod + 1).toString());
+
+			this.getExcommunicationTiles().get(relativePeriod + 1).executeEffect(player.findFamilyMemberByColor(1));
+		}
+	}
+
+	public void satisfyTheChurch(Player player) {
+		System.out.println("Player " + player.getPlayerName() + " is about to gain "
+				+ this.faithVictoryPoints[player.getPlayerResource("faithPoint")] + " satisfying the church");
+		player.addResource("victoryPoint", this.faithVictoryPoints[player.getPlayerResource("faithPoint")]);
+		System.out.println("Resetting his faith points to 0");
+		player.getPlayerResources().put("faithPoint", 0);
+
 	}
 
 }

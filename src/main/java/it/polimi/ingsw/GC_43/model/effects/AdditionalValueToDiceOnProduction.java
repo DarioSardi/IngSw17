@@ -23,6 +23,8 @@ public class AdditionalValueToDiceOnProduction extends Effect{
 	
 	
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing AdditionalValueToDiceOnProduction Effect");
+
 		familyMember.getPlayer().getPlayerBounusMalus().setBonusProductionArea(familyMember.getPlayer().getPlayerBounusMalus().getBonusProductionArea()+this.valueToAddOnDice);
 		
 	}

@@ -22,6 +22,8 @@ public abstract class Effect implements Serializable {
 		return toString;
 	}
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing GENERAL EFFECT Effect");
+
 		
 	}
 	

@@ -23,6 +23,8 @@ public class ExtraHarvestAction extends Effect {
 	}
 
 	public void executeEffect(FamilyMember familyMember) {
+		System.out.println("Executing ExtraHarvestAction Effect");
+
 
 		try {
 			HarvestAction extraHarvestAction = new HarvestAction(familyMember.getPlayer().getPlayerName(),

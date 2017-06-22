@@ -48,6 +48,8 @@ public class PickExtraCardFromTower extends Effect {
 	// MUST NOT BE DONE!!!!
 
 	public void executeEffect(FamilyMember familyMember) {
+		System.out.println("Executing PickExtraCardFromTower Effect");
+
 
 		try {
 			TowerAction extraTowerAction = new TowerAction(familyMember.getPlayer().getPlayerName(),

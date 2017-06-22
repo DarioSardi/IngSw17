@@ -32,6 +32,8 @@ public class MultipleResourceEffect extends Effect {
     }
     
     public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing MultipleResourceEffect Effect");
+
     	for(ResourceEffect resourceEffect: this.resourcesToGet){
             resourceEffect.executeEffect(familyMember);
             }

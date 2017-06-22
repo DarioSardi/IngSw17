@@ -27,19 +27,23 @@ public class Controller implements IController {
 	// REFERENCE OF THE MODEL ON SERVER
 	private Board board;
 	private CopyOfGlobalVariables globalVariables;
-	
-	
-	//DISCONNESSIONI
+
+	// DISCONNESSIONI
 	private int playerDisconnected;
+	private int excommunicationSubmission;
+	private boolean isExcommunicationTime;
 
 	public Controller(ArrayList<ClientHandler> clientHandlers) {
 		this.clientHandlers = new ArrayList<ClientHandler>();
 		this.clientHandlers = clientHandlers;
 		this.matchPlayer = new HashMap<String, Player>();
 		this.matchClientHandler = new HashMap<String, ClientHandler>();
-		this.matchClientHandlerStatus= new HashMap<String,Boolean>();
+		this.matchClientHandlerStatus = new HashMap<String, Boolean>();
 		this.playersLobby = clientHandlers.get(0).getLobby();
-		this.playerDisconnected=0;
+		this.playerDisconnected = 0;
+		this.excommunicationSubmission = 0;
+		this.isExcommunicationTime = false;
+
 	}
 
 	public void initializeGame() {
@@ -62,12 +66,11 @@ public class Controller implements IController {
 	private void startGame() {
 		System.out.println("start Game");
 		ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(0));
-		String initialPlayerBroadcast="Initial phase goes to " + initialPlayer.getUsername();
+		String initialPlayerBroadcast = "Initial phase goes to " + initialPlayer.getUsername();
 		System.out.println(initialPlayerBroadcast);
-		
-	//SCOMMENTA DOPO DARIO PER AVERE BROADCAST MESAGE DA SYSTEM	
-	//	this.playersLobby.broadcastMsg(initialPlayerBroadcast);
-		
+
+		// SCOMMENTA DOPO DARIO PER AVERE BROADCAST MESAGE DA SYSTEM
+		// this.playersLobby.broadcastMsg(initialPlayerBroadcast);
 
 		changePhases(initialPlayer);
 		System.out.println("changing phase finished");
@@ -101,21 +104,20 @@ public class Controller implements IController {
 		}
 
 	}
-	
-	//ROUTINES OF DISCONNECTIONS AND RECONNECTIONS OF PLAYERS
-	
-	public void playerInGameAgain(String playerID, ClientHandler clientHandler){
-		System.out.println("Attempting to reconnect "+playerID);
-		if(this.matchClientHandlerStatus.get(playerID)!=null){
-			switchPlayerStatus(playerID);
+
+	// ROUTINES OF DISCONNECTIONS AND RECONNECTIONS OF PLAYERS
+
+	public void playerInGameAgain(String playerUsername, ClientHandler clientHandler) {
+		System.out.println("Attempting to reconnect " + playerUsername);
+		if (this.matchClientHandlerStatus.get(playerUsername) != null) {
+			switchPlayerStatus(playerUsername);
 			System.out.println("Switching his status in Game again ");
 
-			this.matchClientHandler.put(playerID, clientHandler);
-			System.out.println("added to client Handlers "+this.matchClientHandler.get(playerID));
+			this.matchClientHandler.put(playerUsername, clientHandler);
+			System.out.println("added to client Handlers " + this.matchClientHandler.get(playerUsername));
 
 			playerDisconnected--;
 			System.out.println("Decrementing number of disconnected players");
-
 
 			System.out.println("Sending global variables and model to the reconnected player");
 
@@ -123,65 +125,59 @@ public class Controller implements IController {
 			clientHandler.sendObject(this.board);
 
 		}
-		
+
 	}
-	
-	public void playerDisconnected(String playerID){
-		switchPlayerStatus(playerID);
+
+	public void playerDisconnected(String playerUsername) {
+		switchPlayerStatus(playerUsername);
 		System.out.println("Incrementing number of disconnected players");
 		playerDisconnected++;
 	}
 
-	private void switchPlayerStatus(String playerID) {
-		if(matchClientHandlerStatus.get(playerID)==true)
-			this.matchClientHandlerStatus.put(playerID, false);
+	private void switchPlayerStatus(String playerUsername) {
+		if (matchClientHandlerStatus.get(playerUsername) == true)
+			this.matchClientHandlerStatus.put(playerUsername, false);
 		else
-			this.matchClientHandlerStatus.put(playerID, true);
+			this.matchClientHandlerStatus.put(playerUsername, true);
 
 	}
-	
-	
 
 	public void insertPlayers() {
-		ArrayList<String> playerIDs = new ArrayList<String>();
+		ArrayList<String> playerUsername = new ArrayList<String>();
 		for (ClientHandler clientHandler : this.clientHandlers) {
-			playerIDs.add(clientHandler.getUsername());
+			playerUsername.add(clientHandler.getUsername());
 
 		}
 
 		System.out.println("Initializing globalVariables");
 
-		
-	    GlobalVariablesInit.readGlobalVariables();
-		  
-		CopyOfGlobalVariables globalVariables= new CopyOfGlobalVariables();  
-	    new GlobalVariables().createCopyGlobalVariables(globalVariables);
-	    this.globalVariables=globalVariables;
-		
-	    
+		GlobalVariablesInit.readGlobalVariables();
+
+		CopyOfGlobalVariables globalVariables = new CopyOfGlobalVariables();
+		new GlobalVariables().createCopyGlobalVariables(globalVariables);
+		this.globalVariables = globalVariables;
+
 		System.out.println("Creating board");
 
-		this.board = new Board(playerIDs);
+		this.board = new Board(playerUsername);
 		System.out.println("Initializing game board");
 		new InitGame(board);
 		this.board.initialize();
-
 
 	}
 
 	// GET CLIENT HANDLER OF TURN
 	private ClientHandler getPlayerOfTurn() {
-		
-		String playerID = this.board.getPhasePlayer();
-		System.out.println("player of turn is "+playerID);
 
+		String playerID = this.board.getPhasePlayer();
+		System.out.println("player of turn is " + playerID);
 
 		return this.matchClientHandler.get(playerID);
 
 	}
-	
-	public void clientTimeIsOver(String playerUsername){
-		if(this.matchClientHandler.get(playerUsername)!=null){
+
+	public void clientTimeIsOver(String playerUsername) {
+		if (this.matchClientHandler.get(playerUsername) != null) {
 			nextPlayerPhase();
 			this.matchClientHandler.get(playerUsername).sendMsgTo("Phase has been skipped for inactivity");
 		}
@@ -190,36 +186,41 @@ public class Controller implements IController {
 	// TODO AGGIUNGI BOOLEANO PER VEDERE SE PLAYER CONNESSO O NO;
 
 	public synchronized void submitClientAction(Action action) {
+		if (!this.isExcommunicationTime) {
+			System.out.println("\nclient Action received from client " + action.getPlayerID());
 
-		System.out.println("\nclient Action received from client " + action.getPlayerID());
+			boolean actionResult = true;
+			actionResult = submit(action);
 
-		boolean actionResult = true;
-		actionResult = submit(action);
+			System.out.println("\n Action submission = " + actionResult);
 
-		System.out.println("\n Action submission = " + actionResult);
+			if (actionResult) {
 
-		if (actionResult) {
+				System.out.println(
+						"\nAction successfully completed, broadcasting notifications and calling for next player phase");
 
-			System.out.println(
-					"\nAction successfully completed, broadcasting notifications and calling for next player phase");
+				playersLobby.broadcastMsg(action.toString(), this.getPlayerOfTurn());
 
-			playersLobby.broadcastMsg(action.toString(), this.getPlayerOfTurn());
-			
-			for (ClientHandler clientHandler : this.clientHandlers) {
-				System.out.println("Sending updated board to client"+clientHandler.getUsername());
-				clientHandler.sendObject(this.board);
+				for (ClientHandler clientHandler : this.clientHandlers) {
+					System.out.println("Sending updated board to client" + clientHandler.getUsername());
+					clientHandler.sendObject(this.board);
+				}
+
+				nextPlayerPhase();
+
 			}
 
-			nextPlayerPhase();
+			else {
+				System.out.println(
+						"\n Action unsuccessfully submitted " + actionResult + "action to strng\n" + action.toString());
+				System.out.println(this.getPlayerOfTurn().getUsername());
+				this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
+				System.out.println("\nAction concluded !\n");
 
+			}
 		}
-
-		else {
-			System.out.println("\n Action unsuccessfully submitted " + actionResult + "action to strng\n" + action.toString());
-			System.out.println(this.getPlayerOfTurn().getUsername());
-			this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
-			System.out.println("\nAction concluded !\n");
-
+		else{
+			System.out.println("Player "+action.getPlayerID()+" submitted an action during excommunication time");
 		}
 
 	}
@@ -227,50 +228,48 @@ public class Controller implements IController {
 	// MANAGING PLAYERS PHASES
 
 	private void nextPlayerPhase() {
+
 		System.out.println("\n Attemping to get old phase player" + this.board.getPhasePlayer());
-		
-		if(this.playerDisconnected==this.clientHandlers.size()){
+
+		if (this.playerDisconnected == this.clientHandlers.size()) {
 			System.out.println("No players in game, game over");
 			endGame();
 		}
-		
 
 		this.board.nextPhase();
 
-		
-		
-	//CHECKING FOR EXCOMMUNICATION ROUND AND END GAME
-		if(this.board.getPhase()%this.board.getPlayers().size()==0){
-			
-			System.out.println("Ongoing next round logic, round was number "+this.board.getRound());
-						
-			this.board.nextRound();
-			
-			//CHECKING EXCOMMUNICATION
-			if(this.board.getRound()%GlobalVariables.excommunicationRound==0){
-				System.out.println("Excommunication time on round "+this.board.getRound()+" and period "+this.board.getPeriod());
+		// CHECKING FOR EXCOMMUNICATION ROUND AND END GAME
+		if (this.board.getPhase() % this.board.getPlayers().size() == 0) {
 
+			System.out.println("Ongoing next round logic, round was number " + this.board.getRound());
+
+			this.board.nextRound();
+
+			// CHECKING EXCOMMUNICATION
+			if (this.board.getRound() % GlobalVariables.excommunicationRound == 0) {
+				System.out.println("Excommunication time on round " + this.board.getRound() + " and period "
+						+ this.board.getPeriod());
+				this.isExcommunicationTime = true;
 				askPlayersForExcommunication();
-			    //waitForAllResponses()
+				// waitForAllResponses()
 			}
-			
-			//END GAME
-			if(this.board.getPeriod()==GlobalVariables.totalNumberOfPeriods&&this.board.getRound()%this.board.getPlayers().size()==0){
-				System.out.println("Game is finished!\n Period= "+this.board.getPeriod()+"\nRound= "+this.board.getRound()+"\nPhase= "+this.board.getPhase());
+
+			// END GAME
+			if (this.board.getPeriod() == GlobalVariables.totalNumberOfPeriods
+					&& this.board.getRound() % this.board.getPlayers().size() == 0) {
+				System.out.println("Game is finished!\n Period= " + this.board.getPeriod() + "\nRound= "
+						+ this.board.getRound() + "\nPhase= " + this.board.getPhase());
 				endGame();
 			}
-			System.out.println("Resetting board spaces, geting ready for next round number"+this.board.getRound());
+			System.out.println("Resetting board spaces, geting ready for next round number" + this.board.getRound());
 			nextRoundLogic();
 
 		}
-			
 
-		
-		while (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())){
+		while (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())) {
 			this.board.nextPhase();
 		}
-		
-		
+
 		System.out.println("\n Attemping match player name" + this.board.getPhasePlayer());
 		ClientHandler playerOfTurn = this.matchClientHandler.get(this.board.getPhasePlayer());
 		System.out.println("\nChanging phases of players");
@@ -278,59 +277,87 @@ public class Controller implements IController {
 		System.out.println("\nNext turn logic ended successfully");
 
 	}
-	
-//TODO to be completed nextRoundLogic, askPlayersForExcommunication, endGame
-	
-private void nextRoundLogic() {
-	this.board.nextTurn();
+
+	// TODO to be completed nextRoundLogic, askPlayersForExcommunication,
+	// endGame
+
+	private void nextRoundLogic() {
+		this.board.nextTurn();
 	}
 
+	public void submitExcommunicationChoice(String playerUsername, boolean decision) {
+		if (decision == false) {
+			System.out.println("Player " + playerUsername + " decided to be excommunicated");
+			this.board.excommunicatePlayer(this.matchPlayer.get(playerUsername));
+		} else {
+			System.out.println(
+					"Player " + playerUsername + " decided to NOT be excommunicated and to satisfy the church");
+			this.board.satisfyTheChurch(matchPlayer.get(playerUsername));
 
-
-
-
-public void submitExcommunicationChoice(String playerID, boolean decision){
-	//TODO to implement
-}
-private void askPlayersForExcommunication() {
-	System.out.println("Entered in Excommunication logic function");
-	this.board.nextPeriod();
-	
-	for(ClientHandler clientHandler: this.clientHandlers){
-		if(this.matchClientHandlerStatus.get(clientHandler.getUsername())&&checkExcommunicationFaithPoints(clientHandler.getUsername())){
-			clientHandler.sendMsgTo("\n\nExcommunication round has come, do your choice\n");
-			//DARIO non devono poter fare azioni di altro tipo in questo periodo di scelta
-			clientHandler.setMyturn(true);
-	}
-		else{
-			
 		}
-	
-		
+		this.excommunicationSubmission++;
+
+		if (this.excommunicationSubmission == this.board.getPlayers().size()) {
+			this.board.setPhase(0);
+			System.out.println("Excommunication round finished, going for next player phase: " + this.board.getPhase()
+					+ " round" + this.board.getRound() + " period" + this.board.getPeriod());
+			this.isExcommunicationTime = false;
+			nextPlayerPhase();
+		}
+
 	}
-}
 
+	private void askPlayersForExcommunication() {
+		System.out.println("Entered in Excommunication logic function");
+		this.board.nextPeriod();
 
+		for (ClientHandler clientHandler : this.clientHandlers) {
+			if (this.matchClientHandlerStatus.get(clientHandler.getUsername())
+					&& checkExcommunicationFaithPoints(clientHandler.getUsername())) {
+				clientHandler.sendMsgTo("excommunication_round");
+				// DARIO non devono poter fare azioni di altro tipo in questo
+				// periodo di scelta
+				clientHandler.setMyturn(true);
+			}
 
+		}
+		if (this.excommunicationSubmission == this.board.getPlayers().size()) {
+			this.board.setPhase(0);
+			System.out.println("Excommunication round finished, going for next player phase: " + this.board.getPhase()
+					+ " round" + this.board.getRound() + " period" + this.board.getPeriod());
+			this.isExcommunicationTime = false;
+			nextPlayerPhase();
+		}
+	}
 
+	private boolean checkExcommunicationFaithPoints(String playerUsername) {
+		boolean result = true;
+		System.out.println("Entered in Excommunication logic, minimum faith points to avoid excommunication is: "
+				+ globalVariables.faithPointExcomRequired[this.board.getPeriod() - 1]);
+		if (!(this.matchPlayer.get(playerUsername).getPlayerResource(
+				"faithPoint") >= globalVariables.faithPointExcomRequired[this.board.getPeriod() - 1])) {
+			result = false;
 
-private boolean checkExcommunicationFaithPoints(String playerID) {
-	boolean result=true;
-//	if(this.matchPlayer.get(playerID).getPlayerResource("faithPoint")<globalVariables.fa
-	return result;
-}
+			System.out.println("Excommunicating player who has "
+					+ this.matchPlayer.get(playerUsername).getPlayerResource("faithPoint") + " fatih points");
 
-//TODO to implement
-	
+			this.board.excommunicatePlayer(this.matchPlayer.get(playerUsername));
+			this.excommunicationSubmission++;
+
+			// WAIT FOR DARIO BROADCAST MESSAGE FROM SYSTEM WITHOUT CLIENT
+			// HANDLER INPUT
+			this.playersLobby.lobbyMsg("Player "+playerUsername+" has been excommunicated");;
+		}
+		return result;
+	}
+
+	// TODO to implement
+
 	private void endGame() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
-	
-	
-	
 	private void changePhases(ClientHandler playerOfTurn) {
 		for (ClientHandler client : this.clientHandlers) {
 			if (client.getUsername().equals(playerOfTurn.getUsername())) {
@@ -355,23 +382,27 @@ private boolean checkExcommunicationFaithPoints(String playerID) {
 		int actionID = action.getActionID();
 		boolean result;
 
-		System.out.println("\nAttempting to perform the action submitted "+action.toString()+"\n with ID: "+action.getActionID());
+		System.out.println("\nAttempting to perform the action submitted " + action.toString() + "\n with ID: "
+				+ action.getActionID());
 
 		switch (actionID) {
 		case 1:
 			ProductionAction productionAction = (ProductionAction) action;
-			ProductionActionPerformerRoutine productionActionImpl = new ProductionActionPerformerRoutine(productionAction, this.board);
+			ProductionActionPerformerRoutine productionActionImpl = new ProductionActionPerformerRoutine(
+					productionAction, this.board);
 			result = productionActionImpl.performAction();
 			return result;
 		case 2:
 			HarvestAction harvestAction = (HarvestAction) action;
-			HarvestActionPerformerRoutine harvestActionImpl = new HarvestActionPerformerRoutine(harvestAction,this.board);
+			HarvestActionPerformerRoutine harvestActionImpl = new HarvestActionPerformerRoutine(harvestAction,
+					this.board);
 			result = harvestActionImpl.performAction();
 			return result;
 
 		case 3:
 			CouncilPalaceAction councilPalaceAction = (CouncilPalaceAction) action;
-			CouncilPalacePerformerRoutine councilPalaceActionImpl = new CouncilPalacePerformerRoutine(councilPalaceAction, this.board);
+			CouncilPalacePerformerRoutine councilPalaceActionImpl = new CouncilPalacePerformerRoutine(
+					councilPalaceAction, this.board);
 			result = councilPalaceActionImpl.performAction();
 			return result;
 		case 4:

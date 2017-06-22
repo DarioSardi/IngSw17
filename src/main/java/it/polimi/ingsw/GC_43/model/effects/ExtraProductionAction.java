@@ -24,6 +24,8 @@ public class ExtraProductionAction extends Effect {
 	}
 
 	public void executeEffect(FamilyMember familyMember) {
+		System.out.println("Executing ExtraProductionAction Effect");
+
 		try {
 			ProductionAction extraProductionAction = new ProductionAction(familyMember.getPlayer().getPlayerName(),
 					familyMember.getPlayer());

@@ -103,6 +103,8 @@ public class ResourceEffect extends Effect {
         
 
         public void executeEffect(FamilyMember familyMember){
+    		System.out.println("Executing ResourceEffect Effect");
+
             addResources(familyMember.getPlayer());
 
             

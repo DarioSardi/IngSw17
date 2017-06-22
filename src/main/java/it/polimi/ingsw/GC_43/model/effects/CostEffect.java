@@ -4,6 +4,7 @@ import it.polimi.ingsw.GC_43.model.resources.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 
@@ -49,6 +50,8 @@ public class CostEffect extends Effect {
 		return true;
 	}
 	public void executeEffect(Player player, String cardType){
+		System.out.println("Executing CostEffect Effect");
+
 		for (Resource resource: Costs){
 			if(resource.getResourceType().equals("coin")){
 				player.subResource(resource.getResourceType(), resource.getValue()-player.getPlayerBounusMalus().getBonusCoinsOnBuyInTowers().get(cardType));
@@ -57,6 +60,10 @@ public class CostEffect extends Effect {
 				player.subResource(resource.getResourceType(), resource.getValue());
 				}			
 			}
+	}
+	
+	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing WRONG CostEffect method");
 	}
 
 	public ArrayList<Resource> getCosts() {

@@ -14,6 +14,8 @@ public class TwoServantsCountAsOne extends Effect {
 		return toString;
 	}
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing TwoServantsCountAsOne Effect");
+
 		familyMember.getPlayer().getPlayerBounusMalus().setTwoServantsCountAsOne(true);
 	}
 	

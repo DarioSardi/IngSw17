@@ -21,6 +21,8 @@ public class AdditionalValueToDiceOnHarvest extends Effect{
 	}
 	
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing AdditionalValueToDiceOnHarvest Effect");
+
 		familyMember.getPlayer().getPlayerBounusMalus().setBonusHarvestArea(familyMember.getPlayer().getPlayerBounusMalus().getBonusHarvestArea()+this.valueToAddOnDice);
 		
 	}

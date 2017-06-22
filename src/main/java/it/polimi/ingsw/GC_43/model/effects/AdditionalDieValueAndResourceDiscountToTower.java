@@ -32,6 +32,7 @@ public class AdditionalDieValueAndResourceDiscountToTower extends Effect {
 	
 	
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing AdditionalDieValueAndResourceDiscountToTower Effect");
 		if(cardType.equals("VentureCard")){
 			int oldValue=familyMember.getPlayer().getPlayerBounusMalus().getBonusDiceVentureTower();
 			familyMember.getPlayer().getPlayerBounusMalus().setBonusDiceVentureTower(oldValue+this.extraValue);

@@ -32,10 +32,14 @@ public class MultipleChoiceEffect extends Effect {
 		
 		
 		public void executeEffect(FamilyMember familyMember){
+			System.out.println("Executing FAKE MultipleChoiceEffect Effect");
+
 		
 		}
 
 		public void executeEffect(FamilyMember familyMember, int choiceNumber){
+			System.out.println("Executing MultipleChoiceEffect Effect OK");
+
 			this.choices.get(choiceNumber).executeEffect(familyMember);
 			
 		}

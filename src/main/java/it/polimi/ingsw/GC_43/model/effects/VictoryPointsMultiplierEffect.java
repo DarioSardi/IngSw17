@@ -44,6 +44,8 @@ public class VictoryPointsMultiplierEffect extends Effect {
 	
 		
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing VictoryPointsMultiplierEffect Effect");
+
 		getVictoryPoints(familyMember.getPlayer());
 
 	}

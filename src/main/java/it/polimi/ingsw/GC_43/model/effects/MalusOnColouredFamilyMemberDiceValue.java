@@ -21,6 +21,8 @@ public class MalusOnColouredFamilyMemberDiceValue extends Effect{
 		return toString;
 	}
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing MalusOnColouredFamilyMemberDiceValue Effect");
+
 		familyMember.getPlayer().getPlayerBounusMalus().setMalusCoulouredFamiliarsDiceValue(this.valueDecreasedBy);
 		
 	}

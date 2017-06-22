@@ -51,6 +51,8 @@ public class ChoiceEffect extends Effect{
 		return checkResult;
 	}
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing ChoiceEffect Effect");
+
 		executeEffect(familyMember.getPlayer());
 	}
 	public void executeEffect(Player player){

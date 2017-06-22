@@ -17,6 +17,9 @@ public class DoubleChoiceOnDiscountBuildingCard extends Effect{
 	}
 	
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing DoubleChoiceOnDiscountBuildingCard Effect");
+		familyMember.getPlayer().getPlayerBounusMalus().setDoubleChoiceDiscountOnBuildingCard(true);
+
 
 	}
 }

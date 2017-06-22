@@ -12,6 +12,8 @@ public class DisableFloorBonusEffect extends Effect {
 
 
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing DisableFloorBonusEffect Effect");
+
 		familyMember.getPlayer().getPlayerBounusMalus().setNoFloorBonus(true);
 	}
 	
