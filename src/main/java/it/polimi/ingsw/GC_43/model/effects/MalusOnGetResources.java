@@ -21,6 +21,11 @@ public class MalusOnGetResources extends Effect{
 		return true;
 	}
 	
+	public String toString(){
+		String toString="Player will receive a malus on get resources on "+this.resourceType+" of a value amounting to "+this.value;
+		return toString;
+	}
+	
 	public void executeEffect(FamilyMember familyMember){
 		System.out.println("Executing MalusOnGetResources Effect");
 

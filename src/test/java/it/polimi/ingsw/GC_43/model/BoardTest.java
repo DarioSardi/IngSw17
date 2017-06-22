@@ -59,7 +59,7 @@ public class BoardTest {
 		//p.prepareAction();
 		//System.out.println("production done!");
 		//System.out.println("\n INITIAL servants of player\n" +board.getPlayers().get(0).toString());
-	    *//*
+	    */
 		MarketActionCreationRoutine m = new MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		
 		m.prepareAction();
@@ -69,9 +69,12 @@ public class BoardTest {
 		System.out.println("started performing");
 
 		mp.performAction();
+		System.out.println("\n\nPRINTING MARKET STATISTICS\n\n"+this.board.getMarket().toString()+"\n\n");
+		System.out.println("\n\nFAMILY MEMBER PRINTED:"+ m.getMarketAction().getPlayer().printFamilyMembers()+"\n\n");
+		System.out.println("PERFORMING RESULT ON THE SAME SPACE SHOUD BE FALE, AND IT IS "+mp.performAction());
 		System.out.println("finished performing");
 		System.out.println("\n FINAL servants of player\n" +board.getPlayers().get(0).toString()+"\n\nPlayer in memory "+board.getPlayers().get(0));
-		
+		/*
 		
 		TowerActionCreationRoutine t = new TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		t.prepareAction();
