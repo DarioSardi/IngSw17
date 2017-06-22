@@ -62,14 +62,14 @@ public class BoardTest {
 		TowerActionPerformerRoutine tp= new TowerActionPerformerRoutine(t.getTowerAction(),board);
 		System.out.println("\n\n\n\nstarting to perform\n\n\n\n\n\n\n");
 		tp.performAction();
-		*/
+		
 		CouncilPalaceActionCreationRoutine c = new CouncilPalaceActionCreationRoutine(board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
 		c.prepareAction();
 		CouncilPalacePerformerRoutine cp= new CouncilPalacePerformerRoutine(c.getCouncilPalaceAction(),board);
 		System.out.println("\n\n\n\nstarting to perform\n\n\n\n\n\n\n");
 		cp.performAction();
 		System.out.println("bonus "+this.board.getCouncilPalace().getCouncil().getMinDiceValue());
-
+*/
 
 	
 	}
