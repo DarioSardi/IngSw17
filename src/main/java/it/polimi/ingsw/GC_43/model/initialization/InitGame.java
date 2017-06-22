@@ -35,7 +35,9 @@ public class InitGame {
 		this.board.setTowers(this.initActionSpaces.getTowers());
 	}
 	private void setExcommunicationTilesToBoard(){
-	this.board.setExcommunicationTiles(new InitExcommunicationTiles().getMalusExcommunicationSelected());
+		InitExcommunicationTiles iet = new InitExcommunicationTiles();
+		iet.readExcommunicationTiles();
+		this.board.setExcommunicationTiles(iet.getMalusExcommunicationSelected());
 	}
 	
 	private void setCouncilPalaceToBoard(){
