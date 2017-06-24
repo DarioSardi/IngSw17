@@ -11,7 +11,7 @@ public class Floor extends ActionSpace {
 	/**
 	 * 
 	 */
-	
+
 	private boolean floorOccupied;
 	private Card card;
 	private Tower tower;
@@ -19,15 +19,14 @@ public class Floor extends ActionSpace {
 	public Floor(Effect bonus, Tower tower, Integer minDiceValue) {
 		super();
 		this.setMinDiceValue(minDiceValue);
-		
-		if(bonus!=null){
-		this.setBonus(new ArrayList<Effect>());
-		this.getBonus().add(bonus);
-		}
-		else{
+
+		if (bonus != null) {
+			this.setBonus(new ArrayList<Effect>());
+			this.getBonus().add(bonus);
+		} else {
 			this.setBonus(null);
 		}
-		
+
 		this.tower = tower;
 		this.setFamiliarIn(new ArrayList<FamilyMember>());
 		this.card = null;
@@ -41,7 +40,7 @@ public class Floor extends ActionSpace {
 	public void setFloorOccupied(boolean floorOccupied) {
 		this.floorOccupied = floorOccupied;
 	}
-	
+
 	@Override
 	public void addFamiliarIn(FamilyMember f) {
 		this.getFamiliarIn().add(f);
@@ -70,17 +69,13 @@ public class Floor extends ActionSpace {
 	}
 
 	public boolean check(FamilyMember f) {
-		System.out.println("entering the floor with cost: "+ this.getMinDiceValue()+ "\n"
-				+ "the familiar have dice value of "+ f.getDiceValue()+"\n"
-						+ "so can he enter? "+ (f.getDiceValue() >= this.getMinDiceValue())+ "\n"
-								+ "can he buy the card?"+ CardHandler.checkBuy(this, f.getPlayer(), this.getCard(), this.getTower().check(f))+"\n"
-										+ "the tower have another familiar in with the same color?"+ (this.getTower().checkColor(f))+"\n"
-												+ "is the floor occupied? "+( !this.floorOccupied)+"\n");
-		return f.getDiceValue() >= this.getMinDiceValue()
-				&& CardHandler.checkBuy(this, f.getPlayer(), this.getCard(), this.getTower().check(f))
-				&& this.getTower().checkColor(f) && !this.floorOccupied;
+		System.out.println("entering the floor with cost: " + this.getMinDiceValue() + "\n"
+				+ "the familiar have dice value of " + f.getDiceValue() + "\n" + "so can he enter? "
+				+ (f.getDiceValue() >= this.getMinDiceValue()) + "\n"
+				+ "the tower have another familiar in with the same color?" + (this.getTower().checkColor(f)) + "\n"
+				+ "is the floor occupied? " + (this.floorOccupied) + "\n");
+		return f.getDiceValue() >= this.getMinDiceValue() && this.getTower().checkColor(f) && this.floorOccupied;
 	}
-
 
 	/**
 	 * buy the card,get the floor bonus,set the familiar,set the floor and the
@@ -91,14 +86,21 @@ public class Floor extends ActionSpace {
 		actionsAfterBuy(f);
 		return true;
 	}
-	
-	public void actionsAfterBuy(FamilyMember f){
-		for (Effect effect : this.getBonus())
-			effect.executeEffect(f);
+
+	// DARIO il getBonus non funziona, non overrida bene, buttaci un occhio
+	public void actionsAfterBuy(FamilyMember f) {
+		if (this.getBonus() != null) {
+			for (Effect effect : this.getBonus())
+				effect.executeEffect(f);
+		}
+		System.out.println("Instant floor bonus checked and received if were not null..");
 		this.getFamiliarIn().add(f);
+		System.out.println("Familiar added to floor..");
 		f.setAlreadyPlaced(true);
+		System.out.println("Familiar setted already placed..");
 		f.setFamilyMemberPosition(this);
 		this.getTower().setTowerOccupied(true);
+		System.out.println("Floor setted occupied..");
 		this.setFloorOccupied(true);
 	}
 
@@ -118,13 +120,14 @@ public class Floor extends ActionSpace {
 		} else
 			return false;
 	}
+
 	@Override
 	public void resetSpace() {
 		this.removeCard();
 		this.floorOccupied = false;
 		this.removeAllFamiliars();
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -143,7 +146,7 @@ public class Floor extends ActionSpace {
 		}
 		return sb.toString();
 	}
-	
+
 	/*
 	 * print floor info
 	 * 

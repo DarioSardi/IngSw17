@@ -75,8 +75,8 @@ public class PlayerCards implements Serializable{
 	
 	public String toStringForType(ArrayList<? extends Card> cardsList){
 		String s ="";	
-		for (int i=0; i < this.territoryCards.size(); i++)
-			s = s + this.territoryCards.get(i).toString() + '\n';
+		for (int i=0; i < cardsList.size(); i++)
+			s = s + cardsList.get(i).toString() + '\n';
 		return s;
 	}
 	public String toString(){

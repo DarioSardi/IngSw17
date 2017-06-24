@@ -42,6 +42,8 @@ public class CommonActionPerformerRoutine {
 		try {
 			boolean checkResult = checkResourceUsed(player, "servant", servantsUsed);
 			if (checkResult) {
+				System.out.println("Message from CommonActionPerformerRoutine: Subtracted " + servantsUsed + " servants to player who has now "
+						+ player.getPlayerResource("servant") + " servant");
 				player.subResource("servant", servantsUsed);
 				if (player.getPlayerBounusMalus().isTwoServantsCountAsOne()) {
 					servantsUsed = servantsUsed / 2;

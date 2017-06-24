@@ -167,10 +167,10 @@ public class Tower implements Serializable{
 		} else {
 			for (Floor floor : this.floors)
 				if (floor.checkColor(f)) {
-					return false;
+					return true;
 				}
 		}
-		return true;
+		return false;
 	}
 
 	/**
