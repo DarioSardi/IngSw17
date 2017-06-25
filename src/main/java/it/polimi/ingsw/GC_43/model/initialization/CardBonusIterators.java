@@ -124,7 +124,6 @@ public class CardBonusIterators {
 		    case "militaryPoint": bonus.add(new ResourceEffect(new MilitaryPoint(valueEffect))); break;	 
 		    case "victoryPoint": bonus.add(new ResourceEffect(new VictoryPoint(valueEffect))); break;	 
 		    case "councilPrivilege": {
-		    	System.out.println("CIAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 		    	bonus.add(new ResourceEffect(new CouncilPrivilege(valueEffect))); break;	 
 		    }
 		    default: System.out.println("Effect: " + effect + " not found");
