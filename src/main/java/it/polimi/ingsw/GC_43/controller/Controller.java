@@ -3,7 +3,6 @@ package it.polimi.ingsw.GC_43.controller;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,8 +69,8 @@ public class Controller implements IController {
 		ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(0));
 		String initialPlayerBroadcast = "Initial phase goes to " + initialPlayer.getUsername();
 		System.out.println(initialPlayerBroadcast);
-		
-		//NOTIFYING OF FIRST PLAYER PHASE
+
+		// NOTIFYING OF FIRST PLAYER PHASE
 		this.playersLobby.lobbyMsg(initialPlayerBroadcast);
 
 		try {
@@ -84,7 +83,6 @@ public class Controller implements IController {
 
 	}
 
-	
 	private void sendGlobalVariablesToClients() throws RemoteException {
 		for (ClientHandler clientHandler : this.clientHandlers) {
 			clientHandler.sendObject(this.globalVariables);
@@ -225,9 +223,8 @@ public class Controller implements IController {
 				System.out.println("\nAction concluded !\n");
 
 			}
-		}
-		else{
-			System.out.println("Player "+action.getPlayerID()+" submitted an action during excommunication time");
+		} else {
+			System.out.println("Player " + action.getPlayerID() + " submitted an action during excommunication time");
 		}
 
 	}
@@ -355,19 +352,20 @@ public class Controller implements IController {
 
 			this.board.excommunicatePlayer(this.matchPlayer.get(playerUsername));
 			this.excommunicationSubmission++;
-			
-			//NOTIFYING ALL PLAYER OF EXCOMMUNICATED PLAYER
-			this.playersLobby.lobbyMsg("Player "+playerUsername+" has been excommunicated");;
+
+			// NOTIFYING ALL PLAYER OF EXCOMMUNICATED PLAYER
+			this.playersLobby.lobbyMsg("Player " + playerUsername + " has been excommunicated");
+			;
 		}
 		return result;
 	}
 
-
 	private void endGame() {
 		String winnerIs = this.board.establishWinner();
-		this.playersLobby.lobbyMsg("\n\nAND THE WINNER IS "+winnerIs+" with a total amount of "+this.matchPlayer.get(winnerIs).getPlayerResource("victoryPoint")+" victory points!!");
+		this.playersLobby.lobbyMsg("\n\nAND THE WINNER IS " + winnerIs + " with a total amount of "
+				+ this.matchPlayer.get(winnerIs).getPlayerResource("victoryPoint") + " victory points!!");
 
-		//TODO decide how to terminate the game
+		// TODO decide how to terminate the game
 	}
 
 	private void changePhases(ClientHandler playerOfTurn) throws RemoteException {
@@ -385,7 +383,7 @@ public class Controller implements IController {
 
 	}
 
-	//called by submitClientAction
+	// called by submitClientAction
 	private boolean submit(Action action) {
 
 		System.out.println("\nAttempting to match player on server to perform action");

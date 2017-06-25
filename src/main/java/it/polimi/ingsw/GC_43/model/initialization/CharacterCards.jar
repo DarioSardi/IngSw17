@@ -128,10 +128,6 @@
       "InstantBonus": [],
       "PermanentBonus": [
         {
-          "effect": "extraTemporaryDiscountCharacter",
-          "valueEffect": "2"
-        },
-        {
           "effect": "addDiceValueCharacterTower",
           "valueEffect": "2",
 		"discountType" : "coin",
