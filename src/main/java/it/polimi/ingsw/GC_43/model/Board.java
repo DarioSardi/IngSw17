@@ -239,8 +239,8 @@ public class Board implements Serializable {
 	}
 
 	public String getPhasePlayer() {
-		System.out.println("\nplayer of phase on board" + this.phase);
-		System.out.println("\nplayer of phase on board"
+		System.out.println("Phase number on board is " + this.phase);
+		System.out.println("player of phase on board"
 				+ this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName());
 
 		return this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName();
