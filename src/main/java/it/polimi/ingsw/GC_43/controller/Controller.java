@@ -1,6 +1,8 @@
 package it.polimi.ingsw.GC_43.controller;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +35,7 @@ public class Controller implements IController {
 	private int excommunicationSubmission;
 	private boolean isExcommunicationTime;
 
-	public Controller(ArrayList<ClientHandler> clientHandlers) {
+	public Controller(ArrayList<ClientHandler> clientHandlers) throws RemoteException {
 		this.clientHandlers = new ArrayList<ClientHandler>();
 		this.clientHandlers = clientHandlers;
 		this.matchPlayer = new HashMap<String, Player>();
@@ -46,7 +48,7 @@ public class Controller implements IController {
 
 	}
 
-	public void initializeGame() {
+	public void initializeGame() throws RemoteException {
 
 		insertPlayers();
 		System.out.println("player inserted");
@@ -63,7 +65,7 @@ public class Controller implements IController {
 
 	}
 
-	private void startGame() {
+	private void startGame() throws RemoteException {
 		System.out.println("start Game");
 		ClientHandler initialPlayer = this.matchClientHandler.get(this.board.getPlayersID().get(0));
 		String initialPlayerBroadcast = "Initial phase goes to " + initialPlayer.getUsername();
@@ -72,27 +74,32 @@ public class Controller implements IController {
 		//NOTIFYING OF FIRST PLAYER PHASE
 		this.playersLobby.lobbyMsg(initialPlayerBroadcast);
 
-		changePhases(initialPlayer);
+		try {
+			changePhases(initialPlayer);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("changing phase finished");
 
 	}
 
 	
-	private void sendGlobalVariablesToClients() {
+	private void sendGlobalVariablesToClients() throws RemoteException {
 		for (ClientHandler clientHandler : this.clientHandlers) {
 			clientHandler.sendObject(this.globalVariables);
 			System.out.println("numberOfFamliars " + this.globalVariables.numberOfFamilyMembers);
 		}
 	}
 
-	private void sendModelToClients() {
+	private void sendModelToClients() throws RemoteException {
 		for (ClientHandler clientHandler : this.clientHandlers) {
 			clientHandler.sendObject(this.board);
 		}
 	}
 
 	// MATCH PLAYER WITH CLIENT HANDLERS
-	private void setMatches() {
+	private void setMatches() throws RemoteException {
 		int i = 0;
 		for (ClientHandler clientHandler : this.clientHandlers) {
 
@@ -107,7 +114,7 @@ public class Controller implements IController {
 
 	// ROUTINES OF DISCONNECTIONS AND RECONNECTIONS OF PLAYERS
 
-	public void playerInGameAgain(String playerUsername, ClientHandler clientHandler) {
+	public void playerInGameAgain(String playerUsername, ClientHandler clientHandler) throws RemoteException {
 		System.out.println("Attempting to reconnect " + playerUsername);
 		if (this.matchClientHandlerStatus.get(playerUsername) != null) {
 			switchPlayerStatus(playerUsername);
@@ -142,7 +149,7 @@ public class Controller implements IController {
 
 	}
 
-	public void insertPlayers() {
+	public void insertPlayers() throws RemoteException {
 		ArrayList<String> playerUsername = new ArrayList<String>();
 		for (ClientHandler clientHandler : this.clientHandlers) {
 			playerUsername.add(clientHandler.getUsername());
@@ -176,7 +183,7 @@ public class Controller implements IController {
 
 	}
 
-	public void clientTimeIsOver(String playerUsername) {
+	public void clientTimeIsOver(String playerUsername) throws RemoteException {
 		if (this.matchClientHandler.get(playerUsername) != null) {
 			nextPlayerPhase();
 			this.matchClientHandler.get(playerUsername).sendMsgTo("Phase has been skipped for inactivity");
@@ -185,7 +192,7 @@ public class Controller implements IController {
 
 	// TODO AGGIUNGI BOOLEANO PER VEDERE SE PLAYER CONNESSO O NO;
 
-	public synchronized void submitClientAction(Action action) {
+	public synchronized void submitClientAction(Action action) throws RemoteException {
 		if (!this.isExcommunicationTime) {
 			System.out.println("\nclient Action received from client " + action.getPlayerID());
 
@@ -227,7 +234,7 @@ public class Controller implements IController {
 
 	// MANAGING PLAYERS PHASES
 
-	private void nextPlayerPhase() {
+	private void nextPlayerPhase() throws RemoteException {
 
 		System.out.println("\n Attemping to get old phase player" + this.board.getPhasePlayer());
 
@@ -302,12 +309,17 @@ public class Controller implements IController {
 			System.out.println("Excommunication round finished, going for next player phase: " + this.board.getPhase()
 					+ " round" + this.board.getRound() + " period" + this.board.getPeriod());
 			this.isExcommunicationTime = false;
-			nextPlayerPhase();
+			try {
+				nextPlayerPhase();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
 
-	private void askPlayersForExcommunication() {
+	private void askPlayersForExcommunication() throws RemoteException {
 		System.out.println("Entered in Excommunication logic function");
 		this.board.nextPeriod();
 
@@ -358,7 +370,7 @@ public class Controller implements IController {
 		//TODO decide how to terminate the game
 	}
 
-	private void changePhases(ClientHandler playerOfTurn) {
+	private void changePhases(ClientHandler playerOfTurn) throws RemoteException {
 		for (ClientHandler client : this.clientHandlers) {
 			if (client.getUsername().equals(playerOfTurn.getUsername())) {
 				client.setMyturn(true);

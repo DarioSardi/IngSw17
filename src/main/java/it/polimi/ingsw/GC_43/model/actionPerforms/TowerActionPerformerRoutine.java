@@ -100,24 +100,25 @@ public class TowerActionPerformerRoutine implements ActionPerformer {
 
 		System.out.println("Checking card buy..");
 
-//		System.out.println("PLAYER RESOURCES BEFORE BUY COMPLETED " + player.toString());
+		// System.out.println("PLAYER RESOURCES BEFORE BUY COMPLETED " +
+		// player.toString());
 
 		checkCardBuy(player, familyMember, chosenTower, towerFloor, towerFloor.getCard());
 
 		System.out.println("Checking effects of card..");
-		
-		checkEffectChoices(player, towerFloor.getCard());
-		
-//		System.out.println("PLAYER RESOURCES AFTER BUY COMPLETED "+player.toString());
 
+		checkEffectChoices(player, towerFloor.getCard());
+
+		// System.out.println("PLAYER RESOURCES AFTER BUY COMPLETED
+		// "+player.toString());
 
 		if (this.checkResult == true) {
 			System.out.println("Attempting to execute actions after buy in floor");
-			CardHandler.actionsAfterBuy(towerFloor,familyMember);
+			CardHandler.actionsAfterBuy(towerFloor, familyMember);
 		}
-//		System.out.println("PLAYER CARDS AFTER BUY COMPLETED "+player.getPlayerCards().toString());
+		// System.out.println("PLAYER CARDS AFTER BUY COMPLETED
+		// "+player.getPlayerCards().toString());
 		System.out.println("Check and try finished\n");
-
 
 	}
 

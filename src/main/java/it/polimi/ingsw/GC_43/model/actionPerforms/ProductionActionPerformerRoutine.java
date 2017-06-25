@@ -5,6 +5,7 @@ import java.util.HashMap;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.actions.Action;
 import it.polimi.ingsw.GC_43.model.actions.HarvestAction;
 import it.polimi.ingsw.GC_43.model.actions.ProductionAction;
@@ -14,202 +15,178 @@ import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
 import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 
-
-public class ProductionActionPerformerRoutine implements ActionPerformer{
+public class ProductionActionPerformerRoutine implements ActionPerformer {
 	private ProductionAction productionAction;
 	private boolean checkResult;
 	private Board board;
 	private int index;
 
-	
-	//README
-	//@require player instance inside the productionAction to be changed into the real one on the server
-	//decide if the match of player is better inside here
-	
-	public ProductionActionPerformerRoutine(ProductionAction productionAction, Board board){
-		
-		this.productionAction=productionAction;
-		this.checkResult=true;
-		this.board=board;
-		this.index=0;
-		//decide if to launch directly here in creation the performAction();
-		
+	// README
+	// @require player instance inside the productionAction to be changed into
+	// the real one on the server
+	// decide if the match of player is better inside here
+
+	public ProductionActionPerformerRoutine(ProductionAction productionAction, Board board) {
+
+		this.productionAction = productionAction;
+		this.checkResult = true;
+		this.board = board;
+		this.index = 0;
+		// decide if to launch directly here in creation the performAction();
+
 	}
-	
-	
-	
+
 	public boolean performAction() {
-		
-		this.checkResult=true;
 
-		Player player=this.productionAction.getPlayer();
-		
+		this.checkResult = true;
+
+		Player player = this.productionAction.getPlayer();
+
 		FamilyMember familyMember;
-		if(!this.productionAction.isDefaultFamilyMember())
-			familyMember= CommonActionPerformerRoutine.matchFamilyMember(player, this.productionAction.getFamilyMemberColor());
+		if (!this.productionAction.isDefaultFamilyMember())
+			familyMember = CommonActionPerformerRoutine.matchFamilyMember(player,
+					this.productionAction.getFamilyMemberColor());
 		else
-			familyMember=this.productionAction.getFamilyMember();
-		
-		HashMap<String,Integer> playerResourcesCopy=CommonActionPerformerRoutine.copyPlayerResources(player);
+			familyMember = this.productionAction.getFamilyMember();
 
+		HashMap<String, Integer> playerResourcesCopy = CommonActionPerformerRoutine.copyPlayerResources(player);
 
 		checkAndTryAction(player, familyMember);
 		System.out.println("check and try finished");
-		
-		if(checkResult==true){
+
+		if (checkResult == true) {
 			return true;
-		}
-		else{
+		} else {
 			player.setPlayerResources(playerResourcesCopy);
 			familyMember.setAlreadyPlaced(false);
 			return false;
 		}
 	}
-		
-	
-	
-	
 
+	private void checkAndTryAction(Player player, FamilyMember familyMember) {
 
-	private void checkAndTryAction(Player player, FamilyMember familyMember){
-		
-		
+		checkFamilyMemberAlreadyPlaced(familyMember);
 
-			checkFamilyMemberAlreadyPlaced(familyMember);
-			
-			checkServantsUsed(player, familyMember);
-			
-			checkProductionCellSelection(familyMember);
-			
-			checkProductionPerform(player, familyMember);
-			
-			
-			
-			
-	
-		
+		checkServantsUsed(player, familyMember);
+
+		checkProductionCellSelection(familyMember);
+
+		checkProductionPerform(player, familyMember);
+
 	}
-
-
-
-
-
-
 
 	private void checkProductionCellSelection(FamilyMember familyMember) {
 		try {
-			if(this.productionAction.isPrimaryCellChosen()){
-				if(!this.board.getProductionArea().getPrimarySpace().execute(familyMember))
-					this.checkResult=false;
-			}
-			else if(!this.productionAction.isPrimaryCellChosen()){
-				if(board.getProductionArea().getSecondarySpace()==null||!(this.board.getProductionArea().getSecondarySpace().execute(familyMember)))
-					this.checkResult=false;
+			if (this.productionAction.isPrimaryCellChosen()) {
+				if (!this.board.getProductionArea().getPrimarySpace().execute(familyMember))
+					this.checkResult = false;
+			} else if (!this.productionAction.isPrimaryCellChosen()) {
+				if (board.getProductionArea().getSecondarySpace() == null
+						|| !(this.board.getProductionArea().getSecondarySpace().execute(familyMember)))
+					this.checkResult = false;
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-
 
 	private void checkFamilyMemberAlreadyPlaced(FamilyMember familyMember) {
-		if(familyMember.isAlreadyPlaced()){
-			this.checkResult=false;
-		}		
+		if (familyMember.isAlreadyPlaced()) {
+			this.checkResult = false;
+		}
 	}
-
-
 
 	private void checkServantsUsed(Player player, FamilyMember familyMember) {
-		int servantsUsed=this.productionAction.getServantsUsed();
+		int servantsUsed = this.productionAction.getServantsUsed();
 		try {
-			if(!CommonActionPerformerRoutine.checkServansUsed(player,servantsUsed,familyMember))
-				this.checkResult=false;
-			
-			else{
-				player.subResource("servant", servantsUsed);
-			}
+			if (!CommonActionPerformerRoutine.checkServansUsed(player, servantsUsed, familyMember))
+				this.checkResult = false;
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
 	}
-		
-	
-	
-	
-	
-			
+
 	private void checkProductionPerform(Player player, FamilyMember familyMember) {
-		
-    	int dieValue=familyMember.getDiceValue()+this.productionAction.getServantsUsed()+player.getPlayerBounusMalus().getBonusProductionArea();
-    	
-  		 
+
+		int dieValue = familyMember.getDiceValue() + this.productionAction.getServantsUsed()
+				+ player.getPlayerBounusMalus().getBonusProductionArea();
+
 		try {
-			for(BuildingCard buildingCard: this.productionAction.getPlayer().getPlayerCards().getArrayBuildingCards()){
-				if(dieValue>=buildingCard.getProductionDice()){
-					for( Effect effect: buildingCard.getPermaBonus()){
-						if(effect.getClass().toString().contains("MultipleChoiceEffect"))
+			for (BuildingCard buildingCard : this.productionAction.getPlayer().getPlayerCards()
+					.getArrayBuildingCards()) {
+				if (dieValue >= buildingCard.getProductionDice()) {
+					for (Effect effect : buildingCard.getPermaBonus()) {
+						if (effect.getClass().toString().contains("MultipleChoiceEffect"))
 							executeMultipleChoice((MultipleChoiceEffect) effect, player);
-						if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
-							executeMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect, player);
-			            }
-						
+						if (effect.getClass().toString().contains("MultipleCouncilPrivileges")) {
+							executeMultipleCouncilPrivilege((MultipleCouncilPrivileges) effect, player);
+						}
+
 						else
 							effect.executeEffect(familyMember);
-					
+
 					}
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	   private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges effect,Player player) {
-	    	int numberOfCopies=effect.getNumberOfCopies();
-	    	while(numberOfCopies>0){
-	    		executeMultipleChoice(effect.getPrivilegeChoices(),player);
-	    		int playerChoice=this.productionAction.getProductionChoices().get(index-1);
-	    		effect.getPrivilegeChoices().getChoices().remove(playerChoice);
-	    		}
+	private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect, Player player) {
+		MultipleCouncilPrivileges effect = CommonActionCreatorRoutine
+				.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
 
-	    		numberOfCopies--;
-	    	}
-		
+		System.out.println("\nMultiple council privilege choice detected, checking choices of player");
+		int numberOfCopies = effect.getNumberOfCopies();
+		try {
+			while (numberOfCopies > 0) {
+				executeMultipleChoice(effect.getPrivilegeChoices(), player);
+				int playerChoice = this.productionAction.getProductionChoices().get(index - 1);
+				effect.getPrivilegeChoices().getChoices().remove(playerChoice);
+			}
 
+			numberOfCopies--;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("Finished executeMultipleCouncilPrivilege !\n");
 
+	}
 
 	private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
-		int playerChoice=this.productionAction.getProductionChoices().get(index);
-		ChoiceEffect choiceEffect=(ChoiceEffect)effect.getChoices().get(playerChoice);
+		int playerChoice = this.productionAction.getProductionChoices().get(index);
+		ChoiceEffect choiceEffect = (ChoiceEffect) effect.getChoices().get(playerChoice);
 		try {
-			if(playerChoice!=-1){
-				if(choiceEffect.check(player)){
-					
-					//Se risorsa == privilege council, nel execute effect di choiceEffect verrà skippato il gain perchè già preso prima
-					if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil")){
-						MultipleCouncilPrivileges privilege= new MultipleCouncilPrivileges(1);
+			if (playerChoice != -1) {
+				if (choiceEffect.check(player)) {
+
+					// Se risorsa == privilege council, nel execute effect di
+					// choiceEffect verrà skippato il gain perchè già preso
+					// prima
+
+					if (choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil")) {
+						System.out.println(
+								"Multiple concil privilege as resource detected, launching corresponding routine..");
+						MultipleCouncilPrivileges privilege = new MultipleCouncilPrivileges(1);
 						executeMultipleCouncilPrivilege(privilege, player);
 					}
+					System.out.println(
+							"Message from Production action performer: Choice effect check passed, executing it");
 					effect.getChoices().get(playerChoice).executeEffect(player);
 				}
-				
-				else{
-					this.checkResult=false;
+
+				else {
+					this.checkResult = false;
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
+
 		this.index++;
-		
+
 	}
 }
-  
-	
-
-

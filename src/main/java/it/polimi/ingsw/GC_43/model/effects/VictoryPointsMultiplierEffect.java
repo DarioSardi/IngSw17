@@ -18,28 +18,32 @@ public class VictoryPointsMultiplierEffect extends Effect {
 	}
 	
 	public String toString(){
-		String toString="Player will get an amount of victory points equal to "+this.multiplierFactor+" "+this.multiplierType;
+		String toString="Player will get an amount of victory points equal to "+this.multiplierFactor+" * "+this.multiplierType;
 		return toString;
 	}
 
 	private void getVictoryPoints(Player player){
 		int malusVictoryPoint=Math.abs(player.getPlayerBounusMalus().getMalusOnAcquiringResources().get("victoryPoint"));
-		if(this.multiplierType== "ventureCards")
+		System.out.println("Message from VictoyPointsMultiplerEffect: player malus on acquiring victory points is = "+malusVictoryPoint);
+		System.out.println("multiplier type is "+this.multiplierType);
+		if(this.multiplierType.equals("ventureCards"))
 			player.addResource("victoryPoint", (int)this.multiplierFactor*player.getPlayerCards().getArrayVentureCards().size()-malusVictoryPoint);
 		
-		if(this.multiplierType== "buildingCards");
+		if(this.multiplierType.equals("buildingCards"))
 			player.addResource("victoryPoint", (int)this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size()-malusVictoryPoint);
 		
-		if(this.multiplierType== "territoryCards");
+		if(this.multiplierType.equals("territoryCards"))
 			player.addResource("victoryPoint", (int)this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size()-malusVictoryPoint);
 		
-		if(this.multiplierType== "characterCards");
+		if(this.multiplierType.equals("characterCards"))
 			player.addResource("victoryPoint", (int)this.multiplierFactor*player.getPlayerCards().getArrayCharacterCards().size()-malusVictoryPoint);
 		
 		
-		if(this.multiplierType== "militaryPoint");
+		if(this.multiplierType.equals("militaryPoint"))
 			player.addResource("victoryPoint", (int)(this.multiplierFactor*player.getPlayerResource(this.multiplierType)));
-		}
+		
+		System.out.println("VictoryPointsMultiplier effect ended successfully");
+	}
 
 	
 		

@@ -73,9 +73,10 @@ public class MarketActionCreationRoutine implements ActionCreation{
 
         }
         
-        private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect) {
-        	MultipleCouncilPrivileges effect=CommonActionCreatorRoutine.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
-        	int numberOfCopies=effect.getNumberOfCopies();
+	private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect) {
+		MultipleCouncilPrivileges effect = CommonActionCreatorRoutine
+				.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
+		int numberOfCopies = effect.getNumberOfCopies();
         	while(numberOfCopies>0){
 
         		int choice= askForMultipleChoice(effect.getPrivilegeChoices());

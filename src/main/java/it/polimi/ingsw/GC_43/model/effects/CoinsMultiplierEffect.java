@@ -23,13 +23,14 @@ public class CoinsMultiplierEffect extends Effect {
 	}
 	
 	private void getVictoryPoints(Player player){
-		
-		if(this.multiplierType== "buildingCards");
+		System.out.println("Message from executing CoinMultiplierEffect: Adding "+this.multiplierFactor+" * coin for each "+ this.multiplierType);
+		if(this.multiplierType.equals("bildingCards"))
 			player.addResource("coin", this.multiplierFactor*player.getPlayerCards().getArrayBuildingCards().size()-Math.abs(player.getPlayerBounusMalus().getMalusOnAcquiringResources().get("coin")));
 		
-		if(this.multiplierType== "territoryCards");
+		if(this.multiplierType.equals("territoryCards"))
 			player.addResource("coin", this.multiplierFactor*player.getPlayerCards().getArrayTerritoryCards().size()-Math.abs(player.getPlayerBounusMalus().getMalusOnAcquiringResources().get("coin")));
-
+		
+		System.out.println("CoinsMultiplier effect ended successfully");
 	}
 	
 	public void executeEffect(FamilyMember familyMember){

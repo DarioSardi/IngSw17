@@ -46,7 +46,7 @@ public class MultipleChoiceEffect extends Effect {
 
 
 
-		private boolean checkChoice(int choiceNumber, Player player) {		
+		public boolean checkChoice(int choiceNumber, Player player) {		
 			return this.choices.get(choiceNumber).check(player);
 			
 		}

@@ -9,6 +9,7 @@ import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionSpace.HarvestArea;
 import it.polimi.ingsw.GC_43.model.actions.HarvestAction;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
+import it.polimi.ingsw.GC_43.model.effects.ChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
@@ -89,17 +90,52 @@ public class HarvestActionCreationRoutine implements ActionCreation {
 
     
     
-    private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges effect) {
-    	int numberOfCopies=effect.getNumberOfCopies();
-    	while(numberOfCopies>0){
-    		int choice= askForMultipleChoice(effect.getPrivilegeChoices());
-    		if(choice!=-1){
-    			effect.getPrivilegeChoices().getChoices().remove(choice);
-    		}
+    
+    
+	private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect) {
+		MultipleCouncilPrivileges effect = CommonActionCreatorRoutine
+				.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
+		int numberOfCopies = effect.getNumberOfCopies();
+		while (numberOfCopies > 0) {
 
-    		numberOfCopies--;
-    	}
+			int choice = askForMultipleChoice(effect.getPrivilegeChoices());
+
+			if (choice != -1) {
+				effect.getPrivilegeChoices().getChoices().remove(choice);
+				System.out.println("choice removed..");
+				this.harvestAction.getHarvestChoices().add(choice);
+
+			}
+			System.out.println("remaining number of copies" + numberOfCopies);
+			numberOfCopies--;
+		}
 	}
+
+	private int askForMultipleChoice(MultipleChoiceEffect effect) {
+		int maxRange = effect.getChoices().size();
+		String question = "Please select the exchange effect you want to perform. Input -1 as do nothing:\n"
+				+ effect.toString();
+		int choice = CommonActionCreatorRoutine.askForSingleChoice(question, -1, maxRange);
+		if (effect.check(this.harvestAction.getFamilyMember())) {
+			this.harvestAction.getHarvestChoices().add(choice);
+			ChoiceEffect choiceEffect = effect.getChoices().get(choice);
+
+			// Ask per privilege council SE nello scambio, MAX DA RIVEDERE;
+
+			if (choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil"))
+				askForMultipleCouncilPrivilege(new MultipleCouncilPrivileges(1));
+		} else {
+			question = "\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
+			choice = CommonActionCreatorRoutine.askForSingleChoice(question, -1, maxRange);
+			if (choice == 0) {
+				System.out.println("\nChoice skipped");
+			} else {
+				return askForMultipleChoice(effect);
+			}
+		}
+		return choice;
+	}
+    
 
 
 	private void askForASingleChoice(Effect effect) {
@@ -109,25 +145,6 @@ public class HarvestActionCreationRoutine implements ActionCreation {
 
     }
 
-    private int askForMultipleChoice(MultipleChoiceEffect effect) {
-    	int maxRange=effect.getChoices().size();
-        String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
-        int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
-        if(effect.check(this.harvestAction.getFamilyMember())){
-            this.harvestAction.getHarvestChoices().add(choice);
-        }
-        else{
-            question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";
-            choice= CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
-            if(choice==0){
-                System.out.println("\nChoice skipped");
-            }
-            else{
-                return askForMultipleChoice(effect);
-            }
-        }
-        return choice;
-    }
 
 
 	public HarvestAction getHarvestAction() {

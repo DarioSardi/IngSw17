@@ -90,10 +90,6 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 		int servantsUsed = this.councilPalaceAction.getServantsUsed();
 		if (!CommonActionPerformerRoutine.checkServansUsed(player, servantsUsed, familyMember))
 			this.checkResult = false;
-
-		else {
-			player.subResource("servant", servantsUsed);
-		}
 	}
 
 	private void checkCouncilPalacePerform(Player player, FamilyMember familyMember) {

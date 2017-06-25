@@ -50,8 +50,9 @@ public class ProductionActionCreationRoutine implements ActionCreation {
         this.productionAction.setServantsUsed(servantsChosed);
         selectProductionSpace(board.getProductionArea());
         getInputsForProduction(this.productionAction.getFamilyMember());
-
-        return false;
+        
+        System.out.println("Production action creation ended !");
+        return true;
     }
     private boolean selectProductionSpace(ProductionArea productionArea) {
 
@@ -90,10 +91,12 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 			    if(dieValue>=buildingCard.getProductionDice()){
 			        for( Effect effect: buildingCard.getPermaBonus()){
 			            if(effect.getClass().toString().contains("MultipleChoiceEffect")){
+			            	System.out.println("MultipleChoiceEffect deteced, asking for choice..");
 			                askForMultipleChoice((MultipleChoiceEffect)effect);
 			            }
 			            if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
-			                askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
+			            	System.out.println("MultipleCouncilPrivilesges deteced, asking for choice..");
+			            	askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
 			            }
 			        }
 			    }
@@ -106,9 +109,10 @@ public class ProductionActionCreationRoutine implements ActionCreation {
     }
 
 
-    private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges effect) {
+    private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect) {
+    	MultipleCouncilPrivileges effect=CommonActionCreatorRoutine.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
+    	int numberOfCopies=effect.getNumberOfCopies();
     	try {
-			int numberOfCopies=effect.getNumberOfCopies();
 			while(numberOfCopies>0){
 				int choice= askForMultipleChoice(effect.getPrivilegeChoices());
 				if(choice!=-1){
@@ -123,19 +127,27 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 		}
 	}
 
-    private int askForMultipleChoice(MultipleChoiceEffect effect) {
+	private int askForMultipleChoice(MultipleChoiceEffect effect) {
     	
 			int maxRange=effect.getChoices().size();
 			String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
 			int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
-			if(effect.check(this.productionAction.getFamilyMember())){
+			System.out.println("\n\nDEBUG REASON FAMILY MEMBER "+this.productionAction.getFamilyMember().toString() );
+			if(effect.checkChoice(choice, this.productionAction.getPlayer())){
+				System.out.println("effect check is ok, adding player choice..");
 			    this.productionAction.getProductionChoices().add(choice);
+				System.out.println("Selecting choice effect to check..");
 			    ChoiceEffect choiceEffect=effect.getChoices().get(choice);
-			    
+				System.out.println("Effect costs size is : "+choiceEffect.getGains().size());
+
+			    System.out.println("Effect is : "+choiceEffect.toString());
+
 			    //Ask per privilege council SE nello scambio, MAX DA RIVEDERE;
-			    
-			    if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil"))
+			    System.out.println("CHOICE EFFECT TO STRING number 0 gain" +choiceEffect.getGains().get(0).getClass().toString());
+			    if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil")){
+			    	System.out.println("Privilege council as resource detected.. Executing routine..");
 			    	askForMultipleCouncilPrivilege(new MultipleCouncilPrivileges(1));
+			    }
 			}
 			else{
 			    question="\nYou can't do this action because you do not have enough resources. Insert 0 to leave this choice or 1 to retry";

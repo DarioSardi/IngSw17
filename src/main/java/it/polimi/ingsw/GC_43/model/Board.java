@@ -107,14 +107,16 @@ public class Board implements Serializable {
 	}
 
 	public void initialize() {
+		System.out.println("\nInitializing board to get ready for the game");
 
 		rollDice();
-		System.out.println("\ndice rolled\n");
+		System.out.println("Dice rolled..");
 		setPlayersFamilyMembersValue();
-		System.out.println("\nfamiliar ok\n");
+		System.out.println("All familiar die value setted..");
 		setTowerCards();
-		System.out.println("\tower ok\n");
+		System.out.println("Tower cards setted..");
 
+		System.out.println("Board initialization ended successfully\n");
 	}
 
 	private void setPlayersFamilyMembersValue() {
@@ -425,9 +427,9 @@ public class Board implements Serializable {
 		System.out.println("Message from board: Excommunicating player " + player.getPlayerName() + " during period "
 				+ relativePeriod);
 		// DEBUGGING TO BE CANCELLED
-		
-		System.out.println("excommunication effect "+ this.getExcommunicationTiles());
-		System.out.println("excommunication effect "+ this.getExcommunicationTiles().get(0));
+
+		System.out.println("excommunication effect " + this.getExcommunicationTiles());
+		System.out.println("excommunication effect " + this.getExcommunicationTiles().get(0));
 
 		if (this.getExcommunicationTiles().get(relativePeriod) != null) {
 			System.out.println("Message from board: Attempting to get "
@@ -453,8 +455,8 @@ public class Board implements Serializable {
 	}
 
 	public String establishWinner() {
-		FinalCalculationVictoryPoints victoryPointsDecider= new FinalCalculationVictoryPoints();
-		Player player= victoryPointsDecider.decideForWinner(this.getPlayers());
+		FinalCalculationVictoryPoints victoryPointsDecider = new FinalCalculationVictoryPoints();
+		Player player = victoryPointsDecider.decideForWinner(this.getPlayers());
 		return player.getPlayerName();
 	}
 
