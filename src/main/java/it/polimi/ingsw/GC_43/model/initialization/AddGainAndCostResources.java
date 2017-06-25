@@ -39,6 +39,7 @@ public class AddGainAndCostResources {
 		    case "faithPoint": resources.add(new FaithPoint(value)); break;	 
 		    case "militaryPoint": resources.add(new MilitaryPoint(value)); break; 
 		    case "victoryPoint": resources.add(new VictoryPoint(value)); break; 
+		    case "councilPrivilege": resources.add(new CouncilPrivilege(value)); break; 
 		    default: System.out.println("Resource: " + type + "not found"); break;
 		}
 	}
