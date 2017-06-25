@@ -3,7 +3,9 @@ package it.polimi.ingsw.GC_43.controller;
 import java.rmi.RemoteException;
 
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.view.UserRmiInterface;
 
 public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 	
@@ -11,14 +13,11 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 	 * 
 	 */
 	private static final long serialVersionUID = -7710077653703111598L;
-	private int ID;
 	private Server myServer;
 	private String username;
 	private Lobby lobby;
-	private boolean Game;
-	private boolean myturn;
-	private boolean inLobby;
-	private boolean exit;
+	private Integer id;
+	private UserRmiInterface client;
 	
 	protected ClientHandlerRmi(Server myServer) throws RemoteException {
 		this.myServer=myServer;
@@ -44,32 +43,35 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 	}
 
 	@Override
-	public void sendMsgTo(String string) {
-		// TODO Auto-generated method stub
+	public void sendMsgTo(String string) throws RemoteException {
+		this.client.showMsg(string);
 	}
 
 
 	@Override
-	public void changeName(String username) {
+	public void changeName(String username) throws RemoteException {
 		this.username = username;
-		//set username on client side
+		this.client.changeUsername(username);
 	}
 
 	@Override
-	public void sendObject(Object o) {
+	public void sendObject(Object o) throws RemoteException {
 		if(o instanceof Board){
-			//update board on client side
+			this.client.updateBoard((Board)o);
 		}
-		if(o instanceof SimpleMessage){
+		else if(o instanceof SimpleMessage){
 			 readMsg((SimpleMessage) o);
 		}
+		else if(o instanceof CopyOfGlobalVariables){
+			this.client.updateGlobalVariables((CopyOfGlobalVariables)o);
+		}
 		
 		
 	}
 
 	@Override
-	public void setGame(boolean b) {
-		this.Game=b;
+	public void setGame(boolean b) throws RemoteException {
+		this.client.setInGame(b);
 		
 	}
 
@@ -79,35 +81,30 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 	}
 
 	@Override
-	public void setMyturn(boolean b) {
-		this.myturn=b;
+	public void setMyturn(boolean b) throws RemoteException {
+		this.client.setmyTurn(b);
 		
 	}
 
-	@Override
-	public String readPassword() {
-		// lancia routine di password su client e ritorna il suo string
-		return null;
-	}
 	
-	public void readMsg(SimpleMessage s){
+	public void readMsg(SimpleMessage s) throws RemoteException{
 		String line=s.getMsg();
 		if("system_ingame_switch".equals(line)){
-				//vedremo quanto servono
+				this.client.setInGame(true);
 			}
 		if("system_outgame_switch".equals(line)){
-			//vedremo quanto servono
+			this.client.setInGame(false);
 		}
 		
 		else if("now_is_my_turn".equals(line)){
-			//setTurn sul client
+			this.client.setmyTurn(true);
 			}
 		else if("end_of_my_turn".equals(line)){
-			//setTurn sul client
+			this.client.setmyTurn(false);
 			}
 		else if("excommunication_round".equals(line)){
 			System.out.println("\n\n\nEXCOMMUNICATION ROUND PRESS ENTER OR FINISH THE MENU QUERY TO ANSWER THE CHOICE, YOU HAVE 2 MINUTES!\n\n");
-			// myClient.excommunicationRound=true;
+			this.client.excomunicationRound();
 		}
 		
 		else{
@@ -187,8 +184,6 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 	public void quitGame(String password) throws RemoteException {
 		this.lobby.disconnectPlayer(this, password);
 		this.lobby=null;
-		this.inLobby=false;
-		this.Game=false;
 		
 	}
 
@@ -202,6 +197,37 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 	@Override
 	public boolean joinLobby(Integer lobbyNumber) throws RemoteException {
 		return this.myServer.joinLobby(lobbyNumber,this);
+	}
+
+
+
+	@Override
+	public void connect(UserRmiInterface rmiView) throws RemoteException {
+		this.client= rmiView;
+		this.id=this.myServer.addClient(this);
+		System.out.println("connected player with username: "+this.client.getUsername()+" and ID :"+String.valueOf(this.client.getID()));
+	}
+
+
+
+	@Override
+	public String readPassword() throws RemoteException {
+		return this.client.insertPassword();
+	}
+
+
+
+	@Override
+	public void ping() throws RemoteException {
+		this.client.showMsg("PONG!");
+		
+	}
+
+
+
+	@Override
+	public int getID() throws RemoteException {
+		return this.id;
 	}
 	
 

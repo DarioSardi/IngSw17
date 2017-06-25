@@ -3,8 +3,6 @@ package it.polimi.ingsw.GC_43.controller;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-import it.polimi.ingsw.GC_43.model.actions.Action;
-
 public interface ClientHandler extends Serializable{
 
 	public  void setLobby(Lobby lobby)  throws RemoteException;

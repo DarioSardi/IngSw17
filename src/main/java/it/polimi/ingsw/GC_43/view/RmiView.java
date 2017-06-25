@@ -2,23 +2,27 @@ package it.polimi.ingsw.GC_43.view;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.Scanner;
+import java.rmi.server.UnicastRemoteObject;
 
-import it.polimi.ingsw.GC_43.controller.ChatMsg;
 import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
-import it.polimi.ingsw.GC_43.controller.QuitMsg;
+import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 
-public class RmiView implements Runnable{
+public class RmiView extends UnicastRemoteObject implements Serializable,UserRmiInterface,Runnable {
 
-	private static boolean isInGame = false;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7468308935097128257L;
 	private ClientaHandlerRmInterface handler;
-	private BufferedReader input;
+	private volatile BufferedReader input;
 	private Boolean online;
 	private Client myclient;
 	private boolean inLobby;
 
-	public RmiView(Client c,ClientaHandlerRmInterface handler, BufferedReader inKeyboard) {
+	public RmiView(Client c,ClientaHandlerRmInterface handler, BufferedReader inKeyboard)  throws RemoteException{
 		this.handler=handler;
 		this.input=inKeyboard;
 		this.myclient=c;
@@ -29,6 +33,7 @@ public class RmiView implements Runnable{
 		System.out.println("RMI menu!");
 		try {
 			this.handler.setUsername(this.myclient.getUsername());
+			this.myclient.setID(this.handler.getID());
 		} catch (RemoteException e1) {
 			
 			e1.printStackTrace();
@@ -68,8 +73,15 @@ public class RmiView implements Runnable{
 			
 			//QUIT
 			} else if ("3".equals(command)) {
-				this.online = true;
+				this.online = false;
+				this.myclient.closeGame();
 			}
+			
+			else if ("ping".equals(command)) {
+				System.out.println("pinging server...");
+				handler.ping();
+			}
+			
 			
 			//FKING MORON
 			else{
@@ -86,7 +98,7 @@ public class RmiView implements Runnable{
 	private void inLobby() throws IOException {
 		inLobby=true;
 		while(inLobby){
-			if (!this.isInGame) {
+			if (!this.myclient.inGame) {
 				System.out.println(handler.helpMsgLobby());;
 				String command = input.readLine();
 				if (command.equals("exit_lobby")) {
@@ -98,7 +110,7 @@ public class RmiView implements Runnable{
 					handler.chatMessage(msg);
 				} else if ("start_game".equals(command)) {
 					if (handler.startGame()) {
-						this.isInGame=true;
+						this.myclient.inGame=true;
 						inGame();
 					} else {
 						System.out.println("you are not the admin...");
@@ -131,9 +143,8 @@ public class RmiView implements Runnable{
 
 	private void inGame() {
 		System.out.println("you are in game");
-		while(this.isInGame){
-			System.out.println("switched to in-game commands");
-			InGameMessageParser parser=new InGameMessageParser(input);
+		System.out.println("switched to in-game commands");
+		InGameMessageParser parser=new InGameMessageParser(input);
 			while(this.myclient.inGame){
 				inGameCommandsPrint();
 				try {
@@ -200,7 +211,7 @@ public class RmiView implements Runnable{
 
 			}
 		}
-		}
+		
 		
 	public void inGameCommandsPrint(){
 		System.out.println("You are in the Game-mode menu;"
@@ -211,6 +222,72 @@ public class RmiView implements Runnable{
 		System.out.println("info- to see the list of possible infos");
 		System.out.println("quit- to exit the game!");
 	}
+
+	@Override
+	public void showMsg(String s) throws RemoteException {
+		System.out.println(s);
+		
+	}
+
+	@Override
+	public void changeUsername(String s) throws RemoteException {
+		this.myclient.changeUsername(s);
+	}
+
+	@Override
+	public void updateBoard(Board b) throws RemoteException {
+		this.myclient.setBoard(b);
+		
+	}
+
+
+	public String insertPassword() {
+		System.out.println("ENTER THE PASSWORD");
+		String pass=null;
+		try {
+			pass = input.readLine();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		return pass;
+	}
+
+	@Override
+	public void setInGame(Boolean inGame) throws RemoteException {
+		this.myclient.setInGame(inGame);
+		
+	}
+
+	@Override
+	public void setmyTurn(Boolean myT) throws RemoteException {
+		this.myclient.setMyTurn(myT);
+		
+	}
+
+	@Override
+	public void excomunicationRound() throws RemoteException {
+		// DARIO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateGlobalVariables(CopyOfGlobalVariables o) {
+		this.myclient.setGameGlobalVariables(o);
+		
+	}
+
+	@Override
+	public String getUsername() throws RemoteException {
+		return this.myclient.getUsername();
+	}
+
+	@Override
+	public Integer getID() throws RemoteException {
+		return this.myclient.getID();
+	}
+	
+	
 	
 	
 		

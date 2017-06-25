@@ -1,13 +1,10 @@
 package it.polimi.ingsw.GC_43.view;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -18,7 +15,6 @@ import java.rmi.registry.Registry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Handler;
 
 import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
 import it.polimi.ingsw.GC_43.controller.Lobby;
@@ -29,16 +25,14 @@ import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actions.Action;
 
 public class Client {
-	private int port,ID;
+	private Integer port,ID;
 	private Socket socket;
     private ObjectInputStream inSocket;
     private ObjectOutputStream outSocket;
     BufferedReader inKeyboard;
-    private PrintWriter outVideo;
 	private String address,username;
 	private ClientOutHandler outStream;
 	private ClientInHandler inStream;
-	private static InetAddress ipAddr;
 	private Board board;
 	private Lobby lobby;
 	Boolean idSetted,inMenu,inGame,online,myTurn,excommunicationRound,rmi;
@@ -56,6 +50,7 @@ public class Client {
     	this.inMenu=true;
     	this.inGame=false;
     	this.myTurn=false;
+    	this.ID=0;
     	if (!rmi) {
 			connect();
 		}
@@ -69,14 +64,16 @@ public class Client {
 		handler=(ClientaHandlerRmInterface)registry.lookup("COF");
 		executor = Executors.newFixedThreadPool(1);
 		this.rmiView=new RmiView(this,handler,inKeyboard);
+		handler.connect(this.rmiView);
 		executor.submit(rmiView);
+		
 		
 		
 	}
 
 
 
-	private void closeGame() {
+	public void closeGame() {
 		try {
 			this.online=false;
 			inSocket.close();
@@ -98,6 +95,10 @@ public class Client {
     
     public void setInGame(Boolean inG){
     	this.inGame=inG;
+    }
+    
+    public void setMyTurn(Boolean myT){
+    	this.myTurn=myT;
     }
     
 	public void setID(int ID){
@@ -128,7 +129,6 @@ public class Client {
 
 	public void setBoard(Board board) {
 		this.board = board;
-		System.out.println("hai ricevuto la board di gioco!");
 		this.board.getPlayers().stream().forEach(p->{
 			if(p.getPlayerName().equals(this.username)){
 				this.myPlayer=p;
@@ -140,7 +140,6 @@ public class Client {
 
 
 	private void connect() throws UnknownHostException, IOException {
-    	System.out.println("tento di connettermi...");
     	socket = new Socket(address, port);
     	//thread per gestione I/O
     	executor = Executors.newFixedThreadPool(2);
@@ -148,7 +147,6 @@ public class Client {
     	this.inStream=new ClientInHandler(new ObjectInputStream(socket.getInputStream()),this);
     	executor.submit(inStream);
     	executor.submit(outStream);
-        System.out.println("connesso!");
       
         
     }
@@ -157,47 +155,54 @@ public class Client {
 
 	public void setup() throws IOException{
     	inKeyboard = new BufferedReader(new InputStreamReader(System.in));
-        outVideo = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
-    	ipAddr=InetAddress.getLoopbackAddress();
     	Boolean correctAnswer=false;
     	while (!correctAnswer) {
 			System.out.println("Welcome on Lorenzo il magnifico in JAVA");
-			System.out.println("scegli configurazione: manual o auto?");
+			System.out.println("select the configuration type: manual / auto_socket / auto_rmi");
 			String answer = inKeyboard.readLine().toString();
 			if (answer.equals("manual")) {
-				System.out.println("seleziona l'indirizzo del server: ");
+				System.out.println("select connection type RMI/SOCKET:");
+				String connectionType= inKeyboard.readLine();
+				if("rmi".equalsIgnoreCase(connectionType)){
+					this.rmi=true;
+				}
+				else if("socket".equalsIgnoreCase(connectionType)){
+					this.rmi=false;
+				}
+				else {
+					System.out.println("invalid input");
+					continue;}
+				
+				System.out.println("seleziona l'indirizzo del server (localhost by default settings) : ");
 				this.address = inKeyboard.readLine();
-				System.out.println("seleziona la porta del server: ");
+				System.out.println("seleziona la porta del server(SOCKET: 7777 RMI:7077):");
 				this.port = Integer.parseInt(inKeyboard.readLine());
-				System.out.println("Username: ");
+				System.out.println("Select your username: ");
 				this.username = inKeyboard.readLine();
 				correctAnswer=true;
 			}
 
-			else if (answer.equals("auto")) {
+			else if (answer.equals("auto_socket")) {
 				this.address = "127.0.0.1";
 				this.port = 7777;
-				this.username = "PanDario7";
+				System.out.println("Select your username: ");
+				this.username = inKeyboard.readLine();
+				this.rmi=false;
 				correctAnswer=true;
 			}
 
-			else if (answer.equals("auto1")) {
-				this.address = "127.0.0.1";
-				this.port = 7777;
-				this.username = "Dario";
-				correctAnswer=true;
-			} 
-			else if (answer.equals("rmi")) {
+			else if (answer.equals("auto_rmi")) {
 				this.address = "127.0.0.1";
 				this.port = 7077;
-				this.username = "Dario";
+				System.out.println("Select your username: ");
+				this.username = inKeyboard.readLine();
 				this.rmi=true;
 				correctAnswer=true;
 			} 
 			
 			
 			else {
-				System.out.println("damit, this is the first one, good luck on playing the game on CLI");
+				System.out.println("damit, this is the first one, good luck on playing the game with CLI");
 			} 
 		}
 		System.out.println("connetto a: "+address+"/"+port+" RMI:"+rmi);
@@ -257,7 +262,8 @@ public class Client {
 	}
 	
 	public static void main(String [] args) throws IOException, NotBoundException {
-		 Client c= new Client();
+	 @SuppressWarnings("unused")
+		Client c= new Client();
 	 }
 	
 	

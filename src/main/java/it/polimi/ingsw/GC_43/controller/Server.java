@@ -23,9 +23,10 @@ public class Server implements Remote{
 	private int id;
 	private ObjectInputStream socketIn;
 	private ObjectOutputStream socketOut;
-	private HashMap<Integer,Socket> clients;
+	private HashMap<Integer,ClientHandler> clients;
 	private HashMap<Integer,Lobby> lobbies;
 	private Registry registry;
+	private Integer numberOfClients;
 
 
 	public Server() throws IOException, AlreadyBoundException {
@@ -38,6 +39,7 @@ public class Server implements Remote{
 		//RMI
 		registry = LocateRegistry.createRegistry(PORTRMI);
 		System.out.println("RMI registry ready on Port:"+PORTRMI);
+		numberOfClients=0;
 		startRMI();
 		acceptConnectionsSocket();
 		
@@ -55,32 +57,35 @@ public class Server implements Remote{
 
 
 
-	private void closeServer() throws IOException {
-		players.shutdown();
-		sSocket.close();
-		
-	}
-
-
 	private Runnable acceptConnectionsSocket() throws IOException {
-		int numberOfClients=0;
+		
 		boolean online=true;
 		System.out.println("Waiting for connection on socket...");
 		while(online){
 			Socket cSocket= sSocket.accept();
 			System.out.println("connessione accettata! indirizzo Giocatore: "+cSocket.getInetAddress());
-			ClientHandlerSocket ch=new ClientHandlerSocket(numberOfClients,this);
+			ClientHandlerSocket ch=new ClientHandlerSocket(this.numberOfClients,this);
 			ch.setSocket(cSocket);
 			players.submit(ch);
-			System.out.println("giocatore assegnato all'handler con ID: "+numberOfClients);
-			clients.put(numberOfClients,cSocket);
-			numberOfClients++;
+			System.out.println("giocatore assegnato all'handler con ID: "+this.numberOfClients);
+			addClient(ch);
 			
 		}
 		return null;
 	}
 	
-	private Socket getClient(int key){
+	public Integer getNumberOfClients(){
+		return this.numberOfClients;
+	}
+	
+	public Integer addClient(ClientHandler cH){
+		Integer thisID=this.numberOfClients;
+		clients.put(this.numberOfClients,cH);
+		this.numberOfClients++;
+		return thisID;
+	}
+	
+	public ClientHandler getClient(int key){
 		return clients.get(key);
 	}
 
@@ -111,13 +116,25 @@ public class Server implements Remote{
 			}
 			else if(this.lobbies.get(lobbyNumber).addPlayer(cH)==2){
 				cH.sendMsgTo("ENTER THE PASSWORD");
-				Object o = cH.readPassword();
-				if (o instanceof SimpleMessage){
-					SimpleMessage sm=(SimpleMessage) o;
-					if(this.lobbies.get(lobbyNumber).reconnectPlayer(cH,sm.getMsg())){
-						cH.setGame(true);
-						return true;
+				String password = null;
+				if (cH instanceof ClientHandlerSocket) {
+					Object o = cH.readPassword();
+					if (o instanceof SimpleMessage) {
+						SimpleMessage sm = (SimpleMessage) o;
+						password = sm.getMsg();
 					}
+					else{
+						cH.sendMsgTo("error on pass validation");
+						return false;
+					}
+				}
+				else if(cH instanceof ClientHandlerRmi){
+					password=cH.readPassword();
+				}
+				if(this.lobbies.get(lobbyNumber).reconnectPlayer(cH,password)){
+					cH.setGame(true);
+					return true;
+					
 				}
 				else{
 					cH.sendMsgTo("autentication failed!");
@@ -146,6 +163,7 @@ public class Server implements Remote{
 	//MAIN
 	public static void main(String[] args) throws IOException, AlreadyBoundException { 
 
+			@SuppressWarnings("unused")
 			Server s=new Server();
 		
 		

@@ -26,11 +26,6 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 	private boolean inLobby;
 	private boolean exit;
 
-	/**
-	 * false socket true RMI
-	 */
-	private boolean RMI;
-
 	public ClientHandlerSocket(int ID,Server myServer){
 		this.lobby=null;
 		this.inLobby=false;
@@ -61,7 +56,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 	public void run() {
 		this.exit = false;
 		//SETUP
-		readUsername("");
+		readUsername();
 		sendID();
 		//MENU
 		while (!this.exit) {
@@ -143,9 +138,9 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 		sendMsgTo(String.valueOf(this.ID));
 	}
 
-	public void readUsername(String username) {
-			this.username=readMsg();
-		System.out.println("username of the player is "+username);
+	public void readUsername() {
+		this.username=readMsg();
+		System.out.println("username of the player is "+this.username);
 	}
 
 	//IN LOBBY
@@ -156,7 +151,6 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 				helpMsgLobby();
 				String command = readMsg();
 				if (command.equals("exit_lobby")) {
-					//DARIO rimuovi lobby
 					inLobby = false;
 					sendMsgTo("exiting the lobby");
 				} else if ("chat".equals(command)) {

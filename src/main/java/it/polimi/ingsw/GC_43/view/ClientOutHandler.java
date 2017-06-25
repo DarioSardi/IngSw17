@@ -3,13 +3,9 @@ package it.polimi.ingsw.GC_43.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.util.Scanner;
-import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.GC_43.controller.ChatMsg;
 import it.polimi.ingsw.GC_43.controller.ExcommunicationChoiceMsg;
-import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.controller.QuitMsg;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 

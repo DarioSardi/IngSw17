@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.view.UserRmiInterface;
 
 public interface ClientaHandlerRmInterface  extends ClientHandler,Remote{
 
@@ -19,5 +20,8 @@ public interface ClientaHandlerRmInterface  extends ClientHandler,Remote{
 	void submitAction(Action action) throws RemoteException;
 	public boolean joinLobby(Integer lobbyNumber) throws RemoteException;
 	public void sendMsgTo(String s) throws RemoteException;
+	public void connect(UserRmiInterface rmiView) throws RemoteException;
+	public void ping() throws RemoteException;
+	public int getID() throws RemoteException;
 	
 }

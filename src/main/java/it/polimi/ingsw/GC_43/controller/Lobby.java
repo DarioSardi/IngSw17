@@ -1,12 +1,8 @@
 package it.polimi.ingsw.GC_43.controller;
 
-import java.awt.SecondaryLoop;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import it.polimi.ingsw.GC_43.view.Client;
 
 public class Lobby implements Runnable{
 
@@ -36,11 +32,13 @@ public class Lobby implements Runnable{
 				this.players.add(cH);
 				cH.setLobby(this);
 				System.out.println("added " + cH.toString());
+				broadcastMsg("the player " + cH.toString()+" has joined the lobby.");
 				cH.sendMsgTo("added to the lobby!");
 				return 1;
 			} else if (players.contains(cH)) {
 				cH.setLobby(this);
 				System.out.println("re-entered " + cH.toString());
+				broadcastMsg("re-entered " + cH.toString());
 				cH.sendMsgTo("welcome back to the lobby");
 				return 1;
 			} 
@@ -171,6 +169,19 @@ public class Lobby implements Runnable{
 		players.stream().forEach(p->{
 			try {
 				p.sendMsgTo("message from "+cH.getUsername()+": "+nextLine);
+			} catch (RemoteException e) {
+			
+				e.printStackTrace();
+			}
+		});
+		
+	}
+	
+	
+	public void broadcastMsg(String nextLine) {
+		players.stream().forEach(p->{
+			try {
+				p.sendMsgTo(nextLine);
 			} catch (RemoteException e) {
 			
 				e.printStackTrace();

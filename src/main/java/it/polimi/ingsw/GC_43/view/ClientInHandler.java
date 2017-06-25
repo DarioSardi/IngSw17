@@ -2,26 +2,20 @@ package it.polimi.ingsw.GC_43.view;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.Scanner;
 
 import it.polimi.ingsw.GC_43.controller.ChangeUsernameMessage;
-import it.polimi.ingsw.GC_43.controller.Lobby;
-import it.polimi.ingsw.GC_43.controller.ReconnectToLobbyMsg;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
-import it.polimi.ingsw.GC_43.model.GlobalVariables;
 
 public class ClientInHandler implements Runnable {
 
 	private ObjectInputStream socketIn;
 	private Client myClient;
-	private Boolean idSetted;
 
 	public ClientInHandler(ObjectInputStream socketIn,Client myClient) {
 		this.socketIn=socketIn;
 		this.myClient=myClient;
-		this.idSetted=false;
 		this.myClient.inMenu=true;
 	}
 
@@ -33,7 +27,6 @@ public class ClientInHandler implements Runnable {
 			myClient.setID(Integer.parseInt(s.getMsg()));
 			System.out.println("client ID is now: " + myClient.getID());
 		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
