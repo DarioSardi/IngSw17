@@ -66,27 +66,23 @@ public class ChoiceEffect extends Effect {
 	public void executeEffect(Player player) {
 		System.out.println("Executing called execution ChoiceEffect Effect");
 		System.out.println("Subtracting costs..");
-     
-		System.out.println("MESSAGE DEBUG FROM CHOICE EFFECT execute : this.gains= "+this.gains);
 
-		System.out.println("MESSAGE DEBUG FROM CHOICE EFFECT TO execute : this.gains= "+this.gains.get(0));
-
-		System.out.println("MESSAGE DEBUG FROM CHOICE EFFECT TO execute : this.gains= "+this.gains.get(0).toString());
-		
-		
 		if (this.costs != null) {
 			for (Resource resource : this.costs) {
-				if (resource.getResourceType().equals("coin")) {
-					player.subResource(resource.getResourceType(), resource.getValue());
-				}
+				player.subResource(resource.getResourceType(), resource.getValue());
+
 			}
 		}
-		System.out.println("Adding gains");
-		
+		System.out.println("Adding gains..");
+		System.out.println("Message from ChoiceEffect: executing : this.gains= " + this.gains);
+
 		for (Resource resource : this.gains) {
-			if (!(resource.getResourceType().equals("privilegeCouncil")))
+			if (!(resource.getClass().toString().contains("CouncilPrivilege"))) {
+				System.out.println("Message from ChoiceEffect: executing resource gain " + resource.getResourceType());
+
 				player.addResource(resource.getResourceType(), resource.getValue()
 						+ player.getPlayerBounusMalus().getMalusOnAcquiringResources().get(resource.getResourceType()));
+			}
 		}
 		System.out.println("Finished choice effect execution!");
 

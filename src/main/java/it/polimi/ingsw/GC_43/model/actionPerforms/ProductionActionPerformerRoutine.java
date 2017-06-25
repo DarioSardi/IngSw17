@@ -71,6 +71,7 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 
 		checkProductionCellSelection(familyMember);
 
+		System.out.println("\n\nTO BE DELETED INITIAL INDEX IS = "+this.index+"\n\n");
 		checkProductionPerform(player, familyMember);
 
 	}
@@ -143,12 +144,16 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 		int numberOfCopies = effect.getNumberOfCopies();
 		try {
 			while (numberOfCopies > 0) {
-				executeMultipleChoice(effect.getPrivilegeChoices(), player);
-				int playerChoice = this.productionAction.getProductionChoices().get(index - 1);
-				effect.getPrivilegeChoices().getChoices().remove(playerChoice);
-			}
+				
+				System.out.println("\n\n\n\n DEBUG REASON EXECUTE FROM MULT PRIVILEGES MULTIPLE CHOICE Choice INDEX = "+this.index+"\n\n\n");
+				System.out.println("\nMultiple council privilege exection calling executeMultipleChoice..");
 
-			numberOfCopies--;
+				executeMultipleChoice(effect.getPrivilegeChoices(), player);
+				int playerChoice = this.productionAction.getProductionChoices().get(index-1);
+				effect.getPrivilegeChoices().getChoices().remove(playerChoice);
+
+				numberOfCopies--;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -158,7 +163,9 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 
 	private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
 		int playerChoice = this.productionAction.getProductionChoices().get(index);
+		System.out.println("\n\n\n\n DEBUG REASON EXECUTE MULTIPLE CHOICE Choice INDEX = "+this.index+"\n\n\n");
 		ChoiceEffect choiceEffect = (ChoiceEffect) effect.getChoices().get(playerChoice);
+		System.out.println("TO BE DELETED ATTENTION !!!! player choice was FOR " + effect.getChoices().get(playerChoice).toString()+"\n");
 		try {
 			if (playerChoice != -1) {
 				if (choiceEffect.check(player)) {
@@ -167,15 +174,22 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 					// choiceEffect verrà skippato il gain perchè già preso
 					// prima
 
-					if (choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil")) {
+					if (choiceEffect.getGains().get(0).getClass().toString().contains("CouncilPrivilege")) {
 						System.out.println(
-								"Multiple concil privilege as resource detected, launching corresponding routine..");
+								"Check choice effect passed but Multiple council privilege as resource detected, launching corresponding routine..");
 						MultipleCouncilPrivileges privilege = new MultipleCouncilPrivileges(1);
+						this.index++;
 						executeMultipleCouncilPrivilege(privilege, player);
+					} else {
+						System.out.println(
+								"Message from Production action performer: Choice effect check passed, executing it");
+						effect.getChoices().get(playerChoice).executeEffect(player);
+						System.out.println(
+								"Message from Production action performer: Choice effect executed..");
+						this.index++;
+
+
 					}
-					System.out.println(
-							"Message from Production action performer: Choice effect check passed, executing it");
-					effect.getChoices().get(playerChoice).executeEffect(player);
 				}
 
 				else {
@@ -186,7 +200,6 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 			e.printStackTrace();
 		}
 
-		this.index++;
 
 	}
 }

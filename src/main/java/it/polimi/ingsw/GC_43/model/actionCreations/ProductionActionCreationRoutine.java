@@ -111,14 +111,19 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 
     private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect) {
     	MultipleCouncilPrivileges effect=CommonActionCreatorRoutine.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
+    	System.out.println("Multiple council privilege copy created, executing effect");
     	int numberOfCopies=effect.getNumberOfCopies();
     	try {
 			while(numberOfCopies>0){
 				int choice= askForMultipleChoice(effect.getPrivilegeChoices());
 				if(choice!=-1){
 					effect.getPrivilegeChoices().getChoices().remove(choice);
-				}
+					System.out.println("\n\n\nMult copy size is "+effect.getPrivilegeChoices().getChoices().size());
 
+					System.out.println("While static one is size of "+multipleEffect.getPrivilegeChoices().getChoices().size());
+
+				}
+				
 				numberOfCopies--;
 			}
 		} catch (Exception e) {
@@ -144,7 +149,7 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 
 			    //Ask per privilege council SE nello scambio, MAX DA RIVEDERE;
 			    System.out.println("CHOICE EFFECT TO STRING number 0 gain" +choiceEffect.getGains().get(0).getClass().toString());
-			    if(choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil")){
+			    if(choiceEffect.getGains().get(0).getClass().toString().contains("CouncilPrivilege")){
 			    	System.out.println("Privilege council as resource detected.. Executing routine..");
 			    	askForMultipleCouncilPrivilege(new MultipleCouncilPrivileges(1));
 			    }
