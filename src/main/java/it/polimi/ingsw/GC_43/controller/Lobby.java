@@ -1,6 +1,8 @@
 package it.polimi.ingsw.GC_43.controller;
 
 import java.awt.SecondaryLoop;
+import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,7 +17,7 @@ public class Lobby implements Runnable{
 	private Controller controller;
 	private boolean exist,gameStarted;
 
-	public Lobby(ClientHandler lobbyAdmin,Integer ID,Integer maxPlayers) {
+	public Lobby(ClientHandler lobbyAdmin,Integer ID,Integer maxPlayers) throws RemoteException {
 		this.admin=lobbyAdmin;
 		this.players=new ArrayList<>();
 		this.players.add(lobbyAdmin);
@@ -27,7 +29,7 @@ public class Lobby implements Runnable{
 		System.out.println("SONO LA LOBBY "+ID+" E SON VIVA!");
 	}
 
-	public Integer addPlayer(ClientHandler cH) {
+	public Integer addPlayer(ClientHandler cH) throws RemoteException {
 		if (players.size()<maxPlayers&&!gameStarted) {
 			checkUsername(cH);
 			if (!players.contains(cH)) {
@@ -64,12 +66,13 @@ public class Lobby implements Runnable{
 	 * check if the username is already taken in the lobby
 	 * @param username
 	 * @return
+	 * @throws RemoteException 
 	 */
-	private boolean checkUsername(ClientHandler cH) {
+	private boolean checkUsername(ClientHandler cH) throws RemoteException {
 		for(ClientHandler ch: this.players){
 			if(ch.getUsername().equals(cH.getUsername())){
 				cH.sendMsgTo("the username is taken!");
-				cH.changeName();
+				cH.changeName("");
 				checkUsername(cH);
 				return true;
 			}
@@ -78,7 +81,7 @@ public class Lobby implements Runnable{
 		return true;
 	}
 
-	public boolean reconnectPlayer(ClientHandler cH, String password){
+	public boolean reconnectPlayer(ClientHandler cH, String password) throws RemoteException{
 		if(this.usernamePass.get(cH.getUsername()).equals(password))
 		{
 			this.players.add(cH);
@@ -95,7 +98,7 @@ public class Lobby implements Runnable{
 	}
 	
 	
-	public void disconnectPlayer(ClientHandler cH,String password){
+	public void disconnectPlayer(ClientHandler cH,String password) throws RemoteException{
 		System.out.println("disconnected with username: "+cH.getUsername()+" password: "+password);
 		this.usernamePass.put(cH.getUsername(), password);
 		this.players.remove(cH);
@@ -109,8 +112,12 @@ public class Lobby implements Runnable{
 	 */
 	private boolean inGame(String username) {
 		for(ClientHandler ch: this.players){
-			if((ch.getUsername()).equals(username)){
-				return true;
+			try {
+				if((ch.getUsername()).equals(username)){
+					return true;
+				}
+			} catch (RemoteException e) {
+				e.printStackTrace();
 			}
 		}
 		return false;
@@ -141,10 +148,14 @@ public class Lobby implements Runnable{
 		sb.append("---------------------------\n");
 		sb.append("nella lobby " + ID + " ci sono\n");
 		players.stream().forEach(p -> {
-			if (p.getUsername().equals(admin.getUsername())) {
-				sb.append(p.getUsername() + "  ADMIN\n");
-			} else {
-				sb.append(p.getUsername());
+			try {
+				if (p.getUsername().equals(admin.getUsername())) {
+					sb.append(p.getUsername() + "  ADMIN\n");
+				} else {
+					sb.append(p.getUsername());
+				}
+			} catch (RemoteException e) {
+				e.printStackTrace();
 			}
 		});
 		sb.append("\n---------------------------\n");
@@ -157,12 +168,26 @@ public class Lobby implements Runnable{
 	}
 
 	public void broadcastMsg(String nextLine,ClientHandler cH) {
-		players.stream().forEach(p->p.sendMsgTo("message from "+cH.getUsername()+": "+nextLine));
+		players.stream().forEach(p->{
+			try {
+				p.sendMsgTo("message from "+cH.getUsername()+": "+nextLine);
+			} catch (RemoteException e) {
+			
+				e.printStackTrace();
+			}
+		});
 		
 	}
 	
 	public void broadcastObject(Object o) {
-		players.stream().forEach(p->p.sendObject(o));
+		players.stream().forEach(p->{
+			try {
+				p.sendObject(o);
+			} catch (RemoteException e) {
+				
+				e.printStackTrace();
+			}
+		});
 		
 	}
 	
@@ -170,8 +195,12 @@ public class Lobby implements Runnable{
 		players.stream().forEach(p->
 		{
 			if(p!=admin){
-				p.setGame(true);
-				p.sendMsgTo("system_ingame_switch");}});
+				try {
+					p.setGame(true);
+					p.sendMsgTo("system_ingame_switch");
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}}});
 		
 	}
 	
@@ -180,13 +209,20 @@ public class Lobby implements Runnable{
 	 * @param nextLine text of the message
 	 */
 	public void lobbyMsg(String nextLine) {
-		players.stream().forEach(p->p.sendMsgTo(nextLine));
+		players.stream().forEach(p->{
+			try {
+				p.sendMsgTo(nextLine);
+			} catch (RemoteException e) {
+				
+				e.printStackTrace();
+			}
+		});
 	}
 
-	public boolean startGame(ClientHandler clientHandler) {
+	public boolean startGame(ClientHandler clientHandler) throws RemoteException {
 		if(this.admin==clientHandler){
 			//INIZIA GIOCO
-			lobbyMsg("message from the lobby:il gioco si sta iniziando");
+			lobbyMsg("message from the lobby:il gioco si sta inizializzando");
 			this.controller=new Controller(players);
 			lobbyMsg("message from the lobby:controller inizializzato");
 			this.controller.initializeGame();
@@ -205,7 +241,12 @@ public class Lobby implements Runnable{
 	private void initializeUserPass() {
 		this.usernamePass=new HashMap<>();
 		this.players.forEach(ch->{
-			this.usernamePass.put(ch.getUsername(), "null");
+			try {
+				this.usernamePass.put(ch.getUsername(), "null");
+			} catch (RemoteException e) {
+				
+				e.printStackTrace();
+			}
 		});
 		
 		

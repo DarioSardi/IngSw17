@@ -3,19 +3,21 @@ package it.polimi.ingsw.GC_43.controller;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketImpl;
-import java.nio.channels.ShutdownChannelGroupException;
-import java.sql.ClientInfoStatus;
-import java.util.ArrayList;
+import java.rmi.AlreadyBoundException;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Server {
+public class Server implements Remote{
 	private static final int PORT = 7777;
+	private static final int PORTRMI = 7077;
 	private static ServerSocket sSocket;
 	private static ExecutorService players;
 	private int id;
@@ -23,16 +25,32 @@ public class Server {
 	private ObjectOutputStream socketOut;
 	private HashMap<Integer,Socket> clients;
 	private HashMap<Integer,Lobby> lobbies;
+	private Registry registry;
 
 
-	public Server() throws IOException {
+	public Server() throws IOException, AlreadyBoundException {
 		this.clients=new HashMap<>();
 		this.lobbies=new HashMap<>();
 		sSocket= new ServerSocket(PORT);
+		//SOCKET
 		System.out.println("Socket ready on Port:"+PORT);
 		players= Executors.newCachedThreadPool();
+		//RMI
+		registry = LocateRegistry.createRegistry(PORTRMI);
+		System.out.println("RMI registry ready on Port:"+PORTRMI);
+		startRMI();
 		acceptConnectionsSocket();
 		
+		
+	}
+
+
+
+	private void startRMI() throws RemoteException, AlreadyBoundException {
+		ClientaHandlerRmInterface handlerRMI= new ClientHandlerRmi(this);
+		ClientaHandlerRmInterface remoteHandler=(ClientaHandlerRmInterface) UnicastRemoteObject.exportObject(handlerRMI,PORTRMI);
+		registry.bind("COF", remoteHandler);
+		System.out.println("Waiting for players on RMI...");
 	}
 
 
@@ -47,10 +65,11 @@ public class Server {
 	private Runnable acceptConnectionsSocket() throws IOException {
 		int numberOfClients=0;
 		boolean online=true;
+		System.out.println("Waiting for connection on socket...");
 		while(online){
 			Socket cSocket= sSocket.accept();
 			System.out.println("connessione accettata! indirizzo Giocatore: "+cSocket.getInetAddress());
-			ClientHandler ch=new ClientHandler(numberOfClients,this,false);
+			ClientHandlerSocket ch=new ClientHandlerSocket(numberOfClients,this);
 			ch.setSocket(cSocket);
 			players.submit(ch);
 			System.out.println("giocatore assegnato all'handler con ID: "+numberOfClients);
@@ -68,8 +87,11 @@ public class Server {
 	public boolean newLobby(ClientHandler clientHandler,Integer lobbyNumber,Integer maxPlayers) {
 		System.out.println("provo a creare la lobby numero "+lobbyNumber);
 		if(!(this.lobbies.containsKey(lobbyNumber))){
-			this.lobbies.put(lobbyNumber,new Lobby(clientHandler,lobbyNumber,maxPlayers));
-			//lobbies.get(lobbyNumber).run();
+			try {
+				this.lobbies.put(lobbyNumber,new Lobby(clientHandler,lobbyNumber,maxPlayers));
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
 			System.out.println("added lobby number "+this.lobbies.size());	
 			return true;
 		}
@@ -82,14 +104,14 @@ public class Server {
 		this.lobbies.remove(closedLobby);
 	}
 	
-	public boolean joinLobby(Integer lobbyNumber,ClientHandler cH){
+	public boolean joinLobby(Integer lobbyNumber,ClientHandler cH) throws RemoteException{
 		if (this.lobbies.containsKey(lobbyNumber)) {
 			if (this.lobbies.get(lobbyNumber).addPlayer(cH)==1){
 				return true;
 			}
 			else if(this.lobbies.get(lobbyNumber).addPlayer(cH)==2){
 				cH.sendMsgTo("ENTER THE PASSWORD");
-				Object o = cH.readObject();
+				Object o = cH.readPassword();
 				if (o instanceof SimpleMessage){
 					SimpleMessage sm=(SimpleMessage) o;
 					if(this.lobbies.get(lobbyNumber).reconnectPlayer(cH,sm.getMsg())){
@@ -122,8 +144,12 @@ public class Server {
 	}
 	
 	//MAIN
-	public static void main(String[] args) throws IOException { 
-		Server s=new Server();
+	public static void main(String[] args) throws IOException, AlreadyBoundException { 
+
+			Server s=new Server();
+		
+		
+		
 	}
 
 }

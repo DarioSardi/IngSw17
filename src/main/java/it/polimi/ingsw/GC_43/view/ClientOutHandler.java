@@ -62,7 +62,8 @@ public class ClientOutHandler implements Runnable {
 		
 		System.out.println("switched to in-game commands");
 		
-		InGameMessageParser parser=new InGameMessageParser(userIn,this);
+		InGameMessageParser parser=new InGameMessageParser(userIn);
+		parser.setClientHandler(this);
 		while(this.myClient.inGame){
 			inGameCommandsPrint();
 			try {
@@ -71,7 +72,7 @@ public class ClientOutHandler implements Runnable {
 					inGameCommandsPrint();
 				}
 				else if("action".equals(command)&&this.myClient.myTurn){
-					parser.actionMenu();				
+					parser.mainMenuParser();				
 				}
 				else if("action".equals(command)&&!this.myClient.myTurn){
 					System.out.println("this is not your turn!");

@@ -15,12 +15,7 @@ public class MarketActionSpaceTest {
 	
 	MarketActionSpace ma;
 	FamilyMember f1;
-	
-	@Before
-	public void initializeTest(){
-		
-	}
-	
+	ArrayList<Effect> e;	
 	@Test
 	public void testCheck() {
 		ArrayList<Effect> e=new ArrayList<>();

@@ -11,15 +11,22 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Handler;
 
+import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actions.Action;
 
 public class Client {
 	private int port,ID;
@@ -34,27 +41,42 @@ public class Client {
 	private static InetAddress ipAddr;
 	private Board board;
 	private Lobby lobby;
-	Boolean idSetted,inMenu,inGame,online,myTurn,excommunicationRound;
+	Boolean idSetted,inMenu,inGame,online,myTurn,excommunicationRound,rmi;
 	private Player myPlayer;
 	private ExecutorService executor;
 	public ReentrantLock locker;
+	private RmiView rmiView;
+	ClientaHandlerRmInterface handler;
 
-    public Client() throws IOException{
+    public Client() throws IOException, NotBoundException{
+    	this.rmi=false;
     	setup();
     	this.lobby=null;
     	this.online=true;
     	this.inMenu=true;
     	this.inGame=false;
     	this.myTurn=false;
-    	
-    	
-    	connect();
-    	//closeGame();
+    	if (!rmi) {
+			connect();
+		}
+    	else connectRMI();
     }
     
     
     
-    private void closeGame() {
+    private void connectRMI() throws RemoteException, NotBoundException {
+    	Registry registry =LocateRegistry.getRegistry(InetAddress.getLoopbackAddress().getHostAddress(), this.port);
+		handler=(ClientaHandlerRmInterface)registry.lookup("COF");
+		executor = Executors.newFixedThreadPool(1);
+		this.rmiView=new RmiView(this,handler,inKeyboard);
+		executor.submit(rmiView);
+		
+		
+	}
+
+
+
+	private void closeGame() {
 		try {
 			this.online=false;
 			inSocket.close();
@@ -139,7 +161,7 @@ public class Client {
     	ipAddr=InetAddress.getLoopbackAddress();
     	Boolean correctAnswer=false;
     	while (!correctAnswer) {
-			System.out.println("Benvenuto su Lorenzo il magnifico in JAVA");
+			System.out.println("Welcome on Lorenzo il magnifico in JAVA");
 			System.out.println("scegli configurazione: manual o auto?");
 			String answer = inKeyboard.readLine().toString();
 			if (answer.equals("manual")) {
@@ -164,20 +186,37 @@ public class Client {
 				this.port = 7777;
 				this.username = "Dario";
 				correctAnswer=true;
-			} else {
-				System.out.println("ma che cazz...");
+			} 
+			else if (answer.equals("rmi")) {
+				this.address = "127.0.0.1";
+				this.port = 7077;
+				this.username = "Dario";
+				this.rmi=true;
+				correctAnswer=true;
+			} 
+			
+			
+			else {
+				System.out.println("damit, this is the first one, good luck on playing the game on CLI");
 			} 
 		}
-		System.out.println("connetto a: "+address+"/"+port);
+		System.out.println("connetto a: "+address+"/"+port+" RMI:"+rmi);
     }
 	
-	public static void main(String [] args) throws IOException {
-		 Client c= new Client();
-	 }
 	
-	public void sendObj(Object o){
-		System.out.println("invio oggetto "+o.toString());
-		this.outStream.sendObj(o);
+	
+	public void sendObj(Object o) throws RemoteException{
+		if (!rmi) {
+			System.out.println("invio oggetto " + o.toString());
+			this.outStream.sendObj(o);
+		}
+		else if(rmi){
+			if(o instanceof Action){
+				handler.submitAction((Action)o);
+			}
+			
+		}
+		else System.out.println("ehm...why you are here?");
 	}
 	
 	public void setGameGlobalVariables(CopyOfGlobalVariables o) {
@@ -217,6 +256,9 @@ public class Client {
 		   GlobalVariables.faithPointExcomRequired=o.faithPointExcomRequired;
 	}
 	
+	public static void main(String [] args) throws IOException, NotBoundException {
+		 Client c= new Client();
+	 }
 	
 	
 

@@ -2,15 +2,6 @@ package it.polimi.ingsw.GC_43.view;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import org.junit.rules.Timeout;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.Player;
@@ -26,14 +17,16 @@ public class InGameMessageParser {
 	private ClientOutHandler clientHandler;
 	private long timeoutLimit;
 
-	public InGameMessageParser(BufferedReader userIn, ClientOutHandler clientOutHandler) {
+	public InGameMessageParser(BufferedReader userIn) {
 		this.userIn=userIn;
+		this.timeoutLimit=(long)1000*60*1;
+	}
+	public void setClientHandler(ClientOutHandler clientOutHandler){
 		this.clientHandler=clientOutHandler;
-		this.timeoutLimit=1000*60*1;
 	}
 
 
-	public void actionMenu() {
+	public void mainMenuParser() {
 		Client myClient=this.clientHandler.getMyClient();
 		Player myp=myClient.getMyPlayer();
 		Board b=myClient.getBoard();
@@ -41,7 +34,7 @@ public class InGameMessageParser {
 					while (System.currentTimeMillis()-startTime<=timeoutLimit&&myClient.myTurn) {
 		    				printActionsMenu();
 		    				try {
-								String actionChoice = userIn.readLine().toString();
+								String actionChoice = userIn.readLine();
 								if ("1".equals(actionChoice)&&myClient.myTurn) {
 									startTime = System.currentTimeMillis();
 									b.getDice().get(1).setDieValue(5);;

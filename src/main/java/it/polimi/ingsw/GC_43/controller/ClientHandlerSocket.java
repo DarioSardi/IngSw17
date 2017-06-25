@@ -4,14 +4,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.nio.file.WatchKey;
-
-import javax.swing.plaf.SliderUI;
+import java.rmi.RemoteException;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.actions.Action;
 
-public class ClientHandler implements Runnable{
+public class ClientHandlerSocket implements ClientHandler,Runnable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5966200383345732473L;
 	private Socket socket;
 	private int ID;
 	private Server myServer;
@@ -20,14 +22,16 @@ public class ClientHandler implements Runnable{
 	private ObjectOutputStream socketOut;
 	private Lobby lobby;
 	private boolean Game;
-	private boolean myturn,inLobby,exit;
+	private boolean myturn;
+	private boolean inLobby;
+	private boolean exit;
+
 	/**
 	 * false socket true RMI
 	 */
 	private boolean RMI;
 
-	public ClientHandler(int ID,Server myServer,Boolean connectionType){
-		this.RMI=connectionType;
+	public ClientHandlerSocket(int ID,Server myServer){
 		this.lobby=null;
 		this.inLobby=false;
 		this.Game=false;
@@ -50,33 +54,34 @@ public class ClientHandler implements Runnable{
 	}
 
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	@Override
 	public void run() {
 		this.exit = false;
 		//SETUP
-		if(!RMI){
 		readUsername("");
-		}
 		sendID();
 		//MENU
 		while (!this.exit) {
-			//socket
-			if (!RMI) {
+			try {
+				
 				mainMenuChoicesPrint();
 				mainMenuChoicesRoutineSocket();
+			} catch (RemoteException e) {
+				e.printStackTrace();
 			}
-		}
+			
+		 }
 		//CLOSE CLIENT
 		closeCLientHandler();
 	}
 	
-	private void mainMenuChoicesRoutineSocket() {
+	private void mainMenuChoicesRoutineSocket() throws RemoteException {
 		//NEW LOBBY
 		String choice=readMsg();
-		if (choice.equals("1")) {
+		if ("1".equals(choice)) {
 			sendMsgTo("Lobbies on this server:");
 			sendMsgTo(myServer.getLobbiesToString());
 			sendMsgTo("select a number for the lobby");
@@ -94,7 +99,7 @@ public class ClientHandler implements Runnable{
 			}
 		
 		//ENTER LOBBY
-		} else if (choice.equals("2")) {
+		} else if ("2".equals(choice)) {
 			sendMsgTo("select a lobby to join!");
 			sendMsgTo(myServer.getLobbiesToString());
 			Integer lobbyNumber=Integer.parseInt(readMsg());
@@ -105,7 +110,7 @@ public class ClientHandler implements Runnable{
 			
 		
 		//QUIT
-		} else if (choice.equals("3")) {
+		} else if ("3".equals(choice)) {
 			this.exit = true;
 		}
 		
@@ -116,17 +121,17 @@ public class ClientHandler implements Runnable{
 		
 	}
 
-	private void closeCLientHandler(){
+	public void closeCLientHandler(){
 		try {
 			socketOut.close();
 			socketIn.close();
 			socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			
 		}
 	}
 	
-	private void mainMenuChoicesPrint() {
+	public void mainMenuChoicesPrint() {
 		sendMsgTo("\n"
 				+ "MAIN MENU:\n"
 				+ "1.Create new lobby!\n"
@@ -134,28 +139,17 @@ public class ClientHandler implements Runnable{
 				+ "3.Exit the game\n");
 	}
 
-	private void sendID() {
-		if(RMI){
-			//RMI SET ID
-		}
-		else{
-			sendMsgTo(String.valueOf(this.ID));
-		}
-		
+	public void sendID() {
+		sendMsgTo(String.valueOf(this.ID));
 	}
 
-	private void readUsername(String username) {
-		if(RMI){
-			this.username=username;
-		}
-		else{
+	public void readUsername(String username) {
 			this.username=readMsg();
-		}
 		System.out.println("username of the player is "+username);
 	}
 
 	//IN LOBBY
-	private void inLobby() {
+	private void inLobby() throws RemoteException {
 		inLobby=true;
 		while(inLobby){
 			if (!this.Game) {
@@ -194,16 +188,12 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
-	private void helpMsgLobby() {
+	public void helpMsgLobby() {
 		sendMsgTo(
 				"\nCOMANDI LOBBY:\n"
 				+ "chat to chat with the other inLobby players\n" + "exit_lobby to quit the current lobby\n"
 						+ "start_game to start the game if you are the admin\n" + "help to see this\n"
 						+ "players if you want to see who is in the lobby\n");		
-	}
-
-	public void setGame(Boolean inGame){
-		this.Game=inGame;
 	}
 
 	private void inGame() {
@@ -298,10 +288,10 @@ public class ClientHandler implements Runnable{
 		return receiveMsg().getMsg();
 	}
 	
-	public Object readObject(){
+	public String readPassword(){
 		try {
 			Object o=socketIn.readObject();
-			return o;
+			return ((SimpleMessage)o).getMsg();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -326,14 +316,19 @@ public class ClientHandler implements Runnable{
 		this.myturn = myturn;
 	}
 
-	public void changeName() {
-		sendMsgTo("choose another username, "+this.getUsername()+" is already taken");
-		String newUsername=receiveMsg().getMsg();
-		this.username=newUsername;
-		sendObject(new ChangeUsernameMessage(newUsername) );
-		
+	public void changeName(String rmiUsername) {
+			sendMsgTo("choose another username, " + this.getUsername() + " is already taken");
+			String newUsername = receiveMsg().getMsg();
+			this.username = newUsername;
+			sendObject(new ChangeUsernameMessage(newUsername));
+	}
+
+	@Override
+	public void setGame(boolean b) {
+		this.Game=b;
 		
 	}
+
 	
 	
 	
