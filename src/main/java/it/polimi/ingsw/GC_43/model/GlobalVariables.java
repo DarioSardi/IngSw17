@@ -2,6 +2,7 @@ package it.polimi.ingsw.GC_43.model;
 
 import java.io.Serializable;
 
+import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.effects.MultipleChoiceEffect;
 
 public class GlobalVariables implements Serializable{
@@ -89,7 +90,7 @@ public class GlobalVariables implements Serializable{
 	   copyVariables.maxMilitaryPoints = GlobalVariables.maxMilitaryPoints;
 	   copyVariables.maxFaithPoints = GlobalVariables.maxFaithPoints;
 	   
-	   copyVariables.councilPrivilegeEffect = GlobalVariables.councilPrivilegeEffect;
+	   copyVariables.councilPrivilegeEffect = CommonActionCreatorRoutine.copyMultiplePrivileges(1).getPrivilegeChoices();
 	   copyVariables.malusUnlimitedCells = GlobalVariables.malusUnlimitedCells;
 	   copyVariables.militaryPointsRequired = GlobalVariables.militaryPointsRequired;
 	   copyVariables.faithPointExcomRequired = GlobalVariables.faithPointExcomRequired;
