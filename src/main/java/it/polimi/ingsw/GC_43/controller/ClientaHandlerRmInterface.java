@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GC_43.controller;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -18,10 +19,9 @@ public interface ClientaHandlerRmInterface  extends ClientHandler,Remote{
 	public String whoIsInLobby()throws RemoteException;
 	public void quitGame(String password) throws RemoteException;
 	void submitAction(Action action) throws RemoteException;
-	public boolean joinLobby(Integer lobbyNumber) throws RemoteException;
+	public boolean joinLobby(Integer lobbyNumber) throws RemoteException, IOException;
 	public void sendMsgTo(String s) throws RemoteException;
 	public void connect(UserRmiInterface rmiView) throws RemoteException;
 	public void ping() throws RemoteException;
-	public int getID() throws RemoteException;
 	
 }

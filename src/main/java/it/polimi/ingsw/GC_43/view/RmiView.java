@@ -31,13 +31,6 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	@Override
 	public void run() {
 		System.out.println("RMI menu!");
-		try {
-			this.handler.setUsername(this.myclient.getUsername());
-			this.myclient.setID(this.handler.getID());
-		} catch (RemoteException e1) {
-			
-			e1.printStackTrace();
-		}
 		online=true;
 		while (online) {
 			try {
@@ -82,6 +75,10 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 				handler.ping();
 			}
 			
+			else if ("myinfo".equals(command)) {
+				System.out.println(this.handler.toString());
+			}
+				
 			
 			//FKING MORON
 			else{
@@ -96,13 +93,13 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	}
 
 	private void inLobby() throws IOException {
-		inLobby=true;
-		while(inLobby){
+		this.inLobby=true;
+		while(this.inLobby){
 			if (!this.myclient.inGame) {
 				System.out.println(handler.helpMsgLobby());;
 				String command = input.readLine();
 				if (command.equals("exit_lobby")) {
-					inLobby = false;
+					this.inLobby = false;
 					System.out.println("exiting the lobby");
 				} else if ("chat".equals(command)) {
 					System.out.println("write the message that you want to send!");
@@ -127,6 +124,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 				} 
 			}
 			else{
+				System.out.println("you are no more in the lobby!Returning to main menu");
 				inGame();
 			}
 		}
@@ -285,6 +283,26 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	@Override
 	public Integer getID() throws RemoteException {
 		return this.myclient.getID();
+	}
+
+	@Override
+	public void exitLobby() throws RemoteException {
+		System.out.println("leaving the lobby...");
+		this.inLobby=false;
+	}
+
+	@Override
+	public String chooseNewUsername() throws IOException,RemoteException {
+		System.out.println("choose a new Username!");
+		String newUsername=input.readLine();
+		this.changeUsername(newUsername);
+		return newUsername;
+	}
+
+	@Override
+	public void setId(Integer id) throws RemoteException {
+		this.myclient.setID(id);
+		
 	}
 	
 	

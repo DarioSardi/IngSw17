@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GC_43.view;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -19,5 +20,8 @@ public interface UserRmiInterface extends Remote{
 	public void updateGlobalVariables(CopyOfGlobalVariables o) throws RemoteException;
 	public String getUsername() throws RemoteException;
 	public Integer getID()throws RemoteException;
+	public void exitLobby()throws RemoteException;
+	public String chooseNewUsername()throws RemoteException, IOException;
+	public void setId(Integer id)throws RemoteException;
 	
 }

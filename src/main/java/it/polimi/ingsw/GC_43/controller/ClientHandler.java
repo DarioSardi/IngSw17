@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GC_43.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
@@ -9,7 +10,7 @@ public interface ClientHandler extends Serializable{
 
 	public void sendMsgTo(String string) throws RemoteException;
 
-	public void changeName(String string) throws RemoteException;
+	public void changeName() throws RemoteException, IOException;
 
 	public String getUsername() throws RemoteException;
 	
@@ -22,6 +23,8 @@ public interface ClientHandler extends Serializable{
 	public void setMyturn(boolean b) throws RemoteException;
 
 	public String readPassword() throws RemoteException;
+
+	public void exitLobby()throws RemoteException;
 	
 	
 }

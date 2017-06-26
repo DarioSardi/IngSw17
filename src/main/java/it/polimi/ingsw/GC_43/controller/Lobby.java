@@ -1,5 +1,6 @@
 package it.polimi.ingsw.GC_43.controller;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ public class Lobby implements Runnable{
 	public int ID,maxPlayers;
 	private Controller controller;
 	private boolean exist,gameStarted;
-	public static final String ANSI_RED = "\u001B[31m";
+	
 
 	public Lobby(ClientHandler lobbyAdmin,Integer ID,Integer maxPlayers) throws RemoteException {
 		this.admin=lobbyAdmin;
@@ -26,28 +27,26 @@ public class Lobby implements Runnable{
 		System.out.println("SONO LA LOBBY "+ID+" E SON VIVA!");
 	}
 
-	public Integer addPlayer(ClientHandler cH) throws RemoteException {
+	public Integer addPlayer(ClientHandler cH) throws IOException {
 		if (players.size()<maxPlayers&&!gameStarted) {
 			checkUsername(cH);
 			if (!players.contains(cH)) {
 				this.players.add(cH);
 				cH.setLobby(this);
-				System.out.println(ANSI_RED+"added " + cH.toString()+ANSI_RED);
+				System.out.println("added " + cH.toString());
 				broadcastMsg("the player " + cH.toString()+" has joined the lobby.");
 				cH.sendMsgTo("added to the lobby!");
 				return 1;
-			} else if (players.contains(cH)) {
-				cH.setLobby(this);
-				System.out.println("re-entered " + cH.toString());
-				broadcastMsg("re-entered " + cH.toString());
-				cH.sendMsgTo("welcome back to the lobby");
-				return 1;
-			} 
+			}
+			else {
+			System.err.println("error on cH joining");
+			return 0;
+			}
 			
 		}
 		else if(gameStarted){
 			System.out.println("player trying to reconnect to the lobby "+this.toString());
-			if(this.usernamePass.containsKey(cH.getUsername()) && !inGame(cH.getUsername())){ //qui?
+			if(this.usernamePass.containsKey(cH.getUsername()) && !inGame(cH.getUsername())){ 
 				cH.sendMsgTo("if you are who i think, tell me your password!");
 				return 2;
 			}
@@ -56,7 +55,7 @@ public class Lobby implements Runnable{
 			cH.sendMsgTo("Lobby is full!");
 			return 0;
 		}
-		System.out.println("unexpected return on lobby for addPlayer");
+		System.err.println("unexpected return on lobby for addPlayer");
 		return 0;
 	}
 	
@@ -65,13 +64,13 @@ public class Lobby implements Runnable{
 	 * check if the username is already taken in the lobby
 	 * @param username
 	 * @return
-	 * @throws RemoteException 
+	 * @throws IOException 
 	 */
-	private boolean checkUsername(ClientHandler cH) throws RemoteException {
+	private boolean checkUsername(ClientHandler cH) throws IOException {
 		for(ClientHandler ch: this.players){
 			if(ch.getUsername().equals(cH.getUsername())){
 				cH.sendMsgTo("the username is taken!");
-				cH.changeName("");
+				cH.changeName();
 				checkUsername(cH);
 				return true;
 			}
@@ -262,6 +261,15 @@ public class Lobby implements Runnable{
 		});
 		
 		
+	}
+	
+	public void exitLobby(ClientHandler cH) throws RemoteException{
+		if(cH!=this.admin){
+			System.out.println("player exiting lobby "+cH.getUsername());
+			this.players.remove(cH);
+			cH.exitLobby();
+			
+		}
 	}
 
 

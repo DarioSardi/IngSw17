@@ -1,27 +1,27 @@
 package it.polimi.ingsw.GC_43.controller;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.actions.Action;
 import it.polimi.ingsw.GC_43.view.UserRmiInterface;
 
-public class ClientHandlerRmi implements ClientaHandlerRmInterface{
+public class ClientHandlerRmi  implements ClientaHandlerRmInterface{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7710077653703111598L;
-	private Server myServer;
-	private String username;
+	private volatile Server myServer;
 	private Lobby lobby;
 	private Integer id;
 	private UserRmiInterface client;
-	public static final String ANSI_RED = "\u001B[31m";
 	
-	protected ClientHandlerRmi(Server myServer) throws RemoteException {
-		this.myServer=myServer;
+	protected ClientHandlerRmi(RmiConnector rmiConnector) throws RemoteException {
+		this.myServer=rmiConnector.getServer();
 	}
 
 	
@@ -34,7 +34,7 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 		return myServer.newLobby(this, lobbyNumber,maxPlayers);
 	}
 	
-	public boolean tryToJoinLobby(Integer lobbyNumber) throws RemoteException{
+	public boolean tryToJoinLobby(Integer lobbyNumber) throws IOException{
 		return myServer.joinLobby(lobbyNumber, this);
 	}
 	
@@ -50,9 +50,8 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 
 
 	@Override
-	public void changeName(String username) throws RemoteException {
-		this.username = username;
-		this.client.changeUsername(username);
+	public void changeName() throws IOException {
+		this.client.chooseNewUsername();
 	}
 
 	@Override
@@ -130,19 +129,24 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 
 	@Override
 	public void setUsername(String username) throws RemoteException {
-		this.username=username;
+		this.client.changeUsername(username);
 	}
 	
 	@Override
 	public String toString() {
-		return this.username;
+		try {
+			return this.client.getUsername();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 
 
 	@Override
 	public String getUsername() throws RemoteException {
-		return this.username;
+		return this.client.getUsername();
 	}
 
 
@@ -195,7 +199,7 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 
 
 	@Override
-	public boolean joinLobby(Integer lobbyNumber) throws RemoteException {
+	public boolean joinLobby(Integer lobbyNumber) throws IOException {
 		return this.myServer.joinLobby(lobbyNumber,this);
 	}
 
@@ -205,6 +209,7 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 	public void connect(UserRmiInterface rmiView) throws RemoteException {
 		this.client= rmiView;
 		this.id=this.myServer.addClient(this);
+		this.client.setId(this.id);
 		System.out.println("connected player with username: "+this.client.getUsername()+" and ID :"+String.valueOf(this.client.getID()));
 	}
 
@@ -219,15 +224,20 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 
 	@Override
 	public void ping() throws RemoteException {
-		this.client.showMsg("PONG!");
+		this.client.showMsg("PONG! you are in lobby "+this.getLobby().toString());
 		
 	}
 
 
 
+	
+
+
 	@Override
-	public int getID() throws RemoteException {
-		return this.id;
+	public void exitLobby() throws RemoteException {
+		this.lobby=null;
+		this.client.exitLobby();
+		
 	}
 	
 

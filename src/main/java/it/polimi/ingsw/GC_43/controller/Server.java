@@ -3,6 +3,7 @@ package it.polimi.ingsw.GC_43.controller;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.AlreadyBoundException;
@@ -16,6 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server implements Remote{
+	
 	private static final int PORT = 7777;
 	private static final int PORTRMI = 7077;
 	private static ServerSocket sSocket;
@@ -49,9 +51,9 @@ public class Server implements Remote{
 
 
 	private void startRMI() throws RemoteException, AlreadyBoundException {
-		ClientaHandlerRmInterface handlerRMI= new ClientHandlerRmi(this);
-		ClientaHandlerRmInterface remoteHandler=(ClientaHandlerRmInterface) UnicastRemoteObject.exportObject(handlerRMI,PORTRMI);
-		registry.bind("COF", remoteHandler);
+		LoginInterface login= new RmiConnector(this);
+		LoginInterface remoteLogin=(LoginInterface) UnicastRemoteObject.exportObject(login,PORTRMI);
+		registry.bind("COF", remoteLogin);
 		System.out.println("Waiting for players on RMI...");
 	}
 
@@ -80,6 +82,9 @@ public class Server implements Remote{
 	
 	public Integer addClient(ClientHandler cH){
 		Integer thisID=this.numberOfClients;
+		if(this.clients.containsKey(cH)){
+			System.out.println("esiste gia lo stesso clientHandler");
+		}
 		clients.put(this.numberOfClients,cH);
 		this.numberOfClients++;
 		return thisID;
@@ -109,7 +114,7 @@ public class Server implements Remote{
 		this.lobbies.remove(closedLobby);
 	}
 	
-	public boolean joinLobby(Integer lobbyNumber,ClientHandler cH) throws RemoteException{
+	public boolean joinLobby(Integer lobbyNumber,ClientHandler cH) throws IOException{
 		if (this.lobbies.containsKey(lobbyNumber)) {
 			if (this.lobbies.get(lobbyNumber).addPlayer(cH)==1){
 				return true;

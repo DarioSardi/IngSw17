@@ -66,6 +66,9 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 				mainMenuChoicesRoutineSocket();
 			} catch (RemoteException e) {
 				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
 		 }
@@ -73,7 +76,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 		closeCLientHandler();
 	}
 	
-	private void mainMenuChoicesRoutineSocket() throws RemoteException {
+	private void mainMenuChoicesRoutineSocket() throws IOException {
 		//NEW LOBBY
 		String choice=readMsg();
 		if ("1".equals(choice)) {
@@ -310,7 +313,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 		this.myturn = myturn;
 	}
 
-	public void changeName(String rmiUsername) {
+	public void changeName() {
 			sendMsgTo("choose another username, " + this.getUsername() + " is already taken");
 			String newUsername = receiveMsg().getMsg();
 			this.username = newUsername;
@@ -320,6 +323,13 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 	@Override
 	public void setGame(boolean b) {
 		this.Game=b;
+		
+	}
+
+	@Override
+	public void exitLobby() throws RemoteException {
+		this.inLobby=false;
+		this.lobby=null;
 		
 	}
 

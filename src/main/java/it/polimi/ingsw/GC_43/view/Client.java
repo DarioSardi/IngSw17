@@ -18,6 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
 import it.polimi.ingsw.GC_43.controller.Lobby;
+import it.polimi.ingsw.GC_43.controller.LoginInterface;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
@@ -30,7 +31,8 @@ public class Client {
     private ObjectInputStream inSocket;
     private ObjectOutputStream outSocket;
     BufferedReader inKeyboard;
-	private String address,username;
+	private String address;
+	private String username;
 	private ClientOutHandler outStream;
 	private ClientInHandler inStream;
 	private Board board;
@@ -40,6 +42,7 @@ public class Client {
 	private ExecutorService executor;
 	public ReentrantLock locker;
 	private RmiView rmiView;
+	LoginInterface login;
 	ClientaHandlerRmInterface handler;
 
     public Client() throws IOException, NotBoundException{
@@ -61,10 +64,10 @@ public class Client {
     
     private void connectRMI() throws RemoteException, NotBoundException {
     	Registry registry =LocateRegistry.getRegistry(InetAddress.getLoopbackAddress().getHostAddress(), this.port);
-		handler=(ClientaHandlerRmInterface)registry.lookup("COF");
+		login=(LoginInterface)registry.lookup("COF");
 		executor = Executors.newFixedThreadPool(1);
+		handler=login.login("Dario");
 		this.rmiView=new RmiView(this,handler,inKeyboard);
-		handler.connect(this.rmiView);
 		executor.submit(rmiView);
 		
 		
@@ -185,7 +188,7 @@ public class Client {
 				
 			}
 
-			else if (answer.equals("auto_socket")) {
+			else if (answer.equals("socket")) {
 				String addressChoice= "127.0.0.1";
 				Integer portChoice = 7777;
 				System.out.println("Select your username: ");
@@ -195,7 +198,7 @@ public class Client {
 				correctAnswer=true;
 			}
 
-			else if (answer.equals("auto_rmi")) {
+			else if (answer.equals("rmi")) {
 				String addressChoice = "127.0.0.1";
 				Integer portChoice  = 7077;
 				System.out.println("Select your username: ");
