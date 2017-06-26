@@ -9,7 +9,7 @@ import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.actions.Action;
 import it.polimi.ingsw.GC_43.view.UserRmiInterface;
 
-public class ClientHandlerRmi  implements ClientaHandlerRmInterface{
+public class ClientHandlerRmi extends UnicastRemoteObject  implements ClientaHandlerRmInterface{
 	
 	/**
 	 * 

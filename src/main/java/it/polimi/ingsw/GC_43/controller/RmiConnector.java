@@ -3,8 +3,12 @@ package it.polimi.ingsw.GC_43.controller;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class RmiConnector  implements LoginInterface{
+public class RmiConnector   implements LoginInterface{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8509344607835660002L;
 	private volatile Server myServer;
 	protected RmiConnector(Server server) throws RemoteException {
 		this.myServer=server;
