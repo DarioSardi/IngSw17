@@ -45,7 +45,7 @@ public class ChoiceEffect extends Effect {
 	public boolean check(Player player) {
 		boolean checkResult = true;
 		System.out.println("Checking costs inside Choice Effect");
-		if (this.costs != null) {
+		if (!this.costs.isEmpty()) {
 			System.out.println("Cost is not null , checking...");
 
 			for (Resource resource : this.costs) {

@@ -35,20 +35,38 @@ public class CommonActionCreatorRoutine implements Serializable {
 	public static MultipleCouncilPrivileges copyMultiplePrivileges(int numberOfCopies){
 		MultipleCouncilPrivileges multipleCopy= new MultipleCouncilPrivileges(numberOfCopies);
 		ArrayList<ChoiceEffect> choiceEffects= new ArrayList<ChoiceEffect>();
+		System.out.println("DEBUG ON COMMONACTIONCREATORROUTINE IN COPY MULTIPLE PRIVILEGE TO BE DELTED ALL");
+		System.out.println("\nRight before of loop, multiple council privilege\n");
+
+		System.out.println("global" +GlobalVariables.councilPrivilegeEffect);
+		System.out.println("global" +GlobalVariables.councilPrivilegeEffect.getChoices());
+
+
+		System.out.println("global" +GlobalVariables.councilPrivilegeEffect.getChoices().isEmpty());
+
+		
+		System.out.println("global" +GlobalVariables.councilPrivilegeEffect.getChoices().get(0));
+		System.out.println("global" +GlobalVariables.councilPrivilegeEffect.getChoices().toString());
+
+
 		for(ChoiceEffect choiceEffect: GlobalVariables.councilPrivilegeEffect.getChoices()){
 
 			ArrayList<Resource> costs= new ArrayList<Resource>();
 			ArrayList<Resource> gains= new ArrayList<Resource>();
 
 			for(Resource resource: choiceEffect.getGains()){
-				gains.add(createCorrespondingResource(resource));					
+				gains.add(createCorrespondingResource(resource));	
+				System.out.println("\nIn inside loop\n");
+
 			}
+			System.out.println("\nIn outern loop\n");
+
 			choiceEffects.add(new ChoiceEffect(costs,gains));
 			
 
 	}
 	multipleCopy.setPrivilegeChoices(new MultipleChoiceEffect(choiceEffects));
-//	System.out.println("\nOut of loop, multiple choice result: \n"+multipleCopy.toString());
+	System.out.println("\nOut of loop, multiple choice result: \n"+multipleCopy.toString());
 
 	return multipleCopy;
 }
@@ -69,7 +87,8 @@ public class CommonActionCreatorRoutine implements Serializable {
 			return new VictoryPoint(resource.getValue());
 		if(resource.getResourceType().equals("militaryPoint"))
 			return new MilitaryPoint(resource.getValue());
-		
+		System.out.println("\nFInished correspo resource\n");
+
 		return null;
 	}
 

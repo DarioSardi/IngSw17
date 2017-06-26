@@ -73,7 +73,7 @@ public class BoardTest {
 		 * getPlayers().get(0).toString());
 		 * 
 		 */
-
+/*
 		board.getPlayers().get(2).getPlayerCards()
 				.addBuildingCard((BuildingCard) board.getTowers().get(2).getFloors().get(0).getCard());
 		board.getPlayers().get(2).getPlayerCards()
@@ -91,7 +91,7 @@ public class BoardTest {
 		board.getPlayers().get(2).getPlayerCards()
 		.addBuildingCard((BuildingCard) board.getBuildingCardPool().get(7));
 		
-	/*	System.out.println(
+		System.out.println(
 				"\n\nPLAYER BUILDING CARDS NOW ARE :\\n\n" + board.getPlayers().get(0).getPlayerCards().toString());
 
 		ProductionActionCreationRoutine p = new ProductionActionCreationRoutine(
@@ -118,18 +118,18 @@ public class BoardTest {
 		 * );
 		 * 
 		 * 
-		 * 
-		 * TowerActionCreationRoutine t = new
-		 * TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(),
-		 * board.getPlayers().get(0), board); t.prepareAction();
-		 * TowerActionPerformerRoutine tp= new
-		 * TowerActionPerformerRoutine(t.getTowerAction(),board);
-		 * System.out.println("\n\nstarting to perform\n\n");
-		 * tp.performAction();
-		 * 
-		 * 
-		 * System.out.println("\n\n\nBOARD TEST FINISHED !");
-		 * 
+		 */
+		 TowerActionCreationRoutine t = new
+		 TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(),
+		 board.getPlayers().get(0), board); t.prepareAction();
+		 TowerActionPerformerRoutine tp= new
+		 TowerActionPerformerRoutine(t.getTowerAction(),board);
+		 System.out.println("\n\nstarting to perform\n\n");
+		 tp.performAction();
+		 
+		  
+		  System.out.println("\n\n\nBOARD TEST FINISHED !");
+		 /* 
 		 * CouncilPalaceActionCreationRoutine c = new
 		 * CouncilPalaceActionCreationRoutine(board.getPlayers().get(0).
 		 * getPlayerName(), board.getPlayers().get(0), board);

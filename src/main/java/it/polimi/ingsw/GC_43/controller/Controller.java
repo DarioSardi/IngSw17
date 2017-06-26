@@ -33,6 +33,7 @@ public class Controller implements IController {
 	private int playerDisconnected;
 	private int excommunicationSubmission;
 	private boolean isExcommunicationTime;
+	private ArrayList<Player> playerSkippedFirstRound;
 
 	public Controller(ArrayList<ClientHandler> clientHandlers) throws RemoteException {
 		this.clientHandlers = new ArrayList<ClientHandler>();
@@ -44,6 +45,7 @@ public class Controller implements IController {
 		this.playerDisconnected = 0;
 		this.excommunicationSubmission = 0;
 		this.isExcommunicationTime = false;
+		this.playerSkippedFirstRound = new ArrayList<Player>();
 
 	}
 
@@ -55,7 +57,6 @@ public class Controller implements IController {
 		System.out.println("matches created");
 		sendModelToClients();
 		System.out.println("model sent");
-
 		// TODO wait form SAM
 		sendGlobalVariablesToClients();
 		System.out.println("global variables sent");
@@ -232,13 +233,12 @@ public class Controller implements IController {
 		}
 
 	}
-	
-	//EXTRA ACTION COMMUNICATION LOGIC
+
+	// EXTRA ACTION COMMUNICATION LOGIC
 	private void askForExtraAction() {
 		System.out.println("Detected extra action possibility: asking player for it");
 		ExtraAction extraAction = new ExtraAction(
 				this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().get(0));
-
 		try {
 			this.getPlayerOfTurn().sendObject(extraAction);
 		} catch (RemoteException e) {
@@ -248,6 +248,16 @@ public class Controller implements IController {
 		// removing extra action after sending it
 		this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().remove(0);
 	}
+	
+	
+
+	private void getBackInitialTurn() {
+		//TODO TO BE COMPLETED
+	}
+
+	
+	
+	
 
 	// MANAGING PLAYERS PHASES
 
@@ -259,47 +269,72 @@ public class Controller implements IController {
 			System.out.println("No players in game, game over");
 			endGame();
 		}
-
-		this.board.nextPhase();
-
-		// CHECKING FOR EXCOMMUNICATION ROUND AND END GAME
-		if (this.board.getPhase() % this.board.getPlayers().size() == 0) {
-
-			System.out.println("Ongoing next round logic, round was number " + this.board.getRound());
-
-			this.board.nextRound();
-
-			// CHECKING EXCOMMUNICATION
-			if (this.board.getRound() % GlobalVariables.excommunicationRound == 0) {
-				System.out.println("Excommunication time on round " + this.board.getRound() + " and period "
-						+ this.board.getPeriod());
-				this.isExcommunicationTime = true;
-				askPlayersForExcommunication();
-				// waitForAllResponses()
-			}
-
-			// END GAME
-			if (this.board.getPeriod() == GlobalVariables.totalNumberOfPeriods
-					&& this.board.getRound() % this.board.getPlayers().size() == 0) {
-				System.out.println("Game is finished!\n Period= " + this.board.getPeriod() + "\nRound= "
-						+ this.board.getRound() + "\nPhase= " + this.board.getPhase());
-				endGame();
-			}
-			System.out.println("Resetting board spaces, geting ready for next round number" + this.board.getRound());
-			nextRoundLogic();
+		
+		//CHECKING IF SOME PLAYER GOT MALUS OF SKIPPING FIRST ROUND AND GET IT BACK AT THE END
+		if (this.board.getPhase() + 1 % this.board.getPlayers().size() == 0
+				&& !this.playerSkippedFirstRound.isEmpty()&&this.board.getRound()+1%GlobalVariables.numberOfFamilyMembers==0) {
+			
+			getBackInitialTurn();
+			
+			
+			
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
+			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
 
 		}
 
-		while (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())) {
+		else {
 			this.board.nextPhase();
+
+			// CHECKING FOR EXCOMMUNICATION ROUND AND END GAME
+			if (this.board.getPhase() % this.board.getPlayers().size() == 0) {
+
+				System.out.println("Ongoing next round logic, round was number " + this.board.getRound());
+
+				this.board.nextRound();
+
+				// CHECKING EXCOMMUNICATION
+				if (this.board.getRound() % GlobalVariables.excommunicationRound == 0) {
+					System.out.println("Excommunication time on round " + this.board.getRound() + " and period "
+							+ this.board.getPeriod());
+					this.isExcommunicationTime = true;
+					askPlayersForExcommunication();
+					// waitForAllResponses()
+				}
+
+				// END GAME
+				if (this.board.getPeriod() == GlobalVariables.totalNumberOfPeriods
+						&& this.board.getRound() % this.board.getPlayers().size() == 0) {
+					System.out.println("Game is finished!\n Period= " + this.board.getPeriod() + "\nRound= "
+							+ this.board.getRound() + "\nPhase= " + this.board.getPhase());
+					endGame();
+				}
+				System.out
+						.println("Resetting board spaces, geting ready for next round number" + this.board.getRound());
+				nextRoundLogic();
+
+			}
+
+			while (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())) {
+				this.board.nextPhase();
+			}
+
+			System.out.println("\n Attemping match player name" + this.board.getPhasePlayer());
+			ClientHandler playerOfTurn = this.matchClientHandler.get(this.board.getPhasePlayer());
+			System.out.println("\nChanging phases of players");
+			changePhases(playerOfTurn);
+			System.out.println("\nNext turn logic ended successfully");
 		}
-
-		System.out.println("\n Attemping match player name" + this.board.getPhasePlayer());
-		ClientHandler playerOfTurn = this.matchClientHandler.get(this.board.getPhasePlayer());
-		System.out.println("\nChanging phases of players");
-		changePhases(playerOfTurn);
-		System.out.println("\nNext turn logic ended successfully");
-
 	}
 
 	// TODO to be completed nextRoundLogic, askPlayersForExcommunication,

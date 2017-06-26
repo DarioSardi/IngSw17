@@ -43,9 +43,10 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
     }
 
 	private void getInputsForCouncilPalace(FamilyMember familyMember) {
-		System.out.println("Getting council palace inputs");
+		System.out.println("Getting council palace inputs..");
     	int dieValue=familyMember.getDiceValue()+this.councilPalaceAction.getServantsUsed();
     	if(dieValue>=this.board.getCouncilPalace().getCouncil().getMinDiceValue()){
+
     	for(Effect effect: this.board.getCouncilPalace().getCouncil().getBonus()){
     		  if(effect.getClass().toString().contains("MultipleCouncilPrivileges")){
                   askForMultipleCouncilPrivilege((MultipleCouncilPrivileges)effect);
@@ -63,9 +64,11 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
 	
 	
 	 private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect) {
+		System.out.println("DEBUG: Copying multiple privilege.." );
      	MultipleCouncilPrivileges effect=CommonActionCreatorRoutine.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
      	int numberOfCopies=effect.getNumberOfCopies();
      	while(numberOfCopies>0){
+    		System.out.println("DEBUG: asking multiple choice.." );
 
      		int choice= askForMultipleChoice(effect.getPrivilegeChoices());
 
@@ -84,7 +87,7 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
          String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
          int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
          System.out.println("Choice taken is "+choice);
-         if(effect.check(this.councilPalaceAction.getFamilyMember())){
+         if(effect.checkChoice(choice,this.councilPalaceAction.getPlayer())){
              System.out.println("Choice taken is ok");
 
              this.councilPalaceAction.getCouncilPalaceChoices().add(choice);

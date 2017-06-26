@@ -118,7 +118,9 @@ public class TowerActionCreationRoutine implements ActionCreation {
 	private void checkCardInstantEffects(Card card) {
 		System.out.println("\nCard instant bonus requiring choices checks...\n");
 		for (Effect effect : card.getInstantBonus()) {
+			System.out.println("effect to string: "+effect.getClass().toString());
 			if (effect.getClass().toString().contains("MultipleCouncilPrivileges")) {
+				System.out.println("Multiple council privileges detected");
 				askForMultipleCouncilPrivilege((MultipleCouncilPrivileges) effect);
 			}
 		}
@@ -142,33 +144,42 @@ public class TowerActionCreationRoutine implements ActionCreation {
 	}
 
 	private void askForMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect) {
+		System.out.println("Checking council privilege is not null..");
+		System.out.println("Council privileges: "+multipleEffect.toString());
 		MultipleCouncilPrivileges effect = CommonActionCreatorRoutine
 				.copyMultiplePrivileges(multipleEffect.getNumberOfCopies());
 		int numberOfCopies = effect.getNumberOfCopies();
 		while (numberOfCopies > 0) {
-
+			System.out.println("Launching asking for multiple choice..");
 			int choice = askForMultipleChoice(effect.getPrivilegeChoices());
-
+			System.out.println("asking for multiple choice ended with player choice: "+choice);
 			if (choice != -1) {
 				effect.getPrivilegeChoices().getChoices().remove(choice);
 				System.out.println("choice removed..");
 
 			}
-			System.out.println("remaining number of copies" + numberOfCopies);
 			numberOfCopies--;
+			System.out.println("remaining number of copies " + numberOfCopies);
+
 		}
 	}
 
 	private int askForMultipleChoice(MultipleChoiceEffect effect) {
 		int maxRange = effect.getChoices().size();
+		System.out.println("Choices effect size is: "+maxRange);
 		String question = "Please select the exchange effect you want to perform. Input -1 as do nothing:\n"
 				+ effect.toString();
 		int choice = CommonActionCreatorRoutine.askForSingleChoice(question, -1, maxRange);
-		if (effect.check(this.towerAction.getFamilyMember())) {
+		System.out.println("DEBUG REASON . CHECK FAM MEMBER AFTER ASK FOR SINGLE CHOICE IN ASKmULT CH: "+this.towerAction.getFamilyMember().toString());
+		if (effect.checkChoice(choice,this.towerAction.getPlayer())) {
+
+			System.out.println("Choice effect passed the check..");
 			this.towerAction.getEffectChoices().add(choice);
+			System.out.println("Choice effect added to getChoices..");
 			ChoiceEffect choiceEffect = effect.getChoices().get(choice);
 
 			// Ask per privilege council SE nello scambio, MAX DA RIVEDERE;
+			System.out.println("Checking nature of choice effect..");
 
 			if (choiceEffect.getGains().get(0).getClass().toString().contains("privilegeCouncil"))
 				askForMultipleCouncilPrivilege(new MultipleCouncilPrivileges(1));
@@ -181,6 +192,7 @@ public class TowerActionCreationRoutine implements ActionCreation {
 				return askForMultipleChoice(effect);
 			}
 		}
+		System.out.println("Multiple choice effect selection routine finished..");
 		return choice;
 	}
 

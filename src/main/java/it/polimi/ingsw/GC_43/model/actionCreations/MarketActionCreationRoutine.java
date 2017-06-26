@@ -96,7 +96,7 @@ public class MarketActionCreationRoutine implements ActionCreation{
             String question="Please select the exchange effect you want to perform. Input -1 as do nothing:\n"+effect.toString();
             int choice=CommonActionCreatorRoutine.askForSingleChoice(question,-1,maxRange);
             System.out.println("Choice taken is "+choice);
-            if(effect.check(this.marketAction.getFamilyMember())){
+            if(effect.checkChoice(choice,this.marketAction.getPlayer())){
                 System.out.println("Choice taken is ok");
 
                 this.marketAction.getMarketChoices().add(choice);
