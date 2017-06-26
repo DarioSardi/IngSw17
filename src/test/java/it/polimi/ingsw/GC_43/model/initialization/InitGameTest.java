@@ -25,5 +25,6 @@ public class InitGameTest {
 	
 	@Test
 	public void councilPrivilegeBonus(){
+		System.out.println(board.getBuildingCardPool());
 	}
 }
