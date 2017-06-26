@@ -163,40 +163,45 @@ public class Client {
 			if (answer.equals("manual")) {
 				System.out.println("select connection type RMI/SOCKET:");
 				String connectionType= inKeyboard.readLine();
+				Boolean rmiChoice;
 				if("rmi".equalsIgnoreCase(connectionType)){
-					this.rmi=true;
+						rmiChoice=true;
 				}
 				else if("socket".equalsIgnoreCase(connectionType)){
-					this.rmi=false;
-				}
-				else {
-					System.out.println("invalid input");
-					continue;}
-				
+					rmiChoice=false;
+					}
+				else{
+					System.out.println("invalid choice");
+					continue;
+				}			
 				System.out.println("seleziona l'indirizzo del server (localhost by default settings) : ");
-				this.address = inKeyboard.readLine();
+				String addressChoice = inKeyboard.readLine();
 				System.out.println("seleziona la porta del server(SOCKET: 7777 RMI:7077):");
-				this.port = Integer.parseInt(inKeyboard.readLine());
+				Integer portChoice= Integer.parseInt(inKeyboard.readLine());
 				System.out.println("Select your username: ");
-				this.username = inKeyboard.readLine();
-				correctAnswer=true;
+				String usernameChoice = inKeyboard.readLine();
+				setConfigFields(addressChoice,portChoice,usernameChoice,rmiChoice);
+					correctAnswer = true;
+				
 			}
 
 			else if (answer.equals("auto_socket")) {
-				this.address = "127.0.0.1";
-				this.port = 7777;
+				String addressChoice= "127.0.0.1";
+				Integer portChoice = 7777;
 				System.out.println("Select your username: ");
-				this.username = inKeyboard.readLine();
-				this.rmi=false;
+				String usernameChoice  = inKeyboard.readLine();
+				Boolean rmiChoice=false;
+				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
 				correctAnswer=true;
 			}
 
 			else if (answer.equals("auto_rmi")) {
-				this.address = "127.0.0.1";
-				this.port = 7077;
+				String addressChoice = "127.0.0.1";
+				Integer portChoice  = 7077;
 				System.out.println("Select your username: ");
-				this.username = inKeyboard.readLine();
-				this.rmi=true;
+				String usernameChoice = inKeyboard.readLine();
+				Boolean rmiChoice=true;
+				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
 				correctAnswer=true;
 			} 
 			
@@ -210,6 +215,17 @@ public class Client {
 	
 	
 	
+	private void setConfigFields(String addressChoice, Integer portChoice, String usernameChoice,
+			Boolean rmiChoice) {
+		this.address=addressChoice;
+		this.port=portChoice;
+		this.username=usernameChoice;
+		this.rmi=rmiChoice;
+		
+	}
+
+
+
 	public void sendObj(Object o) throws RemoteException{
 		if (!rmi) {
 			System.out.println("invio oggetto " + o.toString());

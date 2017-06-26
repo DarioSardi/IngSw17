@@ -215,12 +215,12 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 		
 	public void inGameCommandsPrint(){
 		System.out.println("You are in the Game-mode menu;"
-				+ "\nyour commands are:");
-		System.out.println("help - to see this message");
-		System.out.println("action - to show the list of actions");
-		System.out.println("chat - for sending a message to all the players in the game");
-		System.out.println("info- to see the list of possible infos");
-		System.out.println("quit- to exit the game!");
+				+ "\nyour commands are:"
+				+ "\nhelp - to see this message"
+				+ "\naction - to show the list of actions"
+				+ "\nchat - for sending a message to all the players in the game"
+				+ "\ninfo- to see the list of possible infos"
+				+ "\nquit- to exit the game!");
 	}
 
 	@Override

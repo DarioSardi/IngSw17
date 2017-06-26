@@ -18,6 +18,7 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 	private Lobby lobby;
 	private Integer id;
 	private UserRmiInterface client;
+	public static final String ANSI_RED = "\u001B[31m";
 	
 	protected ClientHandlerRmi(Server myServer) throws RemoteException {
 		this.myServer=myServer;
@@ -118,8 +119,7 @@ public class ClientHandlerRmi implements ClientaHandlerRmInterface{
 
 	@Override
 	public String mainMenuChoicesPrint() throws RemoteException {
-		return "\n"
-				+ "MAIN MENU:\n"
+		return  "MAIN MENU:\n"
 				+ "1.Create new lobby!\n"
 				+ "2.Join a lobby\n"
 				+ "3.Exit the game\n";

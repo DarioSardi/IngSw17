@@ -12,6 +12,7 @@ public class Lobby implements Runnable{
 	public int ID,maxPlayers;
 	private Controller controller;
 	private boolean exist,gameStarted;
+	public static final String ANSI_RED = "\u001B[31m";
 
 	public Lobby(ClientHandler lobbyAdmin,Integer ID,Integer maxPlayers) throws RemoteException {
 		this.admin=lobbyAdmin;
@@ -31,7 +32,7 @@ public class Lobby implements Runnable{
 			if (!players.contains(cH)) {
 				this.players.add(cH);
 				cH.setLobby(this);
-				System.out.println("added " + cH.toString());
+				System.out.println(ANSI_RED+"added " + cH.toString()+ANSI_RED);
 				broadcastMsg("the player " + cH.toString()+" has joined the lobby.");
 				cH.sendMsgTo("added to the lobby!");
 				return 1;
