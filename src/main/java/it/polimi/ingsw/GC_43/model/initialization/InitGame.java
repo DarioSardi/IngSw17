@@ -1,6 +1,7 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 
 public class InitGame {
 	private Board board;
@@ -8,6 +9,7 @@ public class InitGame {
 	
 	public InitGame(Board boardReceved){
 		this.board = boardReceved;
+		setVariable5thPlayer();
 		initCards();
 		this.initActionSpaces = new InitActionSpaces();
 		this.initActionSpaces.readJson();
@@ -22,7 +24,14 @@ public class InitGame {
 	private void initCards(){
 		new InitCards().readJson(this.board);
 	}
-	
+		
+	private void setVariable5thPlayer(){
+		if (this.board.getPlayers().size() == 5){
+			GlobalVariables.towerTax--;
+			GlobalVariables.minDiceSecondHarvestArea--;
+			GlobalVariables.minDiceSecondProductionArea--;
+		}
+	}
 	private void setFaithVictoryPointsToBoard(){
 		this.board.setFaithVictoryPoints(this.initActionSpaces.getFaithPoints());
 	}
