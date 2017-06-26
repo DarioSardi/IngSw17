@@ -36,7 +36,7 @@ public class CouncilPalaceActionCreationRoutine implements ActionCreation{
         this.councilPalaceAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(councilPalaceAction.getPlayer(),this.councilPalaceAction.getFamilyMember().getDiceValue()));
         
         getInputsForCouncilPalace(this.councilPalaceAction.getFamilyMember());
-		System.out.println("Finished council palace action creation routine!");
+		System.out.println("\nCOUNCIL PALACE ACTION ENDS HERE\n");
 
 
         return true;

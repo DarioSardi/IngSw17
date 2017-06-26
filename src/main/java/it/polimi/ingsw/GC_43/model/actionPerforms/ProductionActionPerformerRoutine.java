@@ -55,8 +55,16 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 		System.out.println("check and try finished");
 
 		if (checkResult == true) {
+			if (this.productionAction.isPrimaryCellChosen())
+				this.board.getProductionArea().getPrimarySpace().execute(familyMember);
+			else
+				this.board.getProductionArea().getSecondarySpace().execute(familyMember);
+			
+			System.out.println("\nPRODUCTION ACTION ENDED SUCCESSFULLY\n");
+
 			return true;
 		} else {
+			System.out.println("Action Not valid, resetting player resources to inital ones and setting family member used free again..");
 			player.setPlayerResources(playerResourcesCopy);
 			familyMember.setAlreadyPlaced(false);
 			return false;
@@ -71,7 +79,6 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 
 		checkProductionCellSelection(familyMember);
 
-		System.out.println("\n\nTO BE DELETED INITIAL INDEX IS = "+this.index+"\n\n");
 		checkProductionPerform(player, familyMember);
 
 	}
@@ -79,11 +86,11 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 	private void checkProductionCellSelection(FamilyMember familyMember) {
 		try {
 			if (this.productionAction.isPrimaryCellChosen()) {
-				if (!this.board.getProductionArea().getPrimarySpace().execute(familyMember))
+				if (!this.board.getProductionArea().check(familyMember))
 					this.checkResult = false;
 			} else if (!this.productionAction.isPrimaryCellChosen()) {
 				if (board.getProductionArea().getSecondarySpace() == null
-						|| !(this.board.getProductionArea().getSecondarySpace().execute(familyMember)))
+						|| !(this.board.getProductionArea().check(familyMember)))
 					this.checkResult = false;
 			}
 		} catch (Exception e) {
@@ -145,8 +152,7 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 		try {
 			while (numberOfCopies > 0) {
 				
-				System.out.println("\n\n\n\n DEBUG REASON EXECUTE FROM MULT PRIVILEGES MULTIPLE CHOICE Choice INDEX = "+this.index+"\n\n\n");
-				System.out.println("\nMultiple council privilege exection calling executeMultipleChoice..");
+				System.out.println("Multiple council privilege exection calling executeMultipleChoice..");
 
 				executeMultipleChoice(effect.getPrivilegeChoices(), player);
 				int playerChoice = this.productionAction.getProductionChoices().get(index-1);
@@ -163,9 +169,7 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 
 	private void executeMultipleChoice(MultipleChoiceEffect effect, Player player) {
 		int playerChoice = this.productionAction.getProductionChoices().get(index);
-		System.out.println("\n\n\n\n DEBUG REASON EXECUTE MULTIPLE CHOICE Choice INDEX = "+this.index+"\n\n\n");
 		ChoiceEffect choiceEffect = (ChoiceEffect) effect.getChoices().get(playerChoice);
-		System.out.println("TO BE DELETED ATTENTION !!!! player choice was FOR " + effect.getChoices().get(playerChoice).toString()+"\n");
 		try {
 			if (playerChoice != -1) {
 				if (choiceEffect.check(player)) {

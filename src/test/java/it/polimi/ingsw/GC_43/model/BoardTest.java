@@ -18,6 +18,7 @@ import it.polimi.ingsw.GC_43.model.actionPerforms.MarketActionPerformerRoutine;
 import it.polimi.ingsw.GC_43.model.actionPerforms.ProductionActionPerformerRoutine;
 import it.polimi.ingsw.GC_43.model.actionPerforms.TowerActionPerformerRoutine;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 import it.polimi.ingsw.GC_43.model.initialization.GlobalVariablesInit;
@@ -46,17 +47,17 @@ public class BoardTest {
 		for (Effect effect : this.board.getCouncilPalace().getSpaces().get(0).getBonus())
 			System.out.println("\n" + effect.toString() + "\n");
 
-		this.board.excommunicatePlayer(this.board.getPlayers().get(1));
+		//this.board.excommunicatePlayer(this.board.getPlayers().get(1));
+		
+		  board.getPlayers().get(2).getPlayerCards().addTerritoryCard((
+		  TerritoryCard)board.getTowers().get(0).getFloors().get(0).getCard());
+		  board.getPlayers().get(2).getPlayerCards().addTerritoryCard((
+		  TerritoryCard)board.getTowers().get(0).getFloors().get(1).getCard());
+		 board.getPlayers().get(2).getPlayerCards().addTerritoryCard((
+		  TerritoryCard)board.getTowers().get(0).getFloors().get(2).getCard());
+		  board.getPlayers().get(2).getPlayerCards().addTerritoryCard((
+		  TerritoryCard)board.getTowers().get(0).getFloors().get(3).getCard());
 		/*
-		 * board.getPlayers().get(0).getPlayerCards().addTerritoryCard((
-		 * TerritoryCard)board.getTowers().get(0).getFloors().get(0).getCard());
-		 * board.getPlayers().get(0).getPlayerCards().addTerritoryCard((
-		 * TerritoryCard)board.getTowers().get(0).getFloors().get(1).getCard());
-		 * board.getPlayers().get(0).getPlayerCards().addTerritoryCard((
-		 * TerritoryCard)board.getTowers().get(0).getFloors().get(2).getCard());
-		 * board.getPlayers().get(0).getPlayerCards().addTerritoryCard((
-		 * TerritoryCard)board.getTowers().get(0).getFloors().get(3).getCard());
-		 * 
 		 * System.out.println("\n\nPLAYER HARVEST CARDS NOW ARE :\\n\n"+board.
 		 * getPlayers().get(0).getPlayerCards().toString());
 		 * 
@@ -73,24 +74,24 @@ public class BoardTest {
 		 * 
 		 */
 
-		board.getPlayers().get(0).getPlayerCards()
+		board.getPlayers().get(2).getPlayerCards()
 				.addBuildingCard((BuildingCard) board.getTowers().get(2).getFloors().get(0).getCard());
-		board.getPlayers().get(0).getPlayerCards()
+		board.getPlayers().get(2).getPlayerCards()
 				.addBuildingCard((BuildingCard) board.getTowers().get(2).getFloors().get(1).getCard());
-		board.getPlayers().get(0).getPlayerCards()
+		board.getPlayers().get(2).getPlayerCards()
 				.addBuildingCard((BuildingCard) board.getTowers().get(2).getFloors().get(2).getCard());
-		board.getPlayers().get(0).getPlayerCards()
+		board.getPlayers().get(2).getPlayerCards()
 				.addBuildingCard((BuildingCard) board.getTowers().get(2).getFloors().get(3).getCard());
-		board.getPlayers().get(0).getPlayerCards()
+		board.getPlayers().get(2).getPlayerCards()
 		.addBuildingCard((BuildingCard) board.getBuildingCardPool().get(4));
-		board.getPlayers().get(0).getPlayerCards()
+		board.getPlayers().get(2).getPlayerCards()
 		.addBuildingCard((BuildingCard) board.getBuildingCardPool().get(5));
-		board.getPlayers().get(0).getPlayerCards()
+		board.getPlayers().get(2).getPlayerCards()
 		.addBuildingCard((BuildingCard) board.getBuildingCardPool().get(6));
-		board.getPlayers().get(0).getPlayerCards()
+		board.getPlayers().get(2).getPlayerCards()
 		.addBuildingCard((BuildingCard) board.getBuildingCardPool().get(7));
 		
-		System.out.println(
+	/*	System.out.println(
 				"\n\nPLAYER BUILDING CARDS NOW ARE :\\n\n" + board.getPlayers().get(0).getPlayerCards().toString());
 
 		ProductionActionCreationRoutine p = new ProductionActionCreationRoutine(
@@ -139,7 +140,26 @@ public class BoardTest {
 		 * System.out.println("bonus "+this.board.getCouncilPalace().getCouncil(
 		 * ).getMinDiceValue());
 		 */
-
+		
+		
+		
+		
+		
+		//TEST FOR FINAL CALCULATION ON VICTORY POINTS
+		/*
+		  board.getPlayers().get(2).getPlayerCards().addCharacterCard((
+				  CharacterCard)board.getTowers().get(1).getFloors().get(0).getCard());
+		  board.getPlayers().get(2).getPlayerCards().addCharacterCard((
+				  CharacterCard)board.getTowers().get(1).getFloors().get(1).getCard());
+		  board.getPlayers().get(2).getPlayerCards().addCharacterCard((
+				  CharacterCard)board.getTowers().get(1).getFloors().get(2).getCard());
+		  board.getPlayers().get(2).getPlayerCards().addCharacterCard((
+				  CharacterCard)board.getTowers().get(1).getFloors().get(3).getCard());
+		*/
+		
+		System.out.println("\nDECIDING FOR WINNER");
+		FinalCalculationVictoryPoints fc= new FinalCalculationVictoryPoints();
+		System.out.println(fc.decideForWinner(this.board.getPlayers()));
 	}
 
 	@Test

@@ -47,6 +47,8 @@ public class HarvestActionCreationRoutine implements ActionCreation {
         // TODO to decide if to implements check even on actionPrepare  this.productionAction.getPlayer().subResource("servant",this.productionAction.getServantsUsed());
         boolean check=selectHarvestSpace(board.getHarvestArea());
         getInputsForHarvest(this.harvestAction.getFamilyMember());
+		System.out.println("\nHARVEST ACTION ENDS HERE\n");
+
 
         return check;
     }

@@ -45,10 +45,14 @@ public class MarketActionPerformerRoutine implements ActionPerformer {
 		
 		
 		if(this.checkResult==true){
+			System.out.println("\nMARKET ACTION ENDED SUCCESSFULLY\n");
+
 			return true;
 		}
 		else{
 			try {
+				System.out.println("Action Not valid, resetting player resources to inital ones and setting family member used free again..");
+
 				player.setPlayerResources(playerResourcesCopy);
 				familyMember.setAlreadyPlaced(false);
 			} catch (Exception e) {

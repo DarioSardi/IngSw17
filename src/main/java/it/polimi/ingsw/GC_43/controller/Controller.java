@@ -210,8 +210,10 @@ public class Controller implements IController {
 					System.out.println("Sending updated board to client" + clientHandler.getUsername());
 					clientHandler.sendObject(this.board);
 				}
-
-				nextPlayerPhase();
+				if (this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().isEmpty())
+					nextPlayerPhase();
+				else
+					askForExtraAction();
 
 			}
 
@@ -223,10 +225,28 @@ public class Controller implements IController {
 				System.out.println("\nAction concluded !\n");
 
 			}
-		} else {
+		}
+
+		else {
 			System.out.println("Player " + action.getPlayerID() + " submitted an action during excommunication time");
 		}
 
+	}
+	
+	//EXTRA ACTION COMMUNICATION LOGIC
+	private void askForExtraAction() {
+		System.out.println("Detected extra action possibility: asking player for it");
+		ExtraAction extraAction = new ExtraAction(
+				this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().get(0));
+
+		try {
+			this.getPlayerOfTurn().sendObject(extraAction);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		// removing extra action after sending it
+		this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().remove(0);
 	}
 
 	// MANAGING PLAYERS PHASES
@@ -361,10 +381,13 @@ public class Controller implements IController {
 	}
 
 	private void endGame() {
-		String winnerIs = this.board.establishWinner();
-		this.playersLobby.lobbyMsg("\n\nAND THE WINNER IS " + winnerIs + " with a total amount of "
-				+ this.matchPlayer.get(winnerIs).getPlayerResource("victoryPoint") + " victory points!!");
-
+		if (playerDisconnected < this.board.getPlayers().size()) {
+			String winnerIs = this.board.establishWinner();
+			this.playersLobby.lobbyMsg("\n\nAND THE WINNER IS " + winnerIs + " with a total amount of "
+					+ this.matchPlayer.get(winnerIs).getPlayerResource("victoryPoint") + " victory points!!");
+		} else {
+			System.out.println("All players are disconnected, end of the game");
+		}
 		// TODO decide how to terminate the game
 	}
 

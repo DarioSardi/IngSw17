@@ -41,7 +41,7 @@ public class MarketActionCreationRoutine implements ActionCreation{
 	        	return false;
 	        }
 
-	        System.out.println("Market Action completed !\n");
+			System.out.println("\nMARKET ACTION ENDS HERE\n");
 	        return true;
 	    }
 

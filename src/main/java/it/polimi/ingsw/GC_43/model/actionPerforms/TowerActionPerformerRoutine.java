@@ -59,9 +59,11 @@ public class TowerActionPerformerRoutine implements ActionPerformer {
 		System.out.println("Final result of the action is " + this.checkResult);
 
 		if (checkResult == true) {
+			System.out.println("\nTOWER ACTION ENDED SUCCESSFULLY\n");
+
 			return true;
 		} else {
-			System.out.println("Resetting old player resources & family member free..");
+			System.out.println("Action NOT valid, resetting old player resources & family member free..");
 			player.setPlayerResources(playerResourcesCopy);
 			familyMember.setAlreadyPlaced(false);
 			return false;

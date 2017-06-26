@@ -47,7 +47,7 @@ public class TowerActionCreationRoutine implements ActionCreation {
 
 		selectTowerAndFloor(board.getTowers());
 
-		System.out.println("\n TOWER ACTION ENDS HERE\n");
+		System.out.println("\nTOWER ACTION ENDS HERE\n");
 
 		return true;
 	}

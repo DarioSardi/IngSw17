@@ -40,31 +40,48 @@ public class FinalCalculationVictoryPoints{
 	}
 
 	public void calculateFinalVictoryPoints(ArrayList<Player> players){
+		System.out.println("Calculating victory points for each player\n");
 		for(Player player: players){
 			
 			//Malus on victoryPoints
 			int playerVictoryPoints= player.getPlayerResource("victoryPoint");
-			int victoryPointsToSubtractIfMalus= calculateVictoryPointsFactor(playerVictoryPoints);
-			if(player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("victoryPoint"))
-				player.subResource("victoryPoint", victoryPointsToSubtractIfMalus);
+			System.out.println("Calculating malus victory points for player "+player.getPlayerName());
 
+			int victoryPointsToSubtractIfMalus= calculateVictoryPointsFactor(playerVictoryPoints);
+			
+			System.out.println("Checking malus on victory points..");
+
+			if(player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("victoryPoint")){	
+				System.out.println("Subtracting victory points to player "+player.getPlayerName()+" due to malus on victory points");
+				player.subResource("victoryPoint", victoryPointsToSubtractIfMalus);
+			}
+			
+			
+			System.out.println("Checking malus on victory points for military points..");
 			//Malus on militaryPoints	
-			if(player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("militaryPoints"))
-					player.subResource("victoryPoint", player.getPlayerResource("militaryPoints"));
-		
+			if(player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("militaryPoint")){
+				System.out.println("Subtracting victory points to player "+player.getPlayerName()+" due to malus on military points");
+					player.subResource("victoryPoint", player.getPlayerResource("militaryPoint"));
+			}
 
 			//Malus on resources
 			int totalResourcesOfPlayer;
 			totalResourcesOfPlayer= totalResources(player);
+			System.out.println("Checking malus on victory points based on total resources of player which are: "+totalResourcesOfPlayer);
+
 			if(player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("resource"))
 				player.subResource("victoryPoint", totalResourcesOfPlayer);
 			
 			//Bonus on resources
+			System.out.println("Checking bonus on victory points based on total resources of player which are: "+totalResourcesOfPlayer);
 			player.addResource("victoryPoint", calculateVictoryPointsFactor(totalResourcesOfPlayer));
 			
 			//Bonus on Cards
 			//Venture cards has just one permEffect so I consider just element 0;
+			System.out.println("Checking bonus on victory points based on cards");
 			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("ventureCard")){
+				System.out.println("Adding victory points for venture cards, if present, of player "+player.getPlayerName());
+
 				for(VentureCard ventureCard: player.getPlayerCards().getArrayVentureCards())
 					
 					//assigned a random familyMember, doesn't matter
@@ -72,19 +89,26 @@ public class FinalCalculationVictoryPoints{
 			}
 					
 				
-			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("characterCard"))
+			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("characterCard")){
+				System.out.println("Adding victory points for character cards, if present, of player "+player.getPlayerName());
 				player.addResource("victoryPoint", GlobalVariables.endCharacterVictoryPoints[player.getPlayerCards().getArrayCharacterCards().size()]);
-		
-			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("territoryCard"))
+			}
+			if(!player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("territoryCard")){
+				System.out.println("Adding victory points for territory cards, if present, of player "+player.getPlayerName());
 				player.addResource("victoryPoint", GlobalVariables.endTerritoryVictoryPoints[player.getPlayerCards().getArrayTerritoryCards().size()]);
-			
+			}
 			if(player.getPlayerBounusMalus().getMalusOnFinalVictoryPoints().get("buildingCardCost")){
+				
 				int victoryPointsToSubtract= calculateBuildindCardsCost(player);
+				System.out.println("Subtracting victory points for building card malus on costs to player "+player.getPlayerName());
 				player.subResource("victoryPoint", victoryPointsToSubtract);
 			}
 		}
+		
+		System.out.println("\n\nFinished calculateFinalVictoryPoints function\n\n");
 	}
 	public int calculateBuildindCardsCost(Player player){
+		System.out.println("Calculating total building cards cost..");
 		int victoryPointsToSubtract=0;
 		for(BuildingCard buildingCard: player.getPlayerCards().getArrayBuildingCards()){
 			for(Resource resource: buildingCard.getCost().getCosts())
@@ -96,7 +120,8 @@ public class FinalCalculationVictoryPoints{
 	
 	
 	public int calculateVictoryPointsFactor(int playerResources){
-		
+		System.out.println("Calculating victory points to add/subtract for resources..");
+
 		int victoryPointsToSubtract=0;
 		while(playerResources>=5){
 			victoryPointsToSubtract++;
@@ -118,6 +143,8 @@ public class FinalCalculationVictoryPoints{
 	}
 
 	private int maximumPositionCalculator(ArrayList <Integer> numbers){
+		System.out.println("Calculating max of the array..");
+
 		int max=-1;
 		int i=0;
 		int positionInArray=0;
@@ -126,7 +153,10 @@ public class FinalCalculationVictoryPoints{
 				max=numbers.get(i);
 				positionInArray=i;
 			}
+			i++;
 		}
+		System.out.println("Finished calculating max of the array..");
+
 		return positionInArray;
 	}
 	
@@ -134,9 +164,11 @@ public class FinalCalculationVictoryPoints{
 //TODO Works, think to render it more dynamical
 	private void assignVictoryPointsForMilitaryPower(ArrayList<Player> players,String resource) {
 		ArrayList<Integer> arr= new ArrayList<Integer>();
+		System.out.println("Entered in assignVictoryPointsForMilitaryPower function..");
 		for(Player player:players)
 			arr.add(player.getPlayerResource(resource));
-			
+		System.out.println("ArrayList of MilitaryPower function created , size of "+arr.size());
+
 		int posMax1=maximumPositionCalculator(arr);
 		int maximum1=players.get(posMax1).getPlayerResource(resource);
 		arr.remove(posMax1);

@@ -61,9 +61,10 @@ public class CouncilPalacePerformerRoutine implements ActionPerformer {
 		}
 
 		if (checkResult == true) {
+			System.out.println("\nCOUNCIL PALACE ACTION ENDED SUCCESSFULLY\n");
 			return true;
 		} else {
-			System.out.println("action not valid, resetting parameters on server");
+			System.out.println("\nAction NOT valid, resetting parameters on server\n");
 
 			player.setPlayerResources(playerResourcesCopy);
 			familyMember.setAlreadyPlaced(false);
