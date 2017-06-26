@@ -9,6 +9,8 @@ import org.json.simple.parser.JSONParser;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.actionSpace.*;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
+import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
+import it.polimi.ingsw.GC_43.model.resources.Coin;
 
 public class InitActionSpaces {
 	private int[] faithPoints;
@@ -109,8 +111,16 @@ public class InitActionSpaces {
 		 	 	}                
 	       marketSpaces.add(new MarketActionSpace(resources, minDiceValue));
 		 }
+	    ArrayList<MarketActionSpace> tempMarketSpaces = new ArrayList<>();
+	    switch (GlobalVariables.numberOfPlayers) {     	
+	    case 2: 
+	    case 3: tempMarketSpaces = setTempMarketSpaces(marketSpaces, 2); break;
+	    case 4: tempMarketSpaces = setTempMarketSpaces(marketSpaces, 4); break;
+	    case 5: tempMarketSpaces = setTempMarketSpaces(marketSpaces, 5); break;
+	    default: System.out.println("Number of players unexpected");
+	    }
 	    
-	    this.market.setMarketActionSpaces(marketSpaces);
+	    this.market.setMarketActionSpaces(tempMarketSpaces);
 	}
   
     
@@ -156,6 +166,20 @@ public class InitActionSpaces {
      			}
    	 	 	}
 		}
+	}
+	
+	private ArrayList<MarketActionSpace> setTempMarketSpaces(ArrayList<MarketActionSpace> marketSpaces, int numberOfMarketSpaces){
+
+	    ArrayList<MarketActionSpace> tempMarketSpaces = new ArrayList<>();
+		try {
+			for (int i=0; i < numberOfMarketSpaces; i++){
+				tempMarketSpaces.add(marketSpaces.get(i));
+			}
+		} catch (Exception e) {
+			System.out.println("Insufficient number of market space in the ActionSpace.jar file");
+			e.printStackTrace();
+		}
+		return tempMarketSpaces;
 	}
 	
 	public ArrayList<Tower> getTowers(){

@@ -107,6 +107,19 @@
               "value": "2"
             }
           ]
+        },
+        {
+          "minDiceValue": "1",
+          "Bonus": [
+            {
+              "type": "stone",
+              "value": "3"
+            },
+            {
+              "type": "wood",
+              "value": "2"
+            }
+          ]
         }
       ],
 	 "CouncilPalaceBonus": [

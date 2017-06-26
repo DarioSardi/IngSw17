@@ -28,6 +28,7 @@
       "minDiceSecondProductionArea": "3",
       "minDiceValueCouncilPalace": "1",
       "towerTax": "3",
+      "towerTax5thPlayer": "2",
       "victoryPointsFirstMilitaryPower": "5",
       "victoryPointsSecondMilitaryPower": "2",
       "malusUnlimitedCells": "-3",
