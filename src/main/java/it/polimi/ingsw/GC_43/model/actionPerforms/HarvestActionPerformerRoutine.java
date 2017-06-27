@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.actions.Action;
@@ -84,18 +85,22 @@ public class HarvestActionPerformerRoutine implements ActionPerformer {
 
 		System.out.println("Checking family member..");
 		checkFamilyMemberAlreadyPlaced(familyMember);
+		System.out.println("check result is = "+this.checkResult);
 		System.out.println("Checking servants used..");
 		checkServantsUsed(player, familyMember);
+		System.out.println("check result is = "+this.checkResult);
 		System.out.println("Checking harvest cell selection..");
 		checkHarvestCellSelection(familyMember);
+		System.out.println("check result is = "+this.checkResult);
 		System.out.println("Checking harvest perform..");
 		checkHarvestPerform(player, familyMember);
+		System.out.println("check result is = "+this.checkResult);
 
 	}
 
 	private void checkHarvestCellSelection(FamilyMember familyMember) {
 		if (this.harvestAction.isPrimaryCellChosen()) {
-			if (!this.board.getHarvestArea().check(familyMember))
+			if (!this.board.getHarvestArea().check(familyMember)||this.board.getHarvestArea().getSpaces().get(0).isOccupied()==true)
 				this.checkResult = false;
 		} else if (!this.harvestAction.isPrimaryCellChosen()) {
 			if (board.getHarvestArea().getSecondarySpace() == null
@@ -117,9 +122,12 @@ public class HarvestActionPerformerRoutine implements ActionPerformer {
 	}
 
 	private void checkHarvestPerform(Player player, FamilyMember familyMember) {
-
+		int malusOnSecondarySpace =0;
+		if(!this.harvestAction.isPrimaryCellChosen())
+			malusOnSecondarySpace=GlobalVariables.malusUnlimitedCells;
 		int dieValue = familyMember.getDiceValue() + this.harvestAction.getServantsUsed()
-				+ player.getPlayerBounusMalus().getBonusHarvestArea();
+				+ player.getPlayerBounusMalus().getBonusHarvestArea()+malusOnSecondarySpace;
+
 
 		for (TerritoryCard territoryCard : this.harvestAction.getPlayer().getPlayerCards().getArrayTerritoryCards()) {
 			if (dieValue >= territoryCard.getProductionDice()) {
@@ -139,6 +147,8 @@ public class HarvestActionPerformerRoutine implements ActionPerformer {
 				}
 			}
 		}
+		this.harvestAction.getFamilyMember().addFamilyMemberValue(GlobalVariables.malusUnlimitedCells);
+
 	}
 
 	private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect, Player player) {

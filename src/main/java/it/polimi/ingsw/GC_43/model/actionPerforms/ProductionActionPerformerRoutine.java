@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.actions.Action;
@@ -53,7 +54,10 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 
 		checkAndTryAction(player, familyMember);
 		System.out.println("check and try finished");
-
+		
+		System.out.println("\nReceiving player default bonus on harvest");
+		receiveDefaultProductionBonus(player, familyMember);
+		
 		if (checkResult == true) {
 			if (this.productionAction.isPrimaryCellChosen())
 				this.board.getProductionArea().getPrimarySpace().execute(familyMember);
@@ -71,27 +75,43 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 		}
 	}
 
+	private void receiveDefaultProductionBonus(Player player, FamilyMember familyMember) {
+		if (!player.getPersonalProductionBonus().isEmpty()) {
+			System.out.println("Executing player personal harvest bonus");
+			for (Effect effect : player.getPersonalHarvestBonus())
+				effect.executeEffect(familyMember);
+		}		
+	}
+
 	private void checkAndTryAction(Player player, FamilyMember familyMember) {
-
+		System.out.println("checking family member..");
 		checkFamilyMemberAlreadyPlaced(familyMember);
-
+		System.out.println("check result is = "+this.checkResult);
+		System.out.println("checking servants used..");
 		checkServantsUsed(player, familyMember);
-
+		System.out.println("check result is = "+this.checkResult);
+		System.out.println("checking production cell selection..");
 		checkProductionCellSelection(familyMember);
-
+		System.out.println("check result is = "+this.checkResult);
+		System.out.println("checking production perform..");
 		checkProductionPerform(player, familyMember);
+		System.out.println("check result is = "+this.checkResult);
 
 	}
 
 	private void checkProductionCellSelection(FamilyMember familyMember) {
 		try {
 			if (this.productionAction.isPrimaryCellChosen()) {
-				if (!this.board.getProductionArea().check(familyMember))
+				if (!this.board.getProductionArea().check(familyMember)||this.board.getProductionArea().getSpaces().get(0).isOccupied())
 					this.checkResult = false;
 			} else if (!this.productionAction.isPrimaryCellChosen()) {
 				if (board.getProductionArea().getSecondarySpace() == null
-						|| !(this.board.getProductionArea().check(familyMember)))
+						|| !(this.board.getProductionArea().check(familyMember))){
+					System.out.println("DEBUG TO BE CANCELLED : Secondary production area  branch");
+					System.out.println(" and family member check is "+this.board.getProductionArea().check(familyMember));
+					System.out.println("Secondary production area is "+board.getProductionArea().getSecondarySpace());
 					this.checkResult = false;
+				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -117,9 +137,11 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 	}
 
 	private void checkProductionPerform(Player player, FamilyMember familyMember) {
-
+		int malusOnSecondarySpace =0;
+		if(!this.productionAction.isPrimaryCellChosen())
+			malusOnSecondarySpace=GlobalVariables.malusUnlimitedCells;
 		int dieValue = familyMember.getDiceValue() + this.productionAction.getServantsUsed()
-				+ player.getPlayerBounusMalus().getBonusProductionArea();
+				+ player.getPlayerBounusMalus().getBonusProductionArea()+malusOnSecondarySpace;
 
 		try {
 			for (BuildingCard buildingCard : this.productionAction.getPlayer().getPlayerCards()
@@ -141,6 +163,8 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		this.productionAction.getFamilyMember().addFamilyMemberValue(GlobalVariables.malusUnlimitedCells);
+
 	}
 
 	private void executeMultipleCouncilPrivilege(MultipleCouncilPrivileges multipleEffect, Player player) {

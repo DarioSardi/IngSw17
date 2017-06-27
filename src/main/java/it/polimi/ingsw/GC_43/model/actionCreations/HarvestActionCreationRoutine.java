@@ -54,7 +54,12 @@ public class HarvestActionCreationRoutine implements ActionCreation {
     }
     
     private void getInputsForHarvest(FamilyMember familyMember) {
-    	int dieValue=familyMember.getDiceValue()+this.harvestAction.getServantsUsed()+familyMember.getPlayer().getPlayerBounusMalus().getBonusHarvestArea();
+    	int malusOnSecondarySpace =0;
+		if(!this.harvestAction.isPrimaryCellChosen())
+			malusOnSecondarySpace=GlobalVariables.malusUnlimitedCells;
+
+    	int dieValue=familyMember.getDiceValue()+this.harvestAction.getServantsUsed()+familyMember.getPlayer().getPlayerBounusMalus().getBonusHarvestArea()+malusOnSecondarySpace;
+    	
     	for(TerritoryCard territoryCard: this.harvestAction.getPlayer().getPlayerCards().getArrayTerritoryCards()){
     		if(dieValue>=territoryCard.getProductionDice()){
     			for( Effect effect: territoryCard.getPermaBonus()){
@@ -67,6 +72,8 @@ public class HarvestActionCreationRoutine implements ActionCreation {
     			}
     		}
     	}
+		this.harvestAction.getFamilyMember().addFamilyMemberValue(GlobalVariables.malusUnlimitedCells);
+
     }
 
 
@@ -82,7 +89,6 @@ public class HarvestActionCreationRoutine implements ActionCreation {
 
 			System.out.println("\nPrimary harvest cell occupied, secondary harvest cell selected. Family Member will receive a malus on die value of \n"+GlobalVariables.malusUnlimitedCells);
             this.harvestAction.setPrimaryCellChosen(false);
-			this.harvestAction.getFamilyMember().subFamilyMemberValue(GlobalVariables.malusUnlimitedCells);
 			return harvestArea.check((this.harvestAction.getFamilyMember()));
 
         	}

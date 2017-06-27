@@ -103,22 +103,22 @@ public class BoardTest {
 		
 		System.out.println("\n\nPLAYER RESOURCES NOW ARE :\\n\n"+board. getPlayers().get(0).toString()+"\n");		
 		System.out.println("Message from board: Production action perform ended!");
-		/*
-		 * MarketActionCreationRoutine m = new
-		 * MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName()
-		 * , board.getPlayers().get(0), board);
-		 * 
-		 * m.prepareAction();
-		 * 
-		 * MarketActionPerformerRoutine mp= new
-		 * MarketActionPerformerRoutine(m.getMarketAction(),board);
-		 * System.out.println("started performing market action in board test");
-		 * mp.performAction();
-		 * System.out.println("finished performing market action in board test"
-		 * );
-		 * 
-		 * 
-		 */
+		*/
+		  MarketActionCreationRoutine m = new
+		  MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName()
+		  , board.getPlayers().get(0), board);
+		  
+		 m.prepareAction();
+		 
+		 MarketActionPerformerRoutine mp= new
+		 MarketActionPerformerRoutine(m.getMarketAction(),board);
+		 System.out.println("started performing market action in board test");
+		 mp.performAction();
+		 System.out.println("finished performing market action in board test"
+		 );
+		  
+		  
+		 /*
 		 TowerActionCreationRoutine t = new
 		 TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(),
 		 board.getPlayers().get(0), board); t.prepareAction();
@@ -155,11 +155,14 @@ public class BoardTest {
 				  CharacterCard)board.getTowers().get(1).getFloors().get(2).getCard());
 		  board.getPlayers().get(2).getPlayerCards().addCharacterCard((
 				  CharacterCard)board.getTowers().get(1).getFloors().get(3).getCard());
-		*/
+		
 		
 		System.out.println("\nDECIDING FOR WINNER");
 		FinalCalculationVictoryPoints fc= new FinalCalculationVictoryPoints();
 		System.out.println(fc.decideForWinner(this.board.getPlayers()));
+		
+		
+		*/
 	}
 
 	@Test

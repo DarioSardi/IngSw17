@@ -77,7 +77,6 @@ public class Controller implements IController {
 		try {
 			changePhases(initialPlayer);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("changing phase finished");
@@ -111,7 +110,7 @@ public class Controller implements IController {
 
 	}
 
-	// ROUTINES OF DISCONNECTIONS AND RECONNECTIONS OF PLAYERS
+	// ROUTINE OF RECONNECTIONS OF PLAYERS
 
 	public void playerInGameAgain(String playerUsername, ClientHandler clientHandler) throws RemoteException {
 		System.out.println("Attempting to reconnect " + playerUsername);
@@ -133,7 +132,9 @@ public class Controller implements IController {
 		}
 
 	}
-
+	
+	// ROUTINE OF DISCONNECTIONS OF PLAYERS
+	
 	public void playerDisconnected(String playerUsername) {
 		switchPlayerStatus(playerUsername);
 		System.out.println("Incrementing number of disconnected players");
@@ -159,6 +160,10 @@ public class Controller implements IController {
 
 		GlobalVariablesInit.readGlobalVariables();
 
+		//SAM IF PLAYER 5 CAMBIA TAX TOWER CAMBIA MALUS PRODUCTIONE HARVEST SECONDARY CELL TUTTI A 2/-2
+		//AGGIUNGO QUI NO ?
+		
+		
 		CopyOfGlobalVariables globalVariables = new CopyOfGlobalVariables();
 		new GlobalVariables().createCopyGlobalVariables(globalVariables);
 		this.globalVariables = globalVariables;
@@ -220,7 +225,7 @@ public class Controller implements IController {
 
 			else {
 				System.out.println(
-						"\n Action unsuccessfully submitted " + actionResult + "action to strng\n" + action.toString());
+						"\nAction unsuccessfully submitted " + actionResult + " action to string\n" + action.toString());
 				System.out.println(this.getPlayerOfTurn().getUsername());
 				this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
 				System.out.println("\nAction concluded !\n");
@@ -252,7 +257,16 @@ public class Controller implements IController {
 	
 
 	private void getBackInitialTurn() {
-		//TODO TO BE COMPLETED
+		
+		System.out.println("Giving back phase action to players who had malus..");
+		try {
+			changePhases(this.matchClientHandler.get(this.playerSkippedFirstRound.get(0).getPlayerName()));
+			this.playerSkippedFirstRound.remove(0);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	
@@ -262,8 +276,9 @@ public class Controller implements IController {
 	// MANAGING PLAYERS PHASES
 
 	private void nextPlayerPhase() throws RemoteException {
+		System.out.println("\n\nNEXT PLAYER PHASE LOGIC STARTING\n");
 
-		System.out.println("\n Attemping to get old phase player" + this.board.getPhasePlayer());
+		System.out.println("Attemping to get old phase player " + this.board.getPhasePlayer());
 
 		if (this.playerDisconnected == this.clientHandlers.size()) {
 			System.out.println("No players in game, game over");
@@ -276,21 +291,6 @@ public class Controller implements IController {
 			
 			getBackInitialTurn();
 			
-			
-			
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-			//CHECK AFTER IF PLAYER HAS MALUS , IF SO CHECK IF IT IS ROUND 0 AND LET HIM SKIPT THE TURN OTHERWISE HE SKIP ALL TURNS
-
 		}
 
 		else {
@@ -325,15 +325,34 @@ public class Controller implements IController {
 
 			}
 
-			while (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())) {
-				this.board.nextPhase();
+			
+			if (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())) {
+				nextPlayerPhase();
+				return;
 			}
 
 			System.out.println("\n Attemping match player name" + this.board.getPhasePlayer());
+			
+			
+			
+			//CHECKING MALUS SKIP FIRST ROUND PHASE
+			
 			ClientHandler playerOfTurn = this.matchClientHandler.get(this.board.getPhasePlayer());
+			if(this.board.getRound()==0 && this.matchPlayer.get(this.board.getPhasePlayer()).getPlayerBounusMalus().isSkipFirstFamiliarMoveAndGetItBackAtTheEnd()){
+				while(this.board.getRound()==0 && this.matchPlayer.get(this.board.getPhasePlayer()).getPlayerBounusMalus().isSkipFirstFamiliarMoveAndGetItBackAtTheEnd()){
+					this.playerSkippedFirstRound.add(this.matchPlayer.get(this.board.getPhasePlayer()));
+					nextPlayerPhase();
+					return;
+					
+				}
+					
+			}
+			
+			else{
 			System.out.println("\nChanging phases of players");
 			changePhases(playerOfTurn);
 			System.out.println("\nNext turn logic ended successfully");
+			}
 		}
 	}
 
@@ -450,8 +469,8 @@ public class Controller implements IController {
 		int actionID = action.getActionID();
 		boolean result;
 
-		System.out.println("\nAttempting to perform the action submitted " + action.toString() + "\n with ID: "
-				+ action.getActionID());
+		System.out.println("\nAttempting to perform the action submitted with ID: "
+				+ action.getActionID()+"\n"+ action.toString()) ;
 
 		switch (actionID) {
 		case 1:

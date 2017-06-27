@@ -275,6 +275,8 @@ public class Client {
 		   GlobalVariables.maxMilitaryPoints = o.maxMilitaryPoints;
 		   GlobalVariables.maxFaithPoints = o.maxFaithPoints;
 		   GlobalVariables.faithPointExcomRequired=o.faithPointExcomRequired;
+		   GlobalVariables.councilPrivilegeEffect=o.councilPrivilegeEffect;
+
 	}
 	
 	public static void main(String [] args) throws IOException, NotBoundException {
