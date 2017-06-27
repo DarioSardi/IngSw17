@@ -26,6 +26,9 @@ public class HarvestAreaTest {
 		f1.setDieToFamilyMember(4);
 		ha=new HarvestArea();
 		assertTrue(ha.check(f1));
+		assertTrue(ha.getPrimarySpace().check(f1));
+		ha.getPrimarySpace().addFamiliarIn(f1);
+		assertEquals(false,ha.getPrimarySpace().check(f1));
 	}
 
 	@Test
@@ -56,5 +59,17 @@ public class HarvestAreaTest {
 		ha=new HarvestArea();
 		ha.toString();
 	}
+	
+	@Test
+	public void testExecute(){
+		p=new Player("Dario",5);
+		FamilyMember f1=new FamilyMember(p, 0);
+		f1.setDieToFamilyMember(4);
+		ha=new HarvestArea();
+		Space primary=ha.getPrimarySpace();
+		primary.execute(f1);
+		System.out.println(primary.toString());
+	}
+	
 
 }

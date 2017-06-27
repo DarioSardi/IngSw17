@@ -22,6 +22,7 @@ import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.actions.Action;
 
 public class Client {
@@ -64,15 +65,158 @@ public class Client {
 		handler=(ClientaHandlerRmInterface)registry.lookup("COF");
 		executor = Executors.newFixedThreadPool(1);
 		this.rmiView=new RmiView(this,handler,inKeyboard);
-		handler.connect(this.rmiView);
 		executor.submit(rmiView);
 		
 		
 		
 	}
+	
+	private void connect() throws UnknownHostException, IOException {
+    	socket = new Socket(address, port);
+    	//thread per gestione I/O
+    	executor = Executors.newFixedThreadPool(2);
+    	this.outStream=new ClientOutHandler(new ObjectOutputStream(socket.getOutputStream()),this);
+    	this.inStream=new ClientInHandler(new ObjectInputStream(socket.getInputStream()),this);
+    	executor.submit(inStream);
+    	executor.submit(outStream);
+      
+        
+    }
 
 
 
+	public void setup() throws IOException{
+    	inKeyboard = new BufferedReader(new InputStreamReader(System.in));
+    	Boolean correctAnswer=false;
+    	while (!correctAnswer) {
+			System.out.println("Welcome on Lorenzo il magnifico in JAVA");
+			System.out.println("select the configuration type: manual /socket/rmi");
+			String answer = inKeyboard.readLine().toString();
+			if (answer.equals("manual")) {
+				System.out.println("select connection type RMI/SOCKET:");
+				String connectionType= inKeyboard.readLine();
+				Boolean rmiChoice;
+				if("rmi".equalsIgnoreCase(connectionType)){
+						rmiChoice=true;
+				}
+				else if("socket".equalsIgnoreCase(connectionType)){
+					rmiChoice=false;
+					}
+				else{
+					System.out.println("invalid choice");
+					continue;
+				}			
+				System.out.println("seleziona l'indirizzo del server (localhost by default settings) : ");
+				String addressChoice = inKeyboard.readLine();
+				System.out.println("seleziona la porta del server(SOCKET: 7777 RMI:7077):");
+				Integer portChoice= Integer.parseInt(inKeyboard.readLine());
+				System.out.println("Select your username: ");
+				String usernameChoice = inKeyboard.readLine();
+				setConfigFields(addressChoice,portChoice,usernameChoice,rmiChoice);
+					correctAnswer = true;
+				
+			}
+
+			else if (answer.equals("socket")) {
+				String addressChoice= "127.0.0.1";
+				Integer portChoice = 7777;
+				System.out.println("Select your username: ");
+				String usernameChoice  = inKeyboard.readLine();
+				Boolean rmiChoice=false;
+				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
+				correctAnswer=true;
+			}
+
+			else if (answer.equals("rmi")) {
+				String addressChoice = "127.0.0.1";
+				Integer portChoice  = 7077;
+				System.out.println("Select your username: ");
+				String usernameChoice = inKeyboard.readLine();
+				Boolean rmiChoice=true;
+				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
+				correctAnswer=true;
+			} 
+			
+			
+			else {
+				System.out.println("damit, this is the first one, good luck on playing the game with CLI");
+			} 
+		}
+		System.out.println("connetto a: "+address+"/"+port+" RMI:"+rmi);
+    }
+	
+	
+	
+	private void setConfigFields(String addressChoice, Integer portChoice, String usernameChoice,
+			Boolean rmiChoice) {
+		this.address=addressChoice;
+		this.port=portChoice;
+		this.username=usernameChoice;
+		this.rmi=rmiChoice;
+		
+	}
+
+
+
+	public void sendObj(Object o,Integer ID) throws RemoteException{
+		if (!rmi) {
+			System.out.println("invio oggetto " + o.toString());
+			this.outStream.sendObj(o);
+		}
+		else if(rmi){
+			if(o instanceof Action){
+				handler.submitAction(ID,(Action)o);
+			}
+			
+		}
+		else System.out.println("ehm...why you are here?");
+	}
+	
+	public void setGameGlobalVariables(CopyOfGlobalVariables copy) {
+		GlobalVariables.maxNumberOfPlayers = copy.maxNumberPlayerCards;
+		   GlobalVariables.numberOfFamilyMembers = copy.numberOfFamilyMembers;
+		   GlobalVariables.numberOfTowers = copy.numberOfTowers;
+		   GlobalVariables.numberOfDice = copy.numberOfDice;
+		   GlobalVariables.excommunicationRound = copy.excommunicationRound;
+		   GlobalVariables.totalNumberOfCardsPerSet = copy.totalNumberOfCardsPerSet;
+		   GlobalVariables.towerCardsPerRound = copy.towerCardsPerRound;
+		   GlobalVariables.towerCardsPerPeriod = copy.towerCardsPerPeriod;
+		   GlobalVariables.floorsPerTower = copy.floorsPerTower;
+		   GlobalVariables.totalNumberOfPeriods = copy.totalNumberOfPeriods;
+		   GlobalVariables.maxNumberPlayerCards = copy.maxNumberPlayerCards;
+		   GlobalVariables.initialWoods = copy.initialWoods;
+		   GlobalVariables.initialStones = copy.initialStones;
+		   GlobalVariables.initialServants = copy.initialServants;
+		   GlobalVariables.initialFirstPlayerCoins = copy.initialFirstPlayerCoins;
+		   GlobalVariables.initialSecondPlayerCoins = copy.initialSecondPlayerCoins;	
+		   GlobalVariables.initialThirdPlayerCoins = copy.initialThirdPlayerCoins;	
+		   GlobalVariables.initialFourthPlayerCoins = copy.initialFourthPlayerCoins;	
+		   GlobalVariables.initialVictoryPoints = copy.initialVictoryPoints;
+		   GlobalVariables.initialMilitaryPoints = copy.initialMilitaryPoints;
+		   GlobalVariables.initialFaithPoints = copy.initialFaithPoints;
+		   GlobalVariables.minDiceFirstHarvestArea = copy.minDiceFirstHarvestArea;
+		   GlobalVariables.minDiceSecondHarvestArea = copy.minDiceSecondHarvestArea;
+		   GlobalVariables.minDiceFirstProductionArea = copy.minDiceFirstProductionArea;
+		   GlobalVariables.minDiceSecondProductionArea = copy.minDiceSecondProductionArea;
+		   GlobalVariables.minDiceValueCouncilPalace = copy.minDiceValueCouncilPalace;
+		   GlobalVariables.malusOnSecondHarvestArea = copy.malusOnSecondHarvestArea;
+		   GlobalVariables.malusOnSecondProductionArea = copy.malusOnSecondProductionArea;
+		   GlobalVariables.towerTax = copy.towerTax;
+		   GlobalVariables.numberOfPlayers = copy.numberOfPlayers;
+		   GlobalVariables.victoryPointsFirstMilitaryPower = copy.victoryPointsFirstMilitaryPower;
+		   GlobalVariables.victoryPointsSecondMilitaryPower = copy.victoryPointsSecondMilitaryPower;
+		   GlobalVariables.maxVictoryPoints = copy.maxVictoryPoints;
+		   GlobalVariables.maxMilitaryPoints = copy.maxMilitaryPoints;
+		   GlobalVariables.maxFaithPoints = copy.maxFaithPoints;
+		   GlobalVariables.councilPrivilegeEffect = CommonActionCreatorRoutine.copyMultiplePrivileges(1).getPrivilegeChoices();
+		   GlobalVariables.malusUnlimitedCells = copy.malusUnlimitedCells;
+		   GlobalVariables.militaryPointsRequired = copy.militaryPointsRequired;
+		   GlobalVariables.faithPointExcomRequired = copy.faithPointExcomRequired;
+		   GlobalVariables.endResourcesToVictoryPoint = copy.endResourcesToVictoryPoint;
+		   GlobalVariables.endCharacterVictoryPoints = copy.endCharacterVictoryPoints;
+		   GlobalVariables.endTerritoryVictoryPoints = copy.endTerritoryVictoryPoints;
+	}
+	
 	public void closeGame() {
 		try {
 			this.online=false;
@@ -135,146 +279,6 @@ public class Client {
 			}
 		});
 		System.out.println("\nI TUOI DATI:\n"+this.myPlayer.toString());
-	}
-
-
-
-	private void connect() throws UnknownHostException, IOException {
-    	socket = new Socket(address, port);
-    	//thread per gestione I/O
-    	executor = Executors.newFixedThreadPool(2);
-    	this.outStream=new ClientOutHandler(new ObjectOutputStream(socket.getOutputStream()),this);
-    	this.inStream=new ClientInHandler(new ObjectInputStream(socket.getInputStream()),this);
-    	executor.submit(inStream);
-    	executor.submit(outStream);
-      
-        
-    }
-
-
-
-	public void setup() throws IOException{
-    	inKeyboard = new BufferedReader(new InputStreamReader(System.in));
-    	Boolean correctAnswer=false;
-    	while (!correctAnswer) {
-			System.out.println("Welcome on Lorenzo il magnifico in JAVA");
-			System.out.println("select the configuration type: manual / auto_socket / auto_rmi");
-			String answer = inKeyboard.readLine().toString();
-			if (answer.equals("manual")) {
-				System.out.println("select connection type RMI/SOCKET:");
-				String connectionType= inKeyboard.readLine();
-				Boolean rmiChoice;
-				if("rmi".equalsIgnoreCase(connectionType)){
-						rmiChoice=true;
-				}
-				else if("socket".equalsIgnoreCase(connectionType)){
-					rmiChoice=false;
-					}
-				else{
-					System.out.println("invalid choice");
-					continue;
-				}			
-				System.out.println("seleziona l'indirizzo del server (localhost by default settings) : ");
-				String addressChoice = inKeyboard.readLine();
-				System.out.println("seleziona la porta del server(SOCKET: 7777 RMI:7077):");
-				Integer portChoice= Integer.parseInt(inKeyboard.readLine());
-				System.out.println("Select your username: ");
-				String usernameChoice = inKeyboard.readLine();
-				setConfigFields(addressChoice,portChoice,usernameChoice,rmiChoice);
-					correctAnswer = true;
-				
-			}
-
-			else if (answer.equals("auto_socket")) {
-				String addressChoice= "127.0.0.1";
-				Integer portChoice = 7777;
-				System.out.println("Select your username: ");
-				String usernameChoice  = inKeyboard.readLine();
-				Boolean rmiChoice=false;
-				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
-				correctAnswer=true;
-			}
-
-			else if (answer.equals("auto_rmi")) {
-				String addressChoice = "127.0.0.1";
-				Integer portChoice  = 7077;
-				System.out.println("Select your username: ");
-				String usernameChoice = inKeyboard.readLine();
-				Boolean rmiChoice=true;
-				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
-				correctAnswer=true;
-			} 
-			
-			
-			else {
-				System.out.println("damit, this is the first one, good luck on playing the game with CLI");
-			} 
-		}
-		System.out.println("connetto a: "+address+"/"+port+" RMI:"+rmi);
-    }
-	
-	
-	
-	private void setConfigFields(String addressChoice, Integer portChoice, String usernameChoice,
-			Boolean rmiChoice) {
-		this.address=addressChoice;
-		this.port=portChoice;
-		this.username=usernameChoice;
-		this.rmi=rmiChoice;
-		
-	}
-
-
-
-	public void sendObj(Object o) throws RemoteException{
-		if (!rmi) {
-			System.out.println("invio oggetto " + o.toString());
-			this.outStream.sendObj(o);
-		}
-		else if(rmi){
-			if(o instanceof Action){
-				handler.submitAction((Action)o);
-			}
-			
-		}
-		else System.out.println("ehm...why you are here?");
-	}
-	
-	public void setGameGlobalVariables(CopyOfGlobalVariables o) {
-		   GlobalVariables.maxNumberOfPlayers = o.maxNumberPlayerCards;
-		   GlobalVariables.numberOfFamilyMembers = o.numberOfFamilyMembers;
-		   GlobalVariables.numberOfTowers = o.numberOfTowers;
-		   GlobalVariables.numberOfDice = o.numberOfDice;
-		   GlobalVariables.excommunicationRound = o.excommunicationRound;
-		   GlobalVariables.totalNumberOfCardsPerSet = o.totalNumberOfCardsPerSet;
-		   GlobalVariables.towerCardsPerRound = o.towerCardsPerRound;
-		   GlobalVariables.towerCardsPerPeriod = o.towerCardsPerPeriod;
-		   GlobalVariables.floorsPerTower = o.floorsPerTower;
-		   GlobalVariables.totalNumberOfPeriods = o.totalNumberOfPeriods;
-		   GlobalVariables.maxNumberPlayerCards = o.maxNumberPlayerCards;
-		   GlobalVariables.initialWoods = o.initialWoods;
-		   GlobalVariables.initialStones = o.initialStones;
-		   GlobalVariables.initialServants = o.initialServants;
-		   GlobalVariables.initialFirstPlayerCoins = o.initialFirstPlayerCoins;
-		   GlobalVariables.initialSecondPlayerCoins = o.initialSecondPlayerCoins;	
-		   GlobalVariables.initialThirdPlayerCoins = o.initialThirdPlayerCoins;	
-		   GlobalVariables.initialFourthPlayerCoins = o.initialFourthPlayerCoins;	
-		   GlobalVariables.initialVictoryPoints = o.initialVictoryPoints;
-		   GlobalVariables.initialMilitaryPoints = o.initialMilitaryPoints;
-		   GlobalVariables.initialFaithPoints = o.initialFaithPoints;
-		   GlobalVariables.minDiceFirstHarvestArea = o.minDiceFirstHarvestArea;
-		   GlobalVariables.minDiceSecondHarvestArea = o.minDiceSecondHarvestArea;
-		   GlobalVariables.minDiceFirstProductionArea = o.minDiceFirstProductionArea;
-		   GlobalVariables.minDiceSecondProductionArea = o.minDiceSecondProductionArea;
-		   GlobalVariables.minDiceValueCouncilPalace = o.minDiceValueCouncilPalace;
-		   GlobalVariables.towerTax = o.towerTax;
-		   GlobalVariables.numberOfPlayers = o.numberOfPlayers;
-		   GlobalVariables.victoryPointsFirstMilitaryPower = o.victoryPointsFirstMilitaryPower;
-		   GlobalVariables.victoryPointsSecondMilitaryPower = o.victoryPointsSecondMilitaryPower;
-		   GlobalVariables.maxVictoryPoints = o.maxVictoryPoints;
-		   GlobalVariables.maxMilitaryPoints = o.maxMilitaryPoints;
-		   GlobalVariables.maxFaithPoints = o.maxFaithPoints;
-		   GlobalVariables.faithPointExcomRequired=o.faithPointExcomRequired;
 	}
 	
 	public static void main(String [] args) throws IOException, NotBoundException {

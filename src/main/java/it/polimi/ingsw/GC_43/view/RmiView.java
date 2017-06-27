@@ -21,6 +21,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	private Boolean online;
 	private Client myclient;
 	private boolean inLobby;
+	private int ID;
 
 	public RmiView(Client c,ClientaHandlerRmInterface handler, BufferedReader inKeyboard)  throws RemoteException{
 		this.handler=handler;
@@ -32,13 +33,21 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	public void run() {
 		System.out.println("RMI menu!");
 		try {
-			this.handler.setUsername(this.myclient.getUsername());
-			this.myclient.setID(this.handler.getID());
+			System.out.println("receiving ID");
+			this.myclient.setID(handler.connect(this));
+		} catch (RemoteException e2) {
+			e2.printStackTrace();
+		}
+		this.ID=myclient.getID();
+		try {
+			System.out.println("setting username");
+			this.handler.setUsername(this.ID,this.myclient.getUsername());
 		} catch (RemoteException e1) {
 			
 			e1.printStackTrace();
 		}
 		online=true;
+		
 		while (online) {
 			try {
 				System.out.println(this.handler.mainMenuChoicesPrint());
@@ -53,7 +62,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 						System.out.println("select the max number of players in the lobby/game (min 2 max 4)");
 						maxPlayers = Integer.parseInt(input.readLine());
 					}
-					if (handler.tryToCreateLobby(lobbyNumber,maxPlayers)) {
+					if (handler.tryToCreateLobby(this.ID,lobbyNumber,maxPlayers)) {
 						System.out.println("you are in the lobby now!");
 						inLobby();
 				} else {
@@ -65,7 +74,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 				System.out.println("select a lobby to join!");
 				System.out.println(handler.printLobbyes());
 				Integer lobbyNumber=Integer.parseInt(input.readLine());
-				if(handler.joinLobby(lobbyNumber)){
+				if(handler.joinLobby(this.ID,lobbyNumber)){
 					inLobby();
 				}
 				else{System.out.println("unable to join lobby");}
@@ -79,7 +88,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 			
 			else if ("ping".equals(command)) {
 				System.out.println("pinging server...");
-				handler.ping();
+				handler.ping(this.ID);
 			}
 			
 			
@@ -107,9 +116,9 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 				} else if ("chat".equals(command)) {
 					System.out.println("write the message that you want to send!");
 					String msg = input.readLine();
-					handler.chatMessage(msg);
+					handler.chatMessage(this.ID,msg);
 				} else if ("start_game".equals(command)) {
-					if (handler.startGame()) {
+					if (handler.startGame(this.ID)) {
 						this.myclient.inGame=true;
 						inGame();
 					} else {
@@ -117,7 +126,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 						continue;
 					}
 				} else if ("players".equals(command)) {
-					System.out.println(handler.whoIsInLobby());
+					System.out.println(handler.whoIsInLobby(this.ID));
 				} else if ("help".equals(command)) {
 					helpMsgLobby();
 				} else {
@@ -144,7 +153,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	private void inGame() {
 		System.out.println("you are in game");
 		System.out.println("switched to in-game commands");
-		InGameMessageParser parser=new InGameMessageParser(input);
+		InGameMessageParser parser=new InGameMessageParser(input,this.ID,this.myclient);
 			while(this.myclient.inGame){
 				inGameCommandsPrint();
 				try {
@@ -162,7 +171,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 						System.out.println("write the message and then press enter, to abort write 'exit_chat'");
 						String msg=input.readLine();
 						if(!"exit_chat".equals(msg)){
-							handler.chatMessage(msg);
+							handler.chatMessage(this.ID,msg);
 						}
 					}
 					else if("info".equals(command)){
@@ -193,7 +202,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 							System.out.println("select a password to re-enter the game");
 							String password=input.readLine().toString();
 							System.out.print("now you are leaving the game!Press Enter to continue to the lobby");
-							handler.quitGame(password);
+							handler.quitGame(this.ID,password);
 							this.myclient.setInGame(false);
 						}
 						else{
@@ -236,6 +245,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	@Override
 	public void updateBoard(Board b) throws RemoteException {
+		System.out.println("board recived");
 		this.myclient.setBoard(b);
 		
 	}

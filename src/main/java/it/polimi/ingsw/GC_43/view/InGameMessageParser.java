@@ -14,20 +14,20 @@ import it.polimi.ingsw.GC_43.model.actionCreations.TowerActionCreationRoutine;
 public class InGameMessageParser {
 
 	private BufferedReader userIn;
-	private ClientOutHandler clientHandler;
+	//private ClientOutHandler clientHandler;
 	private long timeoutLimit;
+	private Integer ID;
+	private Client myClient;
 
-	public InGameMessageParser(BufferedReader userIn) {
+	public InGameMessageParser(BufferedReader userIn,Integer ID,Client myclient) {
 		this.userIn=userIn;
+		this.ID=ID;
 		this.timeoutLimit=(long)1000*60*1;
+		this.myClient=myclient;
 	}
-	public void setClientHandler(ClientOutHandler clientOutHandler){
-		this.clientHandler=clientOutHandler;
-	}
-
-
+	
 	public void mainMenuParser() {
-		Client myClient=this.clientHandler.getMyClient();
+		
 		Player myp=myClient.getMyPlayer();
 		Board b=myClient.getBoard();
 		long startTime = System.currentTimeMillis();
@@ -41,7 +41,7 @@ public class InGameMessageParser {
 									myp.getFamilyMember(1).setDieToFamilyMember(1);
 									MarketActionCreationRoutine ta=new MarketActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
 									if(ta.prepareAction()){
-										myClient.sendObj(ta.getMarketAction());
+										myClient.sendObj(ta.getMarketAction(),this.ID);
 										
 									}
 									
@@ -50,25 +50,25 @@ public class InGameMessageParser {
 								else if("2".equals(actionChoice)&&myClient.myTurn){
 									startTime = System.currentTimeMillis();
 									ProductionActionCreationRoutine pa=new ProductionActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
-									if(pa.prepareAction()){myClient.sendObj(pa.getProductionAction());}
+									if(pa.prepareAction()){myClient.sendObj(pa.getProductionAction(),this.ID);}
 									
 								}
 								else if("3".equals(actionChoice)&&myClient.myTurn){
 									startTime = System.currentTimeMillis();
 									HarvestActionCreationRoutine ha=new HarvestActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
-									if(ha.prepareAction()){myClient.sendObj(ha.getHarvestAction());}
+									if(ha.prepareAction()){myClient.sendObj(ha.getHarvestAction(),this.ID);}
 									
 								}
 								else if("4".equals(actionChoice)&&myClient.myTurn){
 									startTime = System.currentTimeMillis();
 									CouncilPalaceActionCreationRoutine ca=new CouncilPalaceActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
-									if(ca.prepareAction()){myClient.sendObj(ca.getCouncilPalaceAction());}
+									if(ca.prepareAction()){myClient.sendObj(ca.getCouncilPalaceAction(),this.ID);}
 									
 								}
 								else if("5".equals(actionChoice)&&myClient.myTurn){
 									startTime = System.currentTimeMillis();
 									TowerActionCreationRoutine ta=new TowerActionCreationRoutine(myp.getPlayerName(),myp,myClient.getBoard());
-									if(ta.prepareAction()){myClient.sendObj(ta.getTowerAction());}
+									if(ta.prepareAction()){myClient.sendObj(ta.getTowerAction(),this.ID);}
 								}
 								else if("6".equals(actionChoice)){
 									startTime=0;

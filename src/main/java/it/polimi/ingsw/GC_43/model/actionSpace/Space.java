@@ -61,6 +61,11 @@ public class Space extends ActionSpace{
 	public ActionArea getActionArea() {
 		return actionArea;
 	}
+	
+	@Override
+	public String toString() {
+		return "lo spazio è vuoto? "+this.getFamiliarIn().isEmpty();
+	}
 
 	
 

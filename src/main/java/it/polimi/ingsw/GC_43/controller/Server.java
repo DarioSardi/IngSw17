@@ -49,7 +49,7 @@ public class Server implements Remote{
 
 
 	private void startRMI() throws RemoteException, AlreadyBoundException {
-		ClientaHandlerRmInterface handlerRMI= new ClientHandlerRmi(this);
+		ClientaHandlerRmInterface handlerRMI= new ServerRmiInterface(this);
 		ClientaHandlerRmInterface remoteHandler=(ClientaHandlerRmInterface) UnicastRemoteObject.exportObject(handlerRMI,PORTRMI);
 		registry.bind("COF", remoteHandler);
 		System.out.println("Waiting for players on RMI...");

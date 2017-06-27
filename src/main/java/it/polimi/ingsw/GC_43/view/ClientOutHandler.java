@@ -13,6 +13,7 @@ public class ClientOutHandler implements Runnable {
 
 	private ObjectOutputStream socketOut;
 	private Client myClient;
+	private int ID;
 	/**
 	 * handle the message sent to the server
 	 * @param socketOut
@@ -57,9 +58,8 @@ public class ClientOutHandler implements Runnable {
 	private void inGameParser(BufferedReader userIn) {
 		
 		System.out.println("switched to in-game commands");
-		
-		InGameMessageParser parser=new InGameMessageParser(userIn);
-		parser.setClientHandler(this);
+		this.ID=this.myClient.getID();
+		InGameMessageParser parser=new InGameMessageParser(userIn,ID,this.myClient);
 		while(this.myClient.inGame){
 			inGameCommandsPrint();
 			try {
