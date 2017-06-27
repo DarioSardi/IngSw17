@@ -56,6 +56,8 @@ public class GlobalVariablesInit implements Serializable{
 		       	GlobalVariables.minDiceFirstProductionArea = Integer.valueOf((String)slides.get("minDiceFirstProductionArea"));
 		       	GlobalVariables.minDiceSecondProductionArea = Integer.valueOf((String)slides.get("minDiceSecondProductionArea"));
 		       	GlobalVariables.minDiceValueCouncilPalace = Integer.valueOf((String)slides.get("minDiceValueCouncilPalace"));
+		       	GlobalVariables.malusOnSecondHarvestArea = Integer.valueOf((String)slides.get("malusOnSecondHarvestArea"));
+		       	GlobalVariables.malusOnSecondProductionArea = Integer.valueOf((String)slides.get("malusOnSecondProductionArea"));
 		       	GlobalVariables.towerTax = Integer.valueOf((String)slides.get("towerTax"));
 		       	GlobalVariables.victoryPointsFirstMilitaryPower = Integer.valueOf((String)slides.get("victoryPointsFirstMilitaryPower"));
 		       	GlobalVariables.victoryPointsSecondMilitaryPower = Integer.valueOf((String)slides.get("victoryPointsSecondMilitaryPower"));

@@ -36,6 +36,8 @@ public class CopyOfGlobalVariables implements Serializable{
 	   public int minDiceFirstProductionArea;
 	   public int minDiceSecondProductionArea;
 	   public int minDiceValueCouncilPalace;
+	   public int malusOnSecondHarvestArea;
+	   public int malusOnSecondProductionArea;
 	   public int towerTax;
 	   public int numberOfPlayers;
 	   public int victoryPointsFirstMilitaryPower;

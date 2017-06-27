@@ -35,6 +35,8 @@ public class GlobalVariables implements Serializable{
    public static int minDiceSecondHarvestArea;
    public static int minDiceFirstProductionArea;
    public static int minDiceSecondProductionArea;
+   public static int malusOnSecondHarvestArea;
+   public static int malusOnSecondProductionArea;
    public static int minDiceValueCouncilPalace;
    public static int towerTax;
    public static int numberOfPlayers;
@@ -82,6 +84,8 @@ public class GlobalVariables implements Serializable{
 	   copyVariables.minDiceFirstProductionArea = GlobalVariables.minDiceFirstProductionArea;
 	   copyVariables.minDiceSecondProductionArea = GlobalVariables.minDiceSecondProductionArea;
 	   copyVariables.minDiceValueCouncilPalace = GlobalVariables.minDiceValueCouncilPalace;
+	   copyVariables.malusOnSecondHarvestArea = GlobalVariables.malusOnSecondHarvestArea;
+	   copyVariables.malusOnSecondProductionArea = GlobalVariables.malusOnSecondProductionArea;
 	   copyVariables.towerTax = GlobalVariables.towerTax;
 	   copyVariables.numberOfPlayers = GlobalVariables.numberOfPlayers;
 	   copyVariables.victoryPointsFirstMilitaryPower = GlobalVariables.victoryPointsFirstMilitaryPower;
