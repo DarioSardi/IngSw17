@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
 import it.polimi.ingsw.GC_43.model.cards.Card;
 import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
+import it.polimi.ingsw.GC_43.model.cards.LeaderCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.cards.VentureCard;
 
@@ -19,11 +20,13 @@ public class PlayerCards implements Serializable{
 	private ArrayList<VentureCard> ventureCards;
 	private ArrayList<CharacterCard> characterCards;
 	private ArrayList<TerritoryCard> territoryCards;
+	private ArrayList<LeaderCard> leaderCards;
 	public PlayerCards (){
 		this.buildingCards = new ArrayList<>();
     	this.ventureCards = new ArrayList<>();
     	this.territoryCards= new ArrayList<>();
     	this.characterCards = new ArrayList<>();
+    	this.leaderCards = new ArrayList<>();
 	}
 	
 	public BuildingCard getBuildingCard(int numCarta){
@@ -55,6 +58,10 @@ public class PlayerCards implements Serializable{
 		return this.territoryCards;	
 	}
 	
+	public ArrayList<LeaderCard> getArrayLeaderCards(){
+		return this.leaderCards;	
+	}
+	
 	public void addBuildingCard(BuildingCard card){
 		this.buildingCards.add(card);	
 	}
@@ -67,6 +74,9 @@ public class PlayerCards implements Serializable{
 	public void addTerritoryCard(TerritoryCard card){
 		this.territoryCards.add(card);	
 	}
+	public void addLeaderCard(LeaderCard card){
+		this.leaderCards.add(card);	
+	}
 	
 	public boolean canIAdd(int actualNumCards){
 		return (actualNumCards <= GlobalVariables.maxNumberPlayerCards);
@@ -74,6 +84,13 @@ public class PlayerCards implements Serializable{
 	
 	
 	public String toStringForType(ArrayList<? extends Card> cardsList){
+		String s ="";	
+		for (int i=0; i < cardsList.size(); i++)
+			s = s + cardsList.get(i).toString() + '\n';
+		return s;
+	}	
+	
+	public String toStringLeaderCards(ArrayList<LeaderCard> cardsList){
 		String s ="";	
 		for (int i=0; i < cardsList.size(); i++)
 			s = s + cardsList.get(i).toString() + '\n';
@@ -89,6 +106,8 @@ public class PlayerCards implements Serializable{
 		s = s + toStringForType(this.buildingCards);			
 		s = s + VentureCard.TYPE +'\n';
 		s = s + toStringForType(this.ventureCards);			
+		s = s + "LeaderCard" +'\n';
+		s = s + toStringLeaderCards(this.leaderCards);		
 		return s;
 	}
 }

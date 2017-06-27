@@ -64,6 +64,8 @@ public class GlobalVariablesInit implements Serializable{
 		       	GlobalVariables.maxVictoryPoints = Integer.valueOf((String)slides.get("maxVictoryPoints"));
 		       	GlobalVariables.maxMilitaryPoints = Integer.valueOf((String)slides.get("maxMilitaryPoints"));
 		       	GlobalVariables.maxFaithPoints = Integer.valueOf((String)slides.get("maxFaithPoints"));
+		       	GlobalVariables.numOfLeaderCardsForPlayer = Integer.valueOf((String)slides.get("numOfLeaderCardsForPlayer"));
+		       	GlobalVariables.numOfLeaderCards5thPlayer = Integer.valueOf((String)slides.get("numOfLeaderCards5thPlayer"));
 		       	GlobalVariables.endResourcesToVictoryPoint = Integer.valueOf((String)slides.get("endResourcesToVictoryPoint"));
 	        }   	
 		       

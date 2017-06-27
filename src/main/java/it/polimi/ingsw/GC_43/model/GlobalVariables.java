@@ -45,6 +45,8 @@ public class GlobalVariables implements Serializable{
    public static int maxVictoryPoints;
    public static int maxMilitaryPoints;
    public static int maxFaithPoints;
+   public static int numOfLeaderCardsForPlayer;
+   public static int numOfLeaderCards5thPlayer;
    
    public static MultipleChoiceEffect councilPrivilegeEffect;
    public static int malusUnlimitedCells;
@@ -101,5 +103,10 @@ public class GlobalVariables implements Serializable{
 	   copyVariables.endResourcesToVictoryPoint = GlobalVariables.endResourcesToVictoryPoint;
 	   copyVariables.endCharacterVictoryPoints = GlobalVariables.endCharacterVictoryPoints;
 	   copyVariables.endTerritoryVictoryPoints = GlobalVariables.endTerritoryVictoryPoints;
+
+	   copyVariables.numOfLeaderCardsForPlayer = GlobalVariables.numOfLeaderCardsForPlayer;
+	   copyVariables.numOfLeaderCards5thPlayer = GlobalVariables.numOfLeaderCards5thPlayer;
+	   
+	   
    }
 }
