@@ -34,6 +34,15 @@ public class PlayerBonusMalus implements Serializable {
 	private boolean noMarketActionSpaceBonus;
 	private boolean twoServantsCountAsOne;
 	
+	//LEADER CARDS
+	private boolean okPlaceOccupied;
+	private boolean noTowerTax;
+	private boolean noMilitaryPointsRequirement;
+	private boolean doubleGainFromCardInstantBonus;
+	private int coinDiscountOnCards;
+	private int victoryPointsAvoidingExcommunication;
+
+	
 	//MALUS PO PIU SPECIALOTTI, DA TRATTARE CON UNA BUONA LOGICA
 	private boolean skipFirstFamiliarMoveAndGetItBackAtTheEnd;
 	//double choice on stone or wood, see the yellow card Costruttore
@@ -91,6 +100,14 @@ public class PlayerBonusMalus implements Serializable {
 		
 		bonusHarvestEffect=new ArrayList<Effect>();
 		bonusProductionEffect=new ArrayList<Effect>();
+		
+		
+		//LEADER CARDS
+		this.okPlaceOccupied=false;
+		this.noTowerTax=false;
+		this.victoryPointsAvoidingExcommunication=0;
+		this.coinDiscountOnCards=0;
+		this.victoryPointsAvoidingExcommunication=0;
 		
 
 		
@@ -214,7 +231,59 @@ public class PlayerBonusMalus implements Serializable {
 		this.bonusCoinsOnBuyInTowers = bonusCoinsOnBuyInTowers;
 	}
 
+	public boolean isOkPlaceOccupied() {
+		return okPlaceOccupied;
+	}
 
+	public void setOkPlaceOccupied(boolean okPlaceOccupied) {
+		this.okPlaceOccupied = okPlaceOccupied;
+	}
+
+	public boolean isNoTowerTax() {
+		return noTowerTax;
+	}
+
+	public void setNoTowerTax(boolean noTowerTax) {
+		this.noTowerTax = noTowerTax;
+	}
+
+	public int getVictoryPointsAvoidingExcommunication() {
+		return victoryPointsAvoidingExcommunication;
+	}
+
+	public void setVictoryPointsAvoidingExcommunication(int victoryPointsAvoidingExcommunication) {
+		this.victoryPointsAvoidingExcommunication = victoryPointsAvoidingExcommunication;
+	}
+
+	public boolean isNoMilitaryPointsRequirement() {
+		return noMilitaryPointsRequirement;
+	}
+
+	public void setNoMilitaryPointsRequirement(boolean noMilitaryPointsRequirement) {
+		this.noMilitaryPointsRequirement = noMilitaryPointsRequirement;
+	}
+
+	public boolean isDoubleGainFromCardInstantBonus() {
+		return doubleGainFromCardInstantBonus;
+	}
+
+	public void setDoubleGainFromCardInstantBonus(boolean doubleGainFromCardInstantBonus) {
+		this.doubleGainFromCardInstantBonus = doubleGainFromCardInstantBonus;
+	}
+
+	public int getCoinDiscountOnCards() {
+		return coinDiscountOnCards;
+	}
+
+	public void setCoinDiscountOnCards(int coinDiscountOnCards) {
+		this.coinDiscountOnCards = coinDiscountOnCards;
+	}
+	
+	
+	
+	
+
+	
 	
 
 	

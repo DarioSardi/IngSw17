@@ -428,8 +428,7 @@ public class Board implements Serializable {
 				+ relativePeriod);
 		// DEBUGGING TO BE CANCELLED
 
-		System.out.println("excommunication effect " + this.getExcommunicationTiles());
-		System.out.println("excommunication effect " + this.getExcommunicationTiles().get(0));
+
 
 		if (this.getExcommunicationTiles().get(relativePeriod) != null) {
 			System.out.println("Message from board: Attempting to get "
@@ -448,7 +447,7 @@ public class Board implements Serializable {
 	public void satisfyTheChurch(Player player) {
 		System.out.println("Player " + player.getPlayerName() + " is about to gain "
 				+ this.faithVictoryPoints[player.getPlayerResource("faithPoint")] + " satisfying the church");
-		player.addResource("victoryPoint", this.faithVictoryPoints[player.getPlayerResource("faithPoint")]);
+		player.addResource("victoryPoint", this.faithVictoryPoints[player.getPlayerResource("faithPoint")]+player.getPlayerBounusMalus().getVictoryPointsAvoidingExcommunication());
 		System.out.println("Resetting his faith points to 0");
 		player.getPlayerResources().put("faithPoint", 0);
 
