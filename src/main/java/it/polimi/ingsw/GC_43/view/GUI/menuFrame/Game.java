@@ -1,4 +1,4 @@
-package menuFrame;
+package it.polimi.ingsw.GC_43.view.GUI.menuFrame;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -6,10 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import it.polimi.ingsw.GC_43.view.Client;
-import menuFrame.menuPanels.ConnectionPanel;
-import menuFrame.menuPanels.CreateLobby;
-import menuFrame.menuPanels.JoinLobby;
-import menuFrame.menuPanels.MainMenuPanel;
+import it.polimi.ingsw.GC_43.view.GUI.menuFrame.menuPanels.*;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -122,7 +119,7 @@ public class Game extends JFrame {
 		contentPane.add(backgroundImage);
 		backgroundImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		backgroundImage.setBackground(new Color(0, 51, 0));
-		backgroundImage.setIcon(new ImageIcon("src/images/background.jpg"));
+		backgroundImage.setIcon(new ImageIcon("src/main/java/it/polimi/ingsw/GC_43/view/images/background.jpg"));
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {

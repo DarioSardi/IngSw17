@@ -1,4 +1,4 @@
-package menuFrame.menuPanels;
+package it.polimi.ingsw.GC_43.view.GUI.menuFrame.menuPanels;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -14,7 +14,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import menuFrame.Game;
+import it.polimi.ingsw.GC_43.view.GUI.menuFrame.Game;
 import java.awt.Color;
 
 public class MainMenuPanel extends JPanel {

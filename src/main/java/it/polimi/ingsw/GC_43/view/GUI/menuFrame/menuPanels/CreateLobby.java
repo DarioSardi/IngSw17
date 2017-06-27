@@ -1,4 +1,4 @@
-package menuFrame.menuPanels;
+package it.polimi.ingsw.GC_43.view.GUI.menuFrame.menuPanels;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,11 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import menuFrame.Game;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import it.polimi.ingsw.GC_43.controller.Lobby;
+import it.polimi.ingsw.GC_43.view.GUI.menuFrame.Game;
 
 public class CreateLobby extends JPanel {
 
