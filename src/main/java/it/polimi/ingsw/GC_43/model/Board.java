@@ -1,9 +1,6 @@
 package it.polimi.ingsw.GC_43.model;
 
-import it.polimi.ingsw.GC_43.model.actionSpace.*;
-
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +10,11 @@ import it.polimi.ingsw.GC_43.model.actionSpace.Market;
 import it.polimi.ingsw.GC_43.model.actionSpace.ProductionArea;
 import it.polimi.ingsw.GC_43.model.actionSpace.Tower;
 import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
-import it.polimi.ingsw.GC_43.model.cards.Card;
 import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
+import it.polimi.ingsw.GC_43.model.cards.LeaderCard;
 import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
 import it.polimi.ingsw.GC_43.model.cards.VentureCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
-import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 
 public class Board implements Serializable {
 
@@ -39,6 +35,10 @@ public class Board implements Serializable {
 	private ArrayList characterCardPool;
 	private ArrayList ventureCardPool;
 	private ArrayList<Effect> excommunicationTilesEffects;
+	private ArrayList<LeaderCard> leaderCardPool;
+
+	// LEADER CARDS PLAYER IN MEMORY
+	private ArrayList<LeaderCard> leaderCardsPlayed;
 
 	// DICE
 	private ArrayList<Die> dice;
@@ -284,6 +284,28 @@ public class Board implements Serializable {
 		return toString;
 	}
 
+	public String leaderCardsToString() {
+		String toString = "";
+		int i = 0;
+		for (LeaderCard leaderCard : this.getLeaderCardPool()) {
+			toString = i + ")" + leaderCard.toString() + "\n";
+			i++;
+		}
+		return toString;
+	}
+
+	public String leaderCardsPlayedToString() {
+		String toString = "";
+
+		int i = 0;
+		if (!this.getLeaderCardsPlayed().isEmpty()) {
+			for (LeaderCard leaderCard : this.getLeaderCardsPlayed()) {
+				toString = i + ")" + leaderCard.toString() + "\n";
+				i++;
+			}
+		}
+		return toString;
+	}
 	// GETTERS AND SETTERS
 
 	public List<Die> getDice() {
@@ -422,13 +444,27 @@ public class Board implements Serializable {
 		this.faithVictoryPoints = faithVictoryPoints;
 	}
 
+	public ArrayList<LeaderCard> getLeaderCardPool() {
+		return leaderCardPool;
+	}
+
+	public void setLeaderCardPool(ArrayList<LeaderCard> leaderCardPool) {
+		this.leaderCardPool = leaderCardPool;
+	}
+
+	public ArrayList<LeaderCard> getLeaderCardsPlayed() {
+		return leaderCardsPlayed;
+	}
+
+	public void setLeaderCardsPlayed(ArrayList<LeaderCard> leaderCardsPlayed) {
+		this.leaderCardsPlayed = leaderCardsPlayed;
+	}
+
 	public void excommunicatePlayer(Player player) {
 		int relativePeriod = this.getPeriod();
 		System.out.println("Message from board: Excommunicating player " + player.getPlayerName() + " during period "
 				+ relativePeriod);
 		// DEBUGGING TO BE CANCELLED
-
-
 
 		if (this.getExcommunicationTiles().get(relativePeriod) != null) {
 			System.out.println("Message from board: Attempting to get "
@@ -447,7 +483,8 @@ public class Board implements Serializable {
 	public void satisfyTheChurch(Player player) {
 		System.out.println("Player " + player.getPlayerName() + " is about to gain "
 				+ this.faithVictoryPoints[player.getPlayerResource("faithPoint")] + " satisfying the church");
-		player.addResource("victoryPoint", this.faithVictoryPoints[player.getPlayerResource("faithPoint")]+player.getPlayerBounusMalus().getVictoryPointsAvoidingExcommunication());
+		player.addResource("victoryPoint", this.faithVictoryPoints[player.getPlayerResource("faithPoint")]
+				+ player.getPlayerBounusMalus().getVictoryPointsAvoidingExcommunication());
 		System.out.println("Resetting his faith points to 0");
 		player.getPlayerResources().put("faithPoint", 0);
 

@@ -44,6 +44,29 @@ public class LorenzoEffect extends Effect{
 			return true;
 		}
 	}
+
+
+	public boolean isAlreadyChosen() {
+		return alreadyChosen;
+	}
+
+
+	public void setAlreadyChosen(boolean alreadyChosen) {
+		this.alreadyChosen = alreadyChosen;
+	}
+
+
+	public Effect getChosenEffect() {
+		return chosenEffect;
+	}
+
+
+	public void setChosenEffect(Effect chosenEffect) {
+		this.chosenEffect = chosenEffect;
+	}
+	
+	
+	
 	
 	
 	

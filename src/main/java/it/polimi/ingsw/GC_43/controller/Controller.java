@@ -12,6 +12,7 @@ import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionPerforms.*;
 import it.polimi.ingsw.GC_43.model.actions.*;
+import it.polimi.ingsw.GC_43.model.cards.LeaderCard;
 import it.polimi.ingsw.GC_43.model.initialization.GlobalVariablesInit;
 import it.polimi.ingsw.GC_43.model.initialization.InitGame;
 
@@ -33,6 +34,7 @@ public class Controller implements IController {
 	private int playerDisconnected;
 	private int excommunicationSubmission;
 	private boolean isExcommunicationTime;
+	private boolean advancedGame;
 	private ArrayList<Player> playerSkippedFirstRound;
 
 	public Controller(ArrayList<ClientHandler> clientHandlers) throws RemoteException {
@@ -49,20 +51,62 @@ public class Controller implements IController {
 
 	}
 
-	public void initializeGame() throws RemoteException {
-
+	public void initializeGame(boolean advancedGame) throws RemoteException {
+		
+		
+		this.advancedGame=advancedGame;
+		
 		insertPlayers();
 		System.out.println("player inserted");
 		setMatches();
 		System.out.println("matches created");
 		sendModelToClients();
 		System.out.println("model sent");
-		// TODO wait form SAM
 		sendGlobalVariablesToClients();
 		System.out.println("global variables sent");
+		
+		if(advancedGame){
+			System.out.println("Advanced game settings selected..");
+			advancedGameRoutine();
+		}
 
 		startGame();
 
+	}
+
+	private void advancedGameRoutine() {
+		System.out.println("Attempting to ask for default player bonus");
+		askForDefaultBonus();
+		askForLeaderCards();
+	}
+
+	private void askForLeaderCards() {
+		ArrayList<LeaderCard> firstPool= new ArrayList<LeaderCard>();
+
+		ArrayList<LeaderCard> secondPool= new ArrayList<LeaderCard>();
+	
+		ArrayList<LeaderCard> thirdPool= new ArrayList<LeaderCard>();
+
+		ArrayList<LeaderCard> fourthPool= new ArrayList<LeaderCard>();
+		
+		
+		
+	}
+	
+	public void submitLeaderCardChoice(){
+		
+	}
+
+	private void askForDefaultBonus() {
+		ArrayList<Player> inversePlayerOrder=new ArrayList<Player>();
+		int playerSize=this.board.getPlayers().size()-1;
+		//INVERSE ORDER PHASE PLAYERS
+		while(playerSize>=0){
+			inversePlayerOrder.add(this.board.getPlayers().get(playerSize));
+			playerSize--;
+		}
+		//this.matchClientHandler.get(inversePlayerOrder).sendMsgTo("Please select for default harvest and production bonus");
+		
 	}
 
 	private void startGame() throws RemoteException {
@@ -132,9 +176,9 @@ public class Controller implements IController {
 		}
 
 	}
-	
+
 	// ROUTINE OF DISCONNECTIONS OF PLAYERS
-	
+
 	public void playerDisconnected(String playerUsername) {
 		switchPlayerStatus(playerUsername);
 		System.out.println("Incrementing number of disconnected players");
@@ -160,10 +204,10 @@ public class Controller implements IController {
 
 		GlobalVariablesInit.readGlobalVariables();
 
-		//SAM IF PLAYER 5 CAMBIA TAX TOWER CAMBIA MALUS PRODUCTIONE HARVEST SECONDARY CELL TUTTI A 2/-2
-		//AGGIUNGO QUI NO ?
-		
-		
+		// SAM IF PLAYER 5 CAMBIA TAX TOWER CAMBIA MALUS PRODUCTIONE HARVEST
+		// SECONDARY CELL TUTTI A 2/-2
+		// AGGIUNGO QUI NO ?
+
 		CopyOfGlobalVariables globalVariables = new CopyOfGlobalVariables();
 		new GlobalVariables().createCopyGlobalVariables(globalVariables);
 		this.globalVariables = globalVariables;
@@ -206,7 +250,6 @@ public class Controller implements IController {
 			System.out.println("\n Action submission = " + actionResult);
 
 			if (actionResult) {
-
 				System.out.println(
 						"\nAction successfully completed, broadcasting notifications and calling for next player phase");
 
@@ -216,16 +259,25 @@ public class Controller implements IController {
 					System.out.println("Sending updated board to client" + clientHandler.getUsername());
 					clientHandler.sendObject(this.board);
 				}
-				if (this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().isEmpty())
-					nextPlayerPhase();
+
+				if (this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().isEmpty()){
+					if (action.getActionID() != 6){
+						//NON VA BENE STO IF PERCHè SE NO DOPO EXTRA ACTION SE C'è PASSA IL TURNO CI VUOLE UN BOOLEANO DA METTERE
+					//	jjokplpj
+						nextPlayerPhase();
+					}
+					else{
+						System.out.println("Leader card action completed, that 's still "+this.getPlayerOfTurn().getUsername()+" phase");
+					}
+				}
 				else
 					askForExtraAction();
 
 			}
 
 			else {
-				System.out.println(
-						"\nAction unsuccessfully submitted " + actionResult + " action to string\n" + action.toString());
+				System.out.println("\nAction unsuccessfully submitted " + actionResult + " action to string\n"
+						+ action.toString());
 				System.out.println(this.getPlayerOfTurn().getUsername());
 				this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
 				System.out.println("\nAction concluded !\n");
@@ -253,11 +305,9 @@ public class Controller implements IController {
 		// removing extra action after sending it
 		this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().remove(0);
 	}
-	
-	
 
 	private void getBackInitialTurn() {
-		
+
 		System.out.println("Giving back phase action to players who had malus..");
 		try {
 			changePhases(this.matchClientHandler.get(this.playerSkippedFirstRound.get(0).getPlayerName()));
@@ -266,12 +316,8 @@ public class Controller implements IController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
 
-	
-	
-	
+	}
 
 	// MANAGING PLAYERS PHASES
 
@@ -284,13 +330,14 @@ public class Controller implements IController {
 			System.out.println("No players in game, game over");
 			endGame();
 		}
-		
-		//CHECKING IF SOME PLAYER GOT MALUS OF SKIPPING FIRST ROUND AND GET IT BACK AT THE END
-		if (this.board.getPhase() + 1 % this.board.getPlayers().size() == 0
-				&& !this.playerSkippedFirstRound.isEmpty()&&this.board.getRound()+1%GlobalVariables.numberOfFamilyMembers==0) {
-			
+
+		// CHECKING IF SOME PLAYER GOT MALUS OF SKIPPING FIRST ROUND AND GET IT
+		// BACK AT THE END
+		if (this.board.getPhase() + 1 % this.board.getPlayers().size() == 0 && !this.playerSkippedFirstRound.isEmpty()
+				&& this.board.getRound() + 1 % GlobalVariables.numberOfFamilyMembers == 0) {
+
 			getBackInitialTurn();
-			
+
 		}
 
 		else {
@@ -325,33 +372,32 @@ public class Controller implements IController {
 
 			}
 
-			
 			if (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())) {
 				nextPlayerPhase();
 				return;
 			}
 
 			System.out.println("\n Attemping match player name" + this.board.getPhasePlayer());
-			
-			
-			
-			//CHECKING MALUS SKIP FIRST ROUND PHASE
-			
+
+			// CHECKING MALUS SKIP FIRST ROUND PHASE
+
 			ClientHandler playerOfTurn = this.matchClientHandler.get(this.board.getPhasePlayer());
-			if(this.board.getRound()==0 && this.matchPlayer.get(this.board.getPhasePlayer()).getPlayerBounusMalus().isSkipFirstFamiliarMoveAndGetItBackAtTheEnd()){
-				while(this.board.getRound()==0 && this.matchPlayer.get(this.board.getPhasePlayer()).getPlayerBounusMalus().isSkipFirstFamiliarMoveAndGetItBackAtTheEnd()){
+			if (this.board.getRound() == 0 && this.matchPlayer.get(this.board.getPhasePlayer()).getPlayerBounusMalus()
+					.isSkipFirstFamiliarMoveAndGetItBackAtTheEnd()) {
+				while (this.board.getRound() == 0 && this.matchPlayer.get(this.board.getPhasePlayer())
+						.getPlayerBounusMalus().isSkipFirstFamiliarMoveAndGetItBackAtTheEnd()) {
 					this.playerSkippedFirstRound.add(this.matchPlayer.get(this.board.getPhasePlayer()));
 					nextPlayerPhase();
 					return;
-					
+
 				}
-					
+
 			}
-			
-			else{
-			System.out.println("\nChanging phases of players");
-			changePhases(playerOfTurn);
-			System.out.println("\nNext turn logic ended successfully");
+
+			else {
+				System.out.println("\nChanging phases of players");
+				changePhases(playerOfTurn);
+				System.out.println("\nNext turn logic ended successfully");
 			}
 		}
 	}
@@ -469,8 +515,8 @@ public class Controller implements IController {
 		int actionID = action.getActionID();
 		boolean result;
 
-		System.out.println("\nAttempting to perform the action submitted with ID: "
-				+ action.getActionID()+"\n"+ action.toString()) ;
+		System.out.println("\nAttempting to perform the action submitted with ID: " + action.getActionID() + "\n"
+				+ action.toString());
 
 		switch (actionID) {
 		case 1:
@@ -501,6 +547,12 @@ public class Controller implements IController {
 			TowerAction towerAction = (TowerAction) action;
 			TowerActionPerformerRoutine towerActionImpl = new TowerActionPerformerRoutine(towerAction, this.board);
 			result = towerActionImpl.performAction();
+			return result;
+		case 6:
+			LeaderCardAction leaderCardAction = (LeaderCardAction) action;
+			LeaderCardActionPerformerRoutine leaderActionImpl = new LeaderCardActionPerformerRoutine(leaderCardAction,
+					this.board);
+			result = leaderActionImpl.performAction();
 			return result;
 
 		default:

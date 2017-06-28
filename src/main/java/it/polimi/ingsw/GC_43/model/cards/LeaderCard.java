@@ -3,6 +3,8 @@ package it.polimi.ingsw.GC_43.model.cards;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class LeaderCard implements Serializable {
@@ -16,6 +18,8 @@ public class LeaderCard implements Serializable {
 	private ArrayList<Effect> ability;
 	private boolean alreadyUsed;
 	private boolean permanentAbility;
+	private boolean played;
+	
 
 	public LeaderCard(String cardName, ArrayList<Effect> requirements, ArrayList<Effect> ability,
 			boolean permanentAbility) {
@@ -25,8 +29,29 @@ public class LeaderCard implements Serializable {
 		// Remember to reset for each roun alreadyUsed to false
 		this.alreadyUsed = false;
 		this.permanentAbility = permanentAbility;
+		this.played=false;
 	}
+	
+	public boolean checkRequirements(FamilyMember familyMember){
+		System.out.println("Checking leader card requirements..");
+		boolean checkResult=true;
+		for(Effect effect: this.requirements)
+			if(!effect.check(familyMember))
+				checkResult=false;
+		
+		System.out.println("Check of requirements result is "+checkResult);
+		return checkResult;
+	}
+	
+	public void executeAbility(FamilyMember familyMember){
+		System.out.println("Executing leader card ability..");
 
+		for(Effect effect: this.ability)
+			effect.executeEffect(familyMember);
+	}
+	
+	
+	
 	public String getCardName() {
 		return cardName;
 	}

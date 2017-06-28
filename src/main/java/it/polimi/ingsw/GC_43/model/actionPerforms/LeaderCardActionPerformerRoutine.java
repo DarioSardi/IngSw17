@@ -1,7 +1,13 @@
 package it.polimi.ingsw.GC_43.model.actionPerforms;
 
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.actions.LeaderCardAction;
+import it.polimi.ingsw.GC_43.model.cards.LeaderCard;
+import it.polimi.ingsw.GC_43.model.effects.MultipleCouncilPrivileges;
+import it.polimi.ingsw.GC_43.model.leaderCards.LorenzoEffect;
 
 public class LeaderCardActionPerformerRoutine implements ActionPerformer{
 	
@@ -14,18 +20,85 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer{
 		this.leaderCardAction = leaderCardAction;
 		this.checkResult = false;
 		this.board = board;
+		
 
 	}
 	
 	public boolean performAction(){
 		
-		//MATCH LEADER CARD ON MODEL
-		//LOOK IF ALREADY USED IF ONCE PER RUND OR PERMANENT
-		//CHECK REQUIREMENTS
-		//EXECUTE EFFECT
+		System.out.println("\nEntered in Market performer routine");
+		Player player = this.leaderCardAction.getPlayer();
+		System.out.println("Checking familyMember..");
+		FamilyMember familyMember = CommonActionPerformerRoutine.matchFamilyMember(player,
+				this.leaderCardAction.getFamilyMemberColor());
+		
+		
+		
+	
+		System.out.println("Matching leader card..");
+		//TODO to implement
+		LeaderCard leaderCard= matchLeaderCard(this.leaderCardAction.getLeaderCardName());
+		
+		System.out.println("Checking leader card requirements & executing ability..");
+		
+		checkCardRequirementsAndExecute(leaderCard,this.leaderCardAction.getFamilyMember());
+		
+
+		
 		
 		return checkResult;
 		
 	}
 
+	private void checkCardRequirementsAndExecute(LeaderCard leaderCard, FamilyMember familyMember) {
+		
+		System.out.println("Checking leader card requirements..");
+		if(leaderCard.checkRequirements(familyMember)){
+			System.out.println("Executing leader card ability..");
+			leaderCard.executeAbility(this.leaderCardAction.getFamilyMember());
+			this.checkResult=true;
+			
+			if(leaderCard.getCardName().contains("Lorenzo")||leaderCard.getCardName().contains("Gonzaga")){
+				System.out.println("Special card detected, launching check for further choice..");
+				lookForChoicesSelection(familyMember, familyMember.getPlayer());
+				//REMEMBER LORENZO EFFECT IF EFFECT ALREADY COPIED, SOMEHOW IT HAS TO BE EXECUTED FIRSTLY
+				//TO BE COMPLETED
+			}
+		}
+		else{
+			this.checkResult=false;
+			System.out.println("Requirements check not passed, action result is " +this.checkResult);
+		}		
+	}
+
+	private LeaderCard matchLeaderCard(String leaderCardName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private void lookForChoicesSelection(FamilyMember familyMember, Player player) {
+//TODO to complete
+
+		if (this.leaderCardAction.getLeaderCardName().contains("Gonzaga")) {
+			MultipleCouncilPrivileges multiplePrivilege = CommonActionCreatorRoutine.copyMultiplePrivileges(1);
+			multiplePrivilege.executeEffect(familyMember,this.leaderCardAction.getEventualChoice());
+		}
+		if (this.leaderCardAction.getLeaderCardName().contains("Lorenzo")) {
+			//WAIT FOR SAM FIND LEADER CARD BY NAME
+			LorenzoEffect effect = (LorenzoEffect) player.getPlayerCards().getArrayLeaderCards().get(0)
+					.getAbility().get(0);
+			if (!this.board.getLeaderCardsPlayed().isEmpty()) {
+				if (!effect.isAlreadyChosen()) {
+					String question = "Copying effect of selected leader card "+this.board.getLeaderCardsPlayed().get(this.leaderCardAction.getEventualChoice()).getCardName();
+					//WAIT FOR SAM FIND LEADER CARD BY NAME AND THEN SET THE ABILITY EFFECT SICH THAT IT WILL BE EXECUTED NEXT TIME
+					
+					effect.setAlreadyChosen(true);
+					//TODO to be completed
+				}
+			} else
+				this.checkResult = false;
+		}
+	}
 }
+
+
