@@ -46,7 +46,8 @@ public class CopyOfGlobalVariables implements Serializable{
 	   public int maxMilitaryPoints;
 	   public int maxFaithPoints;
 	   public int numOfLeaderCardsForPlayer;
-	   public int numOfLeaderCards5thPlayer;
+	   public int totalNumOfLeaderCards;
+	   
 	   
 	   public MultipleChoiceEffect councilPrivilegeEffect;
 	   public int malusUnlimitedCells;

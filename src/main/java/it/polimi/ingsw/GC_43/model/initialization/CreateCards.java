@@ -1,7 +1,6 @@
 package it.polimi.ingsw.GC_43.model.initialization;
 
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
-import it.polimi.ingsw.GC_43.model.actionSpace.TowerColors;
 import it.polimi.ingsw.GC_43.model.cards.*;
 import it.polimi.ingsw.GC_43.model.effects.*;
 
