@@ -30,16 +30,19 @@ public class PlayerCards implements Serializable{
 	}
 	
 	public BuildingCard getBuildingCard(int numCarta){
-		return buildingCards.get(numCarta);	
+		return this.buildingCards.get(numCarta);	
 	}
 	public VentureCard getVentureCard(int numCarta){
-		return ventureCards.get(numCarta);	
+		return this.ventureCards.get(numCarta);	
 	}
 	public CharacterCard getCharacterCard(int numCarta){
-		return characterCards.get(numCarta);
+		return this.characterCards.get(numCarta);
 	}
 	public TerritoryCard getTerritoryCard(int numCarta){
-		return territoryCards.get(numCarta);	
+		return this.territoryCards.get(numCarta);	
+	}	
+	public LeaderCard getLeaderCard(int numCarta){
+		return this.leaderCards.get(numCarta);	
 	}
 	
 	public ArrayList<BuildingCard> getArrayBuildingCards(){
@@ -60,6 +63,15 @@ public class PlayerCards implements Serializable{
 	
 	public ArrayList<LeaderCard> getArrayLeaderCards(){
 		return this.leaderCards;	
+	}
+	
+	public LeaderCard searchLeaderCardByName(String name){
+		for (int i=0; i < this.leaderCards.size(); i++){
+			if(name.equals(this.leaderCards.get(i).getCardName()))
+				return this.leaderCards.get(i);
+		}
+		return null;
+		
 	}
 	
 	public void addBuildingCard(BuildingCard card){

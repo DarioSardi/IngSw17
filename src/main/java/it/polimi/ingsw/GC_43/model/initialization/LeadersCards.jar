@@ -2,30 +2,30 @@
   "Cards": [
     {
       "name": "Francesco Sforza",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
           "typeReq": "numVentureCards",
           "valueReq": "5"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
           "effect": "extraHarvest",
           "valueEffect": "1"
         }
-      ],
-      "PermanentBonus": []
+      ]
     },
     {
       "name": "Ludovico Ariosto",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
           "typeReq": "numCharacterCards",
           "valueReq": "5"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
           "effect": "placeInOccupiedSpace",
           "valueEffect": "0"
@@ -34,34 +34,34 @@
     },
     {
       "name": "Filippo Brunelleschi",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
           "typeReq": "numBuildingCards",
           "valueReq": "5"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
-          "effect": "noCoinsInTowerOccupied",
+          "effect": "noTowerTax",
           "valueEffect": "0"
         }
       ]
     },
     {
       "name": "Sigismondo Malatesta",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
-          "typeReq": "militaryPoint",
+          "typeReq": "militaryPointReq",
           "valueReq": "7"
         },
         {
-          "typeReq": "faithPoint",
+          "typeReq": "faithPointReq",
           "valueReq": "3"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
           "effect": "bonusOnNeutralMember",
           "valueEffect": "3"
@@ -70,45 +70,46 @@
     },
     {
       "name": "Girolamo Savonarola",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
-          "typeReq": "coin",
+          "typeReq": "coinReq",
           "valueReq": "18"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
           "effect": "faithPoint",
           "valueEffect": "1"
         }
-      ],
-      "PermanentBonus": []
+      ]
     },
     {
       "name": "Michelangelo Buonarroti",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
-          "typeReq": "stone",
+          "typeReq": "stoneReq",
           "valueReq": "10"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
           "effect": "coin",
           "valueEffect": "3"
         }
-      ],
-      "PermanentBonus": []
+      ]
     },
     {
       "name": "Giovanni dalle Bande Nere",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
-          "typeReq": "militaryPoint",
+          "typeReq": "militaryPointReq",
           "valueReq": "12"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
           "effect": "wood",
           "valueEffect": "1"
@@ -122,10 +123,10 @@
           "valueEffect": "1"
         }
       ],
-      "PermanentBonus": []
     },
     {
       "name": "Leonardo da Vinci",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
           "typeReq": "numCharacterCards",
@@ -136,23 +137,23 @@
           "valueReq": "2"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
           "effect": "extraProduction",
           "valueEffect": "0"
         }
-      ],
-      "PermanentBonus": []
+      ]
     },
     {
       "name": "Sandro Botticelli",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
-          "typeReq": "wood",
+          "typeReq": "woodReq",
           "valueReq": "10"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
           "effect": "miliaryPoint",
           "valueEffect": "2"
@@ -161,11 +162,11 @@
           "effect": "victoryPoint",
           "valueEffect": "1"
         }
-      ],
-      "PermanentBonus": []
+      ]
     },
     {
       "name": "Ludovico il Moro",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
           "typeReq": "numTerritoryCards",
@@ -184,24 +185,23 @@
           "valueReq": "2"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
-          "effect": "newMembersValue",
+          "effect": "newFamilyMembersValue",
           "valueEffect": "5"
         }
       ]
     },
     {
       "name": "Lucrezia Borgia",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
           "typeReq": "numCardsSameType",
           "valueReq": "6"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
           "effect": "bonusColouredFamilyMemberValue",
           "valueEffect": "2"
@@ -210,30 +210,30 @@
     },
     {
       "name": "Federico da Montefeltro",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
           "typeReq": "numTerritoryCards",
           "valueReq": "5"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
-          "effect": "newMemberValue",
+          "effect": "newSingleColouredMemberValue",
           "valueEffect": "6"
         }
-      ],
-      "PermanentBonus": []
+      ]
     },
     {
       "name": "Lorenzo de' Medici",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
-          "typeReq": "victoryPoint",
+          "typeReq": "victoryPointReq",
           "valueReq": "35"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
           "effect": "copyTheAbility",
           "valueEffect": "0"
@@ -242,26 +242,26 @@
     },
     {
       "name": "Sisto IV",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
-          "typeReq": "wood",
+          "typeReq": "woodReq",
           "valueReq": "6"
         },
         {
-          "typeReq": "stone",
+          "typeReq": "stoneReq",
           "valueReq": "6"
         },
         {
-          "typeReq": "coin",
+          "typeReq": "coinReq",
           "valueReq": "6"
         },
         {
-          "typeReq": "servant",
+          "typeReq": "servantReq",
           "valueReq": "6"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
           "effect": "bonusVictoryPointsOnChurch",
           "valueEffect": "5"
@@ -270,22 +270,22 @@
     },
     {
       "name": "Cesare Borgia",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
           "typeReq": "numBuildingCards",
           "valueReq": "3"
         },
         {
-          "typeReq": "coin",
+          "typeReq": "coinReq",
           "valueReq": "12"
         },
         {
-          "typeReq": "faithPoint",
+          "typeReq": "faithPointReq",
           "valueReq": "2"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
           "effect": "noMilitaryPointsRequirement",
           "valueEffect": "0"
@@ -294,14 +294,14 @@
     },
     {
       "name": "Santa Rita",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
-          "typeReq": "faithPoint",
+          "typeReq": "faithPointReq",
           "valueReq": "8"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
           "effect": "doubleGainFromCards",
           "valueEffect": "0"
@@ -310,6 +310,7 @@
     },
     {
       "name": "Cosimo de' Medici",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
           "typeReq": "numCharacterCards",
@@ -320,7 +321,7 @@
           "valueReq": "4"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
           "effect": "servant",
           "valueEffect": "3"
@@ -329,11 +330,11 @@
           "effect": "victoryPoint",
           "valueEffect": "1"
         }
-      ],
-      "PermanentBonus": []
+      ]
     },
     {
       "name": "Bartolomeo Colleoni",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
           "typeReq": "numVentureCards",
@@ -344,32 +345,32 @@
           "valueReq": "4"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
           "effect": "victoryPoint",
           "valueEffect": "4"
         }
-      ],
-      "PermanentBonus": []
+      ]
     },
     {
       "name": "Ludovico III Gonzaga",
+      "typeBonus": "oncePerRound",
       "Requirements": [
         {
-          "typeReq": "servant",
+          "typeReq": "servantReq",
           "valueReq": "15"
         }
       ],
-      "OncePerRound": [
+      "Bonus": [
         {
           "effect": "councilPrivilege",
           "valueEffect": "1"
         }
-      ],
-      "PermanentBonus": []
+      ]
     },
     {
       "name": "Pico della Mirandola",
+      "typeBonus": "permanentBonus",
       "Requirements": [
         {
           "typeReq": "numVentureCards",
@@ -380,8 +381,7 @@
           "valueReq": "2"
         }
       ],
-      "OncePerRound": [],
-      "PermanentBonus": [
+      "Bonus": [
         {
           "effect": "coinsDiscountOnTakeCard",
           "valueEffect": "3"

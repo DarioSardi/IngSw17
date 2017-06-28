@@ -19,6 +19,7 @@ public class InitGame {
 		setExcommunicationTilesToBoard();
 		setCouncilPalaceToBoard();
 		setPersonalBonusToPlayers();
+//		if (build.getAdvancedRules()) setLeaderCardsToBoard();
 	}
 	
 	private void initCards(){
@@ -53,24 +54,26 @@ public class InitGame {
 		this.board.setCouncilPalace(this.initActionSpaces.getCouncilPalace());
 	}	
 	
+	private void setLeaderCardsToBoard(){
+		InitLeaderCards ilc = new InitLeaderCards();
+		ilc.readLeaderCards();
+//		this.board.setLeaderCardPool(ilc.getLeaderCards());
+	}	
+	
 	private void setPersonalBonusToPlayers(){
 		InitPlayerPersonalBonus initPersonalBonus = new InitPlayerPersonalBonus();
 		initPersonalBonus.readJson();
-		
-		for(int i=0; i < this.board.getPlayers().size(); i++){
-			this.board.getPlayers().get(i).setPersonalProductionBonus(initPersonalBonus.getAllAdvancedPersonalProductionBonusTile().get(i));
-			this.board.getPlayers().get(i).setPersonalHarvestBonus(initPersonalBonus.getAllAdvancedPersonalHarvestBonusTile().get(i));
-		}
-		
+//		if (!build.getAdvancedRules())
 		for(int i=0; i < this.board.getPlayers().size(); i++){
 			this.board.getPlayers().get(i).setPersonalProductionBonus(initPersonalBonus.getBasePersonalProductionBonusTile());
 			this.board.getPlayers().get(i).setPersonalHarvestBonus(initPersonalBonus.getBasePersonalHarvestBonusTile());
 		}
-	/*	for(int i=0; i < this.board.getPlayers().size(); i++){
+//		else
+		for(int i=0; i < this.board.getPlayers().size(); i++){
 			this.board.getPlayers().get(i).setPersonalProductionBonus(initPersonalBonus.getAllAdvancedPersonalProductionBonusTile().get(i));
 			this.board.getPlayers().get(i).setPersonalHarvestBonus(initPersonalBonus.getAllAdvancedPersonalHarvestBonusTile().get(i));
 		}
-	*/
+	
 		
 		
 	}
