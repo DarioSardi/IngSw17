@@ -65,6 +65,15 @@ public class PlayerCards implements Serializable{
 		return this.leaderCards;	
 	}
 	
+	public LeaderCard searchLeaderCardByName(String name){
+		for (int i=0; i < this.leaderCards.size(); i++){
+			if(name.equals(this.leaderCards.get(i).getCardName()))
+				return this.leaderCards.get(i);
+		}
+		return null;
+		
+	}
+	
 	public void addBuildingCard(BuildingCard card){
 		this.buildingCards.add(card);	
 	}
