@@ -11,6 +11,7 @@ public class FamilyMember implements Serializable{
 	private static final long serialVersionUID = -7472932792109550534L;
 	private int color;
     private boolean alreadyPlaced;
+    private boolean LeaderDieBonusFixed = false;
     private ActionSpace familyMemberPosition;
     private Player player;
   //  private Die die;
@@ -84,6 +85,10 @@ public class FamilyMember implements Serializable{
     
     public int getDiceValue(){
     	return this.diceValue;
+    }
+    
+    public boolean isLeaderDieBonusFixed(){
+    	return this.LeaderDieBonusFixed;
     }
     
     
