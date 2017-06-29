@@ -19,5 +19,6 @@ public interface UserRmiInterface extends Remote{
 	public void updateGlobalVariables(CopyOfGlobalVariables o) throws RemoteException;
 	public String getUsername() throws RemoteException;
 	public Integer getID()throws RemoteException;
+	public void setActionPerformed(boolean b)throws RemoteException;
 	
 }

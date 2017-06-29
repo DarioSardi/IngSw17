@@ -42,20 +42,29 @@ public class Client {
 	public ReentrantLock locker;
 	private RmiView rmiView;
 	ClientaHandlerRmInterface handler;
+	private boolean actionPerformed;
 
 	public Client() throws IOException, NotBoundException {
-		this.rmi = false;
+		initBools();
 		setup();
+		
+		if (!rmi) {
+			connect();
+		} else
+			connectRMI();
+		
+	}
+	
+	
+	private void initBools(){
+		this.rmi = false;
 		this.lobby = null;
 		this.online = true;
 		this.inMenu = true;
 		this.inGame = false;
 		this.myTurn = false;
 		this.ID = 0;
-		if (!rmi) {
-			connect();
-		} else
-			connectRMI();
+		this.actionPerformed=true;
 	}
 
 	private void connectRMI() throws RemoteException, NotBoundException {
@@ -264,6 +273,14 @@ public class Client {
 	public static void main(String[] args) throws IOException, NotBoundException {
 		@SuppressWarnings("unused")
 		Client c = new Client();
+	}
+
+	public boolean getActionPerformed() {
+		return this.actionPerformed;
+	}
+	
+	public void setActionPerformed(Boolean b){
+		this.actionPerformed=b;
 	}
 
 }

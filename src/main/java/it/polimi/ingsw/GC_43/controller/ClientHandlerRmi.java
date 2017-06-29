@@ -104,6 +104,9 @@ public class ClientHandlerRmi implements ClientHandler{
 			System.out.println("\n\n\nEXCOMMUNICATION ROUND PRESS ENTER OR FINISH THE MENU QUERY TO ANSWER THE CHOICE, YOU HAVE 2 MINUTES!\n\n");
 			this.client.excomunicationRound();
 		}
+		else if("Paction_performed".equals(line)){
+			this.client.setActionPerformed(true);
+		}
 		
 		else{
 			System.out.println(line);

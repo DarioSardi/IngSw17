@@ -69,12 +69,12 @@ public class Floor extends ActionSpace {
 	}
 
 	public boolean check(FamilyMember f) {
-		System.out.println("entering the floor with cost: " + this.getMinDiceValue() + "\n"
+		/*System.out.println("entering the floor with cost: " + this.getMinDiceValue() + "\n"
 				+ "the familiar have dice value of " + f.getDiceValue() + "\n" + "so can he enter? "
 				+ (f.getDiceValue() >= this.getMinDiceValue()) + "\n"
 				+ "the tower have another familiar in with the same color?" + (this.getTower().checkColor(f)) + "\n"
-				+ "is the floor occupied? " + (this.floorOccupied) + "\n");
-		return f.getDiceValue() >= this.getMinDiceValue() && this.getTower().checkColor(f) && this.floorOccupied;
+				+ "is the floor occupied? " + (this.floorOccupied) + "\n");*/
+		return f.getDiceValue() >= this.getMinDiceValue() && this.getTower().checkColor(f) && (this.floorOccupied||f.getPlayer().getPlayerBounusMalus().isOkPlaceOccupied());
 	}
 
 	/**

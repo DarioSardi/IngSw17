@@ -91,6 +91,7 @@ public class ClientInHandler implements Runnable {
 		else if("now_is_my_turn".equals(line)){
 			System.out.println("IS NOW MY TURN!");
 			this.myClient.myTurn=true;
+			this.myClient.setActionPerformed(false);
 			}
 		else if("end_of_my_turn".equals(line)){
 			System.out.println("END OF MY TURN!");
@@ -99,6 +100,9 @@ public class ClientInHandler implements Runnable {
 		else if("excommunication_round".equals(line)){
 			System.out.println("\n\n\nEXCOMMUNICATION ROUND PRESS ENTER OR FINISH THE MENU QUERY TO ANSWER THE CHOICE, YOU HAVE 2 MINUTES!\n\n");
 			this.myClient.excommunicationRound=true;
+		}
+		else if("Paction_performed".equals(line)){
+			this.myClient.setActionPerformed(true);
 		}
 		
 		else{

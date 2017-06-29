@@ -305,6 +305,12 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	public Integer getID() throws RemoteException {
 		return this.myclient.getID();
 	}
+
+	@Override
+	public void setActionPerformed(boolean b) throws RemoteException {
+		this.myclient.setActionPerformed(b);
+		
+	}
 	
 	
 	
