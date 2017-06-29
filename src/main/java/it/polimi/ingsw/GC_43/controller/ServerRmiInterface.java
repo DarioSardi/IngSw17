@@ -33,8 +33,8 @@ public class ServerRmiInterface implements ClientaHandlerRmInterface{
 	}
 
 	@Override
-	public boolean tryToCreateLobby(Integer ID, Integer lobbyNumber, Integer maxPlayers) throws RemoteException {
-		return this.clientHandlers.get(ID).tryToCreateLobby(lobbyNumber, maxPlayers);
+	public boolean tryToCreateLobby(Integer ID, Integer lobbyNumber, Integer maxPlayers,Boolean advancedMode) throws RemoteException {
+		return this.clientHandlers.get(ID).tryToCreateLobby(lobbyNumber, maxPlayers,advancedMode);
 	}
 
 	@Override

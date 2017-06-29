@@ -73,6 +73,9 @@ public class InGameMessageParser {
 								else if("6".equals(actionChoice)){
 									startTime=0;
 								}
+								else if("7".equals(actionChoice)){
+									//DARIO aggiungere condizione per la modalità avanzata
+								}
 								
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -100,6 +103,7 @@ public class InGameMessageParser {
 		System.out.println("4) palazzo del consiglio");
 		System.out.println("5) torri");
 		System.out.println("6) annulla azione");
+		System.out.println("7) azione leader card"); //DARIO da mettere con la condizione di modalità avanzata
 	}
 }
 	

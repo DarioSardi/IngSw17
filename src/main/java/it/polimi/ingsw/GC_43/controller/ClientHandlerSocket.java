@@ -86,7 +86,16 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 				sendMsgTo("select the max number of players in the lobby/game (min 2 max 5)");
 				maxPlayers = Integer.parseInt(readMsg());
 			}
-			if (myServer.newLobby(this, lobbyNumber,maxPlayers)) {
+			String advancedMode=null;
+			Boolean advChoice=false;
+			while (!"yes".equals(advancedMode)||!!"no".equals(advancedMode)) {
+				sendMsgTo("do you want to play with the advanced mode?");
+				advancedMode=readMsg();
+			}
+			if("yes".equals(advancedMode)){
+				advChoice=true;
+			}
+			if (myServer.newLobby(this, lobbyNumber,maxPlayers,advChoice)) {
 				sendMsgTo("you are in the lobby now!");
 				inLobby();
 			} else {

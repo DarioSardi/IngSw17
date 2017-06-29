@@ -13,14 +13,16 @@ public class Lobby implements Runnable{
 	private Controller controller;
 	private boolean exist,gameStarted;
 	private MyTimerLobby lobbyTimer;
+	private Boolean advancedMode;
 
 
-	public Lobby(ClientHandler lobbyAdmin,Integer ID,Integer maxPlayers) throws RemoteException {
+	public Lobby(ClientHandler lobbyAdmin,Integer ID,Integer maxPlayers,Boolean advancedMode) throws RemoteException {
 		this.admin=lobbyAdmin;
 		this.players=new ArrayList<>();
 		this.players.add(lobbyAdmin);
 		lobbyAdmin.setLobby(this);
 		this.ID=ID;
+		this.advancedMode=advancedMode;
 		this.maxPlayers=maxPlayers;
 		this.exist=true;
 		this.gameStarted=false;
@@ -264,7 +266,7 @@ public class Lobby implements Runnable{
 			lobbyMsg("message from the lobby:il gioco si sta inizializzando");
 			this.controller=new Controller(players);
 			lobbyMsg("message from the lobby:controller inizializzato");
-			this.controller.initializeGame();
+			this.controller.initializeGame(this.advancedMode);
 			lobbyMsg("message from the lobby:gioco inizializzato");
 			this.gameStarted=true;
 			initializeUserPass();

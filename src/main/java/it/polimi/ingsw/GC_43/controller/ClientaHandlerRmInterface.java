@@ -10,7 +10,7 @@ public interface ClientaHandlerRmInterface  extends Remote{
 
 	public String mainMenuChoicesPrint() throws RemoteException;
 	public String printLobbyes() throws RemoteException;
-	public boolean tryToCreateLobby(Integer ID,Integer lobbyNumber,Integer maxPlayers) throws RemoteException;
+	public boolean tryToCreateLobby(Integer ID,Integer lobbyNumber,Integer maxPlayers,Boolean advancedMode) throws RemoteException;
 	public void setUsername(Integer ID,String username) throws RemoteException;
 	public String helpMsgLobby() throws RemoteException;
 	public void chatMessage(Integer ID,String msg) throws RemoteException;

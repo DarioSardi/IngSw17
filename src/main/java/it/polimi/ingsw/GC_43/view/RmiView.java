@@ -61,7 +61,16 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 						System.out.println("select the max number of players in the lobby/game (min 2 max 5)");
 						maxPlayers = Integer.parseInt(input.readLine());
 					}
-					if (handler.tryToCreateLobby(this.ID,lobbyNumber,maxPlayers)) {
+					String advancedMode=null;
+					Boolean advChoice=false;
+					while (!"yes".equals(advancedMode)||!!"no".equals(advancedMode)) {
+						System.out.println("do you want to play with the advanced mode?");
+						advancedMode=input.readLine();
+					}
+					if("yes".equals(advancedMode)){
+						advChoice=true;
+					}
+					if (handler.tryToCreateLobby(this.ID,lobbyNumber,maxPlayers,advChoice)) {
 						System.out.println("you are in the lobby now!");
 						inLobby();
 				} else {

@@ -23,8 +23,8 @@ public class ClientHandlerRmi implements ClientHandler{
 		this.myServer=myServer;
 	}
 
-	public boolean tryToCreateLobby(Integer lobbyNumber,Integer maxPlayers){
-		return myServer.newLobby(this, lobbyNumber,maxPlayers);
+	public boolean tryToCreateLobby(Integer lobbyNumber,Integer maxPlayers,Boolean advancedMode){
+		return myServer.newLobby(this, lobbyNumber,maxPlayers,advancedMode);
 	}
 	
 	public boolean tryToJoinLobby(Integer lobbyNumber) throws RemoteException{
