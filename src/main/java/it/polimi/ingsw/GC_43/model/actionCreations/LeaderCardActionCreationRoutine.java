@@ -88,4 +88,38 @@ public class LeaderCardActionCreationRoutine implements ActionCreation {
 
 	}
 
+	public LeaderCardAction getLeaderCardAction() {
+		return leaderCardAction;
+	}
+
+	public void setLeaderCardAction(LeaderCardAction leaderCardAction) {
+		this.leaderCardAction = leaderCardAction;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public int getChoice() {
+		return choice;
+	}
+
+	public void setChoice(int choice) {
+		this.choice = choice;
+	}
+
+	public boolean isCheckResult() {
+		return checkResult;
+	}
+
+	public void setCheckResult(boolean checkResult) {
+		this.checkResult = checkResult;
+	}
+	
+	
+
 }
