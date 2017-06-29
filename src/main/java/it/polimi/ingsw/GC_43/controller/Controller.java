@@ -38,8 +38,14 @@ public class Controller implements IController {
 	private boolean isExcommunicationTime;
 	private boolean advancedGame;
 	private ArrayList<Player> playerSkippedFirstRound;
+	
+	//PHASE HANDLING
 	private boolean primaryActionDone;
+	
+	//ADVANCED RULES
 	private int choicePlayerNumber;
+	private int leaderChoicePhaseRound;
+	ArrayList<ArrayList<LeaderCard>> leaderCardPools;
 
 	public Controller(ArrayList<ClientHandler> clientHandlers) throws RemoteException {
 		this.clientHandlers = new ArrayList<ClientHandler>();
@@ -71,6 +77,7 @@ public class Controller implements IController {
 
 		if (advancedGame) {
 			this.choicePlayerNumber = this.clientHandlers.size() - 1;
+			leaderChoicePhaseRound=0;
 			System.out.println("Advanced game settings selected..");
 			advancedGameRoutine();
 		}
@@ -105,21 +112,26 @@ public class Controller implements IController {
 
 			poolNumber++;
 		}
-		for (int index = 0; index < 4; index++) {
+		this.leaderCardPools=leaderCardPools;
+		
+		for (int index = 0; index < this.clientHandlers.size()-1; index++) {
 			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(leaderCardPools.get(index), this.clientHandlers.get(index).getUsername());
 			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
 		}
 
 	}
 
-	private void nextChoiceLeaderMessage(LeaderCardChoiceMessage dfBonusMessage) throws RemoteException {
-		this.clientHandlers.get(this.choicePlayerNumber)
-				.sendMsgTo("\nPlease select for default harvest and production bonus\n");
+	private void nextChoiceLeaderMessage() throws RemoteException {
+		this.choicePlayerNumber=this.clientHandlers.size();
+		this.leaderChoicePhaseRound++;
 
-		// CHIEDI A DARIO SE NECESSARIO
-		this.matchClientHandler.get(this.choicePlayerNumber).sendMsgTo("my_turn");
+		
+		
+		for (int index = 0; index < this.clientHandlers.size()-1; index++) {
+			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(this.leaderCardPools.get(index+this.leaderChoicePhaseRound%this.clientHandlers.size()), this.clientHandlers.get(index).getUsername());
+			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
+		}
 
-		this.matchClientHandler.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
 
 	}
 
@@ -135,7 +147,7 @@ public class Controller implements IController {
 		this.choicePlayerNumber--;
 
 		if (this.choicePlayerNumber == 0&&!message.getLeaderCards().isEmpty()) {
-			nextChoiceLeaderMessage(message);
+			nextChoiceLeaderMessage();
 
 		} else if(this.choicePlayerNumber==0&&message.getLeaderCards().isEmpty()) {
 			System.out.println("Leader cards selection finished, starting the game");
