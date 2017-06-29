@@ -88,7 +88,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 			}
 			String advancedMode=null;
 			Boolean advChoice=false;
-			while (!"yes".equals(advancedMode)||!!"no".equals(advancedMode)) {
+			while(!("yes".equals(advancedMode)||"no".equals(advancedMode))){
 				sendMsgTo("do you want to play with the advanced mode?");
 				advancedMode=readMsg();
 			}

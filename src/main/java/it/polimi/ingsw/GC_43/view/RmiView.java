@@ -63,7 +63,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 					}
 					String advancedMode=null;
 					Boolean advChoice=false;
-					while (!"yes".equals(advancedMode)||!!"no".equals(advancedMode)) {
+					while  (!("yes".equals(advancedMode)||"no".equals(advancedMode))) {
 						System.out.println("do you want to play with the advanced mode?");
 						advancedMode=input.readLine();
 					}
