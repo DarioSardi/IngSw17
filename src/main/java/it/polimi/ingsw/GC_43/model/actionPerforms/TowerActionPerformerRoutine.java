@@ -46,8 +46,14 @@ public class TowerActionPerformerRoutine implements ActionPerformer {
 		Player player = this.towerAction.getPlayer();
 		System.out.println("Player is " + player.getPlayerName() + "..");
 
-		FamilyMember familyMember = CommonActionPerformerRoutine.matchFamilyMember(player,
-				this.towerAction.getFamilyMemberColor());
+		FamilyMember familyMember;
+		if (!this.towerAction.isDefaultFamilyMember())
+			familyMember = CommonActionPerformerRoutine.matchFamilyMember(player,
+					this.towerAction.getFamilyMemberColor());
+		else{
+			familyMember = this.towerAction.getFamilyMember();
+			familyMember.setPlayer(player);
+		}
 		HashMap<String, Integer> playerResourcesCopy = CommonActionPerformerRoutine.copyPlayerResources(player);
 		System.out.println("Adding eventual extra discount..");
 

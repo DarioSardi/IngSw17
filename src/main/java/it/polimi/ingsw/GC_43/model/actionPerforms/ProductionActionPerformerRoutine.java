@@ -47,8 +47,10 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 		if (!this.productionAction.isDefaultFamilyMember())
 			familyMember = CommonActionPerformerRoutine.matchFamilyMember(player,
 					this.productionAction.getFamilyMemberColor());
-		else
+		else{
 			familyMember = this.productionAction.getFamilyMember();
+			familyMember.setPlayer(player);
+		}
 
 		HashMap<String, Integer> playerResourcesCopy = CommonActionPerformerRoutine.copyPlayerResources(player);
 

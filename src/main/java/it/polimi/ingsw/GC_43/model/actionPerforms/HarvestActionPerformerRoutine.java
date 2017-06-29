@@ -39,8 +39,10 @@ public class HarvestActionPerformerRoutine implements ActionPerformer {
 		if (!this.harvestAction.isDefaultFamilyMember())
 			familyMember = CommonActionPerformerRoutine.matchFamilyMember(player,
 					this.harvestAction.getFamilyMemberColor());
-		else
+		else{
 			familyMember = this.harvestAction.getFamilyMember();
+			familyMember.setPlayer(player);
+			}
 
 		HashMap<String, Integer> playerResourcesCopy = CommonActionPerformerRoutine.copyPlayerResources(player);
 
