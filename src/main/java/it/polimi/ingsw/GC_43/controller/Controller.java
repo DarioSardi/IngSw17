@@ -11,6 +11,7 @@ import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.ExtraFamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
+import it.polimi.ingsw.GC_43.model.PlayerPersonalBonus;
 import it.polimi.ingsw.GC_43.model.actionPerforms.*;
 import it.polimi.ingsw.GC_43.model.actions.*;
 import it.polimi.ingsw.GC_43.model.cards.LeaderCard;
@@ -38,6 +39,7 @@ public class Controller implements IController {
 	private boolean advancedGame;
 	private ArrayList<Player> playerSkippedFirstRound;
 	private boolean primaryActionDone;
+	private int choicePlayerNumber;
 
 	public Controller(ArrayList<ClientHandler> clientHandlers) throws RemoteException {
 		this.clientHandlers = new ArrayList<ClientHandler>();
@@ -68,46 +70,123 @@ public class Controller implements IController {
 		System.out.println("global variables sent");
 
 		if (advancedGame) {
+			this.choicePlayerNumber = this.clientHandlers.size() - 1;
 			System.out.println("Advanced game settings selected..");
 			advancedGameRoutine();
 		}
 
-		startGame();
+		else {
 
+			startGame();
+		}
 	}
 
 	private void advancedGameRoutine() {
 		System.out.println("Attempting to ask for default player bonus");
-		askForDefaultBonus();
-		askForLeaderCards();
+		try {
+			askForAdvancedChoice();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	private void askForLeaderCards() {
-		ArrayList<LeaderCard> firstPool = new ArrayList<LeaderCard>();
+	private void askForLeaderCards() throws RemoteException {
 
-		ArrayList<LeaderCard> secondPool = new ArrayList<LeaderCard>();
+		ArrayList<ArrayList<LeaderCard>> leaderCardPools = new ArrayList<ArrayList<LeaderCard>>();
 
-		ArrayList<LeaderCard> thirdPool = new ArrayList<LeaderCard>();
+		int poolNumber = 0;
+		for (ClientHandler ch : this.clientHandlers) {
+			leaderCardPools.add(new ArrayList<LeaderCard>());
 
-		ArrayList<LeaderCard> fourthPool = new ArrayList<LeaderCard>();
+			for (int index = 0; index < 4; index++) {
+				leaderCardPools.get(poolNumber).add(this.board.getLeaderCardPool().get(index * poolNumber + index));
+			}
+
+			poolNumber++;
+		}
+		for (int index = 0; index < 4; index++) {
+			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(leaderCardPools.get(index), this.clientHandlers.get(index).getUsername());
+			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
+		}
 
 	}
 
-	public void submitLeaderCardChoice() {
+	private void nextChoiceLeaderMessage(LeaderCardChoiceMessage dfBonusMessage) throws RemoteException {
+		this.clientHandlers.get(this.choicePlayerNumber)
+				.sendMsgTo("\nPlease select for default harvest and production bonus\n");
+
+		// CHIEDI A DARIO SE NECESSARIO
+		this.matchClientHandler.get(this.choicePlayerNumber).sendMsgTo("my_turn");
+
+		this.matchClientHandler.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
 
 	}
 
-	private void askForDefaultBonus() {
-		ArrayList<Player> inversePlayerOrder = new ArrayList<Player>();
-		int playerSize = this.board.getPlayers().size() - 1;
-		// INVERSE ORDER PHASE PLAYERS
-		while (playerSize >= 0) {
-			inversePlayerOrder.add(this.board.getPlayers().get(playerSize));
-			playerSize--;
-		}/*
-		this.matchClientHandler.get(inversePlayerOrder)
-				.sendMsgTo("Please select for default harvest and production bonus");*/
+	public synchronized void submitLeaderCardChoice(LeaderCardChoiceMessage message, ClientHandler clientHandler)
+			throws RemoteException {
 
+		int choice = message.getChoice();
+		this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards()
+				.addLeaderCard(message.getLeaderCards().get(choice));
+
+		message.getLeaderCards().remove(choice);
+
+		this.choicePlayerNumber--;
+
+		if (this.choicePlayerNumber == 0&&!message.getLeaderCards().isEmpty()) {
+			nextChoiceLeaderMessage(message);
+
+		} else if(this.choicePlayerNumber==0&&message.getLeaderCards().isEmpty()) {
+			System.out.println("Leader cards selection finished, starting the game");
+			this.playersLobby.broadcastMsg("Selection ended, game is about to start..");
+			startGame();
+		}
+
+	}
+
+	private void askForAdvancedChoice() throws RemoteException {
+
+		ArrayList<PlayerPersonalBonus> playerPersonalBonus = this.board.getPlayerPersonalBonus();
+		DefaultBonusChoiceMessage dfBonusMessage = new DefaultBonusChoiceMessage(playerPersonalBonus,
+				this.clientHandlers.get(this.choicePlayerNumber).getUsername());
+		nextChoiceMessage(dfBonusMessage);
+
+	}
+
+	private void nextChoiceMessage(DefaultBonusChoiceMessage dfBonusMessage) throws RemoteException {
+		this.clientHandlers.get(this.choicePlayerNumber)
+				.sendMsgTo("\nPlease select for default harvest and production bonus\n");
+
+		// CHIEDI A DARIO SE NECESSARIO
+		this.matchClientHandler.get(this.choicePlayerNumber).sendMsgTo("my_turn");
+
+		this.matchClientHandler.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
+
+	}
+
+	public synchronized void submitDefaultBonusChoice(DefaultBonusChoiceMessage message, ClientHandler clientHandler) throws RemoteException {
+		int choice = message.getChoice();
+		this.matchPlayer.get(clientHandler.getUsername())
+				.setPersonalHarvestBonus(message.getAdvDefBonus().get(choice).getHarvestBonus());
+
+		this.matchPlayer.get(clientHandler.getUsername())
+				.setPersonalProductionBonus(message.getAdvDefBonus().get(choice).getHarvestBonus());
+
+		message.getAdvDefBonus().get(choice).getHarvestBonus().remove(choice);
+
+		message.getAdvDefBonus().get(choice).getProductionBonus().remove(choice);
+
+		this.choicePlayerNumber--;
+
+		if (this.choicePlayerNumber >= 0) {
+			nextChoiceMessage(message);
+
+		} else {
+			this.choicePlayerNumber = this.clientHandlers.size() - 1;
+			askForLeaderCards();
+
+		}
 	}
 
 	private void startGame() throws RemoteException {
@@ -249,7 +328,7 @@ public class Controller implements IController {
 
 			if (action.getActionID() == -1) {
 				System.out.println("Player passed hit turn, calling for next player phase");
-				this.primaryActionDone=false;
+				this.primaryActionDone = false;
 				nextPlayerPhase();
 			}
 
@@ -260,19 +339,19 @@ public class Controller implements IController {
 
 				System.out.println("\n Action submission = " + actionResult);
 
-				//if not LeaderCardAction and acti
-				if(action.getActionID()!=6&&!action.getFamilyMember().getClass().toString().contains("Extra")){
-					this.primaryActionDone=true;
+				// if not LeaderCardAction and acti
+				if (action.getActionID() != 6 && !action.getFamilyMember().getClass().toString().contains("Extra")) {
+					this.primaryActionDone = true;
 					this.getPlayerOfTurn().sendMsgTo("Paction_performed");
 				}
-				
+
 				if (actionResult) {
-					
+
 					if (!this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().isEmpty()) {
 						if (action.getFamilyMember().getClass().toString().contains("Extra")) {
 
 							this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().remove(0);
-							
+
 							if (!this.primaryActionDone) {
 								this.getPlayerOfTurn().sendMsgTo(
 										"You still have to complete your primary action, it is stll your phase");
@@ -281,7 +360,7 @@ public class Controller implements IController {
 										.sendMsgTo("You could still play any leader card, it is stll your phase");
 							}
 
-						} else{
+						} else {
 							askForExtraAction();
 							this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().remove(0);
 						}
@@ -311,12 +390,11 @@ public class Controller implements IController {
 				else {
 					System.out.println("\nAction unsuccessfully submitted " + actionResult + " action to string\n"
 							+ action.toString());
-					if(action.getFamilyMember().getClass().toString().contains("Extra")&&!action.isRejected()){
+					if (action.getFamilyMember().getClass().toString().contains("Extra") && !action.isRejected()) {
 						this.getPlayerOfTurn().sendObject(action);
 						this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
 
-					}
-					else{
+					} else {
 						this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed\n");
 
 					}

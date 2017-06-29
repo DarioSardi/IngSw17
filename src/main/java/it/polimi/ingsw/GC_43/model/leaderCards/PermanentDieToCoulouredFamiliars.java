@@ -30,7 +30,7 @@ public class PermanentDieToCoulouredFamiliars extends Effect {
 			if(familyMember.getColor()!=0)
 				familyMember.setDieToFamilyMember(this.dieValue);
 			//TODO SAM-FRA TO INSERT THIS BOOLEAN
-				//familyMember.setLeaderFixedDie(true);
+				familyMember.setLeaderDieBonusFixed(true);
 			
 		}
 	}

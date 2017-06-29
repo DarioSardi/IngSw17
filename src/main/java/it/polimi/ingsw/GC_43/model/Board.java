@@ -58,6 +58,9 @@ public class Board implements Serializable {
 	//ADVANCED RULES
 	
 	private boolean advancedGame;
+	private ArrayList<PlayerPersonalBonus> playerPersonalBonus;
+	private PlayerPersonalBonus defaultPersonalBonus;
+
 	// SAM-FRANCESCO: Remember to call board.initalize() only after creation of
 	// board and
 	// and initial settings of all stuff, delete this comment afterwards ;)
@@ -129,14 +132,14 @@ public class Board implements Serializable {
 		for (j = 0; j < this.getPlayers().size(); j++) {
 
 			for (i = 1; i < this.getPlayers().get(j).getFamilyMembers().size(); i++) {
-				//if (!this.getPlayers().get(j).getFamilyMember(i).isLeaderFixedDie) {
+				if (!this.getPlayers().get(j).getFamilyMember(i).isLeaderDieBonusFixed()) {
 					this.getPlayers().get(j).getFamilyMember(i)
 							.setDieToFamilyMember(this.getDice().get(i - 1).getDieValue());
 				}
 			}
 		}
 
-//	}
+	}
 
 	/**
 	 * create Players assigning incremental money to receive, No rolling dice to
@@ -147,7 +150,7 @@ public class Board implements Serializable {
 		if (this.players == null) {
 			this.players = new ArrayList<Player>();
 		}
-		System.out.println("\n\nplayerss are " + this.getPlayersID().size() + "\n\n");
+		System.out.println("\nTotal players in game is " + this.getPlayersID().size() +"\n");
 
 		try {
 			int index = 0;
@@ -473,6 +476,25 @@ public class Board implements Serializable {
 
 	public void setAdvancedGame(boolean advancedGame) {
 		this.advancedGame = advancedGame;
+	}
+
+	
+	
+	
+	public ArrayList<PlayerPersonalBonus> getPlayerPersonalBonus() {
+		return playerPersonalBonus;
+	}
+
+	public void setPlayerPersonalBonus(ArrayList<PlayerPersonalBonus> playerPersonalBonus) {
+		this.playerPersonalBonus = playerPersonalBonus;
+	}
+
+	public PlayerPersonalBonus getDefaultPersonalBonus() {
+		return defaultPersonalBonus;
+	}
+
+	public void setDefaultPersonalBonus(PlayerPersonalBonus defaultPersonalBonus) {
+		this.defaultPersonalBonus = defaultPersonalBonus;
 	}
 
 	public void excommunicatePlayer(Player player) {
