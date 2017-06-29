@@ -9,8 +9,6 @@ import org.json.simple.parser.JSONParser;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.actionSpace.*;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
-import it.polimi.ingsw.GC_43.model.effects.ResourceEffect;
-import it.polimi.ingsw.GC_43.model.resources.Coin;
 
 public class InitActionSpaces {
 	private int[] faithPoints;

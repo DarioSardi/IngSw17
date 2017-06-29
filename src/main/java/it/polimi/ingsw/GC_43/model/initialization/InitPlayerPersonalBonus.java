@@ -7,20 +7,18 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
+import it.polimi.ingsw.GC_43.model.PlayerPersonalBonus;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
 
 public class InitPlayerPersonalBonus {
-	private ArrayList<Effect> basePersonalProductionBonusTile;
-	private ArrayList<Effect> basePersonalHarvestBonusTile;
-	private ArrayList<Effect> advancedPersonalProductionBonusTile;
-	private ArrayList<Effect> advancedPersonalHarvestBonusTile;
-	private ArrayList<ArrayList<Effect>> allAdvancedPersonalProductionBonusTiles;
-	private ArrayList<ArrayList<Effect>> allAdvancedPersonalHarvestBonusTiles;
-	InitPlayerPersonalBonus(){
-		this.basePersonalProductionBonusTile = new ArrayList<>();
-		this.basePersonalHarvestBonusTile = new ArrayList<>();
-		this.allAdvancedPersonalProductionBonusTiles = new ArrayList<>();
-		this.allAdvancedPersonalHarvestBonusTiles = new ArrayList<>();
+	private PlayerPersonalBonus basePersonalTile;
+	private ArrayList<PlayerPersonalBonus> allAdvancedPersonalTile;
+	
+	InitPlayerPersonalBonus(){		
+		
+		this.basePersonalTile = new PlayerPersonalBonus(null, null);
+		this.allAdvancedPersonalTile = new ArrayList<>();
 	}
 	
 	/**
@@ -50,78 +48,79 @@ public class InitPlayerPersonalBonus {
      			
      			JSONArray baseProductionArray = (JSONArray) slide1.get("Production");
                 Iterator<?> baseProductionIterator = baseProductionArray.iterator();
-      
+                
+                ArrayList<Effect> basePersonalProductionTile = new ArrayList<>();
                 while (baseProductionIterator.hasNext()) {
         			JSONObject slide2 = (JSONObject) baseProductionIterator.next();
         			String typeBonus = (String)slide2.get("bonus");
         			int value = Integer.parseInt((String)slide2.get("value")); 	
-        			this.basePersonalProductionBonusTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
+        			basePersonalProductionTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
         		 }
                 
                 JSONArray baseHarvestArray = (JSONArray) slide1.get("Harvest");
                 Iterator<?> baseHarvestIterator = baseHarvestArray.iterator();
                 
+                ArrayList<Effect> basePersonalHarvestTile = new ArrayList<>();
                 while (baseHarvestIterator.hasNext()) {
         			JSONObject slide2 = (JSONObject) baseHarvestIterator.next();
         			String typeBonus = (String)slide2.get("bonus");
         			int value = Integer.parseInt((String)slide2.get("value"));
-        			this.basePersonalHarvestBonusTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
+        			basePersonalHarvestTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
         		 }
+                
+        		this.basePersonalTile = new PlayerPersonalBonus(basePersonalProductionTile, basePersonalHarvestTile);
+
      		 }
+             
              JSONArray advancedDefaultBonusArray = (JSONArray) slide.get("AdvancedDefaultBonus");
              Iterator<?> advancedDefaultBonusIterator = advancedDefaultBonusArray.iterator();
  
+             PlayerPersonalBonus advancedPersonalTile;
              while (advancedDefaultBonusIterator.hasNext()) {
      			JSONObject slide1 = (JSONObject) advancedDefaultBonusIterator.next();     			
      			
      			JSONArray baseProductionArray = (JSONArray) slide1.get("Production");
                 Iterator<?> baseProductionIterator = baseProductionArray.iterator();
                 
-        		this.advancedPersonalProductionBonusTile = new ArrayList<>();
+                ArrayList<Effect> advancedPersonalProductionTile = new ArrayList<>();
         		
                 while (baseProductionIterator.hasNext()) {
         			JSONObject slide2 = (JSONObject) baseProductionIterator.next();
         			String typeBonus = (String)slide2.get("bonus");
         			int value = Integer.parseInt((String)slide2.get("value")); 	
-        			this.advancedPersonalProductionBonusTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));;
-
+        			advancedPersonalProductionTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
         		}
-                this.allAdvancedPersonalProductionBonusTiles.add(this.advancedPersonalProductionBonusTile);
                 
                 JSONArray baseHarvestArray = (JSONArray) slide1.get("Harvest");
                 Iterator<?> baseHarvestIterator = baseHarvestArray.iterator();
                 
-        		this.advancedPersonalHarvestBonusTile = new ArrayList<>();
+                ArrayList<Effect> advancedPersonalHarvestTile = new ArrayList<>();
         		
                 while (baseHarvestIterator.hasNext()) {
         			JSONObject slide2 = (JSONObject) baseHarvestIterator.next();
         			String typeBonus = (String)slide2.get("bonus");
         			int value = Integer.parseInt((String)slide2.get("value")); 	
-        			this.advancedPersonalHarvestBonusTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
+        			advancedPersonalHarvestTile.add(new AddGainAndCostResources().retResourceEffect(typeBonus, value));
         		}
-                this.allAdvancedPersonalHarvestBonusTiles.add(this.advancedPersonalHarvestBonusTile);
-
+                
+                advancedPersonalTile = new PlayerPersonalBonus(advancedPersonalProductionTile, advancedPersonalHarvestTile);  
+                this.allAdvancedPersonalTile.add(advancedPersonalTile);
      		 }
          }
+        
+        if (GlobalVariables.numberOfPlayers < 5)
+        	this.allAdvancedPersonalTile.remove(this.allAdvancedPersonalTile.size()-1);
            	 	
         } catch (Exception e) {
             e.printStackTrace();
         }   
     }
 	
-	public ArrayList<Effect> getBasePersonalProductionBonusTile(){
-		return this.basePersonalProductionBonusTile;
+	public PlayerPersonalBonus getBasePersonalTile(){
+		return this.basePersonalTile;
 	}
-	
-	public ArrayList<Effect> getBasePersonalHarvestBonusTile(){
-		return this.basePersonalHarvestBonusTile;
-	}
-	
-	public ArrayList<ArrayList<Effect>> getAllAdvancedPersonalProductionBonusTile(){
-		return this.allAdvancedPersonalProductionBonusTiles;
-	}
-	
-	public ArrayList<ArrayList<Effect>> getAllAdvancedPersonalHarvestBonusTile(){
-		return this.allAdvancedPersonalHarvestBonusTiles;
+		
+	public ArrayList<PlayerPersonalBonus> getAllAdvancedPersonalTile(){
+		return this.allAdvancedPersonalTile;
 	}
 }

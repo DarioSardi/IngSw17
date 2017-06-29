@@ -133,6 +133,58 @@
               "value": "1"
             }
           ]
+        },
+        {
+          "Production": [
+            {
+              "bonus": "militaryPoint",
+              "value": "1"
+            },
+            {
+              "bonus": "servant",
+              "value": "2"
+            }
+          ],
+          "Harvest": [
+            {
+              "bonus": "wood",
+              "value": "1"
+            },
+            {
+              "bonus": "stone",
+              "value": "1"
+            },
+            {
+              "bonus": "servant",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "Production": [
+            {
+              "bonus": "militaryPoint",
+              "value": "1"
+            },
+            {
+              "bonus": "servant",
+              "value": "2"
+            }
+          ],
+          "Harvest": [
+            {
+              "bonus": "wood",
+              "value": "1"
+            },
+            {
+              "bonus": "stone",
+              "value": "1"
+            },
+            {
+              "bonus": "servant",
+              "value": "1"
+            }
+          ]
         }
       ]
     }
