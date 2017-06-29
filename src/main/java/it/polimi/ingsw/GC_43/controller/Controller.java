@@ -171,7 +171,7 @@ public class Controller implements IController {
 				.sendMsgTo("\nPlease select for default harvest and production bonus\n");
 
 		// CHIEDI A DARIO SE NECESSARIO
-		this.matchClientHandler.get(this.choicePlayerNumber).setMyturn(true);;
+	//	this.matchClientHandler.get(this.choicePlayerNumber);
 
 		this.matchClientHandler.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
 
