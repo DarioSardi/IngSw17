@@ -71,7 +71,6 @@ public class ServerRmiInterface implements ClientaHandlerRmInterface{
 	@Override
 	public void quitGame(Integer ID, String password) throws RemoteException {
 		this.clientHandlers.get(ID).quitGame(password);
-		
 	}
 
 	@Override
@@ -94,19 +93,24 @@ public class ServerRmiInterface implements ClientaHandlerRmInterface{
 	@Override
 	public Integer connect(UserRmiInterface rmiView) throws RemoteException {
 		ClientHandlerRmi cH=new ClientHandlerRmi(this.myServer);
-		System.out.println("getting new ID");
 		Integer ID=this.myServer.addClient(cH);
-		System.out.println("updating hashmap");
+		cH.setId(ID);
+		cH.setUsername(rmiView.getUsername());
+		System.out.println("player "+cH.getUsername()+"added to server with ID "+ID);
 		this.clientHandlers.put(ID,cH);
-		System.out.println("connecting to Ch");
 		this.clientHandlers.get(ID).connect(rmiView);
-		System.out.println("all done");
 		return ID;
 	}
 
 	@Override
 	public void ping(Integer ID) throws RemoteException {
 		this.clientHandlers.get(ID).ping();
+		
+	}
+
+	@Override
+	public void exitLobby(int id) throws RemoteException {
+		this.clientHandlers.get(id).leaveLobby();
 		
 	}
 

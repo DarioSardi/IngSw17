@@ -82,8 +82,8 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 			sendMsgTo("select a number for the lobby");
 			Integer lobbyNumber = Integer.parseInt(readMsg());
 			Integer maxPlayers=0;
-			while (!(maxPlayers<=4&&maxPlayers>=2)) {
-				sendMsgTo("select the max number of players in the lobby/game (min 2 max 4)");
+			while (!(maxPlayers<=5&&maxPlayers>=2)) {
+				sendMsgTo("select the max number of players in the lobby/game (min 2 max 5)");
 				maxPlayers = Integer.parseInt(readMsg());
 			}
 			if (myServer.newLobby(this, lobbyNumber,maxPlayers)) {
@@ -152,6 +152,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 				String command = readMsg();
 				if (command.equals("exit_lobby")) {
 					inLobby = false;
+					this.lobby.removePlayer(this);
 					sendMsgTo("exiting the lobby");
 				} else if ("chat".equals(command)) {
 					sendMsgTo("write the message that you want to send!");

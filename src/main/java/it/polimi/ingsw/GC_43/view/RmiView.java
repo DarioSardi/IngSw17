@@ -33,7 +33,6 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	public void run() {
 		System.out.println("RMI menu!");
 		try {
-			System.out.println("receiving ID");
 			this.myclient.setID(handler.connect(this));
 		} catch (RemoteException e2) {
 			e2.printStackTrace();
@@ -58,8 +57,8 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 					System.out.println("select a number for the lobby");
 					Integer lobbyNumber = Integer.parseInt(input.readLine());
 					Integer maxPlayers=0;
-					while (!(maxPlayers<=4&&maxPlayers>=2)) {
-						System.out.println("select the max number of players in the lobby/game (min 2 max 4)");
+					while (!(maxPlayers<=5&&maxPlayers>=2)) {
+						System.out.println("select the max number of players in the lobby/game (min 2 max 5)");
 						maxPlayers = Integer.parseInt(input.readLine());
 					}
 					if (handler.tryToCreateLobby(this.ID,lobbyNumber,maxPlayers)) {
@@ -113,6 +112,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 				if (command.equals("exit_lobby")) {
 					inLobby = false;
 					System.out.println("exiting the lobby");
+					this.handler.exitLobby(this.ID);
 				} else if ("chat".equals(command)) {
 					System.out.println("write the message that you want to send!");
 					String msg = input.readLine();

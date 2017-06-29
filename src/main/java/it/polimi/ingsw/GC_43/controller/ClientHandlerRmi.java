@@ -18,7 +18,6 @@ public class ClientHandlerRmi implements ClientHandler{
 	private Lobby lobby;
 	private Integer id;
 	private UserRmiInterface client;
-	public static final String ANSI_RED = "\u001B[31m";
 	
 	protected ClientHandlerRmi(Server myServer) throws RemoteException {
 		this.myServer=myServer;
@@ -68,6 +67,10 @@ public class ClientHandlerRmi implements ClientHandler{
 	public void setGame(boolean b) throws RemoteException {
 		this.client.setInGame(b);
 		
+	}
+	
+	public void setId(Integer id) throws RemoteException{
+		this.id=id;
 	}
 
 	@Override
@@ -177,7 +180,6 @@ public class ClientHandlerRmi implements ClientHandler{
 	
 	public void connect(UserRmiInterface rmiView) throws RemoteException {
 		this.client= rmiView;
-		System.out.println("linked player to handlerRMI with username: "+this.client.getUsername()+" and ID :"+String.valueOf(this.client.getID()));
 	}
 
 
@@ -200,6 +202,11 @@ public class ClientHandlerRmi implements ClientHandler{
 	
 	public int getID() throws RemoteException {
 		return this.id;
+	}
+
+	public void leaveLobby() {
+		this.lobby.removePlayer(this);
+		
 	}
 	
 

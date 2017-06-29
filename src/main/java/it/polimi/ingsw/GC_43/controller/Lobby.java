@@ -12,7 +12,8 @@ public class Lobby implements Runnable{
 	public int ID,maxPlayers;
 	private Controller controller;
 	private boolean exist,gameStarted;
-	public static final String ANSI_RED = "\u001B[31m";
+	private MyTimerLobby lobbyTimer;
+
 
 	public Lobby(ClientHandler lobbyAdmin,Integer ID,Integer maxPlayers) throws RemoteException {
 		this.admin=lobbyAdmin;
@@ -23,20 +24,26 @@ public class Lobby implements Runnable{
 		this.maxPlayers=maxPlayers;
 		this.exist=true;
 		this.gameStarted=false;
+		this.lobbyTimer=new MyTimerLobby(30,this);
 		System.out.println("SONO LA LOBBY "+ID+" E SON VIVA!");
+		
+	}
+	
+	public Integer getPlayersNumber(){
+		return this.players.size();
 	}
 
 	public Integer addPlayer(ClientHandler cH) throws RemoteException {
-		if (players.size()<maxPlayers&&!gameStarted) {
+		if (this.players.size()<maxPlayers&&!gameStarted) {
 			checkUsername(cH);
-			if (!players.contains(cH)) {
+			if (!this.players.contains(cH)) {
 				this.players.add(cH);
 				cH.setLobby(this);
-				System.out.println(ANSI_RED+"added " + cH.toString()+ANSI_RED);
+				
 				broadcastMsg("the player " + cH.toString()+" has joined the lobby.");
 				cH.sendMsgTo("added to the lobby!");
 				return 1;
-			} else if (players.contains(cH)) {
+			} else if (this.players.contains(cH)) {
 				cH.setLobby(this);
 				System.out.println("re-entered " + cH.toString());
 				broadcastMsg("re-entered " + cH.toString());
@@ -103,6 +110,10 @@ public class Lobby implements Runnable{
 		this.players.remove(cH);
 	}
 	
+	public void removePlayer(ClientHandler cH){
+		this.players.remove(cH);
+	}
+	
 	
 	/**
 	 * to find if there is a clientHandler in the lobby with the same username (clientHandler==player is the game playing)
@@ -126,18 +137,34 @@ public class Lobby implements Runnable{
 		return this.controller;
 	}
 	
+	@Override
 	public void run() {
-		while(exist){
-			System.out.println("---------------------------");
-			System.out.println("nella lobby "+ID+" ci sono");
-			players.stream().forEach(p->System.out.println(p.toString()));
-			System.out.println("---------------------------");
-
+		System.out.println("timer runner online");
+		while(!gameStarted){
 			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
 			}
+			if(this.players.size()>1){
+				System.out.println("starting timer!");
+				try {
+					lobbyTimer.runTimer();
+					System.out.println("time is over");
+					if (this.players.size()>1) {
+						broadcastSwitchMsg();
+						this.admin.setGame(true);
+						this.admin.sendMsgTo("system_ingame_switch");
+						this.gameStarted=true;
+					}
+					else{
+						broadcastMsg("someone left during the countdown,waiting for players....");
+					}
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		}
 		
 	}
@@ -206,13 +233,13 @@ public class Lobby implements Runnable{
 	public void broadcastSwitchMsg() {
 		players.stream().forEach(p->
 		{
-			if(p!=admin){
+		
 				try {
 					p.setGame(true);
 					p.sendMsgTo("system_ingame_switch");
 				} catch (RemoteException e) {
 					e.printStackTrace();
-				}}});
+				}});
 		
 	}
 	
@@ -232,7 +259,7 @@ public class Lobby implements Runnable{
 	}
 
 	public boolean startGame(ClientHandler clientHandler) throws RemoteException {
-		if(this.admin==clientHandler){
+		if(this.admin==clientHandler||this.admin==null){
 			//INIZIA GIOCO
 			lobbyMsg("message from the lobby:il gioco si sta inizializzando");
 			this.controller=new Controller(players);

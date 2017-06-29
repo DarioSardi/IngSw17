@@ -27,6 +27,7 @@ public class Server implements Remote{
 	private HashMap<Integer,Lobby> lobbies;
 	private Registry registry;
 	private Integer numberOfClients;
+	private ExecutorService lobbyes;
 
 
 	public Server() throws IOException, AlreadyBoundException {
@@ -36,6 +37,7 @@ public class Server implements Remote{
 		//SOCKET
 		System.out.println("Socket ready on Port:"+PORT);
 		players= Executors.newCachedThreadPool();
+		lobbyes= Executors.newCachedThreadPool();
 		//RMI
 		registry = LocateRegistry.createRegistry(PORTRMI);
 		System.out.println("RMI registry ready on Port:"+PORTRMI);
@@ -93,7 +95,9 @@ public class Server implements Remote{
 		System.out.println("provo a creare la lobby numero "+lobbyNumber);
 		if(!(this.lobbies.containsKey(lobbyNumber))){
 			try {
-				this.lobbies.put(lobbyNumber,new Lobby(clientHandler,lobbyNumber,maxPlayers));
+				Lobby newLobby=new Lobby(clientHandler,lobbyNumber,maxPlayers);
+				this.lobbies.put(lobbyNumber,newLobby);
+				lobbyes.submit(newLobby);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}

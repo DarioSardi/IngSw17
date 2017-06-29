@@ -22,5 +22,6 @@ public interface ClientaHandlerRmInterface  extends Remote{
 	public void sendMsgTo(Integer ID,String s) throws RemoteException;
 	public Integer connect(UserRmiInterface rmiView) throws RemoteException;
 	public void ping(Integer ID) throws RemoteException;
+	public void exitLobby(int id) throws RemoteException;
 	
 }
