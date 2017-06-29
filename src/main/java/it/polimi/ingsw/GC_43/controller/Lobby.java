@@ -157,6 +157,7 @@ public class Lobby implements Runnable{
 						broadcastSwitchMsg();
 						this.admin.setGame(true);
 						this.admin.sendMsgTo("system_ingame_switch");
+						startGame(null);
 						this.gameStarted=true;
 					}
 					else{

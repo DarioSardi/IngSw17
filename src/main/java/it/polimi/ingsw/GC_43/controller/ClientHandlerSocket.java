@@ -203,7 +203,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 	private void inGame() {
 		sendMsgTo("You are now in game!");
 		sendMsgTo("system_ingame_switch");
-		System.out.println("ready to recive"+Game);
+		//System.out.println("ready to recive"+Game);
 		while(this.Game){
 			receive();
 		}
