@@ -171,7 +171,7 @@ public class Controller implements IController {
 				.sendMsgTo("\nPlease select for default harvest and production bonus\n");
 
 		// CHIEDI A DARIO SE NECESSARIO
-		this.matchClientHandler.get(this.choicePlayerNumber).sendMsgTo("my_turn");
+		this.matchClientHandler.get(this.choicePlayerNumber).setMyturn(true);;
 
 		this.matchClientHandler.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
 
@@ -519,13 +519,11 @@ public class Controller implements IController {
 			ClientHandler playerOfTurn = this.matchClientHandler.get(this.board.getPhasePlayer());
 			if (this.board.getRound() == 0 && this.matchPlayer.get(this.board.getPhasePlayer()).getPlayerBounusMalus()
 					.isSkipFirstFamiliarMoveAndGetItBackAtTheEnd()) {
-				while (this.board.getRound() == 0 && this.matchPlayer.get(this.board.getPhasePlayer())
-						.getPlayerBounusMalus().isSkipFirstFamiliarMoveAndGetItBackAtTheEnd()) {
+				
+
 					this.playerSkippedFirstRound.add(this.matchPlayer.get(this.board.getPhasePlayer()));
 					nextPlayerPhase();
 					return;
-
-				}
 
 			}
 
