@@ -157,8 +157,8 @@ public class Lobby implements Runnable{
 						broadcastSwitchMsg();
 						this.admin.setGame(true);
 						this.admin.sendMsgTo("system_ingame_switch");
-						startGame(null);
 						this.gameStarted=true;
+						startGame(this.admin);
 					}
 					else{
 						broadcastMsg("someone left during the countdown,waiting for players....");
@@ -262,7 +262,7 @@ public class Lobby implements Runnable{
 	}
 
 	public boolean startGame(ClientHandler clientHandler) throws RemoteException {
-		if(this.admin==clientHandler||this.admin==null){
+		if(this.admin==clientHandler){
 			//INIZIA GIOCO
 			lobbyMsg("message from the lobby:il gioco si sta inizializzando");
 			this.controller=new Controller(players);
