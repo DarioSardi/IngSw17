@@ -25,13 +25,13 @@ public class ClientHandlerRmi extends UnicastRemoteObject  implements ClientaHan
 	}
 
 	
-	
+		
 	public String printLobbyes(){
 		return myServer.getLobbiesToString();
 	}
 	
-	public boolean tryToCreateLobby(Integer lobbyNumber,Integer maxPlayers){
-		return myServer.newLobby(this, lobbyNumber,maxPlayers);
+	public boolean tryToCreateLobby(Integer lobbyNumber,Integer maxPlayers,Boolean advancedRules){
+		return myServer.newLobby(this, lobbyNumber,maxPlayers,advancedRules);
 	}
 	
 	public boolean tryToJoinLobby(Integer lobbyNumber) throws IOException{

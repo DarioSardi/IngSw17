@@ -94,11 +94,11 @@ public class Server implements Remote{
 		return clients.get(key);
 	}
 
-	public boolean newLobby(ClientHandler clientHandler,Integer lobbyNumber,Integer maxPlayers) {
+	public boolean newLobby(ClientHandler clientHandler,Integer lobbyNumber,Integer maxPlayers,Boolean advancedRules) {
 		System.out.println("provo a creare la lobby numero "+lobbyNumber);
 		if(!(this.lobbies.containsKey(lobbyNumber))){
 			try {
-				this.lobbies.put(lobbyNumber,new Lobby(clientHandler,lobbyNumber,maxPlayers));
+				this.lobbies.put(lobbyNumber,new Lobby(clientHandler,lobbyNumber,maxPlayers,advancedRules));
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}

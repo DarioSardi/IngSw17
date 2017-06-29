@@ -73,6 +73,10 @@ public class InGameMessageParser {
 								else if("6".equals(actionChoice)){
 									startTime=0;
 								}
+								else if("7".equals(actionChoice)){
+									startTime = System.currentTimeMillis();
+									//TODO 
+								}
 								
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -100,6 +104,11 @@ public class InGameMessageParser {
 		System.out.println("4) palazzo del consiglio");
 		System.out.println("5) torri");
 		System.out.println("6) annulla azione");
+		//DARIO da modificare
+		boolean advancedrules=true;
+		if(advancedrules){
+			System.out.println("7) carta leader");
+		}
 	}
 }
 	

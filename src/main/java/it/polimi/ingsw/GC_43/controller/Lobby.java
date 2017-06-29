@@ -15,7 +15,7 @@ public class Lobby implements Runnable{
 	private boolean exist,gameStarted;
 	
 
-	public Lobby(ClientHandler lobbyAdmin,Integer ID,Integer maxPlayers) throws RemoteException {
+	public Lobby(ClientHandler lobbyAdmin,Integer ID,Integer maxPlayers,Boolean advancedRules) throws RemoteException {
 		this.admin=lobbyAdmin;
 		this.players=new ArrayList<>();
 		this.players.add(lobbyAdmin);
