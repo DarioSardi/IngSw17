@@ -23,6 +23,8 @@ public class LeaderNoTowerTax extends Effect{
 		
 		
 		public void executeEffect(FamilyMember familyMember){
+			System.out.println("Executing effect LeaderNoTowerTax");
+
 			familyMember.getPlayer().getPlayerBounusMalus().setNoTowerTax(true);;
 		}
 

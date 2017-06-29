@@ -31,6 +31,8 @@ public class CardsRequirement extends Effect {
 	}
 	
 	public boolean check(Player player){
+		System.out.println("Executing check CardsRequirement");
+
 		boolean checkResult=true;
 		int cSize=player.getPlayerCards().getArrayCharacterCards().size();
 		int bSize=player.getPlayerCards().getArrayBuildingCards().size();

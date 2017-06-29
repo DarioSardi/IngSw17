@@ -29,6 +29,8 @@ public class LeaderBonusDieFamiliars extends Effect {
 	
 
 	public void executeEffect(FamilyMember familyMember) {
+		System.out.println("Executing effect LeaderBonusDieFamiliars");
+
 		if (this.coloured) {
 			for (FamilyMember fam : familyMember.getPlayer().getFamilyMembers()) {
 				if (fam.getColor() != 0) {

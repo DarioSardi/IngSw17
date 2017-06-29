@@ -12,4 +12,17 @@ public class ExtraAction implements Serializable {
 	public ExtraAction(Action extraAction){
 		this.extraAction=extraAction;
 	}
+
+	public Action getExtraAction() {
+		return extraAction;
+	}
+
+	public void setExtraAction(Action extraAction) {
+		this.extraAction = extraAction;
+	}
+
+
+	
+	
 }
+

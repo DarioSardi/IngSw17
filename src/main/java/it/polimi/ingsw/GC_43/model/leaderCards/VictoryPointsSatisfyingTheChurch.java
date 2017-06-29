@@ -22,6 +22,8 @@ public class VictoryPointsSatisfyingTheChurch extends Effect{
 	}
 	
 	public void executeEffect(FamilyMember fam){
+		System.out.println("Executing effect VictoryPointsSatisfyingTheChurch");
+
 		fam.getPlayer().getPlayerBounusMalus().setVictoryPointsAvoidingExcommunication(this.extraVictoryPoints);
 		
 	}

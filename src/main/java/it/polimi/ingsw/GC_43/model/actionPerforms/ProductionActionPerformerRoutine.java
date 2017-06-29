@@ -55,7 +55,7 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 		checkAndTryAction(player, familyMember);
 		System.out.println("check and try finished");
 		
-		System.out.println("\nReceiving player default bonus on harvest");
+		System.out.println("\nReceiving player default bonus on production");
 		receiveDefaultProductionBonus(player, familyMember);
 		
 		if (checkResult == true) {
@@ -102,7 +102,7 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 	private void checkProductionCellSelection(FamilyMember familyMember) {
 		try {
 			if (this.productionAction.isPrimaryCellChosen()) {
-				if (!this.board.getProductionArea().check(familyMember)||this.board.getProductionArea().getSpaces().get(0).isOccupied())
+				if (!this.board.getProductionArea().check(familyMember)||this.board.getProductionArea().getSpaces().get(0).isOccupied()&&!familyMember.getPlayer().getPlayerBounusMalus().isOkPlaceOccupied())
 					this.checkResult = false;
 			} else if (!this.productionAction.isPrimaryCellChosen()) {
 				if (board.getProductionArea().getSecondarySpace() == null
@@ -139,7 +139,7 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 	private void checkProductionPerform(Player player, FamilyMember familyMember) {
 		int malusOnSecondarySpace =0;
 		if(!this.productionAction.isPrimaryCellChosen())
-			malusOnSecondarySpace=GlobalVariables.malusUnlimitedCells;
+			malusOnSecondarySpace=GlobalVariables.malusOnSecondProductionArea;
 		int dieValue = familyMember.getDiceValue() + this.productionAction.getServantsUsed()
 				+ player.getPlayerBounusMalus().getBonusProductionArea()+malusOnSecondarySpace;
 
@@ -163,7 +163,7 @@ public class ProductionActionPerformerRoutine implements ActionPerformer {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.productionAction.getFamilyMember().addFamilyMemberValue(GlobalVariables.malusUnlimitedCells);
+		this.productionAction.getFamilyMember().addFamilyMemberValue(GlobalVariables.malusOnSecondProductionArea);
 
 	}
 

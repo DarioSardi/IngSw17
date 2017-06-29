@@ -245,8 +245,6 @@ public class TowerActionPerformerRoutine implements ActionPerformer {
 	private void checkTowerAndFloor(FamilyMember familyMember, Player player, Tower tower) {
 		try {
 			System.out.println("Is tower occupied? " + tower.check(familyMember));
-			if (tower.check(familyMember))
-				player.subResource("coin", GlobalVariables.towerTax);
 
 			System.out.println(
 					"Has tower already a family member with the same colour ? " + tower.checkColor(familyMember));
@@ -258,7 +256,7 @@ public class TowerActionPerformerRoutine implements ActionPerformer {
 
 			if (tower.getFloors().get(this.towerAction.getFloorChoice()).check(familyMember))
 				this.checkResult = false;
-			System.out.println("Finished check in tower floor ");
+			System.out.println("Finished check in tower & floor, final result is "+this.checkResult);
 
 		} catch (Exception e) {
 			e.printStackTrace();

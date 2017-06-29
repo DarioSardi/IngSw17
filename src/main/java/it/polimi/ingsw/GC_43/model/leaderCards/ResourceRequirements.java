@@ -30,6 +30,8 @@ public class ResourceRequirements extends Effect {
 		}
 		
 		public boolean check(Player player){
+			System.out.println("Executing check on ResourceRequirements");
+
 			boolean checkResult=true;
 			if(player.getPlayerResource(resourceType)<this.resourceValue)
 				checkResult=false;

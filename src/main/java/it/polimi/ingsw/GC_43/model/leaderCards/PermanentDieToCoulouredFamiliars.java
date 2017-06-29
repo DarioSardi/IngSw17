@@ -23,7 +23,16 @@ public class PermanentDieToCoulouredFamiliars extends Effect {
 	}
 
 	public void executeEffect(FamilyMember fam) {
+		System.out.println("Executing effect PermanentDieToCoulouredFamiliars");
 
+		
+		for(FamilyMember familyMember: fam.getPlayer().getFamilyMembers()){
+			if(familyMember.getColor()!=0)
+				familyMember.setDieToFamilyMember(this.dieValue);
+			//TODO SAM-FRA TO INSERT THIS BOOLEAN
+				//familyMember.setLeaderFixedDie(true);
+			
+		}
 	}
 
 }

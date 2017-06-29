@@ -53,7 +53,11 @@ public class Board implements Serializable {
 	// PLAYERS
 	private ArrayList<String> playersID;
 	private ArrayList<Player> players;
-
+	
+	
+	//ADVANCED RULES
+	
+	private boolean advancedGame;
 	// SAM-FRANCESCO: Remember to call board.initalize() only after creation of
 	// board and
 	// and initial settings of all stuff, delete this comment afterwards ;)
@@ -125,13 +129,14 @@ public class Board implements Serializable {
 		for (j = 0; j < this.getPlayers().size(); j++) {
 
 			for (i = 1; i < this.getPlayers().get(j).getFamilyMembers().size(); i++) {
-				this.getPlayers().get(j).getFamilyMember(i)
-						.setDieToFamilyMember(this.getDice().get(i - 1).getDieValue());
-
+				//if (!this.getPlayers().get(j).getFamilyMember(i).isLeaderFixedDie) {
+					this.getPlayers().get(j).getFamilyMember(i)
+							.setDieToFamilyMember(this.getDice().get(i - 1).getDieValue());
+				}
 			}
 		}
 
-	}
+//	}
 
 	/**
 	 * create Players assigning incremental money to receive, No rolling dice to
@@ -458,6 +463,16 @@ public class Board implements Serializable {
 
 	public void setLeaderCardsPlayed(ArrayList<LeaderCard> leaderCardsPlayed) {
 		this.leaderCardsPlayed = leaderCardsPlayed;
+	}
+	
+	
+
+	public boolean isAdvancedGame() {
+		return advancedGame;
+	}
+
+	public void setAdvancedGame(boolean advancedGame) {
+		this.advancedGame = advancedGame;
 	}
 
 	public void excommunicatePlayer(Player player) {

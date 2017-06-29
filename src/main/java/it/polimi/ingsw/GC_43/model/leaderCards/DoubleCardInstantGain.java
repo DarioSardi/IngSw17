@@ -21,6 +21,8 @@ public class DoubleCardInstantGain extends Effect {
 
 	
 	public void executeEffect(FamilyMember fam){
+		System.out.println("Executing effect DoubleCardInstantGain");
+
 		fam.getPlayer().getPlayerBounusMalus().setDoubleGainFromCardInstantBonus(true);
 	}
 	

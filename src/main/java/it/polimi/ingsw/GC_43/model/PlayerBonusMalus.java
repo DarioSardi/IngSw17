@@ -108,6 +108,9 @@ public class PlayerBonusMalus implements Serializable {
 		this.victoryPointsAvoidingExcommunication=0;
 		this.coinDiscountOnCards=0;
 		this.victoryPointsAvoidingExcommunication=0;
+		this.noMilitaryPointsRequirement=false;
+		this.doubleGainFromCardInstantBonus=false;
+
 		
 
 		

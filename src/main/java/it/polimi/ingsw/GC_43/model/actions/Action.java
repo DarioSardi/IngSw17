@@ -19,6 +19,7 @@ public abstract class Action implements Serializable {
 	private int ActionID;
 	// THINK OF ACTION ID BEST PRACTICE WAY
 	private int servantsUsed;
+	private boolean rejected;
 	
 	
 	public String toString(){
@@ -33,6 +34,7 @@ public abstract class Action implements Serializable {
 		this.servantsUsed = 0;
 		this.player = player;
 		this.playerID = playerID;
+		this.rejected=false;
 
 	}
 
@@ -83,6 +85,16 @@ public abstract class Action implements Serializable {
 	public void setServantsUsed(int servantsUsed) {
 		this.servantsUsed = servantsUsed;
 	}
+
+	public boolean isRejected() {
+		return rejected;
+	}
+
+	public void setRejected(boolean rejected) {
+		this.rejected = rejected;
+	}
+	
+	
 
 
 }

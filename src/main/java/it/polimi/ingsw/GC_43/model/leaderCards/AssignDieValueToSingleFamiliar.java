@@ -19,8 +19,9 @@ public class AssignDieValueToSingleFamiliar extends Effect {
 		String toString = "A choosen family member will receive a die value of "+this.dieValue;
 		return toString;
 	}
-
+	
 	public void executeEffect(FamilyMember fam) {
+		System.out.println("Executing effect AssignDieValueToSingleFamiliar");
 		if (fam.getColor() != 0) 
 			fam.setDieToFamilyMember(this.dieValue);
 		

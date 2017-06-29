@@ -45,7 +45,7 @@ public class HarvestActionCreationRoutine implements ActionCreation {
         this.harvestAction.setServantsUsed(CommonActionCreatorRoutine.askForServantsUsage(harvestAction.getPlayer(),this.harvestAction.getFamilyMember().getDiceValue()));
 
         // TODO to decide if to implements check even on actionPrepare  this.productionAction.getPlayer().subResource("servant",this.productionAction.getServantsUsed());
-        boolean check=selectHarvestSpace(board.getHarvestArea());
+        boolean check=selectHarvestSpace(board.getHarvestArea(), this.harvestAction.getPlayer());
         getInputsForHarvest(this.harvestAction.getFamilyMember());
 		System.out.println("\nHARVEST ACTION ENDS HERE\n");
 
@@ -79,15 +79,15 @@ public class HarvestActionCreationRoutine implements ActionCreation {
 
 
 //TODO ricordati di fare execute effect sugli space se l'azione va buon fine
-    private boolean selectHarvestSpace(HarvestArea harvestArea) {
+    private boolean selectHarvestSpace(HarvestArea harvestArea, Player player) {
 
-        if(!harvestArea.getSpaces().get(0).isOccupied()){
+        if(!harvestArea.getSpaces().get(0).isOccupied()||player.getPlayerBounusMalus().isOkPlaceOccupied()){
             System.out.println("\nPrimary empty cell selected\n");
             this.harvestAction.setPrimaryCellChosen(true);
         }
         else{
 
-			System.out.println("\nPrimary harvest cell occupied, secondary harvest cell selected. Family Member will receive a malus on die value of \n"+GlobalVariables.malusUnlimitedCells);
+			System.out.println("\nPrimary harvest cell occupied, secondary harvest cell selected. Family Member will receive a malus on die value of \n"+GlobalVariables.malusOnSecondHarvestArea);
             this.harvestAction.setPrimaryCellChosen(false);
 			return harvestArea.check((this.harvestAction.getFamilyMember()));
 

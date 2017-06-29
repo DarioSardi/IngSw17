@@ -8,6 +8,7 @@ import java.util.Map;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
+import it.polimi.ingsw.GC_43.model.ExtraFamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionPerforms.*;
@@ -36,6 +37,7 @@ public class Controller implements IController {
 	private boolean isExcommunicationTime;
 	private boolean advancedGame;
 	private ArrayList<Player> playerSkippedFirstRound;
+	private boolean primaryActionDone;
 
 	public Controller(ArrayList<ClientHandler> clientHandlers) throws RemoteException {
 		this.clientHandlers = new ArrayList<ClientHandler>();
@@ -48,14 +50,14 @@ public class Controller implements IController {
 		this.excommunicationSubmission = 0;
 		this.isExcommunicationTime = false;
 		this.playerSkippedFirstRound = new ArrayList<Player>();
+		this.primaryActionDone = false;
 
 	}
 
 	public void initializeGame(boolean advancedGame) throws RemoteException {
-		
-		
-		this.advancedGame=advancedGame;
-		
+
+		this.advancedGame = advancedGame;
+
 		insertPlayers();
 		System.out.println("player inserted");
 		setMatches();
@@ -64,8 +66,8 @@ public class Controller implements IController {
 		System.out.println("model sent");
 		sendGlobalVariablesToClients();
 		System.out.println("global variables sent");
-		
-		if(advancedGame){
+
+		if (advancedGame) {
 			System.out.println("Advanced game settings selected..");
 			advancedGameRoutine();
 		}
@@ -81,32 +83,31 @@ public class Controller implements IController {
 	}
 
 	private void askForLeaderCards() {
-		ArrayList<LeaderCard> firstPool= new ArrayList<LeaderCard>();
+		ArrayList<LeaderCard> firstPool = new ArrayList<LeaderCard>();
 
-		ArrayList<LeaderCard> secondPool= new ArrayList<LeaderCard>();
-	
-		ArrayList<LeaderCard> thirdPool= new ArrayList<LeaderCard>();
+		ArrayList<LeaderCard> secondPool = new ArrayList<LeaderCard>();
 
-		ArrayList<LeaderCard> fourthPool= new ArrayList<LeaderCard>();
-		
-		
-		
+		ArrayList<LeaderCard> thirdPool = new ArrayList<LeaderCard>();
+
+		ArrayList<LeaderCard> fourthPool = new ArrayList<LeaderCard>();
+
 	}
-	
-	public void submitLeaderCardChoice(){
-		
+
+	public void submitLeaderCardChoice() {
+
 	}
 
 	private void askForDefaultBonus() {
-		ArrayList<Player> inversePlayerOrder=new ArrayList<Player>();
-		int playerSize=this.board.getPlayers().size()-1;
-		//INVERSE ORDER PHASE PLAYERS
-		while(playerSize>=0){
+		ArrayList<Player> inversePlayerOrder = new ArrayList<Player>();
+		int playerSize = this.board.getPlayers().size() - 1;
+		// INVERSE ORDER PHASE PLAYERS
+		while (playerSize >= 0) {
 			inversePlayerOrder.add(this.board.getPlayers().get(playerSize));
 			playerSize--;
-		}
-		//this.matchClientHandler.get(inversePlayerOrder).sendMsgTo("Please select for default harvest and production bonus");
-		
+		}/*
+		this.matchClientHandler.get(inversePlayerOrder)
+				.sendMsgTo("Please select for default harvest and production bonus");*/
+
 	}
 
 	private void startGame() throws RemoteException {
@@ -194,9 +195,9 @@ public class Controller implements IController {
 	}
 
 	public void insertPlayers() throws RemoteException {
-		ArrayList<String> playerUsername = new ArrayList<String>();
+		ArrayList<String> playerUsernames = new ArrayList<String>();
 		for (ClientHandler clientHandler : this.clientHandlers) {
-			playerUsername.add(clientHandler.getUsername());
+			playerUsernames.add(clientHandler.getUsername());
 
 		}
 
@@ -214,7 +215,8 @@ public class Controller implements IController {
 
 		System.out.println("Creating board");
 
-		this.board = new Board(playerUsername);
+		this.board = new Board(playerUsernames);
+		this.board.setAdvancedGame(this.advancedGame);
 		System.out.println("Initializing game board");
 		new InitGame(board);
 		this.board.initialize();
@@ -241,47 +243,86 @@ public class Controller implements IController {
 	// TODO AGGIUNGI BOOLEANO PER VEDERE SE PLAYER CONNESSO O NO;
 
 	public synchronized void submitClientAction(Action action) throws RemoteException {
+
 		if (!this.isExcommunicationTime) {
 			System.out.println("\nclient Action received from client " + action.getPlayerID());
 
-			boolean actionResult = true;
-			actionResult = submit(action);
-
-			System.out.println("\n Action submission = " + actionResult);
-
-			if (actionResult) {
-				System.out.println(
-						"\nAction successfully completed, broadcasting notifications and calling for next player phase");
-
-				playersLobby.broadcastMsg(action.toString(), this.getPlayerOfTurn());
-
-				for (ClientHandler clientHandler : this.clientHandlers) {
-					System.out.println("Sending updated board to client" + clientHandler.getUsername());
-					clientHandler.sendObject(this.board);
-				}
-
-				if (this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().isEmpty()){
-					if (action.getActionID() != 6){
-						//NON VA BENE STO IF PERCHè SE NO DOPO EXTRA ACTION SE C'è PASSA IL TURNO CI VUOLE UN BOOLEANO DA METTERE
-					//	jjokplpj
-						nextPlayerPhase();
-					}
-					else{
-						System.out.println("Leader card action completed, that 's still "+this.getPlayerOfTurn().getUsername()+" phase");
-					}
-				}
-				else
-					askForExtraAction();
-
+			if (action.getActionID() == -1) {
+				System.out.println("Player passed hit turn, calling for next player phase");
+				this.primaryActionDone=false;
+				nextPlayerPhase();
 			}
 
 			else {
-				System.out.println("\nAction unsuccessfully submitted " + actionResult + " action to string\n"
-						+ action.toString());
-				System.out.println(this.getPlayerOfTurn().getUsername());
-				this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
-				System.out.println("\nAction concluded !\n");
 
+				boolean actionResult = true;
+				actionResult = submit(action);
+
+				System.out.println("\n Action submission = " + actionResult);
+
+				//if not LeaderCardAction and acti
+				if(action.getActionID()!=6&&!action.getFamilyMember().getClass().toString().contains("Extra")){
+					this.primaryActionDone=true;
+					this.getPlayerOfTurn().sendMsgTo("Paction_performed");
+				}
+				
+				if (actionResult) {
+					
+					if (!this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().isEmpty()) {
+						if (action.getFamilyMember().getClass().toString().contains("Extra")) {
+
+							this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().remove(0);
+							
+							if (!this.primaryActionDone) {
+								this.getPlayerOfTurn().sendMsgTo(
+										"You still have to complete your primary action, it is stll your phase");
+							} else if (this.advancedGame) {
+								this.getPlayerOfTurn()
+										.sendMsgTo("You could still play any leader card, it is stll your phase");
+							}
+
+						} else{
+							askForExtraAction();
+							this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().remove(0);
+						}
+					}
+
+					System.out.println("\nAction successfully completed, broadcasting notifications");
+
+					playersLobby.broadcastMsg(action.toString(), this.getPlayerOfTurn());
+
+					for (ClientHandler clientHandler : this.clientHandlers) {
+						System.out.println("Sending updated board to client" + clientHandler.getUsername());
+						clientHandler.sendObject(this.board);
+					}
+					/*
+					 * if (this.matchPlayer.get(this.board.getPhasePlayer()).
+					 * getExtraActions().isEmpty()&&this.primaryActionDone){ if
+					 * (action.getActionID() != 6){ //NON VA BENE STO IF PERCHè
+					 * SE NO DOPO EXTRA ACTION SE C'è PASSA IL TURNO CI VUOLE UN
+					 * BOOLEANO DA METTERE jjokplpj nextPlayerPhase(); } else{
+					 * System.out.
+					 * println("Leader card action completed, that 's still "
+					 * +this.getPlayerOfTurn().getUsername()+" phase"); } } else
+					 * askForExtraAction();
+					 */
+				}
+
+				else {
+					System.out.println("\nAction unsuccessfully submitted " + actionResult + " action to string\n"
+							+ action.toString());
+					if(action.getFamilyMember().getClass().toString().contains("Extra")&&!action.isRejected()){
+						this.getPlayerOfTurn().sendObject(action);
+						this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed, please try again\n");
+
+					}
+					else{
+						this.getPlayerOfTurn().sendMsgTo("\nAction could not be performed\n");
+
+					}
+					System.out.println("\nAction concluded !\n");
+
+				}
 			}
 		}
 
@@ -297,13 +338,17 @@ public class Controller implements IController {
 		ExtraAction extraAction = new ExtraAction(
 				this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().get(0));
 		try {
+			System.out.println("Sending extra action to player..");
 			this.getPlayerOfTurn().sendObject(extraAction);
 		} catch (RemoteException e) {
+			System.out.println("Sending extra action to player failed!");
+
 			e.printStackTrace();
 		}
 
 		// removing extra action after sending it
-		this.matchPlayer.get(this.board.getPhasePlayer()).getExtraActions().remove(0);
+		System.out.println("Removing extra action in player field..");
+
 	}
 
 	private void getBackInitialTurn() {

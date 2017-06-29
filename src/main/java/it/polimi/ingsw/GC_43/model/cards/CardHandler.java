@@ -31,6 +31,11 @@ public class CardHandler {
 				costEffect.executeEffect(fam.getPlayer(), c.getType());
 			}
 			c.getInstantBonus().stream().forEach(e -> e.executeEffect(fam));
+			
+			//Leader effect: card instant bonus doubled for player
+			if(fam.getPlayer().getPlayerBounusMalus().isDoubleGainFromCardInstantBonus())
+				c.getInstantBonus().stream().forEach(e -> e.executeEffect(fam));
+
 			if (c instanceof CharacterCard) {
 				c.getPermaBonus().stream().forEach(e -> e.executeEffect(fam));
 			}
@@ -82,7 +87,7 @@ public class CardHandler {
 				|| (c instanceof TerritoryCard
 						&& p.getPlayerCards().getArrayTerritoryCards().size() < GlobalVariables.maxNumberPlayerCards
 						&& GlobalVariables.militaryPointsRequired[p.getPlayerCards().getArrayBuildingCards().size()
-								+ 1] <= p.getPlayerResource("militaryPoint"))
+								+ 1] <= p.getPlayerResource("militaryPoint")||p.getPlayerBounusMalus().isNoMilitaryPointsRequirement())
 				|| (c instanceof VentureCard
 						&& p.getPlayerCards().getArrayVentureCards().size() < GlobalVariables.maxNumberPlayerCards)) {
 			System.out.println(

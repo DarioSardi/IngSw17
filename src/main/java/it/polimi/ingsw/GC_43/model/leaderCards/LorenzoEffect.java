@@ -13,6 +13,7 @@ public class LorenzoEffect extends Effect{
 	private Effect chosenEffect;
 
 	public LorenzoEffect(){
+		this.alreadyChosen=false;
 		
 	}
 	
@@ -23,27 +24,13 @@ public class LorenzoEffect extends Effect{
 	}
 	
 	
-	//WIP
-	/*
-	public void executeEffect(FamilyMember fam){
-		if(alreadyUsed){
-		
-		}
-		else{
-			this.chosenEffect.executeEffect(fam);
-		}
-		
-	}*/
 	
-	public boolean setEffect(Effect effect){
-		if(this.alreadyChosen)
-			return false;
-		else{
-			this.alreadyChosen=true;
-			this.chosenEffect=effect;
-			return true;
-		}
+	public void executeEffect(FamilyMember fam){
+		System.out.println("Executing FAKE effect LorenzoEffect");
+
 	}
+	
+
 
 
 	public boolean isAlreadyChosen() {

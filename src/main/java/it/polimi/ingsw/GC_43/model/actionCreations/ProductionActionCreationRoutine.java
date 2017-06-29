@@ -47,17 +47,17 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 		int servantsChosed = CommonActionCreatorRoutine.askForServantsUsage(productionAction.getPlayer(),
 				this.productionAction.getFamilyMember().getDiceValue());
 		this.productionAction.setServantsUsed(servantsChosed);
-		selectProductionSpace(board.getProductionArea());
+		selectProductionSpace(board.getProductionArea(), this.productionAction.getPlayer());
 		getInputsForProduction(this.productionAction.getFamilyMember());
 
 		System.out.println("\nPRODUCTION ACTION ENDS HERE\n");
 		return true;
 	}
 
-	private boolean selectProductionSpace(ProductionArea productionArea) {
+	private boolean selectProductionSpace(ProductionArea productionArea, Player player) {
 
 		try {
-			if (!productionArea.getSpaces().get(0).isOccupied()) {
+			if (!productionArea.getSpaces().get(0).isOccupied()|| player.getPlayerBounusMalus().isOkPlaceOccupied()) {
 				System.out.println("\nPrimary empty cell selected\n");
 				this.productionAction.setPrimaryCellChosen(true);
 			} else {
@@ -65,7 +65,7 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 
 					System.out.println(
 							"\nPrimary production cell occupied, secondary production cell selected. Family Member will receive a malus on die value of \n"
-									+ GlobalVariables.malusUnlimitedCells);
+									+ GlobalVariables.malusOnSecondProductionArea);
 					this.productionAction.setPrimaryCellChosen(false);
 
 					return productionArea.check((this.productionAction.getFamilyMember()));
@@ -87,7 +87,7 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 	private void getInputsForProduction(FamilyMember familyMember) {
 		int malusOnSecondarySpace = 0;
 		if (!this.productionAction.isPrimaryCellChosen())
-			malusOnSecondarySpace = GlobalVariables.malusUnlimitedCells;
+			malusOnSecondarySpace = GlobalVariables.malusOnSecondProductionArea;
 		int dieValue = familyMember.getDiceValue() + this.productionAction.getServantsUsed()
 				+ familyMember.getPlayer().getPlayerBounusMalus().getBonusProductionArea() + malusOnSecondarySpace;
 		try {
@@ -111,7 +111,7 @@ public class ProductionActionCreationRoutine implements ActionCreation {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.productionAction.getFamilyMember().addFamilyMemberValue(GlobalVariables.malusUnlimitedCells);
+		this.productionAction.getFamilyMember().addFamilyMemberValue(GlobalVariables.malusOnSecondProductionArea);
 
 	}
 

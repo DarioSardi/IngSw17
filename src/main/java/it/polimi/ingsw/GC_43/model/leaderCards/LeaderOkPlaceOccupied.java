@@ -21,6 +21,8 @@ public class LeaderOkPlaceOccupied extends Effect {
 	}
 	
 	public void executeEffect(FamilyMember familyMember){
+		System.out.println("Executing effect LeaderOkPlaceOccupied");
+
 		familyMember.getPlayer().getPlayerBounusMalus().setOkPlaceOccupied(true);
 	}
 

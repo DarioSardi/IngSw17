@@ -61,7 +61,7 @@ public class MarketActionCreationRoutine implements ActionCreation {
 					+ this.board.getMarket().toString();
 			int choice = CommonActionCreatorRoutine.askForSingleChoice(toString, 0,
 					this.board.getMarket().getMarketActionSpaces().size());
-			if (board.getMarket().getMarketActionSpaces().get(choice).isOccupied()
+			if (board.getMarket().getMarketActionSpaces().get(choice).isOccupied()&&!familyMember.getPlayer().getPlayerBounusMalus().isOkPlaceOccupied()
 					|| familyMember.getDiceValue() + this.marketAction.getServantsUsed() < this.board.getMarket()
 							.getMarketActionSpaces().get(choice).getMinDiceValue()) {
 				System.out.println("You cannot select this market action space. You will be asked again");

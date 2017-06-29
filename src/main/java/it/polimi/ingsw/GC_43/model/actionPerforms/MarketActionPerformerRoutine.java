@@ -87,7 +87,6 @@ public class MarketActionPerformerRoutine implements ActionPerformer {
 		try {
 			if (!(player.getPlayerBounusMalus().isNoMarketActionSpaceBonus())
 					&& this.board.getMarket().getMarketActionSpaces().get(this.marketAction.getMarketActionSpaceSelected()).execute(familyMember)) {
-
 				for (Effect effect : this.board.getMarket().getMarketActionSpaces()
 						.get(this.marketAction.getMarketActionSpaceSelected()).getBonus()) {
 

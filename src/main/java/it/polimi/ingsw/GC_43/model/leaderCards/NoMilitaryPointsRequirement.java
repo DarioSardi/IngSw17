@@ -20,6 +20,8 @@ public class NoMilitaryPointsRequirement extends Effect{
 	}
 	
 	public void executeEffect(FamilyMember fam){
+		System.out.println("Executing effect NoMilitaryPointsRequirement");
+
 		fam.getPlayer().getPlayerBounusMalus().setNoMilitaryPointsRequirement(true);
 	}
 
