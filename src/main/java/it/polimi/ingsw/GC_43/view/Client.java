@@ -43,6 +43,7 @@ public class Client {
 	private RmiView rmiView;
 	ClientaHandlerRmInterface handler;
 	private boolean actionPerformed;
+	private boolean advancedGame;
 
 	public Client() throws IOException, NotBoundException {
 		initBools();
@@ -154,7 +155,6 @@ public class Client {
 
 	public void sendObj(Object o, Integer ID) throws RemoteException {
 		if (!rmi) {
-			System.out.println("invio oggetto " + o.toString());
 			this.outStream.sendObj(o);
 		} else if (rmi) {
 			if (o instanceof Action) {
@@ -201,8 +201,7 @@ public class Client {
 		GlobalVariables.maxVictoryPoints = copy.maxVictoryPoints;
 		GlobalVariables.maxMilitaryPoints = copy.maxMilitaryPoints;
 		GlobalVariables.maxFaithPoints = copy.maxFaithPoints;
-		GlobalVariables.councilPrivilegeEffect = CommonActionCreatorRoutine.copyMultiplePrivileges(1)
-				.getPrivilegeChoices();
+		GlobalVariables.councilPrivilegeEffect = copy.councilPrivilegeEffect;
 		GlobalVariables.malusUnlimitedCells = copy.malusUnlimitedCells;
 		GlobalVariables.militaryPointsRequired = copy.militaryPointsRequired;
 		GlobalVariables.faithPointExcomRequired = copy.faithPointExcomRequired;
@@ -262,6 +261,7 @@ public class Client {
 
 	public void setBoard(Board board) {
 		this.board = board;
+		this.advancedGame=board.isAdvancedGame();
 		this.board.getPlayers().stream().forEach(p -> {
 			if (p.getPlayerName().equals(this.username)) {
 				this.myPlayer = p;
@@ -281,6 +281,11 @@ public class Client {
 	
 	public void setActionPerformed(Boolean b){
 		this.actionPerformed=b;
+	}
+
+
+	public boolean isAdvancedGame() {
+		return advancedGame;
 	}
 
 }

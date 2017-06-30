@@ -114,4 +114,16 @@ public class ServerRmiInterface implements ClientaHandlerRmInterface{
 		
 	}
 
+	@Override
+	public void submitDefaultBonus(int id, DefaultBonusChoiceMessage o) throws RemoteException {
+		this.clientHandlers.get(id).submitDefaultBonus(o);
+		
+	}
+
+	@Override
+	public void submitLeaderCardChoice(int id, LeaderCardChoiceMessage o) throws RemoteException {
+		this.clientHandlers.get(id).submitLeaderCardChoice(o);
+		
+	}
+
 }
