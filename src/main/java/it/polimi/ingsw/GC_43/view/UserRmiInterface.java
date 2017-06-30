@@ -3,6 +3,8 @@ package it.polimi.ingsw.GC_43.view;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import it.polimi.ingsw.GC_43.controller.DefaultBonusChoiceMessage;
+import it.polimi.ingsw.GC_43.controller.LeaderCardChoiceMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 
@@ -20,5 +22,7 @@ public interface UserRmiInterface extends Remote{
 	public String getUsername() throws RemoteException;
 	public Integer getID()throws RemoteException;
 	public void setActionPerformed(boolean b)throws RemoteException;
+	public void defaultBonusChoice(DefaultBonusChoiceMessage o) throws RemoteException;
+	public void leaderDraftChoice(LeaderCardChoiceMessage o) throws RemoteException;
 	
 }

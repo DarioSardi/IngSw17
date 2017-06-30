@@ -7,6 +7,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
+import it.polimi.ingsw.GC_43.controller.DefaultBonusChoiceMessage;
+import it.polimi.ingsw.GC_43.controller.LeaderCardChoiceMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 
@@ -281,6 +283,9 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	@Override
 	public void setmyTurn(Boolean myT) throws RemoteException {
 		this.myclient.setMyTurn(myT);
+		if(myT){
+			this.myclient.setActionPerformed(false);
+		}
 		
 	}
 
@@ -309,6 +314,18 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	@Override
 	public void setActionPerformed(boolean b) throws RemoteException {
 		this.myclient.setActionPerformed(b);
+		
+	}
+
+	@Override
+	public void defaultBonusChoice(DefaultBonusChoiceMessage o) throws RemoteException {
+		// DARIO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void leaderDraftChoice(LeaderCardChoiceMessage o) throws RemoteException {
+		// DARIO Auto-generated method stub
 		
 	}
 	

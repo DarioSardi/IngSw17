@@ -201,8 +201,7 @@ public class Client {
 		GlobalVariables.maxVictoryPoints = copy.maxVictoryPoints;
 		GlobalVariables.maxMilitaryPoints = copy.maxMilitaryPoints;
 		GlobalVariables.maxFaithPoints = copy.maxFaithPoints;
-		GlobalVariables.councilPrivilegeEffect = CommonActionCreatorRoutine.copyMultiplePrivileges(1)
-				.getPrivilegeChoices();
+		GlobalVariables.councilPrivilegeEffect = copy.councilPrivilegeEffect;
 		GlobalVariables.malusUnlimitedCells = copy.malusUnlimitedCells;
 		GlobalVariables.militaryPointsRequired = copy.militaryPointsRequired;
 		GlobalVariables.faithPointExcomRequired = copy.faithPointExcomRequired;
