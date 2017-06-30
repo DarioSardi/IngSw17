@@ -53,7 +53,14 @@ public class DefaultBonusChoiceMessage implements Serializable {
 		this.advDefBonus = advDefBonus;
 	}
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		for (int j = 0; j < advDefBonus.size(); j++) {
+			sb.append("choice number " + j + ") " +advDefBonus.get(j).toString()+"\n ");
+		}
+		return sb.toString();
+	}
 	
 	
 

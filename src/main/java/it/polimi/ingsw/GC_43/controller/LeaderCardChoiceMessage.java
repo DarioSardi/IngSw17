@@ -53,6 +53,14 @@ public class LeaderCardChoiceMessage implements Serializable{
 		this.leaderCards = leaderCards;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		for (int j = 0; j < leaderCards.size(); j++) {
+			sb.append("choice number " + j + ") " +leaderCards.get(j).toString()+"\n ");
+		}
+		return sb.toString();
+	}
 	
 
 }

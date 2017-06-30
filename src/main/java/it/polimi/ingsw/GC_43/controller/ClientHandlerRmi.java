@@ -218,6 +218,16 @@ public class ClientHandlerRmi implements ClientHandler{
 		this.lobby.removePlayer(this);
 		
 	}
+
+	public void submitDefaultBonus(DefaultBonusChoiceMessage o) throws RemoteException {
+		this.lobby.getController().submitDefaultBonusChoice(o, this);
+		
+	}
+
+	public void submitLeaderCardChoice(LeaderCardChoiceMessage o) throws RemoteException {
+		this.lobby.getController().submitLeaderCardChoice(o, this);
+		
+	}
 	
 
 
