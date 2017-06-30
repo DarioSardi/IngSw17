@@ -22,7 +22,6 @@ import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
-import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.actions.Action;
 
 public class Client {
@@ -44,6 +43,7 @@ public class Client {
 	ClientaHandlerRmInterface handler;
 	private boolean actionPerformed;
 	private boolean advancedGame;
+	public boolean isInAdvSetupPhase;
 
 	public Client() throws IOException, NotBoundException {
 		initBools();
@@ -65,6 +65,7 @@ public class Client {
 		this.inGame = false;
 		this.myTurn = false;
 		this.ID = 0;
+		isInAdvSetupPhase=false;
 		this.actionPerformed=true;
 	}
 

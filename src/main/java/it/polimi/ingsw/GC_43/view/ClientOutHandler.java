@@ -14,7 +14,7 @@ public class ClientOutHandler implements Runnable {
 	private ObjectOutputStream socketOut;
 	private Client myClient;
 	private int ID;
-	private boolean isInAdvSetupPhase;
+
 	/**
 	 * handle the message sent to the server
 	 * @param socketOut
@@ -137,9 +137,9 @@ public class ClientOutHandler implements Runnable {
 	 * in case of advanced Rules the client should enter this endless loop until the setup phase is finished.
 	 */
 	private void advGameSetupPhase() {
-		isInAdvSetupPhase=true;
+		this.myClient.isInAdvSetupPhase=true;
 		System.out.println("THIS IS A ADVANCED MODE GAME,ENTERING SETUP PHASE");
-		while(isInAdvSetupPhase){
+		while(this.myClient.isInAdvSetupPhase){
 			//DARIO exit this while in some way
 		}
 		

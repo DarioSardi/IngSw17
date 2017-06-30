@@ -114,6 +114,9 @@ public class ClientHandlerRmi implements ClientHandler{
 		else if("Paction_performed".equals(line)){
 			this.client.setActionPerformed(true);
 		}
+		else if("advChoices_ended".equals(line)){
+			this.client.setInAdvSetupPhase(false);
+		}
 		
 		else{
 			this.client.showMsg(line);

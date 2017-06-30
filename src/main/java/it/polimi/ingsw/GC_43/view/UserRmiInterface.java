@@ -24,5 +24,6 @@ public interface UserRmiInterface extends Remote{
 	public void setActionPerformed(boolean b)throws RemoteException;
 	public void defaultBonusChoice(DefaultBonusChoiceMessage o) throws RemoteException;
 	public void leaderDraftChoice(LeaderCardChoiceMessage o) throws RemoteException;
+	public void setInAdvSetupPhase(boolean b) throws RemoteException;
 	
 }

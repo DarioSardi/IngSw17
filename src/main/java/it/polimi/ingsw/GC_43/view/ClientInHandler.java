@@ -120,6 +120,9 @@ public class ClientInHandler implements Runnable {
 		else if("Paction_performed".equals(line)){
 			this.myClient.setActionPerformed(true);
 		}
+		else if("advChoices_ended".equals(line)){
+			this.myClient.isInAdvSetupPhase=false;
+		}
 		
 		else{
 			System.out.println(line);

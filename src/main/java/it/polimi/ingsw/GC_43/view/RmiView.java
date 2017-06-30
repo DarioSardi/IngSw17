@@ -27,7 +27,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	private Client myclient;
 	private boolean inLobby;
 	private int ID;
-	private boolean isInAdvSetupPhase;
+	
 
 	public RmiView(Client c,ClientaHandlerRmInterface handler, BufferedReader inKeyboard)  throws RemoteException{
 		this.handler=handler;
@@ -249,9 +249,9 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	 * in case of advanced Rules the client should enter this endless loop until the setup phase is finished.
 	 */
 	private void advGameSetupPhase() {
-		isInAdvSetupPhase=true;
+		this.myclient.isInAdvSetupPhase=true;
 		System.out.println("THIS IS A ADVANCED MODE GAME,ENTERING SETUP PHASE");
-		while(isInAdvSetupPhase){
+		while(this.myclient.isInAdvSetupPhase){
 			
 		}
 		
@@ -364,6 +364,13 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 		new CommonActionCreatorRoutine();
 		o.setChoice(CommonActionCreatorRoutine.askForSingleChoice(o.toString(), 0, o.getLeaderCards().size()));
 		handler.submitLeaderCardChoice(this.ID,o);
+		
+	}
+
+
+	@Override
+	public void setInAdvSetupPhase(boolean b) throws RemoteException {
+		this.myclient.isInAdvSetupPhase=b;
 		
 	}
 	
