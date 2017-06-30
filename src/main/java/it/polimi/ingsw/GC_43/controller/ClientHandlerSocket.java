@@ -88,7 +88,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 			}
 			String advancedMode=null;
 			Boolean advChoice=false;
-			while (!"yes".equals(advancedMode)||!!"no".equals(advancedMode)) {
+			while(!("yes".equals(advancedMode)||"no".equals(advancedMode))){
 				sendMsgTo("do you want to play with the advanced mode?");
 				advancedMode=readMsg();
 			}
@@ -203,7 +203,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 	private void inGame() {
 		sendMsgTo("You are now in game!");
 		sendMsgTo("system_ingame_switch");
-		System.out.println("ready to recive"+Game);
+		//System.out.println("ready to recive"+Game);
 		while(this.Game){
 			receive();
 		}
@@ -236,6 +236,14 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 				this.Game=false;
 
 			}
+			else if(o instanceof DefaultBonusChoiceMessage){
+				this.lobby.getController().submitDefaultBonusChoice((DefaultBonusChoiceMessage)o,this);
+			}
+			else if(o instanceof LeaderCardChoiceMessage){
+				this.lobby.getController().submitLeaderCardChoice((LeaderCardChoiceMessage) o,this);
+			}
+			
+			
 			else if(o instanceof ExcommunicationChoiceMsg){
 				Boolean answer=((ExcommunicationChoiceMsg) o).getChoice();
 				this.lobby.getController().submitExcommunicationChoice(this.username, answer);

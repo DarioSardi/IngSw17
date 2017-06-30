@@ -23,5 +23,7 @@ public interface ClientaHandlerRmInterface  extends Remote{
 	public Integer connect(UserRmiInterface rmiView) throws RemoteException;
 	public void ping(Integer ID) throws RemoteException;
 	public void exitLobby(int id) throws RemoteException;
+	public void submitDefaultBonus(int id, DefaultBonusChoiceMessage o) throws RemoteException;
+	public void submitLeaderCardChoice(int id, LeaderCardChoiceMessage o)throws RemoteException;
 	
 }

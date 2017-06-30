@@ -14,6 +14,7 @@ public class ClientOutHandler implements Runnable {
 	private ObjectOutputStream socketOut;
 	private Client myClient;
 	private int ID;
+
 	/**
 	 * handle the message sent to the server
 	 * @param socketOut
@@ -60,6 +61,9 @@ public class ClientOutHandler implements Runnable {
 		System.out.println("switched to in-game commands");
 		this.ID=this.myClient.getID();
 		InGameMessageParser parser=new InGameMessageParser(userIn,ID,this.myClient);
+		if(this.myClient.isAdvancedGame()){
+			advGameSetupPhase();
+		}
 		while(this.myClient.inGame){
 			inGameCommandsPrint();
 			try {
@@ -129,6 +133,18 @@ public class ClientOutHandler implements Runnable {
 		}
 	}
 	
+	/**
+	 * in case of advanced Rules the client should enter this endless loop until the setup phase is finished.
+	 */
+	private void advGameSetupPhase() {
+		this.myClient.isInAdvSetupPhase=true;
+		System.out.println("THIS IS A ADVANCED MODE GAME,ENTERING SETUP PHASE");
+		while(this.myClient.isInAdvSetupPhase){
+			//DARIO exit this while in some way
+		}
+		
+	}
+
 	public void excomunicationRound(BufferedReader userIn) {
 		Boolean done=false;
 		try {

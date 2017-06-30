@@ -5,10 +5,15 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
+import it.polimi.ingsw.GC_43.controller.DefaultBonusChoiceMessage;
+import it.polimi.ingsw.GC_43.controller.LeaderCardChoiceMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
+import it.polimi.ingsw.GC_43.model.PlayerPersonalBonus;
+import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 
 public class RmiView extends UnicastRemoteObject implements Serializable,UserRmiInterface,Runnable {
 
@@ -22,13 +27,18 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	private Client myclient;
 	private boolean inLobby;
 	private int ID;
+	
 
 	public RmiView(Client c,ClientaHandlerRmInterface handler, BufferedReader inKeyboard)  throws RemoteException{
 		this.handler=handler;
 		this.input=inKeyboard;
 		this.myclient=c;
 	}
-
+	
+	
+	/**
+	 * main run method, while the rmi client is online this should run.
+	 */
 	@Override
 	public void run() {
 		System.out.println("RMI menu!");
@@ -51,6 +61,8 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 			try {
 				System.out.println(this.handler.mainMenuChoicesPrint());
 				String command = input.readLine();
+				
+				//NEW LOBBY
 				if("1".equals(command)){
 					System.out.println("Lobbies on this server:");
 					this.handler.printLobbyes();
@@ -63,7 +75,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 					}
 					String advancedMode=null;
 					Boolean advChoice=false;
-					while (!"yes".equals(advancedMode)||!!"no".equals(advancedMode)) {
+					while  (!("yes".equals(advancedMode)||"no".equals(advancedMode))) {
 						System.out.println("do you want to play with the advanced mode?");
 						advancedMode=input.readLine();
 					}
@@ -77,7 +89,8 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 						System.out.println("lobby number unaviable");
 					}
 				}
-				
+			
+			 //JOIN LOBBY	
 			 else if ("2".equals(command)) {
 				System.out.println("select a lobby to join!");
 				System.out.println(handler.printLobbyes());
@@ -86,21 +99,22 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 					inLobby();
 				}
 				else{System.out.println("unable to join lobby");}
-				
+			 }
 			
 			//QUIT
-			} else if ("3".equals(command)) {
+			else if ("3".equals(command)) {
 				this.online = false;
 				this.myclient.closeGame();
 			}
 			
+			//SUPERSECRET PING COMMAND	
 			else if ("ping".equals(command)) {
 				System.out.println("pinging server...");
 				handler.ping(this.ID);
 			}
 			
 			
-			//FKING MORON
+			//YOU MORON
 			else{
 				System.out.println("invalid choice");
 			}
@@ -112,6 +126,10 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 		
 	}
 
+	/**
+	 * in lobby running method go give player restricted access only to in-lobby commands
+	 * @throws IOException in case of DC;
+	 */
 	private void inLobby() throws IOException {
 		inLobby=true;
 		while(inLobby){
@@ -151,23 +169,20 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 		
 	}
 
-	private void helpMsgLobby() {
-		System.out.println("\nCOMANDI LOBBY:\n"
-				+ "chat to chat with the other inLobby players\n" + "exit_lobby to quit the current lobby\n"
-						+ "start_game to start the game if you are the admin\n" + "help to see this\n"
-						+ "players if you want to see who is in the lobby\n");
-		
-	}
-
+	/**
+	 * in Game running method.
+	 */
 	private void inGame() {
-		System.out.println("you are in game");
-		System.out.println("switched to in-game commands");
+		System.out.println("YOU ARE NOW IN GAME!");
 		InGameMessageParser parser=new InGameMessageParser(input,this.ID,this.myclient);
-			while(this.myclient.inGame){
+		if(this.myclient.isAdvancedGame()){
+			advGameSetupPhase();
+		}	
+		while(this.myclient.inGame){
 				inGameCommandsPrint();
 				try {
 					String command=input.readLine().toString();
-					if("help".equals(command)){
+					if	   ("help".equals(command)){
 						inGameCommandsPrint();
 					}
 					else if("action".equals(command)&&this.myclient.myTurn){
@@ -230,7 +245,27 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 			}
 		}
 		
+	/**
+	 * in case of advanced Rules the client should enter this endless loop until the setup phase is finished.
+	 */
+	private void advGameSetupPhase() {
+		this.myclient.isInAdvSetupPhase=true;
+		System.out.println("THIS IS A ADVANCED MODE GAME,ENTERING SETUP PHASE");
+		while(this.myclient.isInAdvSetupPhase){
+			
+		}
 		
+	}
+	
+	
+	private void helpMsgLobby() {
+		System.out.println("\nCOMANDI LOBBY:\n"
+				+ "chat to chat with the other inLobby players\n" + "exit_lobby to quit the current lobby\n"
+						+ "start_game to start the game if you are the admin\n" + "help to see this\n"
+						+ "players if you want to see who is in the lobby\n");
+		
+	}
+	
 	public void inGameCommandsPrint(){
 		System.out.println("You are in the Game-mode menu;"
 				+ "\nyour commands are:"
@@ -254,7 +289,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	@Override
 	public void updateBoard(Board b) throws RemoteException {
-		System.out.println("board recived");
+		System.out.println("board received");
 		this.myclient.setBoard(b);
 		
 	}
@@ -281,6 +316,9 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	@Override
 	public void setmyTurn(Boolean myT) throws RemoteException {
 		this.myclient.setMyTurn(myT);
+		if(myT){
+			this.myclient.setActionPerformed(false);
+		}
 		
 	}
 
@@ -309,6 +347,30 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	@Override
 	public void setActionPerformed(boolean b) throws RemoteException {
 		this.myclient.setActionPerformed(b);
+		
+	}
+
+	@Override
+	public void defaultBonusChoice(DefaultBonusChoiceMessage o) throws RemoteException {
+		System.out.println("time to choose your personal default bonus.");
+		new CommonActionCreatorRoutine();
+		o.setChoice(CommonActionCreatorRoutine.askForSingleChoice(o.toString(), 0, o.getAdvDefBonus().size()));
+		handler.submitDefaultBonus(this.ID,o);
+	}
+
+	@Override
+	public void leaderDraftChoice(LeaderCardChoiceMessage o) throws RemoteException {
+		System.out.println("Draft time:choose the leader card you want to keep");
+		new CommonActionCreatorRoutine();
+		o.setChoice(CommonActionCreatorRoutine.askForSingleChoice(o.toString(), 0, o.getLeaderCards().size()));
+		handler.submitLeaderCardChoice(this.ID,o);
+		
+	}
+
+
+	@Override
+	public void setInAdvSetupPhase(boolean b) throws RemoteException {
+		this.myclient.isInAdvSetupPhase=b;
 		
 	}
 	

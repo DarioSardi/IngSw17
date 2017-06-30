@@ -38,7 +38,8 @@ public class ClientHandlerRmi implements ClientHandler{
 
 	@Override
 	public void sendMsgTo(String string) throws RemoteException {
-		this.client.showMsg(string);
+		SimpleMessage s=new SimpleMessage(string); 
+		readMsg(s);
 	}
 
 
@@ -58,6 +59,12 @@ public class ClientHandlerRmi implements ClientHandler{
 		}
 		else if(o instanceof CopyOfGlobalVariables){
 			this.client.updateGlobalVariables((CopyOfGlobalVariables)o);
+		}
+		else if(o instanceof DefaultBonusChoiceMessage){
+			this.client.defaultBonusChoice((DefaultBonusChoiceMessage)o);
+		}
+		else if(o instanceof LeaderCardChoiceMessage){
+			this.client.leaderDraftChoice((LeaderCardChoiceMessage)o);
 		}
 		
 		
@@ -90,7 +97,7 @@ public class ClientHandlerRmi implements ClientHandler{
 		if("system_ingame_switch".equals(line)){
 				this.client.setInGame(true);
 			}
-		if("system_outgame_switch".equals(line)){
+		else if("system_outgame_switch".equals(line)){
 			this.client.setInGame(false);
 		}
 		
@@ -107,9 +114,12 @@ public class ClientHandlerRmi implements ClientHandler{
 		else if("Paction_performed".equals(line)){
 			this.client.setActionPerformed(true);
 		}
+		else if("advChoices_ended".equals(line)){
+			this.client.setInAdvSetupPhase(false);
+		}
 		
 		else{
-			System.out.println(line);
+			this.client.showMsg(line);
 		}
 	}
 
@@ -209,6 +219,16 @@ public class ClientHandlerRmi implements ClientHandler{
 
 	public void leaveLobby() {
 		this.lobby.removePlayer(this);
+		
+	}
+
+	public void submitDefaultBonus(DefaultBonusChoiceMessage o) throws RemoteException {
+		this.lobby.getController().submitDefaultBonusChoice(o, this);
+		
+	}
+
+	public void submitLeaderCardChoice(LeaderCardChoiceMessage o) throws RemoteException {
+		this.lobby.getController().submitLeaderCardChoice(o, this);
 		
 	}
 	

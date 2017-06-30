@@ -100,4 +100,38 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 			}
 		}
 	}
+
+	public LeaderCardAction getLeaderCardAction() {
+		return leaderCardAction;
+	}
+
+	public void setLeaderCardAction(LeaderCardAction leaderCardAction) {
+		this.leaderCardAction = leaderCardAction;
+	}
+
+	public boolean isCheckResult() {
+		return checkResult;
+	}
+
+	public void setCheckResult(boolean checkResult) {
+		this.checkResult = checkResult;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	
+	
 }

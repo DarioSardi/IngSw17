@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import it.polimi.ingsw.GC_43.controller.ChangeUsernameMessage;
+import it.polimi.ingsw.GC_43.controller.DefaultBonusChoiceMessage;
+import it.polimi.ingsw.GC_43.controller.LeaderCardChoiceMessage;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
+import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 
 public class ClientInHandler implements Runnable {
 
@@ -66,7 +69,20 @@ public class ClientInHandler implements Runnable {
 			else if(o instanceof ChangeUsernameMessage){
 				this.myClient.changeUsername(((ChangeUsernameMessage)o).getMsg());
 			}
-		
+			else if(o instanceof DefaultBonusChoiceMessage){
+				DefaultBonusChoiceMessage dbm=(DefaultBonusChoiceMessage)o;
+				System.out.println("time to choose your personal default bonus.");
+				new CommonActionCreatorRoutine();
+				dbm.setChoice(CommonActionCreatorRoutine.askForSingleChoice(dbm.toString(), 0, dbm.getAdvDefBonus().size()));
+				this.myClient.sendObj(dbm, this.myClient.getID());
+			}
+			else if(o instanceof LeaderCardChoiceMessage){
+				System.out.println("Draft time:choose the leader card you want to keep");
+				LeaderCardChoiceMessage l=(LeaderCardChoiceMessage)o;
+				new CommonActionCreatorRoutine();
+				l.setChoice(CommonActionCreatorRoutine.askForSingleChoice(o.toString(), 0, l.getLeaderCards().size()));
+				this.myClient.sendObj(l,this.myClient.getID());
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -103,6 +119,9 @@ public class ClientInHandler implements Runnable {
 		}
 		else if("Paction_performed".equals(line)){
 			this.myClient.setActionPerformed(true);
+		}
+		else if("advChoices_ended".equals(line)){
+			this.myClient.isInAdvSetupPhase=false;
 		}
 		
 		else{
