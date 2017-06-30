@@ -9,6 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.cards.LeaderCard;
 import it.polimi.ingsw.GC_43.model.effects.Effect;
@@ -94,13 +95,13 @@ public class InitLeaderCards {
 	 */
 	private void selectRandomCards() throws ExceptionInInitializerError{
 		
-		if (this.leaderCards.size() < GlobalVariables.totalNumOfLeaderCards) {
+		if (this.leaderCards.size() < GlobalVariables.numOfLeaderCardsForPlayer * GlobalVariables.numberOfPlayers) {
 			throw new ExceptionInInitializerError("Insufficient number of cards!");
 		}
 		
 		Collections.shuffle(this.leaderCards);
 				
-		while (this.leaderCards.size() > GlobalVariables.totalNumOfLeaderCards){
+		while (this.leaderCards.size() > GlobalVariables.numOfLeaderCardsForPlayer * GlobalVariables.numberOfPlayers){
 			this.leaderCards.remove(this.leaderCards.size()-1);
 		}
 	}

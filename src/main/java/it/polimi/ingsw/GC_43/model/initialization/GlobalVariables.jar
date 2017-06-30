@@ -38,7 +38,7 @@
       "maxMilitaryPoints": "25",
       "maxFaithPoints": "15",
       "numOfLeaderCardsForPlayer": "4",
-      "totalNumOfLeaderCards": "16",
+      "totalNumOfLeaderCards": "20",
       "endResourcesToVictoryPoint": "5"
     }
   ]
