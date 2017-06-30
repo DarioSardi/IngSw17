@@ -8,7 +8,6 @@ import java.util.Map;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
-import it.polimi.ingsw.GC_43.model.ExtraFamilyMember;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.PlayerPersonalBonus;
@@ -152,6 +151,9 @@ public class Controller implements IController {
 		} else if(this.choicePlayerNumber==0&&message.getLeaderCards().isEmpty()) {
 			System.out.println("Leader cards selection finished, starting the game");
 			this.playersLobby.broadcastMsg("Selection ended, game is about to start..");
+			for(ClientHandler c: this.clientHandlers)
+				c.sendMsgTo("advChoices_ended");
+			
 			startGame();
 		}
 
