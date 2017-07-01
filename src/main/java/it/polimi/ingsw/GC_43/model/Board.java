@@ -58,8 +58,8 @@ public class Board implements Serializable {
 	//ADVANCED RULES
 	
 	private boolean advancedGame;
-	private ArrayList<PlayerPersonalBonus> playerPersonalBonus;
-	private PlayerPersonalBonus defaultPersonalBonus;
+	private ArrayList<PlayerPersonalBonus> advancedPersonalBonus;
+	private PlayerPersonalBonus basePersonalBonus;
 
 	// SAM-FRANCESCO: Remember to call board.initalize() only after creation of
 	// board and
@@ -481,20 +481,20 @@ public class Board implements Serializable {
 	
 	
 	
-	public ArrayList<PlayerPersonalBonus> getPlayerPersonalBonus() {
-		return playerPersonalBonus;
+	public ArrayList<PlayerPersonalBonus> getAdvancedPersonalBonus() {
+		return advancedPersonalBonus;
 	}
 
-	public void setPlayerPersonalBonus(ArrayList<PlayerPersonalBonus> playerPersonalBonus) {
-		this.playerPersonalBonus = playerPersonalBonus;
+	public void setAdvancedPersonalBonus(ArrayList<PlayerPersonalBonus> advancedPersonalBonus) {
+		this.advancedPersonalBonus = advancedPersonalBonus;
 	}
 
-	public PlayerPersonalBonus getDefaultPersonalBonus() {
-		return defaultPersonalBonus;
+	public PlayerPersonalBonus getBasePersonalBonus() {
+		return basePersonalBonus;
 	}
 
-	public void setDefaultPersonalBonus(PlayerPersonalBonus defaultPersonalBonus) {
-		this.defaultPersonalBonus = defaultPersonalBonus;
+	public void setBasePersonalBonus(PlayerPersonalBonus basePersonalBonus) {
+		this.basePersonalBonus = basePersonalBonus;
 	}
 
 	public void excommunicatePlayer(Player player) {
