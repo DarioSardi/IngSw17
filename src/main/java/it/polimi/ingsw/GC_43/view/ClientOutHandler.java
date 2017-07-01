@@ -3,6 +3,7 @@ package it.polimi.ingsw.GC_43.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.rmi.RemoteException;
 
 import it.polimi.ingsw.GC_43.controller.ChatMsg;
 import it.polimi.ingsw.GC_43.controller.ExcommunicationChoiceMsg;
@@ -58,13 +59,13 @@ public class ClientOutHandler implements Runnable {
 
 	}
 	
-	private void inGameParser(BufferedReader userIn) {
+	private void inGameParser(BufferedReader userIn) throws NumberFormatException, IOException {
 		
 		System.out.println("switched to in-game commands");
 		this.ID=this.myClient.getID();
 		InGameMessageParser parser=new InGameMessageParser(userIn,ID,this.myClient);
 		if(this.myClient.isAdvancedGame()){
-			advGameSetupPhase();
+			advGameSetupPhase(userIn);
 		}
 		while(this.myClient.inGame){
 			this.myClient.printMyData();
@@ -138,12 +139,27 @@ public class ClientOutHandler implements Runnable {
 	
 	/**
 	 * in case of advanced Rules the client should enter this endless loop until the setup phase is finished.
+	 * @param userIn 
+	 * @throws IOException 
+	 * @throws NumberFormatException 
 	 */
-	private void advGameSetupPhase() {
+	private void advGameSetupPhase(BufferedReader userIn) throws NumberFormatException, IOException {
 		this.myClient.isInAdvSetupPhase=true;
 		System.out.println("THIS IS A ADVANCED MODE GAME,ENTERING SETUP PHASE");
 		while(this.myClient.isInAdvSetupPhase){
-			//DARIO exit this while in some way
+			if(this.myClient.defaultBonusChoice!=null){
+				System.out.println(this.myClient.defaultBonusChoice.toString());
+				Integer choice=Integer.parseInt(userIn.readLine());
+				if(choice>0&&choice<this.myClient.defaultBonusChoice.getAdvDefBonus().size()){
+					System.out.println("wrong answer");
+				}
+				else{
+				this.myClient.defaultBonusChoice.setChoice(choice);
+				this.myClient.sendObj(this.myClient.defaultBonusChoice, this.ID);
+				this.myClient.defaultBonusChoice=null;
+				System.out.println("choice sent");
+				}
+			}
 		}
 		
 	}

@@ -34,7 +34,7 @@ public class ClientInHandler implements Runnable {
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
-		
+		this.myClient.defaultBonusChoice=null;
 		while(this.myClient.online){
 			receiveMsg();
 			}
@@ -65,11 +65,7 @@ public class ClientInHandler implements Runnable {
 				this.myClient.changeUsername(((ChangeUsernameMessage)o).getMsg());
 			}
 			else if(o instanceof DefaultBonusChoiceMessage){
-				System.out.println("time to choose your personal default bonus.");
-				DefaultBonusChoiceMessage dbm=(DefaultBonusChoiceMessage)o;
-				new CommonActionCreatorRoutine();
-				dbm.setChoice(CommonActionCreatorRoutine.askForSingleChoice(dbm.toString(), 0, dbm.getAdvDefBonus().size()));
-				this.myClient.sendObj(dbm, this.myClient.getID());
+				this.myClient.defaultBonusChoice=(DefaultBonusChoiceMessage)o;
 			}
 			else if(o instanceof LeaderCardChoiceMessage){
 				System.out.println("Draft time:choose the leader card you want to keep");
