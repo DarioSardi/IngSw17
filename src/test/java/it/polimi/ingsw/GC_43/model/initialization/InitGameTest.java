@@ -25,7 +25,7 @@ public class InitGameTest {
 	
 	@Test
 	public void councilPrivilegeBonus(){
-		System.out.println("BASE BONUS: \n" + this.board.getDefaultPersonalBonus().toString());
-		System.out.println("ADVANCED BONUS: \n" + this.board.getPlayerPersonalBonus().toString());
+		System.out.println("BASE BONUS: \n" + this.board.getBasePersonalBonus().toString());
+		System.out.println("ADVANCED BONUS: \n" + this.board.getAdvancedPersonalBonus().toString());
 	}
 }

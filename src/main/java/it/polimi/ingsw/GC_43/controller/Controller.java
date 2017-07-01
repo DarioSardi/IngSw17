@@ -174,15 +174,20 @@ public class Controller implements IController {
 
 		// CHIEDI A DARIO SE NECESSARIO
 	//	this.matchClientHandler.get(this.choicePlayerNumber);
+		System.out.println("\nSending choice for advanced ersonal bonus to player");
+	//	System.out.println("\nPlease select for default harvest and production bonus\n"+this.matchClientHandler.get(this.choicePlayerNumber).getUsername());
 
-		this.matchClientHandler.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
+		this.clientHandlers.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
 
 	}
 
 	public synchronized void submitDefaultBonusChoice(DefaultBonusChoiceMessage message, ClientHandler clientHandler) throws RemoteException {
 		int choice = message.getChoice();
+		System.out.println("Submitted DefaultBonusChoiceMessage by "+clientHandler.getUsername());
 		this.matchPlayer.get(clientHandler.getUsername())
 				.setPersonalHarvestBonus(message.getAdvDefBonus().get(choice).getHarvestBonus());
+		System.out.println("Submitted DefaultBonusChoiceMessage of "+message.getAdvDefBonus().get(choice).getHarvestBonus().toString());
+
 
 		this.matchPlayer.get(clientHandler.getUsername())
 				.setPersonalProductionBonus(message.getAdvDefBonus().get(choice).getHarvestBonus());
@@ -192,12 +197,17 @@ public class Controller implements IController {
 		message.getAdvDefBonus().get(choice).getProductionBonus().remove(choice);
 
 		this.choicePlayerNumber--;
+		System.out.println("Asking DefaultBonusChoiceMessage to player choice "+this.choicePlayerNumber);
 
 		if (this.choicePlayerNumber >= 0) {
+			System.out.println("Calling for nex choice message");
+
 			nextChoiceMessage(message);
 
 		} else {
+
 			this.choicePlayerNumber = this.clientHandlers.size() - 1;
+			System.out.println("Starting ask for leader cards.. "+this.choicePlayerNumber);
 			askForLeaderCards();
 
 		}
