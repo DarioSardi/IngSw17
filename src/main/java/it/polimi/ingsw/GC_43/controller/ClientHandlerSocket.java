@@ -256,7 +256,8 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 				this.lobby.getController().submitDefaultBonusChoice(dbcm,this);
 			}
 			else if(o instanceof LeaderCardChoiceMessage){
-				this.lobby.getController().submitLeaderCardChoice((LeaderCardChoiceMessage) o,this);
+				LeaderCardChoiceMessage lccm=(LeaderCardChoiceMessage) o;
+				this.lobby.getController().submitLeaderCardChoice(lccm,this);
 			}
 			
 			
