@@ -65,8 +65,8 @@ public class ClientInHandler implements Runnable {
 				this.myClient.changeUsername(((ChangeUsernameMessage)o).getMsg());
 			}
 			else if(o instanceof DefaultBonusChoiceMessage){
-				DefaultBonusChoiceMessage dbm=(DefaultBonusChoiceMessage)o;
 				System.out.println("time to choose your personal default bonus.");
+				DefaultBonusChoiceMessage dbm=(DefaultBonusChoiceMessage)o;
 				new CommonActionCreatorRoutine();
 				dbm.setChoice(CommonActionCreatorRoutine.askForSingleChoice(dbm.toString(), 0, dbm.getAdvDefBonus().size()));
 				this.myClient.sendObj(dbm, this.myClient.getID());
@@ -100,12 +100,16 @@ public class ClientInHandler implements Runnable {
 		}
 		
 		else if("now_is_my_turn".equals(line)){
-			System.out.println("IS NOW MY TURN!");
+			System.out.println("-------------\n"
+					+ "|--MY TURN--|\n"
+					+ "-------------\n");
 			this.myClient.myTurn=true;
 			this.myClient.setActionPerformed(false);
 			}
 		else if("end_of_my_turn".equals(line)){
-			System.out.println("END OF MY TURN!");
+			System.out.println("-------------\n"
+					+ "|NOT MY TURN|\n"
+					+ "-------------\n");
 			this.myClient.myTurn=false;
 			}
 		else if("excommunication_round".equals(line)){

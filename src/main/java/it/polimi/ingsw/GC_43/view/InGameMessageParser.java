@@ -46,7 +46,7 @@ public class InGameMessageParser {
 					MarketActionCreationRoutine ta = new MarketActionCreationRoutine(myp.getPlayerName(), myp,
 							myClient.getBoard());
 					if (ta.prepareAction()) {
-						myClient.sendObj(ta.getMarketAction(), this.ID);
+						myClient.submitAction(ta.getMarketAction(), this.ID);
 
 					}
 
@@ -57,7 +57,7 @@ public class InGameMessageParser {
 					ProductionActionCreationRoutine pa = new ProductionActionCreationRoutine(myp.getPlayerName(), myp,
 							myClient.getBoard());
 					if (pa.prepareAction()) {
-						myClient.sendObj(pa.getProductionAction(), this.ID);
+						myClient.submitAction(pa.getProductionAction(), this.ID);
 					}
 
 				} else if ("3".equals(actionChoice) && myClient.myTurn&&!myClient.getActionPerformed()) {
@@ -65,7 +65,7 @@ public class InGameMessageParser {
 					HarvestActionCreationRoutine ha = new HarvestActionCreationRoutine(myp.getPlayerName(), myp,
 							myClient.getBoard());
 					if (ha.prepareAction()) {
-						myClient.sendObj(ha.getHarvestAction(), this.ID);
+						myClient.submitAction(ha.getHarvestAction(), this.ID);
 					}
 
 				} else if ("4".equals(actionChoice) && myClient.myTurn&&!myClient.getActionPerformed()) {
@@ -73,7 +73,7 @@ public class InGameMessageParser {
 					CouncilPalaceActionCreationRoutine ca = new CouncilPalaceActionCreationRoutine(myp.getPlayerName(),
 							myp, myClient.getBoard());
 					if (ca.prepareAction()) {
-						myClient.sendObj(ca.getCouncilPalaceAction(), this.ID);
+						myClient.submitAction(ca.getCouncilPalaceAction(), this.ID);
 					}
 
 				} else if ("5".equals(actionChoice) && myClient.myTurn&&!myClient.getActionPerformed()) {
@@ -81,7 +81,7 @@ public class InGameMessageParser {
 					TowerActionCreationRoutine ta = new TowerActionCreationRoutine(myp.getPlayerName(), myp,
 							myClient.getBoard());
 					if (ta.prepareAction()) {
-						myClient.sendObj(ta.getTowerAction(), this.ID);
+						myClient.submitAction(ta.getTowerAction(), this.ID);
 					}
 				} else if ("6".equals(actionChoice)) {
 					startTime = System.currentTimeMillis();
@@ -91,12 +91,12 @@ public class InGameMessageParser {
 
 				} else if ("7".equals(actionChoice)) {
 					startTime = 0;
-				} else if ("8".equals(actionChoice) && myClient.myTurn) {
+				} else if ("8".equals(actionChoice) && myClient.myTurn && this.myClient.isAdvancedGame()) {
 					startTime = System.currentTimeMillis();
 					LeaderCardActionCreationRoutine leader = new LeaderCardActionCreationRoutine(myp.getPlayerName(), myp,
 							myClient.getBoard());
 					if (leader.prepareAction()) {
-						myClient.sendObj(leader.getLeaderCardAction(), this.ID);
+						myClient.submitAction(leader.getLeaderCardAction(), this.ID);
 					}
 				}
 
@@ -114,7 +114,7 @@ public class InGameMessageParser {
 
 	public void endTurn(Player myp) throws RemoteException {
 		EndPhaseAction pass = new EndPhaseAction(String.valueOf(this.ID), myp);
-		myClient.sendObj(pass, ID);
+		myClient.submitAction(pass, ID);
 		this.myClient.myTurn=false;
 	}
 
@@ -128,8 +128,8 @@ public class InGameMessageParser {
 		System.out.println("5) torri");
 		System.out.println("6) passa turno");
 		System.out.println("7) annulla azione");
-		System.out.println("8) azione leader card"); // DARIO da mettere con la
-														// condizione di
-														// modalità avanzata
+		if (this.myClient.isAdvancedGame()) {
+			System.out.println("8) azione leader card");
+		} 
 	}
 }
