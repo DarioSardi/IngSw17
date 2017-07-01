@@ -117,6 +117,10 @@ public class ClientHandlerRmi implements ClientHandler{
 		else if("advChoices_ended".equals(line)){
 			this.client.setInAdvSetupPhase(false);
 		}
+		else if("syncParser".equals(line)){
+			
+		}
+		
 		
 		else{
 			this.client.showMsg(line);

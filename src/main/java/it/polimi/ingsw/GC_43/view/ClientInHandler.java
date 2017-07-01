@@ -16,6 +16,7 @@ public class ClientInHandler implements Runnable {
 	private ObjectInputStream socketIn;
 	private Client myClient;
 
+
 	public ClientInHandler(ObjectInputStream socketIn,Client myClient) {
 		this.socketIn=socketIn;
 		this.myClient=myClient;
@@ -25,6 +26,7 @@ public class ClientInHandler implements Runnable {
 	@Override
 	public void run() {
 		SimpleMessage s;
+	
 		try {
 			s = (SimpleMessage) socketIn.readObject();
 			myClient.setID(Integer.parseInt(s.getMsg()));
@@ -34,13 +36,6 @@ public class ClientInHandler implements Runnable {
 		}
 		
 		while(this.myClient.online){
-			receiveMsg();
-			}
-		}
-	private void parseGameUpdates() {
-		//System.out.println("parser delgli update pronto!");
-		System.out.println("press enter to continue");
-		while(this.myClient.inGame){
 			receiveMsg();
 			}
 		}
@@ -96,10 +91,10 @@ public class ClientInHandler implements Runnable {
 		String line=s.getMsg();
 		if("system_ingame_switch".equals(line)){
 			this.myClient.inGame=true;
-			parseGameUpdates();
+			
 				
 			}
-		if("system_outgame_switch".equals(line)){
+		else if("system_outgame_switch".equals(line)){
 			this.myClient.inGame=false;
 			
 		}
@@ -122,6 +117,9 @@ public class ClientInHandler implements Runnable {
 		}
 		else if("advChoices_ended".equals(line)){
 			this.myClient.isInAdvSetupPhase=false;
+		}
+		else if("syncParser".equals(line)){
+			System.out.println("press enter to continue");
 		}
 		
 		else{

@@ -29,12 +29,12 @@ public class InGameMessageParser {
 		this.myClient = myclient;
 	}
 
-	public void mainMenuParser() {
+	public void mainMenuParser() throws RemoteException {
 
 		Player myp = myClient.getMyPlayer();
 		Board b = myClient.getBoard();
 		long startTime = System.currentTimeMillis();
-		while (System.currentTimeMillis() - startTime <= timeoutLimit && myClient.myTurn&&!myClient.getActionPerformed()) {
+		while (System.currentTimeMillis() - startTime <= timeoutLimit && myClient.myTurn) {
 			printActionsMenu();
 			try {
 				String actionChoice = userIn.readLine();
@@ -103,6 +103,7 @@ public class InGameMessageParser {
 		}
 		if (System.currentTimeMillis() - startTime >= timeoutLimit && startTime != 0) {
 			System.out.println("time is over!");
+			endTurn(myp);
 		} else {
 			System.out.println("returning to main menu");
 		}
@@ -111,6 +112,7 @@ public class InGameMessageParser {
 	public void endTurn(Player myp) throws RemoteException {
 		EndPhaseAction pass = new EndPhaseAction(String.valueOf(this.ID), myp);
 		myClient.sendObj(pass, ID);
+		this.myClient.myTurn=false;
 	}
 
 	public void printActionsMenu() {

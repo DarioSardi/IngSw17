@@ -34,7 +34,9 @@ public class ClientOutHandler implements Runnable {
 				try {
 					if (!this.myClient.inGame) {
 						String msg = userIn.readLine().toString();
-						sendMsgTo(msg);
+						if (msg!=null) {
+							sendMsgTo(msg);
+						}
 					} else if (this.myClient.inGame) {
 						if(!this.myClient.excommunicationRound){
 							

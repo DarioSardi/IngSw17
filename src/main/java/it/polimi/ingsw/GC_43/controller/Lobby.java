@@ -272,6 +272,7 @@ public class Lobby implements Runnable{
 			this.gameStarted=true;
 			initializeUserPass();
 			broadcastSwitchMsg();
+			broadcastMsg("syncParser");
 			return true;
 		}
 		else{

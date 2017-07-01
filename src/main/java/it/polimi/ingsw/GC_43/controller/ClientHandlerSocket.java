@@ -65,7 +65,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 				mainMenuChoicesPrint();
 				mainMenuChoicesRoutineSocket();
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				System.err.println("client DC!");
 			}
 			
 		 }
@@ -180,7 +180,6 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 				} else if ("help".equals(command)) {
 					helpMsgLobby();
 				} else {
-					sendMsgTo("nulla di che...");
 					continue;
 
 				} 
@@ -203,7 +202,6 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 	private void inGame() {
 		sendMsgTo("You are now in game!");
 		sendMsgTo("system_ingame_switch");
-		//System.out.println("ready to recive"+Game);
 		while(this.Game){
 			receive();
 		}
