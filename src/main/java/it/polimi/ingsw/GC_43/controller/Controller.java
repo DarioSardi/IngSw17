@@ -336,7 +336,7 @@ public class Controller implements IController {
 	// TODO AGGIUNGI BOOLEANO PER VEDERE SE PLAYER CONNESSO O NO;
 
 	public synchronized void submitClientAction(Action action) throws RemoteException {
-
+		System.out.println("action submitted");
 		if (!this.isExcommunicationTime) {
 			System.out.println("\nclient Action received from client " + action.getPlayerID());
 

@@ -84,7 +84,10 @@ public class InGameMessageParser {
 						myClient.sendObj(ta.getTowerAction(), this.ID);
 					}
 				} else if ("6".equals(actionChoice)) {
-					endTurn(myp);
+					startTime = System.currentTimeMillis();
+					EndPhaseAction pass = new EndPhaseAction(String.valueOf(this.ID), myp);
+					this.myClient.submitAction(pass, this.ID);
+					this.myClient.myTurn=false;
 
 				} else if ("7".equals(actionChoice)) {
 					startTime = 0;

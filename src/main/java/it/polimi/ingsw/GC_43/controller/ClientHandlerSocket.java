@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.model.actions.EndPhaseAction;
 
 public class ClientHandlerSocket implements ClientHandler,Runnable{
 	/**
@@ -82,18 +83,30 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 			sendMsgTo("select a number for the lobby");
 			Integer lobbyNumber = Integer.parseInt(readMsg());
 			Integer maxPlayers=0;
+			Boolean advChoice=false;
+			//FAST TEST HERE
+			if(lobbyNumber==777){
+				lobbyNumber=1;
+				maxPlayers=2;
+				advChoice=false;
+			}
+			
+			else{
 			while (!(maxPlayers<=5&&maxPlayers>=2)) {
 				sendMsgTo("select the max number of players in the lobby/game (min 2 max 5)");
 				maxPlayers = Integer.parseInt(readMsg());
 			}
 			String advancedMode=null;
-			Boolean advChoice=false;
+			
 			while(!("yes".equals(advancedMode)||"no".equals(advancedMode))){
 				sendMsgTo("do you want to play with the advanced mode?");
 				advancedMode=readMsg();
 			}
 			if("yes".equals(advancedMode)){
 				advChoice=true;
+			}
+			
+			
 			}
 			if (myServer.newLobby(this, lobbyNumber,maxPlayers,advChoice)) {
 				sendMsgTo("you are in the lobby now!");
@@ -211,12 +224,15 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 
 	private void receive() {
 		try {
+			
 			Object o=socketIn.readObject();
-			System.out.println(o.toString());
 			if(o instanceof ChatMsg&&this.lobby!=null){
 				ChatMsg msg=(ChatMsg) o;
 				System.out.println("chat message :"+msg.getMsg());
 				this.lobby.broadcastMsg(msg.getMsg(),this);
+			}
+			else if(o instanceof EndPhaseAction){
+				this.lobby.getController().submitClientAction((EndPhaseAction)o);
 			}
 			else if(o instanceof Action&&this.myturn){
 				System.out.println("action received!"+ o.toString());
@@ -234,6 +250,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 				this.Game=false;
 
 			}
+			
 			else if(o instanceof DefaultBonusChoiceMessage){
 				this.lobby.getController().submitDefaultBonusChoice((DefaultBonusChoiceMessage)o,this);
 			}
@@ -319,9 +336,11 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 	public void setMyturn(boolean myturn) {
 		if(myturn){
 			sendMsgTo("now_is_my_turn");
+			this.myturn=true;
 		}
 		else{
 		sendMsgTo("end_of_my_turn");
+		this.myturn=false;
 		}
 		this.myturn = myturn;
 	}

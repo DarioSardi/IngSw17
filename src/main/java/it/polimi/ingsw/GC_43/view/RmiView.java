@@ -24,7 +24,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	private ClientaHandlerRmInterface handler;
 	private volatile BufferedReader input;
 	private Boolean online;
-	private Client myclient;
+	private Client myClient;
 	private boolean inLobby;
 	private int ID;
 	
@@ -32,7 +32,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	public RmiView(Client c,ClientaHandlerRmInterface handler, BufferedReader inKeyboard)  throws RemoteException{
 		this.handler=handler;
 		this.input=inKeyboard;
-		this.myclient=c;
+		this.myClient=c;
 	}
 	
 	
@@ -43,14 +43,14 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	public void run() {
 		System.out.println("RMI menu!");
 		try {
-			this.myclient.setID(handler.connect(this));
+			this.myClient.setID(handler.connect(this));
 		} catch (RemoteException e2) {
 			e2.printStackTrace();
 		}
-		this.ID=myclient.getID();
+		this.ID=myClient.getID();
 		try {
 			System.out.println("setting username");
-			this.handler.setUsername(this.ID,this.myclient.getUsername());
+			this.handler.setUsername(this.ID,this.myClient.getUsername());
 		} catch (RemoteException e1) {
 			
 			e1.printStackTrace();
@@ -104,7 +104,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 			//QUIT
 			else if ("3".equals(command)) {
 				this.online = false;
-				this.myclient.closeGame();
+				this.myClient.closeGame();
 			}
 			
 			//SUPERSECRET PING COMMAND	
@@ -133,7 +133,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	private void inLobby() throws IOException {
 		inLobby=true;
 		while(inLobby){
-			if (!this.myclient.inGame) {
+			if (!this.myClient.inGame) {
 				System.out.println(handler.helpMsgLobby());;
 				String command = input.readLine();
 				if (command.equals("exit_lobby")) {
@@ -144,14 +144,14 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 					System.out.println("write the message that you want to send!");
 					String msg = input.readLine();
 					handler.chatMessage(this.ID,msg);
-				} else if ("start_game".equals(command)) {
+				/*} else if ("start_game".equals(command)) {
 					if (handler.startGame(this.ID)) {
-						this.myclient.inGame=true;
+						this.myClient.inGame=true;
 						inGame();
 					} else {
 						System.out.println("you are not the admin...");
 						continue;
-					}
+					}*/
 				} else if ("players".equals(command)) {
 					System.out.println(handler.whoIsInLobby(this.ID));
 				} else if ("help".equals(command)) {
@@ -174,21 +174,22 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	 */
 	private void inGame() {
 		System.out.println("YOU ARE NOW IN GAME!");
-		InGameMessageParser parser=new InGameMessageParser(input,this.ID,this.myclient);
-		if(this.myclient.isAdvancedGame()){
+		InGameMessageParser parser=new InGameMessageParser(input,this.ID,this.myClient);
+		if(this.myClient.isAdvancedGame()){
 			advGameSetupPhase();
 		}	
-		while(this.myclient.inGame){
+		while(this.myClient.inGame){
+			    this.myClient.printMyData();
 				inGameCommandsPrint();
 				try {
 					String command=input.readLine().toString();
 					if	   ("help".equals(command)){
 						inGameCommandsPrint();
 					}
-					else if("action".equals(command)&&this.myclient.myTurn){
+					else if("action".equals(command)&&this.myClient.myTurn){
 						parser.mainMenuParser();				
 					}
-					else if("action".equals(command)&&!this.myclient.myTurn){
+					else if("action".equals(command)&&!this.myClient.myTurn){
 						System.out.println("this is not your turn!");
 					}
 					else if("chat".equals(command)){
@@ -204,13 +205,13 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 						System.out.println("3) to see the list of the players with their resources");
 						String subchoice=input.readLine().toString();
 						if("1".equals(subchoice)){
-							System.out.println(this.myclient.getMyPlayer().toString());
+							System.out.println(this.myClient.getMyPlayer().toString());
 						}
 						else if("2".equals(subchoice)){
-							System.out.println(this.myclient.getBoard().toString());
+							System.out.println(this.myClient.getBoard().toString());
 						}
 						else if("3".equals(subchoice)){
-							this.myclient.getBoard().getPlayers().stream().forEach(p->System.out.println(p.toString()));
+							this.myClient.getBoard().getPlayers().stream().forEach(p->System.out.println(p.toString()));
 							
 						}
 						else{
@@ -227,7 +228,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 							String password=input.readLine().toString();
 							System.out.print("now you are leaving the game!Press Enter to continue to the lobby");
 							handler.quitGame(this.ID,password);
-							this.myclient.setInGame(false);
+							this.myClient.setInGame(false);
 						}
 						else{
 							System.out.println("...so you don't want to leave? good! returning to the game.");
@@ -249,9 +250,9 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	 * in case of advanced Rules the client should enter this endless loop until the setup phase is finished.
 	 */
 	private void advGameSetupPhase() {
-		this.myclient.isInAdvSetupPhase=true;
+		this.myClient.isInAdvSetupPhase=true;
 		System.out.println("THIS IS A ADVANCED MODE GAME,ENTERING SETUP PHASE");
-		while(this.myclient.isInAdvSetupPhase){
+		while(this.myClient.isInAdvSetupPhase){
 			
 		}
 		
@@ -261,7 +262,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	private void helpMsgLobby() {
 		System.out.println("\nCOMANDI LOBBY:\n"
 				+ "chat to chat with the other inLobby players\n" + "exit_lobby to quit the current lobby\n"
-						+ "start_game to start the game if you are the admin\n" + "help to see this\n"
+						//+ "start_game to start the game if you are the admin\n" + "help to see this\n"
 						+ "players if you want to see who is in the lobby\n");
 		
 	}
@@ -284,13 +285,13 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	@Override
 	public void changeUsername(String s) throws RemoteException {
-		this.myclient.changeUsername(s);
+		this.myClient.changeUsername(s);
 	}
 
 	@Override
 	public void updateBoard(Board b) throws RemoteException {
 		System.out.println("board received");
-		this.myclient.setBoard(b);
+		this.myClient.setBoard(b);
 		
 	}
 
@@ -309,15 +310,15 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	@Override
 	public void setInGame(Boolean inGame) throws RemoteException {
-		this.myclient.setInGame(inGame);
+		this.myClient.setInGame(inGame);
 		
 	}
 
 	@Override
 	public void setmyTurn(Boolean myT) throws RemoteException {
-		this.myclient.setMyTurn(myT);
+		this.myClient.setMyTurn(myT);
 		if(myT){
-			this.myclient.setActionPerformed(false);
+			this.myClient.setActionPerformed(false);
 		}
 		
 	}
@@ -330,23 +331,23 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	@Override
 	public void updateGlobalVariables(CopyOfGlobalVariables o) {
-		this.myclient.setGameGlobalVariables(o);
+		this.myClient.setGameGlobalVariables(o);
 		
 	}
 
 	@Override
 	public String getUsername() throws RemoteException {
-		return this.myclient.getUsername();
+		return this.myClient.getUsername();
 	}
 
 	@Override
 	public Integer getID() throws RemoteException {
-		return this.myclient.getID();
+		return this.myClient.getID();
 	}
 
 	@Override
 	public void setActionPerformed(boolean b) throws RemoteException {
-		this.myclient.setActionPerformed(b);
+		this.myClient.setActionPerformed(b);
 		
 	}
 
@@ -370,7 +371,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	@Override
 	public void setInAdvSetupPhase(boolean b) throws RemoteException {
-		this.myclient.isInAdvSetupPhase=b;
+		this.myClient.isInAdvSetupPhase=b;
 		
 	}
 	

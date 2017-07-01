@@ -67,6 +67,7 @@ public class ClientOutHandler implements Runnable {
 			advGameSetupPhase();
 		}
 		while(this.myClient.inGame){
+			this.myClient.printMyData();
 			inGameCommandsPrint();
 			try {
 				String command=userIn.readLine().toString();

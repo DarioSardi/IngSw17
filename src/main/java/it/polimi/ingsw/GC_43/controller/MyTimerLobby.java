@@ -21,7 +21,7 @@ public class MyTimerLobby implements java.lang.Runnable{
 
     public void runTimer(){
          while (time>0){
-          if (time%5==0) {
+          if (time%10==0) {
 			this.lobby.broadcastMsg("Remaining: " + time + " seconds");
 		}
 		try {

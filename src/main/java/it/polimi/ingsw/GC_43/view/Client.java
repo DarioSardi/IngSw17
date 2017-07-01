@@ -128,6 +128,22 @@ public class Client {
 				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
 				correctAnswer = true;
 			}
+			else if (answer.equals("1")) {
+				String addressChoice = "127.0.0.1";
+				Integer portChoice = 7777;
+				String usernameChoice = "Dario";
+				Boolean rmiChoice = false;
+				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
+				correctAnswer = true;
+			}
+			else if (answer.equals("2")) {
+				String addressChoice = "127.0.0.1";
+				Integer portChoice = 7777;
+				String usernameChoice = "Foffo";
+				Boolean rmiChoice = false;
+				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
+				correctAnswer = true;
+			}
 
 			else if (answer.equals("rmi")) {
 				String addressChoice = "127.0.0.1";
@@ -155,15 +171,23 @@ public class Client {
 	}
 
 	public void sendObj(Object o, Integer ID) throws RemoteException {
+		System.out.println("sending");
 		if (!rmi) {
 			this.outStream.sendObj(o);
-		} else if (rmi) {
-			if (o instanceof Action) {
-				handler.submitAction(ID, (Action) o);
-			}
-
-		} else
+		}
+		else
 			System.out.println("ehm...why you are here?");
+	}
+	
+	public void submitAction(Action a, Integer ID) throws RemoteException{
+		System.out.println("submitting action");
+		if (!rmi) {
+			this.outStream.sendObj(a);
+		} else if (rmi) {
+			handler.submitAction(ID, a);
+
+		} else{
+			System.out.println("ehm...why you are here?");}
 	}
 
 	public void setGameGlobalVariables(CopyOfGlobalVariables copy) {
@@ -268,7 +292,7 @@ public class Client {
 				this.myPlayer = p;
 			}
 		});
-		System.out.println("\nI TUOI DATI:\n" + this.myPlayer.toString());
+		
 	}
 
 	public static void main(String[] args) throws IOException, NotBoundException {
@@ -288,5 +312,7 @@ public class Client {
 	public boolean isAdvancedGame() {
 		return advancedGame;
 	}
-
+	public void printMyData(){
+		System.out.println("\nI TUOI DATI:\n" + this.myPlayer.toString());
+	}
 }
