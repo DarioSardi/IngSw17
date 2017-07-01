@@ -71,27 +71,31 @@ public class GlobalVariablesInit implements Serializable{
 		       
 		    			
         } catch (Exception e) {
+    		System.out.println("Exception on read Global Variables");
             e.printStackTrace();
         }
         
         InitCouncilPrivilege cpi = new InitCouncilPrivilege();
 		cpi.readCouncilPrivilege();
-		GlobalVariables.councilPrivilegeEffect = cpi.getMultChoice();       			       	
+		GlobalVariables.councilPrivilegeEffect = cpi.getMultChoice();       		
+		System.out.println("Council privilege initialized");
        	
 		
 		InitMilitaryPointsRequired mpi = new InitMilitaryPointsRequired();
 		mpi.readMilitaryPointsRequired();
 		GlobalVariables.militaryPointsRequired = mpi.getMilitaryPointsRequired();
+		System.out.println("Military points required for buy territory card initialized");
 		
 		InitFaithPointExcomRequired fperi = new InitFaithPointExcomRequired();
 		fperi.readFaithPointExcomRequired();
 		GlobalVariables.faithPointExcomRequired = fperi.getFaithPointExcom();
+		System.out.println("Faith points required to not be excommunicated initialized");
         
     	InitEndPoints iep = new InitEndPoints();
     	iep.readJson();
     	GlobalVariables.endCharacterVictoryPoints = iep.getEndCharacterPoints();
     	GlobalVariables.endTerritoryVictoryPoints = iep.getEndTerritoryPoints();
-    	
-       	System.out.println("inizializzate tutte le variabili globali");
+		System.out.println("End victory points for character and territory cards initialized");
+
     }
 }

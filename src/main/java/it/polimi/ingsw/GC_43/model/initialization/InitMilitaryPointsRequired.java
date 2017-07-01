@@ -40,6 +40,7 @@ public class InitMilitaryPointsRequired {
         }
 		    			
         } catch (Exception e) {
+    		System.out.println("Exception on read military points required");
             e.printStackTrace();
         }
     }

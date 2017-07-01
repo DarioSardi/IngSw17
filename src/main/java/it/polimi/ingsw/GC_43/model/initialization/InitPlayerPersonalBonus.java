@@ -112,6 +112,7 @@ public class InitPlayerPersonalBonus {
         	this.allAdvancedPersonalTile.remove(this.allAdvancedPersonalTile.size()-1);
            	 	
         } catch (Exception e) {
+    		System.out.println("Exception on read player personal bonus");
             e.printStackTrace();
         }   
     }

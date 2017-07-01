@@ -40,6 +40,7 @@ public class InitFaithPointExcomRequired {
         }
 		    			
         } catch (Exception e) {
+    		System.out.println("Exception on read faith point excommunication required");
             e.printStackTrace();
         }
     }

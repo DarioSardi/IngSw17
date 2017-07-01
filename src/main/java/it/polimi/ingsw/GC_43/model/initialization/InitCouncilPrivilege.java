@@ -49,6 +49,7 @@ public class InitCouncilPrivilege {
             this.multChoices.getChoices().add(choice);
         }			
         } catch (Exception e) {
+    		System.out.println("Exception on read councilPrivilege");
             e.printStackTrace();
         }
     }

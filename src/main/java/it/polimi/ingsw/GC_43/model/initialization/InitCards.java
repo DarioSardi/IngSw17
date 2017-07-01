@@ -42,10 +42,9 @@ public class InitCards {
        	 	obj = parser.parse(new FileReader("src/main/java/it/polimi/ingsw/GC_43/model/initialization/VentureCards.jar"));
        	 	this.ventureCards = new CreateCards().readCards(obj);
     	 	board.setVentureCardPool(this.ventureCards);
-    	 	
-    	 	System.out.println("inizializzate tutte le carte");
            	 	
         } catch (Exception e) {
+    		System.out.println("Exception on read development cards");
             e.printStackTrace();
         }
         

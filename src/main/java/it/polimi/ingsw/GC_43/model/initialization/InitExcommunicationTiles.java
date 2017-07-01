@@ -54,11 +54,9 @@ public class InitExcommunicationTiles {
 
 	         selectRandomExcommTiles();
          }
-        
-    	 System.out.println("inizializzate tutte le carte scomunica");
-
            	 	
         } catch (Exception e) {
+    		System.out.println("Exception on read ecommunication tiles");
             e.printStackTrace();
         }
 	}

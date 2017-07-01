@@ -58,11 +58,10 @@ public class InitEndPoints {
      				this.endTerritoryPoints[numTerritoryCards] = victoryPoints;
      			}	     			
      		 }
-             
-    	 System.out.println("Inizializzati gli end points");
-         }
+          }
            	 	
         } catch (Exception e) {
+    		System.out.println("Exception on read end points");
             e.printStackTrace();
         }   
     }

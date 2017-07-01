@@ -76,10 +76,9 @@ public class InitLeaderCards {
             }
             
             selectRandomCards();
-    	 	
-    	 	System.out.println("inizializzate le carte leader");
            	 	
         } catch (Exception e) {
+    		System.out.println("Exception on read leader cards");
             e.printStackTrace();
         }
         

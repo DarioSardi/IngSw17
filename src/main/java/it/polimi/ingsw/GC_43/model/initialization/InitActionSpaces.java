@@ -23,8 +23,7 @@ public class InitActionSpaces {
         this.towers.add(new Tower(TowerColors.TERRITORIES_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.CHARACTERS_TOWER, GlobalVariables.floorsPerTower));
         this.towers.add(new Tower(TowerColors.BUILDINGS_TOWER, GlobalVariables.floorsPerTower));
-        this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));     
-        //Add here a new tower
+        this.towers.add(new Tower(TowerColors.VENTURES_TOWER, GlobalVariables.floorsPerTower));    
 	}
 	
 	public void readJson() {
@@ -60,11 +59,9 @@ public class InitActionSpaces {
              JSONArray ventureFloorsBonusArray = (JSONArray) slides.get("FloorsBonusVentureTower");
              addFloorsToTower(ventureFloorsBonusArray, this.towers.get(3));
          }
-         
-    	 System.out.println("inizializzati tutti gli spazi azione");
-
            	 	
         } catch (Exception e) {
+    		System.out.println("Exception on read action spaces");
             e.printStackTrace();
         }
         
