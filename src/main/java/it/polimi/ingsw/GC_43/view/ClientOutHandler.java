@@ -150,15 +150,21 @@ public class ClientOutHandler implements Runnable {
 			if(this.myClient.defaultBonusChoice!=null){
 				System.out.println(this.myClient.defaultBonusChoice.toString());
 				Integer choice=Integer.parseInt(userIn.readLine());
-				if(choice>0&&choice<this.myClient.defaultBonusChoice.getAdvDefBonus().size()){
-					System.out.println("wrong answer");
+				if(choice>=0&&choice<this.myClient.defaultBonusChoice.getAdvDefBonus().size()-1){
+					this.myClient.defaultBonusChoice.setChoice(choice);
+					this.myClient.sendObj(this.myClient.defaultBonusChoice, this.ID);
+					this.myClient.defaultBonusChoice=null;
+					System.out.println("choice sent");
 				}
 				else{
-				this.myClient.defaultBonusChoice.setChoice(choice);
-				this.myClient.sendObj(this.myClient.defaultBonusChoice, this.ID);
-				this.myClient.defaultBonusChoice=null;
-				System.out.println("choice sent");
+					System.out.println("wrong answer");
 				}
+			}
+			else if(this.myClient.LeaderCardChoice!=null){
+				
+			}
+			else{
+				//DO NOTHING
 			}
 		}
 		

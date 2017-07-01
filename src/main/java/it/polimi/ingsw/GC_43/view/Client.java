@@ -18,6 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
 import it.polimi.ingsw.GC_43.controller.DefaultBonusChoiceMessage;
+import it.polimi.ingsw.GC_43.controller.LeaderCardChoiceMessage;
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
@@ -43,9 +44,12 @@ public class Client {
 	private RmiView rmiView;
 	ClientaHandlerRmInterface handler;
 	private boolean actionPerformed;
+	//ADV GAME BOOLEANS
 	private boolean advancedGame;
 	public boolean isInAdvSetupPhase;
+	//ADV INITIAL CHOICE MSG
 	public DefaultBonusChoiceMessage defaultBonusChoice;
+	public LeaderCardChoiceMessage LeaderCardChoice;
 
 	public Client() throws IOException, NotBoundException {
 		initBools();

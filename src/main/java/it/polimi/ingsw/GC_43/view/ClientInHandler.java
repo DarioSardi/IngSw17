@@ -35,6 +35,7 @@ public class ClientInHandler implements Runnable {
 			e.printStackTrace();
 		}
 		this.myClient.defaultBonusChoice=null;
+		this.myClient.LeaderCardChoice=null;
 		while(this.myClient.online){
 			receiveMsg();
 			}
@@ -68,11 +69,7 @@ public class ClientInHandler implements Runnable {
 				this.myClient.defaultBonusChoice=(DefaultBonusChoiceMessage)o;
 			}
 			else if(o instanceof LeaderCardChoiceMessage){
-				System.out.println("Draft time:choose the leader card you want to keep");
-				LeaderCardChoiceMessage l=(LeaderCardChoiceMessage)o;
-				new CommonActionCreatorRoutine();
-				l.setChoice(CommonActionCreatorRoutine.askForSingleChoice(o.toString(), 0, l.getLeaderCards().size()));
-				this.myClient.sendObj(l,this.myClient.getID());
+				this.myClient.LeaderCardChoice=(LeaderCardChoiceMessage)o;
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
