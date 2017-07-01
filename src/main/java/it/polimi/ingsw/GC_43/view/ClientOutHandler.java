@@ -160,8 +160,17 @@ public class ClientOutHandler implements Runnable {
 					System.out.println("wrong answer");
 				}
 			}
-			else if(this.myClient.LeaderCardChoice!=null){
-				
+			else if(this.myClient.leaderCardChoice!=null){
+				System.out.println(this.myClient.leaderCardChoice.toString());
+				Integer choice=Integer.parseInt(userIn.readLine());
+				if(choice>=0&&choice<this.myClient.leaderCardChoice.getLeaderCards().size()-1){
+					this.myClient.leaderCardChoice.setChoice(choice);
+					this.myClient.sendObj(this.myClient.leaderCardChoice, this.ID);
+					this.myClient.leaderCardChoice=null;
+					System.out.println("choice sent");}
+				else{
+					System.out.println("wrong answer");
+				}
 			}
 			else{
 				//DO NOTHING

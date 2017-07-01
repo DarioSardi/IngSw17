@@ -49,7 +49,7 @@ public class Client {
 	public boolean isInAdvSetupPhase;
 	//ADV INITIAL CHOICE MSG
 	public DefaultBonusChoiceMessage defaultBonusChoice;
-	public LeaderCardChoiceMessage LeaderCardChoice;
+	public LeaderCardChoiceMessage leaderCardChoice;
 
 	public Client() throws IOException, NotBoundException {
 		initBools();
