@@ -87,6 +87,16 @@ public class ClientHandlerRmi implements ClientHandler{
 
 	@Override
 	public void setMyturn(boolean b) throws RemoteException {
+		if(b){
+			this.client.showMsg("-------------\n"
+					+ "|--MY TURN--|\n"
+					+ "-------------\n");
+		}
+		else{
+			this.client.showMsg("-------------\n"
+					+ "|NOT MY TURN|\n"
+					+ "-------------\n");
+		}
 		this.client.setmyTurn(b);
 		
 	}
@@ -102,9 +112,15 @@ public class ClientHandlerRmi implements ClientHandler{
 		}
 		
 		else if("now_is_my_turn".equals(line)){
+			this.client.showMsg("-------------\n"
+					+ "|--MY TURN--|\n"
+					+ "-------------\n");
 			this.client.setmyTurn(true);
 			}
 		else if("end_of_my_turn".equals(line)){
+			this.client.showMsg("-------------\n"
+					+ "|NOT MY TURN|\n"
+					+ "-------------\n");
 			this.client.setmyTurn(false);
 			}
 		else if("excommunication_round".equals(line)){
@@ -118,7 +134,7 @@ public class ClientHandlerRmi implements ClientHandler{
 			this.client.setInAdvSetupPhase(false);
 		}
 		else if("syncParser".equals(line)){
-			
+			this.client.showMsg("press enter to continue");
 		}
 		
 		

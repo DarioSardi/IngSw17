@@ -274,7 +274,6 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 
 	public void sendObject(Object object){
 		try {
-			System.out.println("sent "+object);
 			if(object instanceof Board){
 				socketOut.reset();
 			}
