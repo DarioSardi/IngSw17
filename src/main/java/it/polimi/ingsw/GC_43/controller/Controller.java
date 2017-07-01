@@ -161,7 +161,7 @@ public class Controller implements IController {
 
 	private void askForAdvancedChoice() throws RemoteException {
 
-		ArrayList<PlayerPersonalBonus> playerPersonalBonus = this.board.getPlayerPersonalBonus();
+		ArrayList<PlayerPersonalBonus> playerPersonalBonus = this.board.getAdvancedPersonalBonus();
 		DefaultBonusChoiceMessage dfBonusMessage = new DefaultBonusChoiceMessage(playerPersonalBonus,
 				this.clientHandlers.get(this.choicePlayerNumber).getUsername());
 		nextChoiceMessage(dfBonusMessage);

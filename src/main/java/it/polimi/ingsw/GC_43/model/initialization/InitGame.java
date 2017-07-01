@@ -72,8 +72,8 @@ public class InitGame {
 	private void setPersonalBonusToPlayers(){
 		InitPlayerPersonalBonus initPersonalBonus = new InitPlayerPersonalBonus();
 		initPersonalBonus.readJson();
-	//	this.board.setBasePersonalBonus(initPersonalBonus.getBasePersonalTile());
-	//	this.board.setAdvancedPersonalBonus(initPersonalBonus.getAllAdvancedPersonalTile());	
+		this.board.setBasePersonalBonus(initPersonalBonus.getBasePersonalTile());
+		this.board.setAdvancedPersonalBonus(initPersonalBonus.getAllAdvancedPersonalTile());	
 		System.out.println("Personal bonus initialized");
 	}
 }

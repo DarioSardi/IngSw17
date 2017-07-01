@@ -52,8 +52,9 @@ public class InitLeaderCards {
                 else this.isPermanentAbility = false;
                 
                 JSONArray requirementsArray = (JSONArray) slides.get("Requirements");
-                while (requirementsArray.iterator().hasNext()) {
-         			JSONObject slide = (JSONObject) requirementsArray.iterator().next(); 
+                Iterator<?> requirementsIterator = requirementsArray.iterator();
+                while (requirementsIterator.hasNext()) {
+         			JSONObject slide = (JSONObject) requirementsIterator.next(); 
 
          			String typeReq = (String)slide.get("typeReq");
          			float valueFloat = Float.parseFloat((String)slide.get("valueReq"));
@@ -61,12 +62,14 @@ public class InitLeaderCards {
                 }
                 
                 JSONArray effectArray = (JSONArray) slides.get("Bonus");
-                while (effectArray.iterator().hasNext()) {
-         			JSONObject slide = (JSONObject) effectArray.iterator().next(); 
+                Iterator<?> effectIterator = effectArray.iterator();
+                while (effectIterator.hasNext()) {
+         			JSONObject slide = (JSONObject) effectIterator.next(); 
 
          			String effect = (String)slide.get("effect");
         			float valueFloat = Float.parseFloat((String)slide.get("valueEffect"));
                     this.cardRequirementsAndEffectIterators.iterator(this.ability, effect, valueFloat);
+
                 }
                 
                 this.leaderCards.add(new LeaderCard(this.name, this.requirements, this.ability, this.isPermanentAbility));
@@ -76,7 +79,6 @@ public class InitLeaderCards {
             }
             
             selectRandomCards();
-           	 	
         } catch (Exception e) {
     		System.out.println("Exception on read leader cards");
             e.printStackTrace();
