@@ -98,11 +98,15 @@ public class Controller implements IController {
 	}
 
 	private void askForLeaderCards() throws RemoteException {
+		
+		System.out.println("Entered in leader cards choice logic");
 
 		ArrayList<ArrayList<LeaderCard>> leaderCardPools = new ArrayList<ArrayList<LeaderCard>>();
 
 		int poolNumber = 0;
 		for (ClientHandler ch : this.clientHandlers) {
+			System.out.println("Creating card pool..");
+
 			leaderCardPools.add(new ArrayList<LeaderCard>());
 
 			for (int index = 0; index < 4; index++) {
@@ -111,10 +115,17 @@ public class Controller implements IController {
 
 			poolNumber++;
 		}
-		this.leaderCardPools=leaderCardPools;
 		
+		System.out.println("Finished creating leader cards pools for : "+this.clientHandlers.size()+" players");
+
+		this.leaderCardPools=leaderCardPools;
+		System.out.println("Leader cards pools are : "+leaderCardPools.toString());
+
 		for (int index = 0; index < this.clientHandlers.size()-1; index++) {
 			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(leaderCardPools.get(index), this.clientHandlers.get(index).getUsername());
+			System.out.println("Sending leader card pool : "+leaderChoiceMessage.toString());
+
+			System.out.println("Sending leader cards choice to player "+this.clientHandlers.get(index).getUsername());
 			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
 		}
 
