@@ -172,16 +172,15 @@ public class Controller implements IController {
 		this.clientHandlers.get(this.choicePlayerNumber)
 				.sendMsgTo("\nPlease select for default harvest and production bonus\n");
 
-		// CHIEDI A DARIO SE NECESSARIO
-	//	this.matchClientHandler.get(this.choicePlayerNumber);
-		System.out.println("\nSending choice for advanced ersonal bonus to player");
-	//	System.out.println("\nPlease select for default harvest and production bonus\n"+this.matchClientHandler.get(this.choicePlayerNumber).getUsername());
+		System.out.println("Sending choice for advanced personal bonus to player");
 
 		this.clientHandlers.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
 
 	}
 
 	public synchronized void submitDefaultBonusChoice(DefaultBonusChoiceMessage message, ClientHandler clientHandler) throws RemoteException {
+		System.out.println("Received a submitDefaultBonusChoice");
+
 		int choice = message.getChoice();
 		System.out.println("Submitted DefaultBonusChoiceMessage by "+clientHandler.getUsername());
 		this.matchPlayer.get(clientHandler.getUsername())
@@ -190,17 +189,17 @@ public class Controller implements IController {
 
 
 		this.matchPlayer.get(clientHandler.getUsername())
-				.setPersonalProductionBonus(message.getAdvDefBonus().get(choice).getHarvestBonus());
+				.setPersonalProductionBonus(message.getAdvDefBonus().get(choice).getProductionBonus());
 
-		message.getAdvDefBonus().get(choice).getHarvestBonus().remove(choice);
+		message.getAdvDefBonus().remove(choice);
 
-		message.getAdvDefBonus().get(choice).getProductionBonus().remove(choice);
+	//	message.getAdvDefBonus().get(choice).getProductionBonus().remove(choice);
 
 		this.choicePlayerNumber--;
-		System.out.println("Asking DefaultBonusChoiceMessage to player choice "+this.choicePlayerNumber);
+		System.out.println("Asking DefaultBonusChoiceMessage to player choice order number "+this.choicePlayerNumber);
 
 		if (this.choicePlayerNumber >= 0) {
-			System.out.println("Calling for nex choice message");
+			System.out.println("Calling for next choice message");
 
 			nextChoiceMessage(message);
 

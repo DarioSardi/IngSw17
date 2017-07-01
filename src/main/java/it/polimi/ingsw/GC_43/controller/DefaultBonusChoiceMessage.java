@@ -12,7 +12,7 @@ public class DefaultBonusChoiceMessage implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2039103900053881356L;
-	private int choice;
+	private Integer choice;
 	String playerUsername;
 	ArrayList<PlayerPersonalBonus> advDefBonus;
 	
@@ -29,7 +29,7 @@ public class DefaultBonusChoiceMessage implements Serializable {
 	}
 
 
-	public void setChoice(int choice) {
+	public void setChoice(Integer choice) {
 		this.choice = choice;
 	}
 
