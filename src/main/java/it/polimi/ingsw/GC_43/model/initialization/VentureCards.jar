@@ -2,6 +2,7 @@
   "Cards": [
     {
       "Name": "Costruire le Mura",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Building_the_Walls.png",
       "Period": "1",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -31,6 +32,7 @@
     },
     {
       "Name": "Ingaggiare Reclute",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Hiring_Recruits.png",
       "Period": "1",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -56,6 +58,7 @@
     },
     {
       "Name": "Innalzare una Statua",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Raising_a_Statue.png",
       "Period": "1",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -85,6 +88,7 @@
     },
     {
       "Name": "Ospitare i Mendicanti",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Hosting_Panhandlers.png",
       "Period": "1",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -110,6 +114,7 @@
     },
     {
       "Name": "Sostegno al Vescovo",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Support_to_the_Bishop.png",
       "Period": "1",
       "Type": "VentureCard",
       "MilitaryCost": "2",
@@ -143,6 +148,7 @@
     },
     {
       "Name": "Riparare la Chiesa",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Repairing_the_Church.png",
       "Period": "1",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -176,6 +182,7 @@
     },
     {
       "Name": "Sostegno al Cardinale",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Support_to_the_Cardinal.png",
       "Period": "2",
       "Type": "VentureCard",
       "MilitaryCost": "4",
@@ -209,6 +216,7 @@
     },
     {
       "Name": "Accogliere gli Stranieri",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Hosting_Foreigners.png",
       "Period": "2",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -234,6 +242,7 @@
     },
     {
       "Name": "Crociata",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Crusade.png",
       "Period": "2",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -258,6 +267,7 @@
     },
     {
       "Name": "Costruire i Bastioni",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Building_the_Bastions.png",
       "Period": "2",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -287,6 +297,7 @@
     },
     {
       "Name": "Combattere le Eresie",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Fighting_Heresies.png",
       "Period": "1",
       "Type": "VentureCard",
       "MilitaryCost": "3",
@@ -307,6 +318,7 @@
     },
     {
       "Name": "Campagna Militare",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Military_Campaign.png",
       "Period": "1",
       "Type": "VentureCard",
       "MilitaryCost": "2",
@@ -327,6 +339,7 @@
     },
     {
       "Name": "Commissionare Arte Sacra",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Promoting_Sacred_Art.png",
       "Period": "3",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -352,6 +365,7 @@
     },
     {
       "Name": "Costruire le Torri",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Building_the_Towers.png",
       "Period": "3",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -381,6 +395,7 @@
     },
     {
       "Name": "Riparare la Cattedrale",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Repairing_the_Cathedral.png",
       "Period": "3",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -414,6 +429,7 @@
     },
     {
       "Name": "Migliorare le Strade",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Improving_the_Roads.png",
       "Period": "3",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -438,6 +454,7 @@
     },
     {
       "Name": "Riparare l'Abbazia",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Repairing_the_Abbey.png",
       "Period": "2",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -471,6 +488,7 @@
     },
     {
       "Name": "Ingaggiare Soldati",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Hiring_Soldiers.png",
       "Period": "2",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -496,6 +514,7 @@
     },
     {
       "Name": "Scavare Canalizzazioni",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Improving_the_Canals.png",
       "Period": "2",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -520,6 +539,7 @@
     },
     {
       "Name": "Supporto al Re",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Support_to_the_King.png",
       "Period": "2",
       "Type": "VentureCard",
       "MilitaryCost": "3",
@@ -544,6 +564,7 @@
     },
     {
       "Name": "Guerra Santa",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Sacred_War.png",
       "Period": "3",
       "Type": "VentureCard",
       "MilitaryCost": "8",
@@ -564,6 +585,7 @@
     },
     {
       "Name": "Sostegno al Papa",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Support_to_the_Pope.png",
       "Period": "3",
       "Type": "VentureCard",
       "MilitaryCost": "5",
@@ -597,6 +619,7 @@
     },
     {
       "Name": "Ingaggiare Mercenari",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Hiring_Mercenaries.png",
       "Period": "3",
       "Type": "VentureCard",
       "MilitaryCost": "0",
@@ -622,6 +645,7 @@
     },
     {
       "Name": "Conquista Militare",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Military_Conquest.png",
       "Period": "3",
       "Type": "VentureCard",
       "MilitaryCost": "6",
