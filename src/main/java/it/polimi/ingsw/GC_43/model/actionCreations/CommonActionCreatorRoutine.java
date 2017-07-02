@@ -132,7 +132,9 @@ public class CommonActionCreatorRoutine implements Serializable {
             System.out.println("\n"+question+"\n");
 
             try{
-                int choice=reader.nextInt();
+            	int choice=-9;
+            	if(reader.hasNextInt())
+            		choice =Integer.valueOf(reader.next());
                 if(choice>=minRange&&choice<maxRange){
                 	System.out.println("Choice ok");
                     choiceOk=true;

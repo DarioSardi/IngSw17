@@ -110,7 +110,7 @@ public class Controller implements IController {
 			leaderCardPools.add(new ArrayList<LeaderCard>());
 
 			for (int index = 0; index < 4; index++) {
-				leaderCardPools.get(poolNumber).add(this.board.getLeaderCardPool().get(index * poolNumber + index));
+				leaderCardPools.get(poolNumber).add(this.board.getLeaderCardPool().get(4*poolNumber + index));
 			}
 
 			poolNumber++;
@@ -119,14 +119,17 @@ public class Controller implements IController {
 		System.out.println("Finished creating leader cards pools for : "+this.clientHandlers.size()+" players");
 
 		this.leaderCardPools=leaderCardPools;
-		System.out.println("Leader cards pools are : "+leaderCardPools.toString());
 
-		for (int index = 0; index < this.clientHandlers.size()-1; index++) {
-			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(leaderCardPools.get(index), this.clientHandlers.get(index).getUsername());
+		
+		
+		for (int index = 0; index < this.clientHandlers.size(); index++) {
+			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(this.leaderCardPools.get(index), this.clientHandlers.get(index).getUsername());
 			System.out.println("Sending leader card pool : "+leaderChoiceMessage.toString());
 
 			System.out.println("Sending leader cards choice to player "+this.clientHandlers.get(index).getUsername());
 			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
+			System.out.println("Leader cards choice SENT to player "+this.clientHandlers.get(index).getUsername());
+
 		}
 
 	}
@@ -137,7 +140,7 @@ public class Controller implements IController {
 
 		
 		
-		for (int index = 0; index < this.clientHandlers.size()-1; index++) {
+		for (int index = 0; index < this.clientHandlers.size(); index++) {
 			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(this.leaderCardPools.get(index+this.leaderChoicePhaseRound%this.clientHandlers.size()), this.clientHandlers.get(index).getUsername());
 			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
 		}
@@ -147,17 +150,23 @@ public class Controller implements IController {
 
 	public synchronized void submitLeaderCardChoice(LeaderCardChoiceMessage message, ClientHandler clientHandler)
 			throws RemoteException {
-
+		
+		System.out.println("Submitting choice of player "+clientHandler.getUsername());
 		int choice = message.getChoice();
 		this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards()
 				.addLeaderCard(message.getLeaderCards().get(choice));
+		System.out.println("Removing player choice");
 
 		message.getLeaderCards().remove(choice);
 
 		this.choicePlayerNumber--;
+		System.out.println("Finished submission operations for player "+clientHandler.getUsername());
 
 		if (this.choicePlayerNumber == 0&&!message.getLeaderCards().isEmpty()) {
+			System.out.println("Getting ready for nextChoiceLeaderMessage..");
+
 			nextChoiceLeaderMessage();
+		
 
 		} else if(this.choicePlayerNumber==0&&message.getLeaderCards().isEmpty()) {
 			System.out.println("Leader cards selection finished, starting the game");
