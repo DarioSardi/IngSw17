@@ -161,7 +161,7 @@ public class Client {
 					GameBoard frame = new GameBoard();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
-					frame.client=this;
+					frame.setClient(this);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
