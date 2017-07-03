@@ -13,8 +13,8 @@ public class TerritoryCard extends Card {
 	private int harvestDice;
 
 	public TerritoryCard(String cardName, int cardEra, ArrayList<Effect> instantBonus, ArrayList<Effect> permaBonus,
-			int productionDice) {
-		super(cardName, cardEra, null, instantBonus, permaBonus);
+			int productionDice,String cardIcon) {
+		super(cardName, cardEra, null, instantBonus, permaBonus,cardIcon);
 		this.harvestDice = productionDice;
 	}
 

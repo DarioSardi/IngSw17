@@ -150,7 +150,7 @@ public class ClientOutHandler implements Runnable {
 			if(this.myClient.defaultBonusChoice!=null){
 				System.out.println(this.myClient.defaultBonusChoice.toString());
 				Integer choice=Integer.parseInt(userIn.readLine());
-				if(choice>=0&&choice<this.myClient.defaultBonusChoice.getAdvDefBonus().size()-1){
+				if(choice>=0&&choice<this.myClient.defaultBonusChoice.getAdvDefBonus().size()){
 					this.myClient.defaultBonusChoice.setChoice(choice);
 					this.myClient.sendObj(this.myClient.defaultBonusChoice, this.ID);
 					this.myClient.defaultBonusChoice=null;
@@ -163,7 +163,7 @@ public class ClientOutHandler implements Runnable {
 			else if(this.myClient.leaderCardChoice!=null){
 				System.out.println(this.myClient.leaderCardChoice.toString());
 				Integer choice=Integer.parseInt(userIn.readLine());
-				if(choice>=0&&choice<this.myClient.leaderCardChoice.getLeaderCards().size()-1){
+				if(choice>=0&&choice<this.myClient.leaderCardChoice.getLeaderCards().size()){
 					this.myClient.leaderCardChoice.setChoice(choice);
 					this.myClient.sendObj(this.myClient.leaderCardChoice, this.ID);
 					this.myClient.leaderCardChoice=null;

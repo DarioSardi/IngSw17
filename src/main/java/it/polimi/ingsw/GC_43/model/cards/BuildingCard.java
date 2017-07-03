@@ -15,8 +15,8 @@ public class BuildingCard extends Card implements Serializable{
 	private int productionDice;
 
 	public BuildingCard(String cardName, int cardEra, CostEffect cost, ArrayList<Effect> instantBonus,
-			ArrayList<Effect> permaBonus, int productionDice) {
-		super(cardName, cardEra, cost, instantBonus, permaBonus);
+			ArrayList<Effect> permaBonus, int productionDice,String cardIcon) {
+		super(cardName, cardEra, cost, instantBonus, permaBonus,cardIcon);
 		this.productionDice = productionDice;
 	}
 

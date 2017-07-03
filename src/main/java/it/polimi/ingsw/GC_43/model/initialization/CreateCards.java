@@ -17,6 +17,7 @@ public class CreateCards {
 	private ArrayList<Effect> instantBonus;
 	private ArrayList<Effect> permanentBonus;
     private String name;
+    private String icon;
     private String type;
     private int period;
     private CostEffect costEffect;
@@ -46,6 +47,7 @@ public class CreateCards {
         	 JSONObject slides = (JSONObject) iterator1.next();
          
              this.name = (String) slides.get("Name");
+             this.icon = (String) slides.get("icon");
              this.type = (String) slides.get("Type");
         	 this.period = Integer.valueOf((String)slides.get("Period"));
 
@@ -59,7 +61,7 @@ public class CreateCards {
              if (type.equals("TerritoryCard")){
             	 
             	 int harvestDice = Integer.valueOf((String)slides.get("HarvestDice"));
-                 this.cards.add(new TerritoryCard(this.name, this.period, this.instantBonus, this.permanentBonus, harvestDice));
+                 this.cards.add(new TerritoryCard(this.name, this.period, this.instantBonus, this.permanentBonus, harvestDice, this.icon));
              }
              else{
             	 
@@ -69,14 +71,14 @@ public class CreateCards {
             	
             	 
             	 if (type.equals("CharacterCard")){
-            		 this.cards.add(new CharacterCard(this.name, this.period, this.costEffect, this.instantBonus, this.permanentBonus));
+            		 this.cards.add(new CharacterCard(this.name, this.period, this.costEffect, this.instantBonus, this.permanentBonus, this.icon));
 	             }
             	 
             	 else
             	 if (type.equals("BuildingCard")){
 	            	 int productionDice = Integer.valueOf((String)slides.get("ProductionDice"));
 	            	 this.cards.add(new BuildingCard(this.name, this.period, this.costEffect, this.instantBonus,
-		             			this.permanentBonus, productionDice));
+		             			this.permanentBonus, productionDice, this.icon));
 	            	 
 	             }
             	 
@@ -85,7 +87,7 @@ public class CreateCards {
 	            	 int militaryCost = Integer.valueOf((String)slides.get("MilitaryCost"));
 	            	 int militaryMin = Integer.valueOf((String)slides.get("MilitaryMin"));
 	                 this.cards.add(new VentureCard(this.name, this.period, this.costEffect, militaryCost, militaryMin, this.instantBonus,
-		             			this.permanentBonus));
+		             			this.permanentBonus, this.icon));
 	             }	           
              }
 

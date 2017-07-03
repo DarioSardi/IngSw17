@@ -14,39 +14,45 @@ public abstract class Card implements Serializable {
 	private String cardName;
 	private int cardPeriod;
 	private CostEffect cost;
+	private String cardIcon;
 	private ArrayList<Effect> instantBonus;
 	private ArrayList<Effect> permaBonus;
 
 	public Card(String cardName, int cardEra, CostEffect cost, ArrayList<Effect> instantBonus,
-			ArrayList<Effect> permaBonus) {
+			ArrayList<Effect> permaBonus,String cardIcon) {
 		super();
 		this.cardName = cardName;
 		this.cardPeriod = cardEra;
 		this.cost = cost;
 		this.instantBonus = instantBonus;
 		this.permaBonus = permaBonus;
+		this.cardIcon=cardIcon;
 	}
 	
 	public abstract String getType();
 	
 	public String getCardName() {
-		return cardName;
+		return this.cardName;
 	}
 
 	public int getCardEra() {
-		return cardPeriod;
+		return this.cardPeriod;
 	}
 
 	public CostEffect getCost() {
-		return cost;
+		return this.cost;
 	}
 
 	public ArrayList<Effect> getInstantBonus() {
-		return instantBonus;
+		return this.instantBonus;
 	}
 
 	public ArrayList<Effect> getPermaBonus() {
-		return permaBonus;
+		return this.permaBonus;
+	}
+	
+	public String getCardIcon(){
+		return this.cardIcon;
 	}
 	
 	@Override

@@ -13,8 +13,8 @@ public class VentureCard extends Card{
 	private int militaryCost, militaryMin;
 	public static final String TYPE = "VentureCard";
 	public VentureCard(String cardName, int cardEra, CostEffect cost, int militaryCost,int militaryMin, ArrayList<Effect> instantBonus,
-			ArrayList<Effect> permaBonus) {
-		super(cardName, cardEra, cost, instantBonus, permaBonus);
+			ArrayList<Effect> permaBonus,String cardIcon) {
+		super(cardName, cardEra, cost, instantBonus, permaBonus,cardIcon);
 		this.militaryCost=militaryCost;
 		this.militaryMin=militaryMin;
 	}

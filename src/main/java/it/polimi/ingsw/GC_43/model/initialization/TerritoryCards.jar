@@ -2,6 +2,7 @@
   "Cards": [
     {
       "Name": "Citta'",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/City.png",
       "Period": "1",
       "Type": "TerritoryCard",
       "HarvestDice": "6",
@@ -20,6 +21,7 @@
     },
     {
       "Name": "Bosco",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Woods.png",
       "Period": "1",
       "Type": "TerritoryCard",
       "HarvestDice": "2",
@@ -38,6 +40,7 @@
     },
     {
       "Name": "Foresta",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Forest.png",
       "Period": "1",
       "Type": "TerritoryCard",
       "HarvestDice": "5",
@@ -56,6 +59,7 @@
     },
     {
       "Name": "Monastero",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Monastery.png",
       "Period": "1",
       "Type": "TerritoryCard",
       "HarvestDice": "6",
@@ -82,6 +86,7 @@
     },
     {
       "Name": "Borgo",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Village.png",
       "Period": "1",
       "Type": "TerritoryCard",
       "HarvestDice": "3",
@@ -99,6 +104,7 @@
     },
     {
       "Name": "Rocca",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Citadel.png",
       "Period": "1",
       "Type": "TerritoryCard",
       "HarvestDice": "5",
@@ -116,6 +122,7 @@
     },
     {
       "Name": "Tenuta",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Farm.png",
       "Period": "3",
       "Type": "TerritoryCard",
       "HarvestDice": "3",
@@ -142,6 +149,7 @@
     },
     {
       "Name": "Maniero",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Manor_House.png",
       "Period": "2",
       "Type": "TerritoryCard",
       "HarvestDice": "5",
@@ -159,6 +167,7 @@
     },
     {
       "Name": "Cava di Pietra",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Rock_Pit.png",
       "Period": "2",
       "Type": "TerritoryCard",
       "HarvestDice": "3",
@@ -177,6 +186,7 @@
     },
     {
       "Name": "Villaggio Minerario",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Mining_Town.png",
       "Period": "2",
       "Type": "TerritoryCard",
       "HarvestDice": "4",
@@ -203,6 +213,7 @@
     },
     {
       "Name": "Possedimento",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Estate.png",
       "Period": "2",
       "Type": "TerritoryCard",
       "HarvestDice": "4",
@@ -229,6 +240,7 @@
     },
     {
       "Name": "Cava di Ghiaia",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Gravel_Pit.png",
       "Period": "1",
       "Type": "TerritoryCard",
       "HarvestDice": "4",
@@ -247,6 +259,7 @@
     },
     {
       "Name": "Citta' Fortificata",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Fortified_Town.png",
       "Period": "3",
       "Type": "TerritoryCard",
       "HarvestDice": "2",
@@ -273,6 +286,7 @@
     },
     {
       "Name": "Castello",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Castle.png",
       "Period": "3",
       "Type": "TerritoryCard",
       "HarvestDice": "4",
@@ -299,6 +313,7 @@
     },
     {
       "Name": "Cava di Marmo",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Marble_Pit.png",
       "Period": "3",
       "Type": "TerritoryCard",
       "HarvestDice": "2",
@@ -321,6 +336,7 @@
     },
     {
       "Name": "Colonia",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Colony.png",
       "Period": "3",
       "Type": "TerritoryCard",
       "HarvestDice": "5",
@@ -343,6 +359,7 @@
     },
     {
       "Name": "Citta' Mercantile",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Trading_Town.png",
       "Period": "3",
       "Type": "TerritoryCard",
       "HarvestDice": "1",
@@ -365,6 +382,7 @@
     },
     {
       "Name": "Provincia",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Province.png",
       "Period": "3",
       "Type": "TerritoryCard",
       "HarvestDice": "6",
@@ -391,6 +409,7 @@
     },
     {
       "Name": "Avamposto Commerciale",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Commercial_Hub.png",
       "Period": "1",
       "Type": "TerritoryCard",
       "HarvestDice": "1",
@@ -404,6 +423,7 @@
     },
     {
       "Name": "Ducato",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Dukedom.png",
       "Period": "2",
       "Type": "TerritoryCard",
       "HarvestDice": "6",
@@ -430,6 +450,7 @@
     },
     {
       "Name": "Eremo",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Hermitage.png",
       "Period": "2",
       "Type": "TerritoryCard",
       "HarvestDice": "2",
@@ -448,6 +469,7 @@
     },
     {
       "Name": "Miniera d'Oro",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Gold_Mine.png",
       "Period": "2",
       "Type": "TerritoryCard",
       "HarvestDice": "1",
@@ -466,6 +488,7 @@
     },
     {
       "Name": "Villaggio Montano",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Mountain_Town.png",
       "Period": "2",
       "Type": "TerritoryCard",
       "HarvestDice": "3",
@@ -488,6 +511,7 @@
     },
     {
       "Name": "Santuario",
+	 "icon": "src/main/java/it/polimi/ingsw/GC_43/view/images/cards/Sanctuary.png",
       "Period": "3",
       "Type": "TerritoryCard",
       "HarvestDice": "1",

@@ -12,8 +12,8 @@ public class CharacterCard extends Card{
 	private static final long serialVersionUID = 3927577823990360173L;
 	public static final String TYPE = "CharacterCard";
 	public CharacterCard(String cardName, int cardEra, CostEffect cost, ArrayList<Effect> instantBonus,
-			ArrayList<Effect> permaBonus) {
-		super(cardName, cardEra, cost, instantBonus, permaBonus);
+			ArrayList<Effect> permaBonus,String cardIcon) {
+		super(cardName, cardEra, cost, instantBonus, permaBonus,cardIcon);
 	}
 	@Override
 	public String getType() {
