@@ -39,7 +39,7 @@ public class GameBoard extends JFrame {
 	private JoinLobby joinLobbyPanel;
 	private CreateLobby createLobbyPanel;
 	private Board board;
-	public Client client;
+	private Client client;
 	/**
 	 * 
 	 */
@@ -49,7 +49,7 @@ public class GameBoard extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -58,25 +58,26 @@ public class GameBoard extends JFrame {
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 					
+					ArrayList<String> nomi = new ArrayList<>();
+					nomi.add("Samuel");
+					nomi.add("Sasa");
+					new GlobalVariablesInit().readGlobalVariables();
+					this.board = new Board(nomi);
+					new InitGame(this.board);
+					this.board.initialize();	
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		/*
 	}
 
 	/**
 	 * Create the frame.
 	 */
 	public GameBoard() {
-		ArrayList<String> nomi = new ArrayList<>();
-		nomi.add("Samuel");
-		nomi.add("Sasa");
-		new GlobalVariablesInit().readGlobalVariables();
-		this.board = new Board(nomi);
-		new InitGame(this.board);
-		this.board.initialize();		
-		
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -556,6 +557,10 @@ public class GameBoard extends JFrame {
 	}	
 	public Client getClient(){
 		return this.client;
+	}
+	
+	public void setClient(Client client){
+		this.client = client;
 	}
 	public Board getBoard(){
 		return this.board;
