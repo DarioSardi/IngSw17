@@ -120,7 +120,8 @@ public class Controller implements IController {
 
 		this.leaderCardPools=leaderCardPools;
 
-		
+		this.choicePlayerNumber=this.clientHandlers.size();
+
 		
 		for (int index = 0; index < this.clientHandlers.size(); index++) {
 			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(this.leaderCardPools.get(index), this.clientHandlers.get(index).getUsername());
@@ -153,12 +154,19 @@ public class Controller implements IController {
 		
 		System.out.println("Submitting choice of player "+clientHandler.getUsername());
 		int choice = message.getChoice();
-		this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards()
-				.addLeaderCard(message.getLeaderCards().get(choice));
-		System.out.println("Removing player choice");
 
-		message.getLeaderCards().remove(choice);
-
+		
+		ArrayList<LeaderCard> leaderCardPool=matchLeaderCardAssignAndRemove(message.getLeaderCards().get(message.getChoice()).getCardName(), clientHandler.getUsername());
+		
+		if(leaderCardPool!=null){
+			
+			System.out.println("Setting leader card into leader player cards & removing it from the choices pool");
+			this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards()
+			.addLeaderCard(leaderCardPool.get(choice));
+		
+			leaderCardPool.remove(choice);
+		}
+		
 		this.choicePlayerNumber--;
 		System.out.println("Finished submission operations for player "+clientHandler.getUsername());
 
@@ -177,6 +185,18 @@ public class Controller implements IController {
 			startGame();
 		}
 
+	}
+
+	private ArrayList<LeaderCard> matchLeaderCardAssignAndRemove(String leaderCardName, String username) {
+		int leaderPoolNumber=0;
+		for(leaderPoolNumber=0;leaderPoolNumber<this.leaderCardPools.size();leaderPoolNumber++){
+			for(LeaderCard l: this.leaderCardPools.get(leaderPoolNumber)){
+				if(l.getCardName().equals(leaderCardName))
+					return this.leaderCardPools.get(leaderPoolNumber);
+				
+			}
+		}
+		return null;
 	}
 
 	private void askForAdvancedChoice() throws RemoteException {
@@ -207,13 +227,14 @@ public class Controller implements IController {
 				.setPersonalHarvestBonus(message.getAdvDefBonus().get(choice).getHarvestBonus());
 		System.out.println("Submitted DefaultBonusChoiceMessage of "+message.getAdvDefBonus().get(choice).getHarvestBonus().toString());
 
-
+//DA TESTARE A CASA SE VA BENE
 		this.matchPlayer.get(clientHandler.getUsername())
-				.setPersonalProductionBonus(message.getAdvDefBonus().get(choice).getProductionBonus());
-
+				.setPersonalProductionBonus(this.board.getAdvancedPersonalBonus().get(choice).getProductionBonus());
+		
+		this.board.getAdvancedPersonalBonus().remove(choice);
+		
 		message.getAdvDefBonus().remove(choice);
 
-	//	message.getAdvDefBonus().get(choice).getProductionBonus().remove(choice);
 
 		this.choicePlayerNumber--;
 		System.out.println("Asking DefaultBonusChoiceMessage to player choice order number "+this.choicePlayerNumber);
@@ -225,7 +246,7 @@ public class Controller implements IController {
 
 		} else {
 
-			this.choicePlayerNumber = this.clientHandlers.size() - 1;
+			this.choicePlayerNumber = this.clientHandlers.size();
 			System.out.println("Starting ask for leader cards.. "+this.choicePlayerNumber);
 			askForLeaderCards();
 
