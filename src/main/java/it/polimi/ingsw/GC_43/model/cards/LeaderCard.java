@@ -117,4 +117,15 @@ public class LeaderCard implements Serializable {
 		sb.append("......................\n");
 		return sb.toString();
 	}
+
+	public boolean isPlayed() {
+		return played;
+	}
+
+	public void setPlayed(boolean played) {
+		this.played = played;
+	}
+
+
+	
 }

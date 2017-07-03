@@ -28,34 +28,45 @@ public class LeaderCardActionCreationRoutine implements ActionCreation {
 	}
 
 	public boolean prepareAction() {
-
-		this.leaderCardAction.setFamilyMember(
-				CommonActionCreatorRoutine.askForFamilyMemberChoice(this.leaderCardAction.getPlayer()));
-		
-		
-        this.leaderCardAction.setFamilyMemberColor(this.leaderCardAction.getFamilyMember().getColor());
-        
-		
-		
-
 		selectLeaderCard(this.leaderCardAction.getPlayer());
 
-		lookForChoiceChance(this.leaderCardAction.getPlayer());
+		askIfToPlayOrDiscard();
+
+		if (!this.getLeaderCardAction().isToDiscard()) {
+
+			this.leaderCardAction.setFamilyMember(
+					CommonActionCreatorRoutine.askForFamilyMemberChoice(this.leaderCardAction.getPlayer()));
+
+			this.leaderCardAction.setFamilyMemberColor(this.leaderCardAction.getFamilyMember().getColor());
+
+			lookForChoiceChance(this.leaderCardAction.getPlayer());
+		} else
+			askForCouncilPrivilege();
 
 		return checkResult;
 	}
-	
-	
-	
+
+	private void askIfToPlayOrDiscard() {
+		String question = "Do you want to play or discard this leader card for a council privilege?\nInput 0 to discard the card and 1 to play it";
+		int choice = CommonActionCreatorRoutine.askForSingleChoice(question, 0, 2);
+		if (choice == 0) {
+			this.getLeaderCardAction().setToDiscard(true);
+		}
+
+	}
+
+	private void askForCouncilPrivilege() {
+		MultipleCouncilPrivileges multiplePrivilege = CommonActionCreatorRoutine.copyMultiplePrivileges(1);
+		String question = multiplePrivilege.toString();
+		int maxRange = multiplePrivilege.getPrivilegeChoices().getChoices().size();
+		this.leaderCardAction.setEventualChoice(CommonActionCreatorRoutine.askForSingleChoice(question, 0, maxRange));
+
+	}
 
 	private void lookForChoiceChance(Player player) {
 
 		if (this.leaderCardAction.getLeaderCardName().contains("Gonzaga")) {
-			MultipleCouncilPrivileges multiplePrivilege = CommonActionCreatorRoutine.copyMultiplePrivileges(1);
-			String question = multiplePrivilege.toString();
-			int maxRange = multiplePrivilege.getPrivilegeChoices().getChoices().size();
-			this.leaderCardAction
-					.setEventualChoice(CommonActionCreatorRoutine.askForSingleChoice(question, 0, maxRange));
+			askForCouncilPrivilege();
 
 		}
 		if (this.leaderCardAction.getLeaderCardName().contains("Lorenzo")) {
@@ -119,7 +130,5 @@ public class LeaderCardActionCreationRoutine implements ActionCreation {
 	public void setCheckResult(boolean checkResult) {
 		this.checkResult = checkResult;
 	}
-	
-	
 
 }

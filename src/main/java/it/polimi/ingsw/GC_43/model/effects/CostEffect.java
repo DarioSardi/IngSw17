@@ -54,8 +54,16 @@ public class CostEffect extends Effect {
 
 		for (Resource resource : Costs) {
 			if (resource.getResourceType().equals("coin")) {
+				int oldValue=player.getPlayerResource("coin");
 				player.subResource(resource.getResourceType(),
-						resource.getValue() - player.getPlayerBounusMalus().getBonusCoinsOnBuyInTowers().get(cardType));
+						resource.getValue() - player.getPlayerBounusMalus().getBonusCoinsOnBuyInTowers().get(cardType)-player.getPlayerBounusMalus().getCoinDiscountOnCards());
+				
+				if(player.getPlayerResource("coin")>oldValue){
+					
+					player.subResource("coin", player.getPlayerResource("coin"));
+					player.addResource("coin", oldValue);
+				}
+				
 			} else {
 				player.subResource(resource.getResourceType(), resource.getValue());
 			}

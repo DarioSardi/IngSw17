@@ -2,6 +2,7 @@ package it.polimi.ingsw.GC_43.model.actionPerforms;
 
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.FamilyMember;
+import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 import it.polimi.ingsw.GC_43.model.actions.LeaderCardAction;
@@ -27,6 +28,7 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 
 		System.out.println("\nEntered in Market performer routine");
 		Player player = this.leaderCardAction.getPlayer();
+		if(!this.getLeaderCardAction().isToDiscard()){
 		System.out.println("Checking familyMember..");
 		FamilyMember familyMember = CommonActionPerformerRoutine.matchFamilyMember(player,
 				this.leaderCardAction.getFamilyMemberColor());
@@ -38,7 +40,19 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 		System.out.println("Checking leader card requirements & executing ability..");
 
 		checkCardRequirementsAndExecute(leaderCard, this.leaderCardAction.getFamilyMember());
-
+		}
+		else{
+			System.out.println("Discard leader card for council privilege choice detected");
+			if(player.getPlayerCards().searchLeaderCardByName(this.getLeaderCardAction().getLeaderCardName())!=null){
+				System.out.println("Removing leader card from player leader card");
+				player.getPlayerCards().getArrayLeaderCards().remove(player.getPlayerCards().searchLeaderCardByName(this.getLeaderCardAction().getLeaderCardName()));
+				System.out.println("Executing council privilege effect");
+				GlobalVariables.councilPrivilegeEffect.executeEffect(player.getFamilyMember(1), this.getLeaderCardAction().getEventualChoice());
+			}else
+				this.checkResult=false;
+		}
+		
+		System.out.println("Leader card action performer routine ends here!");
 		return checkResult;
 
 	}
@@ -132,6 +146,8 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 	public void setIndex(int index) {
 		this.index = index;
 	}
+
+	
 	
 	
 }

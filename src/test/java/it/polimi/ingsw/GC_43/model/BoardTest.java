@@ -103,7 +103,7 @@ public class BoardTest {
 		
 		System.out.println("\n\nPLAYER RESOURCES NOW ARE :\\n\n"+board. getPlayers().get(0).toString()+"\n");		
 		System.out.println("Message from board: Production action perform ended!");
-		*/
+		
 		  MarketActionCreationRoutine m = new
 		  MarketActionCreationRoutine(board.getPlayers().get(0).getPlayerName()
 		  , board.getPlayers().get(0), board);
@@ -118,7 +118,7 @@ public class BoardTest {
 		 );
 		  
 		  
-		 /*
+		 
 		 TowerActionCreationRoutine t = new
 		 TowerActionCreationRoutine(board.getPlayers().get(0).getPlayerName(),
 		 board.getPlayers().get(0), board); t.prepareAction();
