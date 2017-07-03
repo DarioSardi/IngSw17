@@ -25,6 +25,7 @@ import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.view.GUI.menuFrame.GameBoard;
 
 public class Client {
 	private Integer port, ID;
@@ -48,8 +49,8 @@ public class Client {
 	private boolean advancedGame;
 	public boolean isInAdvSetupPhase;
 	//ADV INITIAL CHOICE MSG
-	public DefaultBonusChoiceMessage defaultBonusChoice;
-	public LeaderCardChoiceMessage leaderCardChoice;
+	private DefaultBonusChoiceMessage defaultBonusChoice;
+	private LeaderCardChoiceMessage leaderCardChoice;
 
 	public Client() throws IOException, NotBoundException {
 		initBools();
@@ -150,6 +151,23 @@ public class Client {
 				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
 				correctAnswer = true;
 			}
+			else if (answer.equals("guiTest")) {
+				String addressChoice = "127.0.0.1";
+				Integer portChoice = 7777;
+				String usernameChoice = "Foffo";
+				Boolean rmiChoice = true;
+				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
+				try {	
+					GameBoard frame = new GameBoard();
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+					frame.setClient(this);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				correctAnswer = true;
+			}
 
 			else if (answer.equals("rmi")) {
 				String addressChoice = "127.0.0.1";
@@ -190,7 +208,7 @@ public class Client {
 		if (!rmi) {
 			this.outStream.sendObj(a);
 		} else if (rmi) {
-			handler.submitAction(ID, a);
+			this.handler.submitAction(ID, a);
 
 		} else{
 			System.out.println("ehm...why you are here?");}
@@ -312,6 +330,33 @@ public class Client {
 	
 	public void setActionPerformed(Boolean b){
 		this.actionPerformed=b;
+	}
+	
+	public DefaultBonusChoiceMessage getDefaultBonusChoice() {
+		return defaultBonusChoice;
+	}
+
+
+	public void setDefaultBonusChoice(DefaultBonusChoiceMessage defaultBonusChoice) {
+		if(defaultBonusChoice==null)
+		{
+			System.out.println("SETTED TO NULL");
+		}
+		this.defaultBonusChoice = defaultBonusChoice;
+	}
+
+
+	public LeaderCardChoiceMessage getLeaderCardChoice() {
+		return leaderCardChoice;
+	}
+
+
+	public void setLeaderCardChoice(LeaderCardChoiceMessage leaderCardChoice) {
+		if(defaultBonusChoice==null)
+		{
+			System.out.println("SETTED TO NULL");
+		}
+		this.leaderCardChoice = leaderCardChoice;
 	}
 
 

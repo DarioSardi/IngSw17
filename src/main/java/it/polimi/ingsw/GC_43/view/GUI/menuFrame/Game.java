@@ -30,35 +30,33 @@ public class Game extends JFrame {
 	private MainMenuPanel mainMenuPanel;
 	private JoinLobby joinLobbyPanel;
 	private CreateLobby createLobbyPanel;
-	public Client client;
+	private Client client;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {			
 					Game frame = new Game();
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
 			}
-		});
-	}
+		}
+	});
+	*/
 
 	/**
 	 * Create the frame.
 	 */
-	public Game() {
+	public Game(Client client) {
+		this.client = client;
+		setLocationRelativeTo(null);
+		setVisible(true);
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

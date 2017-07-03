@@ -34,8 +34,8 @@ public class ClientInHandler implements Runnable {
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
-		this.myClient.defaultBonusChoice=null;
-		this.myClient.leaderCardChoice=null;
+		this.myClient.setDefaultBonusChoice(null);
+		this.myClient.setLeaderCardChoice(null);
 		while(this.myClient.online){
 			receiveMsg();
 			}
@@ -66,10 +66,11 @@ public class ClientInHandler implements Runnable {
 				this.myClient.changeUsername(((ChangeUsernameMessage)o).getMsg());
 			}
 			else if(o instanceof DefaultBonusChoiceMessage){
-				this.myClient.defaultBonusChoice=(DefaultBonusChoiceMessage)o;
+				this.myClient.setDefaultBonusChoice((DefaultBonusChoiceMessage)o);
 			}
 			else if(o instanceof LeaderCardChoiceMessage){
-				this.myClient.leaderCardChoice=(LeaderCardChoiceMessage)o;
+				System.out.println("received Leadercards!!!!!!!!!!!!!!!!!!!!");
+				this.myClient.setLeaderCardChoice((LeaderCardChoiceMessage)o);
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

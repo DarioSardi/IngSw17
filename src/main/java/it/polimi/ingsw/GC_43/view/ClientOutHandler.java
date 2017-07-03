@@ -147,37 +147,42 @@ public class ClientOutHandler implements Runnable {
 		this.myClient.isInAdvSetupPhase=true;
 		System.out.println("THIS IS A ADVANCED MODE GAME,ENTERING SETUP PHASE");
 		while(this.myClient.isInAdvSetupPhase){
-			if(this.myClient.defaultBonusChoice!=null){
-				System.out.println(this.myClient.defaultBonusChoice.toString());
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			if(this.myClient.getDefaultBonusChoice()!=null){
+				System.out.println(this.myClient.getDefaultBonusChoice().toString());
 				Integer choice=Integer.parseInt(userIn.readLine());
-				if(choice>=0&&choice<this.myClient.defaultBonusChoice.getAdvDefBonus().size()){
-					this.myClient.defaultBonusChoice.setChoice(choice);
-					this.myClient.sendObj(this.myClient.defaultBonusChoice, this.ID);
-					this.myClient.defaultBonusChoice=null;
+				if(choice>=0&&choice<this.myClient.getDefaultBonusChoice().getAdvDefBonus().size()){
+					this.myClient.getDefaultBonusChoice().setChoice(choice);
+					this.myClient.sendObj(this.myClient.getDefaultBonusChoice(), this.ID);
+					this.myClient.setDefaultBonusChoice(null);
 					System.out.println("choice sent");
 				}
 				else{
 					System.out.println("wrong answer");
 				}
 			}
-			else if(this.myClient.leaderCardChoice!=null){
-				System.out.println(this.myClient.leaderCardChoice.toString());
+			if(this.myClient.getLeaderCardChoice()!=null){
+				System.out.println(this.myClient.getLeaderCardChoice().toString());
 				Integer choice=Integer.parseInt(userIn.readLine());
-				if(choice>=0&&choice<this.myClient.leaderCardChoice.getLeaderCards().size()){
-					this.myClient.leaderCardChoice.setChoice(choice);
-					this.myClient.sendObj(this.myClient.leaderCardChoice, this.ID);
-					this.myClient.leaderCardChoice=null;
+				if(choice>=0&&choice<this.myClient.getLeaderCardChoice().getLeaderCards().size()){
+					this.myClient.getLeaderCardChoice().setChoice(choice);
+					this.myClient.sendObj(this.myClient.getLeaderCardChoice(), this.ID);
+					this.myClient.setLeaderCardChoice(null);
 					System.out.println("choice sent");}
 				else{
 					System.out.println("wrong answer");
 				}
 			}
-			else{
-				//DO NOTHING
-			}
+			
+			
 		}
 		
 	}
+
 
 	public void excomunicationRound(BufferedReader userIn) {
 		Boolean done=false;
