@@ -125,9 +125,11 @@ public class Controller implements IController {
 		
 		for (int index = 0; index < this.clientHandlers.size(); index++) {
 			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(this.leaderCardPools.get(index), this.clientHandlers.get(index).getUsername());
-			System.out.println("Sending leader card pool : "+leaderChoiceMessage.toString());
+			//System.out.println("Sending leader card pool : "+leaderChoiceMessage.toString());
 
 			System.out.println("Sending leader cards choice to player "+this.clientHandlers.get(index).getUsername());
+			System.out.println("Sending leader cards choice to player "+leaderChoiceMessage.toString());
+
 			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
 			System.out.println("Leader cards choice SENT to player "+this.clientHandlers.get(index).getUsername());
 
@@ -138,12 +140,16 @@ public class Controller implements IController {
 	private void nextChoiceLeaderMessage() throws RemoteException {
 		this.choicePlayerNumber=this.clientHandlers.size();
 		this.leaderChoicePhaseRound++;
+		System.out.println("Players which will have to choose are "+this.choicePlayerNumber+ " and it is leader choice round number "+ this.leaderChoicePhaseRound);
 
 		
 		
 		for (int index = 0; index < this.clientHandlers.size(); index++) {
-			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(this.leaderCardPools.get(index+this.leaderChoicePhaseRound%this.clientHandlers.size()), this.clientHandlers.get(index).getUsername());
+			System.out.println("Sending leader cards choice to player "+this.clientHandlers.get(index).getUsername());
+			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(this.leaderCardPools.get((index+this.leaderChoicePhaseRound)%this.clientHandlers.size()), this.clientHandlers.get(index).getUsername());
 			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
+			System.out.println("Leader cards choice SENT to player "+this.clientHandlers.get(index).getUsername());
+
 		}
 
 
@@ -163,6 +169,7 @@ public class Controller implements IController {
 			System.out.println("Setting leader card into leader player cards & removing it from the choices pool");
 			this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards()
 			.addLeaderCard(leaderCardPool.get(choice));
+			System.out.println("Player leader cards:"+this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards().toString());
 		
 			leaderCardPool.remove(choice);
 		}
@@ -170,13 +177,13 @@ public class Controller implements IController {
 		this.choicePlayerNumber--;
 		System.out.println("Finished submission operations for player "+clientHandler.getUsername());
 
-		if (this.choicePlayerNumber == 0&&!message.getLeaderCards().isEmpty()) {
+		if (this.choicePlayerNumber == 0&&this.leaderChoicePhaseRound!=3) {
 			System.out.println("Getting ready for nextChoiceLeaderMessage..");
 
 			nextChoiceLeaderMessage();
 		
 
-		} else if(this.choicePlayerNumber==0&&message.getLeaderCards().isEmpty()) {
+		} else if(this.choicePlayerNumber==0&&this.leaderChoicePhaseRound==3) {
 			System.out.println("Leader cards selection finished, starting the game");
 			this.playersLobby.broadcastMsg("Selection ended, game is about to start..");
 			for(ClientHandler c: this.clientHandlers)
@@ -184,6 +191,7 @@ public class Controller implements IController {
 			
 			startGame();
 		}
+		System.out.println("Finished operations on controller, waiting for next player choice..");
 
 	}
 
@@ -212,7 +220,7 @@ public class Controller implements IController {
 		this.clientHandlers.get(this.choicePlayerNumber)
 				.sendMsgTo("\nPlease select for default harvest and production bonus\n");
 
-		System.out.println("Sending choice for advanced personal bonus to player");
+		System.out.println("Sending choice for advanced personal bonus to player "+this.clientHandlers.get(this.choicePlayerNumber).getUsername());
 
 		this.clientHandlers.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
 
@@ -230,7 +238,8 @@ public class Controller implements IController {
 //DA TESTARE A CASA SE VA BENE
 		this.matchPlayer.get(clientHandler.getUsername())
 				.setPersonalProductionBonus(this.board.getAdvancedPersonalBonus().get(choice).getProductionBonus());
-		
+		System.out.println(" DefaultBonusChoiceMessage Production is "+this.matchPlayer.get(clientHandler.getUsername()).getPersonalProductionBonus().get(0).toString());
+
 		this.board.getAdvancedPersonalBonus().remove(choice);
 		
 		message.getAdvDefBonus().remove(choice);
