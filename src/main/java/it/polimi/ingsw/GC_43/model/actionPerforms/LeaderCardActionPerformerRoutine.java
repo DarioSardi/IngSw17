@@ -26,7 +26,7 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 
 	public boolean performAction() {
 
-		System.out.println("\nEntered in Market performer routine");
+		System.out.println("\nEntered in Leader card performer routine");
 		Player player = this.leaderCardAction.getPlayer();
 		if(!this.getLeaderCardAction().isToDiscard()){
 		System.out.println("Checking familyMember..");
@@ -35,7 +35,7 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 
 		System.out.println("Matching leader card..");
 		// TODO to implement
-		LeaderCard leaderCard = matchLeaderCard(this.leaderCardAction.getLeaderCardName());
+		LeaderCard leaderCard = matchLeaderCard(this.leaderCardAction.getLeaderCardName(), player);
 
 		System.out.println("Checking leader card requirements & executing ability..");
 
@@ -60,7 +60,7 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 
 	private void checkCardRequirementsAndExecute(LeaderCard leaderCard, FamilyMember familyMember) {
 
-		System.out.println("Checking leader card requirements..");
+		
 		if (leaderCard.checkRequirements(familyMember)) {
 			System.out.println("Executing leader card ability..");
 			leaderCard.executeAbility(this.leaderCardAction.getFamilyMember());
@@ -79,9 +79,8 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 		}
 	}
 
-	private LeaderCard matchLeaderCard(String leaderCardName) {
-		// TODO Auto-generated method stub
-		return null;
+	private LeaderCard matchLeaderCard(String leaderCardName, Player player) {
+		return player.getPlayerCards().searchLeaderCardByName(leaderCardName);
 	}
 
 	private void lookForChoicesSelection(FamilyMember familyMember, Player player) {

@@ -38,29 +38,41 @@ public class CardsRequirement extends Effect {
 		int bSize=player.getPlayerCards().getArrayBuildingCards().size();
 		int tSize=player.getPlayerCards().getArrayTerritoryCards().size();
 		int vSize=player.getPlayerCards().getArrayVentureCards().size();
-
-
-		if(cardType.equals("ventureCard"))
-			if(vSize<=this.numberOfCards)
-				checkResult=false;
-		if(cardType.equals("buildingCard"))
-			if(bSize<=this.numberOfCards)
-				checkResult=false;
-		if(cardType.equals("territoryCard"))
-			if(tSize<=this.numberOfCards)
-				checkResult=false;
-		if(cardType.equals("characterCard"))
-			if(cSize<=this.numberOfCards)
-				checkResult=false;
 		
-		if(cardType.equals("any")){
+		System.out.println("Player cards size are: characters' "+cSize+" buildings' "+bSize+" territories' "+tSize+" ventures' "+vSize);
+
+		System.out.println("Card type is " +this.cardType);
+		
+		if(this.cardType.contains("ventureCard")){
+			if(vSize<this.numberOfCards){
+				checkResult=false;
+			}
+		}
+		else if(this.cardType.contains("buildingCard")){
+			if(bSize<this.numberOfCards){
+				checkResult=false;
+			}
+		}
+		else if(this.cardType.contains("territoryCard")){
+			if(tSize<this.numberOfCards){
+				checkResult=false;
+			}
+		}
+		else if(this.cardType.contains("characterCard")){
+			if(cSize<this.numberOfCards){
+				checkResult=false;
+			}
+		}
+		
+		else if(this.cardType.contains("any")){
 			if(bSize>=this.numberOfCards||cSize>=this.numberOfCards||tSize>=this.numberOfCards||vSize>=this.numberOfCards)
 				checkResult=true;
 		}else{
+			System.out.println("Card type not found!");
 			checkResult=false;
 		}
 		
-		
+		System.out.println("Cards Requirement : Check result = "+checkResult);
 		return checkResult;
 	}
 	

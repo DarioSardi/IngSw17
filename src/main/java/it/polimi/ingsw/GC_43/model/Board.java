@@ -77,6 +77,7 @@ public class Board implements Serializable {
 		this.setPeriod(0);
 		this.setPhase(0);
 		this.setRound(0);
+		this.leaderCardsPlayed=new ArrayList<LeaderCard>();
 
 		GlobalVariables.numberOfPlayers = playersID.size();
 

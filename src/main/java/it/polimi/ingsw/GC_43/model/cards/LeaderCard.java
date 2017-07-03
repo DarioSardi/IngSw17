@@ -35,10 +35,15 @@ public class LeaderCard implements Serializable {
 	public boolean checkRequirements(FamilyMember familyMember){
 		System.out.println("Checking leader card requirements..");
 		boolean checkResult=true;
-		for(Effect effect: this.requirements)
+
+
+
+		for(Effect effect: this.requirements){
+			System.out.println("Checking first requirement "+effect.toString());
+
 			if(!effect.check(familyMember))
 				checkResult=false;
-		
+		}
 		System.out.println("Check of requirements result is "+checkResult);
 		return checkResult;
 	}

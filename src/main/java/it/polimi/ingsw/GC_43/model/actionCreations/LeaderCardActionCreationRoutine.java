@@ -42,7 +42,7 @@ public class LeaderCardActionCreationRoutine implements ActionCreation {
 			lookForChoiceChance(this.leaderCardAction.getPlayer());
 		} else
 			askForCouncilPrivilege();
-
+		System.out.println("Action preparation result is "+this.checkResult);
 		return checkResult;
 	}
 
@@ -70,9 +70,11 @@ public class LeaderCardActionCreationRoutine implements ActionCreation {
 
 		}
 		if (this.leaderCardAction.getLeaderCardName().contains("Lorenzo")) {
+			System.out.println("OHHHH MAN YOU HAVE CHOSEN THE KING OF THIS GAME, MUCHISSIMO!");
 			LorenzoEffect effect = (LorenzoEffect) player.getPlayerCards().getArrayLeaderCards().get(this.choice)
 					.getAbility().get(0);
 			if (!this.board.getLeaderCardsPlayed().isEmpty()) {
+				System.out.println("SOme leader cards have been already played, now that's your turn to choose!");
 				if (!effect.isAlreadyChosen()) {
 					String question = "Please choose a leader card whose effect you want to copy:\n\n"
 							+ this.board.leaderCardsPlayedToString();
