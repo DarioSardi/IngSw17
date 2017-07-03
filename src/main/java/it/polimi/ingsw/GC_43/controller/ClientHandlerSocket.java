@@ -88,7 +88,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 			if(lobbyNumber==777){
 				lobbyNumber=1;
 				maxPlayers=2;
-				advChoice=false;
+				advChoice=true;
 			}
 			
 			else{
@@ -276,7 +276,7 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 
 	public void sendObject(Object object){
 		try {
-			if(object instanceof Board){
+			if(object instanceof Board||object instanceof LeaderCardChoiceMessage){
 				socketOut.reset();
 			}
 			socketOut.writeObject(object);

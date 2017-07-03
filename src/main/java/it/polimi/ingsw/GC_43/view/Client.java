@@ -48,8 +48,8 @@ public class Client {
 	private boolean advancedGame;
 	public boolean isInAdvSetupPhase;
 	//ADV INITIAL CHOICE MSG
-	public DefaultBonusChoiceMessage defaultBonusChoice;
-	public LeaderCardChoiceMessage leaderCardChoice;
+	private DefaultBonusChoiceMessage defaultBonusChoice;
+	private LeaderCardChoiceMessage leaderCardChoice;
 
 	public Client() throws IOException, NotBoundException {
 		initBools();
@@ -190,7 +190,7 @@ public class Client {
 		if (!rmi) {
 			this.outStream.sendObj(a);
 		} else if (rmi) {
-			handler.submitAction(ID, a);
+			this.handler.submitAction(ID, a);
 
 		} else{
 			System.out.println("ehm...why you are here?");}
@@ -312,6 +312,33 @@ public class Client {
 	
 	public void setActionPerformed(Boolean b){
 		this.actionPerformed=b;
+	}
+	
+	public DefaultBonusChoiceMessage getDefaultBonusChoice() {
+		return defaultBonusChoice;
+	}
+
+
+	public void setDefaultBonusChoice(DefaultBonusChoiceMessage defaultBonusChoice) {
+		if(defaultBonusChoice==null)
+		{
+			System.out.println("SETTED TO NULL");
+		}
+		this.defaultBonusChoice = defaultBonusChoice;
+	}
+
+
+	public LeaderCardChoiceMessage getLeaderCardChoice() {
+		return leaderCardChoice;
+	}
+
+
+	public void setLeaderCardChoice(LeaderCardChoiceMessage leaderCardChoice) {
+		if(defaultBonusChoice==null)
+		{
+			System.out.println("SETTED TO NULL");
+		}
+		this.leaderCardChoice = leaderCardChoice;
 	}
 
 
