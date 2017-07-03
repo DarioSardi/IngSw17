@@ -33,10 +33,10 @@ public class CardTest {
 		arrayEffect.add(effect);
 		arrayCost.add(new Wood(3));
 		ce=new CostEffect(arrayCost);
-		bc=new BuildingCard("Cattedrale", 1, ce, arrayEffect, arrayEffect, 2);
-		cc=new CharacterCard("principessa", 2, ce, arrayEffect, arrayEffect);
-		tc=new TerritoryCard("piazza", 3, arrayEffect, arrayEffect, 1);
-		vc=new VentureCard("avventura", 1, ce, 15, 12, arrayEffect, arrayEffect);
+		bc=new BuildingCard("Cattedrale", 1, ce, arrayEffect, arrayEffect, 2, null);
+		cc=new CharacterCard("principessa", 2, ce, arrayEffect, arrayEffect, null);
+		tc=new TerritoryCard("piazza", 3, arrayEffect, arrayEffect, 1, null);
+		vc=new VentureCard("avventura", 1, ce, 15, 12, arrayEffect, arrayEffect, null);
 	}
 
 	@Test

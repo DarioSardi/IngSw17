@@ -23,7 +23,7 @@ public class TowerTest {
 	public ArrayList<Resource> costs=new ArrayList<Resource>();
 	public CostEffect cost=new CostEffect(costs);
 	public ArrayList<Effect> effects= new ArrayList<Effect>();
-	public  BuildingCard card=new BuildingCard("cimitero", 2, cost, effects, effects, 4);
+	public  BuildingCard card=new BuildingCard("cimitero", 2, cost, effects, effects, 4, null);
 	public Player p1=new Player("coso1", 4);
 	public Player p2=new Player("coso2", 4);
 	public FamilyMember f1= new FamilyMember(p1, 2);
