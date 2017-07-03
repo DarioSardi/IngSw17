@@ -373,7 +373,7 @@ public class GameBoard extends JFrame {
 		JButton productionButton = new JButton("");
 		productionButton.setOpaque(false);
 		productionButton.setContentAreaFilled(false);
-		productionButton.setBounds(7, 604, 45, 52);
+		productionButton.setBounds(7, 604, 45, 54);
 		contentPane.add(productionButton);
 		productionButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -390,7 +390,7 @@ public class GameBoard extends JFrame {
 		JButton harvestButton = new JButton("");
 		harvestButton.setOpaque(false);
 		harvestButton.setContentAreaFilled(false);
-		harvestButton.setBounds(7, 660, 45, 52);
+		harvestButton.setBounds(7, 660, 45, 54);
 		contentPane.add(harvestButton);
 		harvestButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -424,7 +424,7 @@ public class GameBoard extends JFrame {
 		JButton market1Button = new JButton("");
 		market1Button.setOpaque(false);
 		market1Button.setContentAreaFilled(false);
-		market1Button.setBounds(295, 590, 45, 52);
+		market1Button.setBounds(295, 590, 45, 54);
 		contentPane.add(market1Button);
 		market1Button.addMouseListener(new MouseAdapter() {
 			@Override
@@ -441,7 +441,7 @@ public class GameBoard extends JFrame {
 		JButton market2Button = new JButton("");
 		market2Button.setOpaque(false);
 		market2Button.setContentAreaFilled(false);
-		market2Button.setBounds(350, 590, 45, 52);
+		market2Button.setBounds(350, 590, 45, 54);
 		contentPane.add(market2Button);
 		market2Button.addMouseListener(new MouseAdapter() {
 			@Override
@@ -458,7 +458,7 @@ public class GameBoard extends JFrame {
 		JButton market3Button = new JButton("");
 		market3Button.setOpaque(false);
 		market3Button.setContentAreaFilled(false);
-		market3Button.setBounds(401, 604, 45, 52);
+		market3Button.setBounds(399, 604, 45, 54);
 		contentPane.add(market3Button);
 		market3Button.addMouseListener(new MouseAdapter() {
 			@Override
@@ -475,7 +475,7 @@ public class GameBoard extends JFrame {
 		JButton market4Button = new JButton("");
 		market4Button.setOpaque(false);
 		market4Button.setContentAreaFilled(false);
-		market4Button.setBounds(441, 646, 45, 52);
+		market4Button.setBounds(438, 646, 45, 54);
 		contentPane.add(market4Button);
 		market4Button.addMouseListener(new MouseAdapter() {
 			@Override
