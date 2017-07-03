@@ -25,6 +25,7 @@ import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.view.GUI.menuFrame.GameBoard;
 
 public class Client {
 	private Integer port, ID;
@@ -148,6 +149,23 @@ public class Client {
 				String usernameChoice = "Foffo";
 				Boolean rmiChoice = false;
 				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
+				correctAnswer = true;
+			}
+			else if (answer.equals("guiTest")) {
+				String addressChoice = "127.0.0.1";
+				Integer portChoice = 7777;
+				String usernameChoice = "Foffo";
+				Boolean rmiChoice = true;
+				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
+				try {	
+					GameBoard frame = new GameBoard();
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+					frame.client=this;
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				correctAnswer = true;
 			}
 
