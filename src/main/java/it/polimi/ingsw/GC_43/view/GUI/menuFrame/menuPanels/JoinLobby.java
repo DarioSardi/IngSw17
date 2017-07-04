@@ -101,7 +101,7 @@ public class JoinLobby extends JPanel {
 		returnToMenuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(lobbyIndex>=0){
-					listLobby.get(lobbyIndex).removePlayer(game.getConnectionPanel().getUsername());;
+		//			listLobby.get(lobbyIndex).removePlayer(game.getConnectionPanel().getUsername());;
 					if(listLobby.get(lobbyIndex).getPlayers().size()==0){
 						listLobby.remove(lobbyIndex);
 						game.getJoinLobbyPanel().getModel().removeElementAt(lobbyIndex);
@@ -205,7 +205,7 @@ public class JoinLobby extends JPanel {
 		
 		leaveLobbyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listLobby.get(lobbyIndex).removePlayer(game.getConnectionPanel().getUsername());;
+	//			listLobby.get(lobbyIndex).removePlayer(game.getConnectionPanel().getUsername());;
 				if(listLobby.get(lobbyIndex).getPlayers().size()==0){
 					listLobby.remove(lobbyIndex);
 					game.getJoinLobbyPanel().getModel().removeElementAt(lobbyIndex);
@@ -222,7 +222,7 @@ public class JoinLobby extends JPanel {
 		joinLobbyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (listLobby.get(list.getSelectedIndex()).getPlayers().size() < listLobby.get(list.getSelectedIndex()).getMaxNumPlayers()){
-					listLobby.get(list.getSelectedIndex()).addPlayer(game.getConnectionPanel().getUsername());
+	//				listLobby.get(list.getSelectedIndex()).addPlayer(game.getConnectionPanel().getUsername());
 					lobbyIndex = list.getSelectedIndex();
 				}
 				else lobbyFullLabel.setVisible(true);

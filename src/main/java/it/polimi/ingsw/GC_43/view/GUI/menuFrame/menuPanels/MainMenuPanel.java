@@ -22,15 +22,13 @@ public class MainMenuPanel extends JPanel {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Create the panel.
-	 */
+	private static final long serialVersionUID = -3118869926434246882L;
+
 	public MainMenuPanel(Game game) {
-		setSize(450, 360);
+		setSize(550, 400);
 
 		setOpaque(true);
-		setLocation((game.getWidth()-this.getWidth())/2, (game.getHeight()-this.getHeight())/2);
+		setLocation((game.getWidth()-this.getWidth())/2, 210);
 		setLayout(null);
 		
 		JButton newLobbyButton = new JButton("Create a new lobby");
@@ -40,8 +38,8 @@ public class MainMenuPanel extends JPanel {
 				game.getCreateLobbyPanel().setVisible(true);
 			}
 		});
-		newLobbyButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		newLobbyButton.setSize(170, 40);
+		newLobbyButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		newLobbyButton.setSize(230, 60);
 		newLobbyButton.setLocation((this.getWidth()-newLobbyButton.getWidth())/2, 100);
 		add(newLobbyButton);
 		
@@ -51,8 +49,8 @@ public class MainMenuPanel extends JPanel {
 				System.exit(0);
 			}
 		});
-		exitGameButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		exitGameButton.setSize(170, 40);
+		exitGameButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		exitGameButton.setSize(230, 60);
 		exitGameButton.setLocation((this.getWidth()-exitGameButton.getWidth())/2, 260);
 		add(exitGameButton);
 		
@@ -63,15 +61,15 @@ public class MainMenuPanel extends JPanel {
 				game.getJoinLobbyPanel().setVisible(true);
 			}
 		});
-		joinLobbyButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		joinLobbyButton.setSize(170, 40);
+		joinLobbyButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		joinLobbyButton.setSize(230, 60);
 		joinLobbyButton.setLocation((this.getWidth()-joinLobbyButton.getWidth())/2, 180);
 		add(joinLobbyButton);
 		
 		JLabel mainMenuLabel = new JLabel("MAIN MENU");
-		mainMenuLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		mainMenuLabel.setSize(72, 16);
-		mainMenuLabel.setLocation((this.getWidth()-mainMenuLabel.getWidth())/2, 14);
+		mainMenuLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
+		mainMenuLabel.setSize(136, 27);
+		mainMenuLabel.setLocation((this.getWidth()-mainMenuLabel.getWidth())/2, 26);
 		add(mainMenuLabel);
 	}
 }

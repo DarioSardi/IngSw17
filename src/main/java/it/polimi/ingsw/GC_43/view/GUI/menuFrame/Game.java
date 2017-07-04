@@ -26,47 +26,45 @@ import java.awt.event.ActionEvent;
 
 public class Game extends JFrame {
 
-	private ConnectionPanel panelConnection;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2753778122745288831L;
 	private MainMenuPanel mainMenuPanel;
 	private JoinLobby joinLobbyPanel;
 	private CreateLobby createLobbyPanel;
 	private Client client;
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {			
-					Game frame = new Game();
+					Game frame = new Game(null);
 				} catch (Exception e) {
 					e.printStackTrace();
+				}
 			}
-		}
-	});
-	*/
+		});
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public Game(Client client) {
 		this.client = client;
-		setLocationRelativeTo(null);
-		setVisible(true);
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(576, 742);
+		setSize(700, 765);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(51, 153, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-				
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
 		
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -95,11 +93,7 @@ public class Game extends JFrame {
 		menuOptions.add(menuExit);
 		menuExit.setPreferredSize(new Dimension(64, 22));
 		
-		panelConnection = new ConnectionPanel(this);
-		contentPane.add(panelConnection);
-		
 		mainMenuPanel = new MainMenuPanel(this);
-		mainMenuPanel.setVisible(false);
 		contentPane.add(mainMenuPanel);
 		
 		joinLobbyPanel = new JoinLobby(this);
@@ -111,13 +105,14 @@ public class Game extends JFrame {
 		contentPane.add(createLobbyPanel);
 		
 		JLabel backgroundImage = new JLabel("");
-		backgroundImage.setSize(576, 720);
+		backgroundImage.setSize(this.getWidth(), this.getHeight());
 		backgroundImage.setLocation(0, 22);
 
 		contentPane.add(backgroundImage);
 		backgroundImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 		backgroundImage.setBackground(new Color(0, 51, 0));
-		backgroundImage.setIcon(new ImageIcon("src/main/java/it/polimi/ingsw/GC_43/view/images/background.jpg"));
+		ImageIcon backgroundIcon = new ImageIcon("src/main/java/it/polimi/ingsw/GC_43/view/images/background.jpg");
+		backgroundImage.setIcon(new ImageIcon(backgroundIcon.getImage().getScaledInstance(this.getWidth(), this.getHeight(),  java.awt.Image.SCALE_SMOOTH )));
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
@@ -136,10 +131,7 @@ public class Game extends JFrame {
 			}
 		});
 	}
-	
-	public ConnectionPanel getConnectionPanel(){
-		return this.panelConnection;
-	}
+
 	public MainMenuPanel getMainMenuPanel(){
 		return this.mainMenuPanel;
 	}

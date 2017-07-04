@@ -15,6 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import it.polimi.ingsw.GC_43.view.Client;
 import it.polimi.ingsw.GC_43.view.GUI.menuFrame.Game;
 import java.awt.Color;
 import javax.swing.JList;
@@ -45,9 +46,9 @@ public class LobbyGUI{
 	private int timer;
 	private ArrayList<String> players;
 	
-	LobbyGUI(String admin, boolean typeOfGame, int timer, int maxNumPlayers){
+	LobbyGUI(Client client, boolean typeOfGame, int timer, int maxNumPlayers){
 		this.players = new ArrayList<>();
-		this.players.add(admin);
+//		this.players.add(admin);
 		this.typeOfGame = typeOfGame;
 		this.timer = timer;
 		this.maxNumPlayers = maxNumPlayers;
