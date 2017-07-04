@@ -51,6 +51,8 @@ public class Client {
 	//ADV INITIAL CHOICE MSG
 	private DefaultBonusChoiceMessage defaultBonusChoice;
 	private LeaderCardChoiceMessage leaderCardChoice;
+	private boolean guiInterface;
+	private GuiView guiView;
 
 	public Client() throws IOException, NotBoundException {
 		initBools();
@@ -74,14 +76,22 @@ public class Client {
 		this.ID = 0;
 		isInAdvSetupPhase=false;
 		this.actionPerformed=true;
+		this.guiInterface=false;
 	}
 
 	private void connectRMI() throws RemoteException, NotBoundException {
 		Registry registry = LocateRegistry.getRegistry(InetAddress.getLoopbackAddress().getHostAddress(), this.port);
 		handler = (ClientaHandlerRmInterface) registry.lookup("COF");
 		executor = Executors.newFixedThreadPool(1);
-		this.rmiView = new RmiView(this, handler, inKeyboard);
-		executor.submit(rmiView);
+		
+		if (!this.guiInterface) {
+			this.rmiView = new RmiView(this, handler, inKeyboard);
+			executor.submit(rmiView);
+		}
+		else{
+			this.guiView=new GuiView(this);
+			executor.submit(guiView);
+		}
 
 	}
 
@@ -156,16 +166,8 @@ public class Client {
 				Integer portChoice = 7777;
 				String usernameChoice = "Foffo";
 				Boolean rmiChoice = true;
+				this.guiInterface=true;
 				setConfigFields(addressChoice, portChoice, usernameChoice, rmiChoice);
-				try {	
-					GameBoard frame = new GameBoard();
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-					frame.setClient(this);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 				correctAnswer = true;
 			}
 

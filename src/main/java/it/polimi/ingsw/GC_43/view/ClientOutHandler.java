@@ -9,6 +9,7 @@ import it.polimi.ingsw.GC_43.controller.ChatMsg;
 import it.polimi.ingsw.GC_43.controller.ExcommunicationChoiceMsg;
 import it.polimi.ingsw.GC_43.controller.QuitMsg;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
+import it.polimi.ingsw.GC_43.view.GUI.menuFrame.GameBoard;
 
 public class ClientOutHandler implements Runnable {
 
