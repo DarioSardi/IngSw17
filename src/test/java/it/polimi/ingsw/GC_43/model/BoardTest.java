@@ -126,7 +126,9 @@ public class BoardTest {
 		this.board.getPlayers().get(0).addResource("victoryPoint", 30);
 
 		this.board.getPlayers().get(0).addResource("faithPoint", 30);
-
+		
+		System.out.println("fine di tutti gli input carte e risorse");
+/*
 		
 		LeaderCardActionCreationRoutine la = new LeaderCardActionCreationRoutine(
 				board.getPlayers().get(0).getPlayerName(), board.getPlayers().get(0), board);
@@ -135,7 +137,7 @@ public class BoardTest {
 		System.out.println("\n\nstarting to perform\n\n");
 		lp.performAction();
 
-		/*
+		
 		 * System.out.println("\n\nPLAYER HARVEST CARDS NOW ARE :\\n\n"+board.
 		 * getPlayers().get(0).getPlayerCards().toString());
 		 * 
