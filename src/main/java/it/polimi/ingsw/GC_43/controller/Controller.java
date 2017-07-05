@@ -169,7 +169,7 @@ public class Controller implements IController {
 			System.out.println("Setting leader card into leader player cards & removing it from the choices pool");
 			this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards()
 			.addLeaderCard(leaderCardPool.get(choice));
-			System.out.println("Player leader cards:"+this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards().toString());
+//			System.out.println("Player leader cards:"+this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards().toString());
 		
 			leaderCardPool.remove(choice);
 		}
@@ -188,7 +188,7 @@ public class Controller implements IController {
 			this.playersLobby.broadcastMsg("Selection ended, game is about to start..");
 			for(ClientHandler c: this.clientHandlers)
 				c.sendMsgTo("advChoices_ended");
-			
+			sendModelToClients();
 			startGame();
 		}
 		System.out.println("Finished operations on controller, waiting for next player choice..");
@@ -233,7 +233,7 @@ public class Controller implements IController {
 		System.out.println("Submitted DefaultBonusChoiceMessage by "+clientHandler.getUsername());
 		this.matchPlayer.get(clientHandler.getUsername())
 				.setPersonalHarvestBonus(message.getAdvDefBonus().get(choice).getHarvestBonus());
-		System.out.println("Submitted DefaultBonusChoiceMessage of "+message.getAdvDefBonus().get(choice).getHarvestBonus().toString());
+//		System.out.println("Submitted DefaultBonusChoiceMessage of "+message.getAdvDefBonus().get(choice).getHarvestBonus().toString());
 
 //DA TESTARE A CASA SE VA BENE
 		this.matchPlayer.get(clientHandler.getUsername())
@@ -520,7 +520,6 @@ public class Controller implements IController {
 	private void nextPlayerPhase() throws RemoteException {
 		System.out.println("\n\nNEXT PLAYER PHASE LOGIC STARTING\n");
 
-		System.out.println("Attemping to get old phase player " + this.board.getPhasePlayer());
 
 		if (this.playerDisconnected == this.clientHandlers.size()) {
 			System.out.println("No players in game, game over");
@@ -531,7 +530,7 @@ public class Controller implements IController {
 		// BACK AT THE END
 		if (this.board.getPhase() + 1 % this.board.getPlayers().size() == 0 && !this.playerSkippedFirstRound.isEmpty()
 				&& this.board.getRound() + 1 % GlobalVariables.numberOfFamilyMembers == 0) {
-
+			System.out.println("Giving back initial phase skipped to  some players who had malus");
 			getBackInitialTurn();
 
 		}
@@ -540,14 +539,14 @@ public class Controller implements IController {
 			this.board.nextPhase();
 
 			// CHECKING FOR EXCOMMUNICATION ROUND AND END GAME
-			if (this.board.getPhase() % this.board.getPlayers().size() == 0) {
+			if ((this.board.getPhase() % this.board.getPlayers().size()*GlobalVariables.numberOfFamilyMembers)-1 == 0) {
 
 				System.out.println("Ongoing next round logic, round was number " + this.board.getRound());
 
 				this.board.nextRound();
 
 				// CHECKING EXCOMMUNICATION
-				if (this.board.getRound() % GlobalVariables.excommunicationRound == 0) {
+				if (this.board.getRound()+1% GlobalVariables.excommunicationRound == 0) {
 					System.out.println("Excommunication time on round " + this.board.getRound() + " and period "
 							+ this.board.getPeriod());
 					this.isExcommunicationTime = true;
@@ -557,13 +556,13 @@ public class Controller implements IController {
 
 				// END GAME
 				if (this.board.getPeriod() == GlobalVariables.totalNumberOfPeriods
-						&& this.board.getRound() % this.board.getPlayers().size() == 0) {
+						&& this.board.getRound()+1 % this.board.getPlayers().size() == 0) {
 					System.out.println("Game is finished!\n Period= " + this.board.getPeriod() + "\nRound= "
 							+ this.board.getRound() + "\nPhase= " + this.board.getPhase());
 					endGame();
 				}
 				System.out
-						.println("Resetting board spaces, geting ready for next round number" + this.board.getRound());
+						.println("Resetting board spaces, getting ready for next round number" + this.board.getRound());
 				nextRoundLogic();
 
 			}
@@ -632,7 +631,6 @@ public class Controller implements IController {
 
 	private void askPlayersForExcommunication() throws RemoteException {
 		System.out.println("Entered in Excommunication logic function");
-		this.board.nextPeriod();
 
 		for (ClientHandler clientHandler : this.clientHandlers) {
 			if (this.matchClientHandlerStatus.get(clientHandler.getUsername())
@@ -649,6 +647,8 @@ public class Controller implements IController {
 			System.out.println("Excommunication round finished, going for next player phase: " + this.board.getPhase()
 					+ " round" + this.board.getRound() + " period" + this.board.getPeriod());
 			this.isExcommunicationTime = false;
+			
+			this.board.nextPeriod();
 			nextPlayerPhase();
 		}
 	}

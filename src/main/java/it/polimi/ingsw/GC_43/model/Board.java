@@ -499,23 +499,17 @@ public class Board implements Serializable {
 	}
 
 	public void excommunicatePlayer(Player player) {
-		int relativePeriod = this.getPeriod();
+		int Period = this.getPeriod();
 		System.out.println("Message from board: Excommunicating player " + player.getPlayerName() + " during period "
-				+ relativePeriod);
-		// DEBUGGING TO BE CANCELLED
+				+ Period);
 
-		if (this.getExcommunicationTiles().get(relativePeriod) != null) {
-			System.out.println("Message from board: Attempting to get "
-					+ this.getExcommunicationTiles().get(relativePeriod).toString());
+		if (this.getExcommunicationTiles().get(Period) != null) {
+			System.out.println("Message from board: Attempting to execute:\n "
+					+ this.getExcommunicationTiles().get(Period).toString());
 
-			this.getExcommunicationTiles().get(relativePeriod).executeEffect(player.findFamilyMemberByColor(1));
+			this.getExcommunicationTiles().get(Period).executeEffect(player.findFamilyMemberByColor(1));
 		}
-		if (this.getExcommunicationTiles().get(relativePeriod + 1) != null) {
-			System.out.println("Message from board: Attempting to get "
-					+ this.getExcommunicationTiles().get(relativePeriod + 1).toString());
 
-			this.getExcommunicationTiles().get(relativePeriod + 1).executeEffect(player.findFamilyMemberByColor(1));
-		}
 	}
 
 	public void satisfyTheChurch(Player player) {
