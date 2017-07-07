@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 
 import it.polimi.ingsw.GC_43.controller.ChatMsg;
 import it.polimi.ingsw.GC_43.controller.ExcommunicationChoiceMsg;
+import it.polimi.ingsw.GC_43.controller.LeaderCardChoiceMessage;
 import it.polimi.ingsw.GC_43.controller.QuitMsg;
 import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 
@@ -14,6 +15,7 @@ public class ClientOutHandler implements Runnable {
 	private ObjectOutputStream socketOut;
 	private Client myClient;
 	private int ID;
+	private LeaderCardChoiceMessage actualLeaderChoice;
 
 	/**
 	 * handle the message sent to the server
@@ -169,8 +171,9 @@ public class ClientOutHandler implements Runnable {
 				Integer choice=Integer.parseInt(userIn.readLine());
 				if(choice>=0&&choice<this.myClient.getLeaderCardChoice().getLeaderCards().size()){
 					this.myClient.getLeaderCardChoice().setChoice(choice);
-					this.myClient.sendObj(this.myClient.getLeaderCardChoice(), this.ID);
+					this.actualLeaderChoice=this.myClient.getLeaderCardChoice();
 					this.myClient.setLeaderCardChoice(null);
+					this.myClient.sendObj(this.actualLeaderChoice, this.ID);
 					System.out.println("choice sent");}
 				else{
 					System.out.println("wrong answer");

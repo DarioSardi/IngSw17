@@ -24,6 +24,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	private Client myClient;
 	private boolean inLobby;
 	private int ID;
+	private LeaderCardChoiceMessage actualLeaderChoice;
 	
 
 	public RmiView(Client c,ClientaHandlerRmInterface handler, BufferedReader inKeyboard)  throws RemoteException{
@@ -286,8 +287,10 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 				Integer choice=Integer.parseInt(input.readLine());
 				if(choice>=0&&choice<this.myClient.getLeaderCardChoice().getLeaderCards().size()){
 					this.myClient.getLeaderCardChoice().setChoice(choice);
-					this.handler.submitLeaderCardChoice(this.ID, this.myClient.getLeaderCardChoice());
+					this.actualLeaderChoice=this.myClient.getLeaderCardChoice();
 					this.myClient.setLeaderCardChoice(null);
+					this.handler.submitLeaderCardChoice(this.ID, this.actualLeaderChoice);
+					
 					System.out.println("choice sent,waiting for other players choice...");
 					}
 				else{
