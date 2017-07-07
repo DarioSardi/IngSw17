@@ -5,15 +5,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 
 import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
 import it.polimi.ingsw.GC_43.controller.DefaultBonusChoiceMessage;
 import it.polimi.ingsw.GC_43.controller.LeaderCardChoiceMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
-import it.polimi.ingsw.GC_43.model.PlayerPersonalBonus;
-import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
 
 public class RmiView extends UnicastRemoteObject implements Serializable,UserRmiInterface,Runnable {
 
@@ -171,12 +168,15 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	/**
 	 * in Game running method.
+	 * @throws IOException 
+	 * @throws NumberFormatException 
 	 */
-	private void inGame() {
+	private void inGame() throws NumberFormatException, IOException {
 		System.out.println("YOU ARE NOW IN GAME!");
 		InGameMessageParser parser=new InGameMessageParser(input,this.ID,this.myClient);
 		if(this.myClient.isAdvancedGame()){
 			advGameSetupPhase();
+			System.out.println("advanced setup phase finished,time to play!");
 		}	
 		while(this.myClient.inGame){
 			    this.myClient.printMyData();
@@ -248,11 +248,43 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 		
 	/**
 	 * in case of advanced Rules the client should enter this endless loop until the setup phase is finished.
+	 * @throws IOException 
+	 * @throws NumberFormatException 
 	 */
-	private void advGameSetupPhase() {
+	private void advGameSetupPhase() throws NumberFormatException, IOException {
 		this.myClient.isInAdvSetupPhase=true;
 		System.out.println("THIS IS A ADVANCED MODE GAME,ENTERING SETUP PHASE");
 		while(this.myClient.isInAdvSetupPhase){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			if(this.myClient.getDefaultBonusChoice()!=null){
+				System.out.println(this.myClient.getDefaultBonusChoice().toString());
+				Integer choice=Integer.parseInt(input.readLine());
+				if(choice>=0&&choice<this.myClient.getDefaultBonusChoice().getAdvDefBonus().size()){
+					this.myClient.getDefaultBonusChoice().setChoice(choice);
+					this.handler.submitDefaultBonus(this.ID, this.myClient.getDefaultBonusChoice());
+					this.myClient.setDefaultBonusChoice(null);
+					System.out.println("choice sent,waiting for other players choice...");
+				}
+				else{
+					System.out.println("wrong answer");
+				}
+			}
+			if(this.myClient.getLeaderCardChoice()!=null){
+				System.out.println(this.myClient.getLeaderCardChoice().toString());
+				Integer choice=Integer.parseInt(input.readLine());
+				if(choice>=0&&choice<this.myClient.getLeaderCardChoice().getLeaderCards().size()){
+					this.myClient.getLeaderCardChoice().setChoice(choice);
+					this.handler.submitLeaderCardChoice(this.ID, this.myClient.getLeaderCardChoice());
+					this.myClient.setLeaderCardChoice(null);
+					System.out.println("choice sent,waiting for other players choice...");}
+				else{
+					System.out.println("wrong answer");
+				}
+			}
 			
 		}
 		
@@ -353,19 +385,12 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	@Override
 	public void defaultBonusChoice(DefaultBonusChoiceMessage o) throws RemoteException {
-		System.out.println("time to choose your personal default bonus.");
-		new CommonActionCreatorRoutine();
-		o.setChoice(CommonActionCreatorRoutine.askForSingleChoice(o.toString(), 0, o.getAdvDefBonus().size()));
-		handler.submitDefaultBonus(this.ID,o);
+		this.myClient.setDefaultBonusChoice((DefaultBonusChoiceMessage)o);
 	}
 
 	@Override
 	public void leaderDraftChoice(LeaderCardChoiceMessage o) throws RemoteException {
-		System.out.println("Draft time:choose the leader card you want to keep");
-		new CommonActionCreatorRoutine();
-		o.setChoice(CommonActionCreatorRoutine.askForSingleChoice(o.toString(), 0, o.getLeaderCards().size()));
-		handler.submitLeaderCardChoice(this.ID,o);
-		
+		this.myClient.setLeaderCardChoice((LeaderCardChoiceMessage)o);
 	}
 
 

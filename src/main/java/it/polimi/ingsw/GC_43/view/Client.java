@@ -25,7 +25,7 @@ import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actions.Action;
-import it.polimi.ingsw.GC_43.view.GUI.menuFrame.GameBoard;
+import it.polimi.ingsw.GC_43.view.GUI.menuFrame.Game;
 
 public class Client {
 	private Integer port, ID;
@@ -51,8 +51,10 @@ public class Client {
 	//ADV INITIAL CHOICE MSG
 	private DefaultBonusChoiceMessage defaultBonusChoice;
 	private LeaderCardChoiceMessage leaderCardChoice;
+	//GUI
 	private boolean guiInterface;
 	private GuiView guiView;
+	private Game gameScreen;
 
 	public Client() throws IOException, NotBoundException {
 		initBools();
@@ -82,15 +84,18 @@ public class Client {
 	private void connectRMI() throws RemoteException, NotBoundException {
 		Registry registry = LocateRegistry.getRegistry(InetAddress.getLoopbackAddress().getHostAddress(), this.port);
 		handler = (ClientaHandlerRmInterface) registry.lookup("COF");
-		executor = Executors.newFixedThreadPool(1);
-		
-		if (!this.guiInterface) {
+		executor = Executors.newFixedThreadPool(2);
 			this.rmiView = new RmiView(this, handler, inKeyboard);
 			executor.submit(rmiView);
-		}
-		else{
-			this.guiView=new GuiView(this);
+		//DARIO gui controllo
+		if (this.guiInterface){
+			this.guiView=new GuiView(this,handler);
 			executor.submit(guiView);
+			try {			
+				this.setGameScreen(new Game(this));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -304,6 +309,19 @@ public class Client {
 	public Board getBoard() {
 		return this.board;
 	}
+	
+	public GuiView getGuiView(){
+		return this.guiView;
+	}
+	
+	public Game getGameScreen() {
+		return gameScreen;
+	}
+
+
+	public void setGameScreen(Game gameScreen) {
+		this.gameScreen = gameScreen;
+	}
 
 	public void changeUsername(String newUsername) {
 		System.out.println("changed your username in " + newUsername);
@@ -340,10 +358,6 @@ public class Client {
 
 
 	public void setDefaultBonusChoice(DefaultBonusChoiceMessage defaultBonusChoice) {
-		if(defaultBonusChoice==null)
-		{
-			System.out.println("SETTED TO NULL");
-		}
 		this.defaultBonusChoice = defaultBonusChoice;
 	}
 
@@ -354,10 +368,6 @@ public class Client {
 
 
 	public void setLeaderCardChoice(LeaderCardChoiceMessage leaderCardChoice) {
-		if(defaultBonusChoice==null)
-		{
-			System.out.println("SETTED TO NULL");
-		}
 		this.leaderCardChoice = leaderCardChoice;
 	}
 
@@ -368,4 +378,7 @@ public class Client {
 	public void printMyData(){
 		System.out.println("\nI TUOI DATI:\n" + this.myPlayer.toString());
 	}
+
+
+	
 }

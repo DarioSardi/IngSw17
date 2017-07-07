@@ -69,7 +69,6 @@ public class ClientInHandler implements Runnable {
 				this.myClient.setDefaultBonusChoice((DefaultBonusChoiceMessage)o);
 			}
 			else if(o instanceof LeaderCardChoiceMessage){
-				System.out.println("received Leadercards!!!!!!!!!!!!!!!!!!!!");
 				this.myClient.setLeaderCardChoice((LeaderCardChoiceMessage)o);
 			}
 		} catch (ClassNotFoundException e) {
