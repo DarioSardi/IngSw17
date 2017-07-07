@@ -179,7 +179,12 @@ public class Controller implements IController {
 
 		if (this.choicePlayerNumber == 0&&this.leaderChoicePhaseRound!=3) {
 			System.out.println("Getting ready for nextChoiceLeaderMessage..");
-
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			nextChoiceLeaderMessage();
 		
 
@@ -217,8 +222,7 @@ public class Controller implements IController {
 	}
 
 	private void nextChoiceMessage(DefaultBonusChoiceMessage dfBonusMessage) throws RemoteException {
-		this.clientHandlers.get(this.choicePlayerNumber)
-				.sendMsgTo("\nPlease select for default harvest and production bonus\n");
+
 
 		System.out.println("Sending choice for advanced personal bonus to player "+this.clientHandlers.get(this.choicePlayerNumber).getUsername());
 
@@ -250,7 +254,12 @@ public class Controller implements IController {
 
 		if (this.choicePlayerNumber >= 0) {
 			System.out.println("Calling for next choice message");
-
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			nextChoiceMessage(message);
 
 		} else {
