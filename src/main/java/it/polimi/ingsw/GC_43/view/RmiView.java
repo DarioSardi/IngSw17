@@ -118,6 +118,12 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} 
 		}
 		
@@ -126,8 +132,10 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	/**
 	 * in lobby running method go give player restricted access only to in-lobby commands
 	 * @throws IOException in case of DC;
+	 * @throws InterruptedException 
+	 * @throws NumberFormatException 
 	 */
-	private void inLobby() throws IOException {
+	private void inLobby() throws IOException, NumberFormatException, InterruptedException {
 		inLobby=true;
 		while(inLobby){
 			if (!this.myClient.inGame) {
@@ -170,8 +178,9 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	 * in Game running method.
 	 * @throws IOException 
 	 * @throws NumberFormatException 
+	 * @throws InterruptedException 
 	 */
-	private void inGame() throws NumberFormatException, IOException {
+	private void inGame() throws NumberFormatException, IOException, InterruptedException {
 		System.out.println("YOU ARE NOW IN GAME!");
 		InGameMessageParser parser=new InGameMessageParser(input,this.ID,this.myClient);
 		if(this.myClient.isAdvancedGame()){
@@ -250,16 +259,14 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	 * in case of advanced Rules the client should enter this endless loop until the setup phase is finished.
 	 * @throws IOException 
 	 * @throws NumberFormatException 
+	 * @throws InterruptedException 
 	 */
-	private void advGameSetupPhase() throws NumberFormatException, IOException {
+	private void advGameSetupPhase() throws NumberFormatException, IOException, InterruptedException {
+	
 		this.myClient.isInAdvSetupPhase=true;
 		System.out.println("THIS IS A ADVANCED MODE GAME,ENTERING SETUP PHASE");
 		while(this.myClient.isInAdvSetupPhase){
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			Thread.sleep(100);
 			if(this.myClient.getDefaultBonusChoice()!=null){
 				System.out.println(this.myClient.getDefaultBonusChoice().toString());
 				Integer choice=Integer.parseInt(input.readLine());
@@ -267,6 +274,7 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 					this.myClient.getDefaultBonusChoice().setChoice(choice);
 					this.handler.submitDefaultBonus(this.ID, this.myClient.getDefaultBonusChoice());
 					this.myClient.setDefaultBonusChoice(null);
+					
 					System.out.println("choice sent,waiting for other players choice...");
 				}
 				else{
@@ -280,7 +288,8 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 					this.myClient.getLeaderCardChoice().setChoice(choice);
 					this.handler.submitLeaderCardChoice(this.ID, this.myClient.getLeaderCardChoice());
 					this.myClient.setLeaderCardChoice(null);
-					System.out.println("choice sent,waiting for other players choice...");}
+					System.out.println("choice sent,waiting for other players choice...");
+					}
 				else{
 					System.out.println("wrong answer");
 				}
@@ -385,12 +394,12 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	@Override
 	public void defaultBonusChoice(DefaultBonusChoiceMessage o) throws RemoteException {
-		this.myClient.setDefaultBonusChoice((DefaultBonusChoiceMessage)o);
+		this.myClient.setDefaultBonusChoice(o);
 	}
 
 	@Override
 	public void leaderDraftChoice(LeaderCardChoiceMessage o) throws RemoteException {
-		this.myClient.setLeaderCardChoice((LeaderCardChoiceMessage)o);
+		this.myClient.setLeaderCardChoice(o);
 	}
 
 

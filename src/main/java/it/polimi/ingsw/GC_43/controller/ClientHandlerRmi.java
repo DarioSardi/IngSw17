@@ -50,7 +50,7 @@ public class ClientHandlerRmi implements ClientHandler{
 	}
 
 	@Override
-	public void sendObject(Object o) throws RemoteException {
+	public synchronized void sendObject(Object o) throws RemoteException {
 		if(o instanceof Board){
 			this.client.updateBoard((Board)o);
 		}
@@ -61,10 +61,13 @@ public class ClientHandlerRmi implements ClientHandler{
 			this.client.updateGlobalVariables((CopyOfGlobalVariables)o);
 		}
 		else if(o instanceof DefaultBonusChoiceMessage){
-			this.client.defaultBonusChoice((DefaultBonusChoiceMessage)o);
+			DefaultBonusChoiceMessage dbcm=(DefaultBonusChoiceMessage)o;
+			this.client.defaultBonusChoice(dbcm);
 		}
 		else if(o instanceof LeaderCardChoiceMessage){
-			this.client.leaderDraftChoice((LeaderCardChoiceMessage)o);
+			LeaderCardChoiceMessage lccm=(LeaderCardChoiceMessage) o;
+			this.client.showMsg("leader cards received for the player : "+lccm.getPlayerUsername());
+			this.client.leaderDraftChoice(lccm);
 		}
 		
 		
@@ -242,12 +245,13 @@ public class ClientHandlerRmi implements ClientHandler{
 		
 	}
 
-	public void submitDefaultBonus(DefaultBonusChoiceMessage o) throws RemoteException {
+	public synchronized void submitDefaultBonus(DefaultBonusChoiceMessage o) throws RemoteException {
 		this.lobby.getController().submitDefaultBonusChoice(o, this);
 		
 	}
 
 	public void submitLeaderCardChoice(LeaderCardChoiceMessage o) throws RemoteException {
+		this.client.showMsg("leader sent with choice: "+o.getChoice());
 		this.lobby.getController().submitLeaderCardChoice(o, this);
 		
 	}
