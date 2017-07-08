@@ -19,7 +19,7 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 
 	public LeaderCardActionPerformerRoutine(LeaderCardAction leaderCardAction, Board board) {
 		this.leaderCardAction = leaderCardAction;
-		this.checkResult = false;
+		this.checkResult = true;
 		this.board = board;
 
 	}
@@ -28,39 +28,40 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 
 		System.out.println("\nEntered in Leader card performer routine");
 		Player player = this.leaderCardAction.getPlayer();
-		if(!this.getLeaderCardAction().isToDiscard()){
-		System.out.println("Checking familyMember..");
-		FamilyMember familyMember = CommonActionPerformerRoutine.matchFamilyMember(player,
-				this.leaderCardAction.getFamilyMemberColor());
+		if (!this.getLeaderCardAction().isToDiscard()) {
+			System.out.println("Checking familyMember..");
+			FamilyMember familyMember = CommonActionPerformerRoutine.matchFamilyMember(player,
+					this.leaderCardAction.getFamilyMemberColor());
 
-		System.out.println("Matching leader card..");
-		// TODO to implement
-		LeaderCard leaderCard = matchLeaderCard(this.leaderCardAction.getLeaderCardName(), player);
+			System.out.println("Matching leader card..");
+			// TODO to implement
+			LeaderCard leaderCard = matchLeaderCard(this.leaderCardAction.getLeaderCardName(), player);
 
-		System.out.println("Checking leader card requirements & executing ability..");
+			System.out.println("Checking leader card requirements & executing ability..");
 
-		checkCardRequirementsAndExecute(leaderCard, this.leaderCardAction.getFamilyMember());
-		}
-		else{
+			checkCardRequirementsAndExecute(leaderCard, this.leaderCardAction.getFamilyMember());
+		} else {
 			System.out.println("Discard leader card for council privilege choice detected");
-			if(player.getPlayerCards().searchLeaderCardByName(this.getLeaderCardAction().getLeaderCardName())!=null){
+			if (player.getPlayerCards()
+					.searchLeaderCardByName(this.getLeaderCardAction().getLeaderCardName()) != null) {
 				System.out.println("Removing leader card from player leader card");
-				player.getPlayerCards().getArrayLeaderCards().remove(player.getPlayerCards().searchLeaderCardByName(this.getLeaderCardAction().getLeaderCardName()));
+				player.getPlayerCards().getArrayLeaderCards().remove(
+						player.getPlayerCards().searchLeaderCardByName(this.getLeaderCardAction().getLeaderCardName()));
 				System.out.println("Executing council privilege effect");
-				GlobalVariables.councilPrivilegeEffect.executeEffect(player.getFamilyMember(1), this.getLeaderCardAction().getEventualChoice());
-			}else
-				this.checkResult=false;
+				GlobalVariables.councilPrivilegeEffect.executeEffect(player.getFamilyMember(1),
+						this.getLeaderCardAction().getEventualChoice());
+			} else
+				this.checkResult = false;
 		}
-		
+
 		System.out.println("Leader card action performer routine ends here!");
-		
+
 		return checkResult;
 
 	}
 
 	private void checkCardRequirementsAndExecute(LeaderCard leaderCard, FamilyMember familyMember) {
 
-		
 		if (leaderCard.checkRequirements(familyMember)) {
 			System.out.println("Executing leader card ability..");
 			leaderCard.executeAbility(this.leaderCardAction.getFamilyMember());
@@ -90,7 +91,7 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 			MultipleCouncilPrivileges multiplePrivilege = CommonActionCreatorRoutine.copyMultiplePrivileges(1);
 			multiplePrivilege.executeEffect(familyMember, this.leaderCardAction.getEventualChoice());
 		}
-		
+
 		if (this.leaderCardAction.getLeaderCardName().contains("Lorenzo")) {
 			// WAIT FOR SAM FIND LEADER CARD BY NAME
 			if (player.getPlayerCards().searchLeaderCardByName("Lorenzo de' Medici").getAbility().get(0).getClass()
@@ -98,17 +99,17 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 				LorenzoEffect effect = (LorenzoEffect) player.getPlayerCards()
 						.searchLeaderCardByName("Lorenzo de' Medici").getAbility().get(0);
 				if (!this.board.getLeaderCardsPlayed().isEmpty()) {
-						
-						System.out.println("Copying effect of selected leader card " + this.board.getLeaderCardsPlayed()
-								.get(this.leaderCardAction.getEventualChoice()).getCardName());
-						
-						player.getPlayerCards().searchLeaderCardByName("Lorenzo de' Medici").setAbility(this.board
-								.getLeaderCardsPlayed().get(this.leaderCardAction.getEventualChoice()).getAbility());
-						effect.setAlreadyChosen(true);
-						
-						System.out.println("Ability chosen and copied in Lorenzo leader card is: " + player
-								.getPlayerCards().searchLeaderCardByName("Lorenzo de' Medici").getAbility().toString());
-			
+
+					System.out.println("Copying effect of selected leader card " + this.board.getLeaderCardsPlayed()
+							.get(this.leaderCardAction.getEventualChoice()).getCardName());
+
+					player.getPlayerCards().searchLeaderCardByName("Lorenzo de' Medici").setAbility(this.board
+							.getLeaderCardsPlayed().get(this.leaderCardAction.getEventualChoice()).getAbility());
+					effect.setAlreadyChosen(true);
+
+					System.out.println("Ability chosen and copied in Lorenzo leader card is: " + player.getPlayerCards()
+							.searchLeaderCardByName("Lorenzo de' Medici").getAbility().toString());
+
 				} else
 					this.checkResult = false;
 			}
@@ -147,7 +148,4 @@ public class LeaderCardActionPerformerRoutine implements ActionPerformer {
 		this.index = index;
 	}
 
-	
-	
-	
 }

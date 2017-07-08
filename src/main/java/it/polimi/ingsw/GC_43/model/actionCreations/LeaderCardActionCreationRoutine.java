@@ -50,6 +50,7 @@ public class LeaderCardActionCreationRoutine implements ActionCreation {
 		String question = "Do you want to play or discard this leader card for a council privilege?\nInput 0 to discard the card and 1 to play it";
 		int choice = CommonActionCreatorRoutine.askForSingleChoice(question, 0, 2);
 		if (choice == 0) {
+			System.out.println("Discard option setted");
 			this.getLeaderCardAction().setToDiscard(true);
 		}
 

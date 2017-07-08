@@ -43,9 +43,9 @@ public class LeaderCardAction extends Action {
 		this.toDiscard = toDiscard;
 	}
 	
-	
-	
-	
+	public String toString(){
+		return super.toString()+"Action performed: Leader Action\n";
+	}
 	
 
 }

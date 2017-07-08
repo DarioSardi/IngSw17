@@ -37,11 +37,11 @@ public class Controller implements IController {
 	private boolean isExcommunicationTime;
 	private boolean advancedGame;
 	private ArrayList<Player> playerSkippedFirstRound;
-	
-	//PHASE HANDLING
+
+	// PHASE HANDLING
 	private boolean primaryActionDone;
-	
-	//ADVANCED RULES
+
+	// ADVANCED RULES
 	private int choicePlayerNumber;
 	private int leaderChoicePhaseRound;
 	ArrayList<ArrayList<LeaderCard>> leaderCardPools;
@@ -76,7 +76,7 @@ public class Controller implements IController {
 
 		if (advancedGame) {
 			this.choicePlayerNumber = this.clientHandlers.size() - 1;
-			leaderChoicePhaseRound=0;
+			leaderChoicePhaseRound = 0;
 			System.out.println("Advanced game settings selected..");
 			advancedGameRoutine();
 		}
@@ -98,7 +98,7 @@ public class Controller implements IController {
 	}
 
 	private void askForLeaderCards() throws RemoteException {
-		
+
 		System.out.println("Entered in leader cards choice logic");
 
 		ArrayList<ArrayList<LeaderCard>> leaderCardPools = new ArrayList<ArrayList<LeaderCard>>();
@@ -110,88 +110,84 @@ public class Controller implements IController {
 			leaderCardPools.add(new ArrayList<LeaderCard>());
 
 			for (int index = 0; index < 4; index++) {
-				leaderCardPools.get(poolNumber).add(this.board.getLeaderCardPool().get(4*poolNumber + index));
+				leaderCardPools.get(poolNumber).add(this.board.getLeaderCardPool().get(4 * poolNumber + index));
 			}
 
 			poolNumber++;
 		}
-		
-		System.out.println("Finished creating leader cards pools for : "+this.clientHandlers.size()+" players");
 
-		this.leaderCardPools=leaderCardPools;
+		System.out.println("Finished creating leader cards pools for : " + this.clientHandlers.size() + " players");
 
-		this.choicePlayerNumber=this.clientHandlers.size();
+		this.leaderCardPools = leaderCardPools;
 
-		
+		this.choicePlayerNumber = this.clientHandlers.size();
+
 		for (int index = 0; index < this.clientHandlers.size(); index++) {
-			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(this.leaderCardPools.get(index), this.clientHandlers.get(index).getUsername());
-			//System.out.println("Sending leader card pool : "+leaderChoiceMessage.toString());
+			LeaderCardChoiceMessage leaderChoiceMessage = new LeaderCardChoiceMessage(this.leaderCardPools.get(index),
+					this.clientHandlers.get(index).getUsername());
+			// System.out.println("Sending leader card pool :
+			// "+leaderChoiceMessage.toString());
 
-			System.out.println("Sending leader cards choice to player "+this.clientHandlers.get(index).getUsername());
-			System.out.println("Sending leader cards choice to player "+leaderChoiceMessage.toString());
+			System.out.println("Sending leader cards choice to player " + this.clientHandlers.get(index).getUsername());
+			System.out.println("Sending leader cards choice to player " + leaderChoiceMessage.toString());
 
 			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
-			System.out.println("Leader cards choice SENT to player "+this.clientHandlers.get(index).getUsername());
+			System.out.println("Leader cards choice SENT to player " + this.clientHandlers.get(index).getUsername());
 
 		}
 
 	}
 
 	private void nextChoiceLeaderMessage() throws RemoteException {
-		this.choicePlayerNumber=this.clientHandlers.size();
+		this.choicePlayerNumber = this.clientHandlers.size();
 		this.leaderChoicePhaseRound++;
-		System.out.println("Players which will have to choose are "+this.choicePlayerNumber+ " and it is leader choice round number "+ this.leaderChoicePhaseRound);
+		System.out.println("Players which will have to choose are " + this.choicePlayerNumber
+				+ " and it is leader choice round number " + this.leaderChoicePhaseRound);
 
-		
-		
 		for (int index = 0; index < this.clientHandlers.size(); index++) {
-			System.out.println("Sending leader cards choice to player "+this.clientHandlers.get(index).getUsername());
-			LeaderCardChoiceMessage leaderChoiceMessage= new LeaderCardChoiceMessage(this.leaderCardPools.get((index+this.leaderChoicePhaseRound)%this.clientHandlers.size()), this.clientHandlers.get(index).getUsername());
+			System.out.println("Sending leader cards choice to player " + this.clientHandlers.get(index).getUsername());
+			LeaderCardChoiceMessage leaderChoiceMessage = new LeaderCardChoiceMessage(
+					this.leaderCardPools.get((index + this.leaderChoicePhaseRound) % this.clientHandlers.size()),
+					this.clientHandlers.get(index).getUsername());
 			this.clientHandlers.get(index).sendObject(leaderChoiceMessage);
-			System.out.println("Leader cards choice SENT to player "+this.clientHandlers.get(index).getUsername());
+			System.out.println("Leader cards choice SENT to player " + this.clientHandlers.get(index).getUsername());
 
 		}
-
 
 	}
 
 	public synchronized void submitLeaderCardChoice(LeaderCardChoiceMessage message, ClientHandler clientHandler)
 			throws RemoteException {
-		
-		System.out.println("Submitting choice of player "+clientHandler.getUsername());
+
+		System.out.println("Submitting choice of player " + clientHandler.getUsername());
 		int choice = message.getChoice();
 
-		
-		ArrayList<LeaderCard> leaderCardPool=matchLeaderCardAssignAndRemove(message.getLeaderCards().get(message.getChoice()).getCardName(), clientHandler.getUsername());
-		
-		if(leaderCardPool!=null){
-			
+		ArrayList<LeaderCard> leaderCardPool = matchLeaderCardAssignAndRemove(
+				message.getLeaderCards().get(message.getChoice()).getCardName(), clientHandler.getUsername());
+
+		if (leaderCardPool != null) {
+
 			System.out.println("Setting leader card into leader player cards & removing it from the choices pool");
 			this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards()
-			.addLeaderCard(leaderCardPool.get(choice));
-//			System.out.println("Player leader cards:"+this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards().toString());
-		
+					.addLeaderCard(leaderCardPool.get(choice));
+			// System.out.println("Player leader
+			// cards:"+this.matchPlayer.get(clientHandler.getUsername()).getPlayerCards().toString());
+
 			leaderCardPool.remove(choice);
 		}
-		
+
 		this.choicePlayerNumber--;
-		System.out.println("Finished submission operations for player "+clientHandler.getUsername());
+		System.out.println("Finished submission operations for player " + clientHandler.getUsername());
 
-		if (this.choicePlayerNumber == 0&&this.leaderChoicePhaseRound!=3) {
+		if (this.choicePlayerNumber == 0 && this.leaderChoicePhaseRound != 3) {
 			System.out.println("Getting ready for nextChoiceLeaderMessage..");
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			nextChoiceLeaderMessage();
-		
 
-		} else if(this.choicePlayerNumber==0&&this.leaderChoicePhaseRound==3) {
+			nextChoiceLeaderMessage();
+
+		} else if (this.choicePlayerNumber == 0 && this.leaderChoicePhaseRound == 3) {
 			System.out.println("Leader cards selection finished, starting the game");
 			this.playersLobby.broadcastMsg("Selection ended, game is about to start..");
-			for(ClientHandler c: this.clientHandlers)
+			for (ClientHandler c : this.clientHandlers)
 				c.sendMsgTo("advChoices_ended");
 			sendModelToClients();
 			startGame();
@@ -201,12 +197,12 @@ public class Controller implements IController {
 	}
 
 	private ArrayList<LeaderCard> matchLeaderCardAssignAndRemove(String leaderCardName, String username) {
-		int leaderPoolNumber=0;
-		for(leaderPoolNumber=0;leaderPoolNumber<this.leaderCardPools.size();leaderPoolNumber++){
-			for(LeaderCard l: this.leaderCardPools.get(leaderPoolNumber)){
-				if(l.getCardName().equals(leaderCardName))
+		int leaderPoolNumber = 0;
+		for (leaderPoolNumber = 0; leaderPoolNumber < this.leaderCardPools.size(); leaderPoolNumber++) {
+			for (LeaderCard l : this.leaderCardPools.get(leaderPoolNumber)) {
+				if (l.getCardName().equals(leaderCardName))
 					return this.leaderCardPools.get(leaderPoolNumber);
-				
+
 			}
 		}
 		return null;
@@ -223,34 +219,36 @@ public class Controller implements IController {
 
 	private void nextChoiceMessage(DefaultBonusChoiceMessage dfBonusMessage) throws RemoteException {
 
-
-		System.out.println("Sending choice for advanced personal bonus to player "+this.clientHandlers.get(this.choicePlayerNumber).getUsername());
+		System.out.println("Sending choice for advanced personal bonus to player "
+				+ this.clientHandlers.get(this.choicePlayerNumber).getUsername());
 
 		this.clientHandlers.get(this.choicePlayerNumber).sendObject(dfBonusMessage);
 
 	}
 
-	public synchronized void submitDefaultBonusChoice(DefaultBonusChoiceMessage message, ClientHandler clientHandler) throws RemoteException {
+	public synchronized void submitDefaultBonusChoice(DefaultBonusChoiceMessage message, ClientHandler clientHandler)
+			throws RemoteException {
 		System.out.println("Received a submitDefaultBonusChoice");
 
 		int choice = message.getChoice();
-		System.out.println("Submitted DefaultBonusChoiceMessage by "+clientHandler.getUsername());
+		System.out.println("Submitted DefaultBonusChoiceMessage by " + clientHandler.getUsername());
 		this.matchPlayer.get(clientHandler.getUsername())
 				.setPersonalHarvestBonus(message.getAdvDefBonus().get(choice).getHarvestBonus());
-//		System.out.println("Submitted DefaultBonusChoiceMessage of "+message.getAdvDefBonus().get(choice).getHarvestBonus().toString());
+		// System.out.println("Submitted DefaultBonusChoiceMessage of
+		// "+message.getAdvDefBonus().get(choice).getHarvestBonus().toString());
 
-//DA TESTARE A CASA SE VA BENE
+		// DA TESTARE A CASA SE VA BENE
 		this.matchPlayer.get(clientHandler.getUsername())
 				.setPersonalProductionBonus(this.board.getAdvancedPersonalBonus().get(choice).getProductionBonus());
-		System.out.println(" DefaultBonusChoiceMessage Production is "+this.matchPlayer.get(clientHandler.getUsername()).getPersonalProductionBonus().get(0).toString());
+		System.out.println(" DefaultBonusChoiceMessage Production is "
+				+ this.matchPlayer.get(clientHandler.getUsername()).getPersonalProductionBonus().get(0).toString());
 
 		this.board.getAdvancedPersonalBonus().remove(choice);
-		
+
 		message.getAdvDefBonus().remove(choice);
 
-
 		this.choicePlayerNumber--;
-		System.out.println("Asking DefaultBonusChoiceMessage to player choice order number "+this.choicePlayerNumber);
+		System.out.println("Asking DefaultBonusChoiceMessage to player choice order number " + this.choicePlayerNumber);
 
 		if (this.choicePlayerNumber >= 0) {
 			System.out.println("Calling for next choice message");
@@ -265,7 +263,7 @@ public class Controller implements IController {
 		} else {
 
 			this.choicePlayerNumber = this.clientHandlers.size();
-			System.out.println("Starting ask for leader cards.. "+this.choicePlayerNumber);
+			System.out.println("Starting ask for leader cards.. " + this.choicePlayerNumber);
 			askForLeaderCards();
 
 		}
@@ -310,9 +308,12 @@ public class Controller implements IController {
 			this.matchClientHandler.put(clientHandler.getUsername(), clientHandler);
 			this.matchClientHandlerStatus.put(clientHandler.getUsername(), true);
 			this.matchPlayer.put(clientHandler.getUsername(), this.board.getPlayers().get(i));
+			System.out.println("Put player " + clientHandler.getUsername() + " corresponding player on board "
+					+ this.board.getPlayers().get(i).getPlayerName());
 			i++;
 
 		}
+		System.out.println("Player in match players is Empty? " + this.matchPlayer.isEmpty());
 
 	}
 
@@ -406,7 +407,7 @@ public class Controller implements IController {
 	public synchronized void submitClientAction(Action action) throws RemoteException {
 		System.out.println("action submitted");
 		if (!this.isExcommunicationTime) {
-			System.out.println("\nclient Action received from client " + action.getPlayerID());
+			System.out.println("\nClient Action received from client " + action.getPlayerID());
 
 			if (action.getActionID() == -1) {
 				System.out.println("Player passed hit turn, calling for next player phase");
@@ -450,7 +451,6 @@ public class Controller implements IController {
 
 					System.out.println("\nAction successfully completed, broadcasting notifications");
 
-					playersLobby.broadcastMsg(action.toString(), this.getPlayerOfTurn());
 
 					for (ClientHandler clientHandler : this.clientHandlers) {
 						System.out.println("Sending updated board to client" + clientHandler.getUsername());
@@ -529,7 +529,6 @@ public class Controller implements IController {
 	private void nextPlayerPhase() throws RemoteException {
 		System.out.println("\n\nNEXT PLAYER PHASE LOGIC STARTING\n");
 
-
 		if (this.playerDisconnected == this.clientHandlers.size()) {
 			System.out.println("No players in game, game over");
 			endGame();
@@ -546,26 +545,34 @@ public class Controller implements IController {
 
 		else {
 			this.board.nextPhase();
+			
+			System.out.println("RIGHT BEFORE CHECK OF EXCOMMUNICATION ROUND");
 
 			// CHECKING FOR EXCOMMUNICATION ROUND AND END GAME
-			if ((this.board.getPhase() % this.board.getPlayers().size()*GlobalVariables.numberOfFamilyMembers)-1 == 0) {
+			System.out.println("Phase is "+this.board.getPhase()+ " players*fams = "+this.board.getPlayers().size() * GlobalVariables.numberOfFamilyMembers);
+			int roundTimePerPhases=this.board.getPlayers().size() * GlobalVariables.numberOfFamilyMembers;
+			int currentPhase=this.board.getPhase();
+			System.out.println("module result is "+currentPhase % roundTimePerPhases );
+			if (currentPhase % roundTimePerPhases== 0) {
 
 				System.out.println("Ongoing next round logic, round was number " + this.board.getRound());
 
-				this.board.nextRound();
 
 				// CHECKING EXCOMMUNICATION
-				if (this.board.getRound()+1% GlobalVariables.excommunicationRound == 0) {
+				if (this.board.getRound() + 1 % GlobalVariables.excommunicationRound == 0) {
 					System.out.println("Excommunication time on round " + this.board.getRound() + " and period "
 							+ this.board.getPeriod());
 					this.isExcommunicationTime = true;
 					askPlayersForExcommunication();
 					// waitForAllResponses()
 				}
+				
+				this.board.nextRound();
+
 
 				// END GAME
 				if (this.board.getPeriod() == GlobalVariables.totalNumberOfPeriods
-						&& this.board.getRound()+1 % this.board.getPlayers().size() == 0) {
+						&& this.board.getRound() + 1 % this.board.getPlayers().size() == 0) {
 					System.out.println("Game is finished!\n Period= " + this.board.getPeriod() + "\nRound= "
 							+ this.board.getRound() + "\nPhase= " + this.board.getPhase());
 					endGame();
@@ -588,11 +595,10 @@ public class Controller implements IController {
 			ClientHandler playerOfTurn = this.matchClientHandler.get(this.board.getPhasePlayer());
 			if (this.board.getRound() == 0 && this.matchPlayer.get(this.board.getPhasePlayer()).getPlayerBounusMalus()
 					.isSkipFirstFamiliarMoveAndGetItBackAtTheEnd()) {
-				
 
-					this.playerSkippedFirstRound.add(this.matchPlayer.get(this.board.getPhasePlayer()));
-					nextPlayerPhase();
-					return;
+				this.playerSkippedFirstRound.add(this.matchPlayer.get(this.board.getPhasePlayer()));
+				nextPlayerPhase();
+				return;
 
 			}
 
@@ -656,7 +662,7 @@ public class Controller implements IController {
 			System.out.println("Excommunication round finished, going for next player phase: " + this.board.getPhase()
 					+ " round" + this.board.getRound() + " period" + this.board.getPeriod());
 			this.isExcommunicationTime = false;
-			
+
 			this.board.nextPeriod();
 			nextPlayerPhase();
 		}
@@ -714,53 +720,65 @@ public class Controller implements IController {
 
 		System.out.println("\nAttempting to match player on server to perform action");
 
-		action.setPlayer(this.matchPlayer.get(action.getPlayer().getPlayerName()));
-		int actionID = action.getActionID();
-		boolean result;
+		System.out.println("Action submitted by player " + action.getPlayer());
 
-		System.out.println("\nAttempting to perform the action submitted with ID: " + action.getActionID() + "\n"
-				+ action.toString());
+		if (this.matchPlayer.get(action.getPlayer().getPlayerName()) != null) {
+			action.setPlayer(this.matchPlayer.get(action.getPlayer().getPlayerName()));
+			action.setPlayerID(action.getPlayer().getPlayerName());
+			System.out.println("Action ID is " + action.getActionID());
 
-		switch (actionID) {
-		case 1:
-			ProductionAction productionAction = (ProductionAction) action;
-			ProductionActionPerformerRoutine productionActionImpl = new ProductionActionPerformerRoutine(
-					productionAction, this.board);
-			result = productionActionImpl.performAction();
-			return result;
-		case 2:
-			HarvestAction harvestAction = (HarvestAction) action;
-			HarvestActionPerformerRoutine harvestActionImpl = new HarvestActionPerformerRoutine(harvestAction,
-					this.board);
-			result = harvestActionImpl.performAction();
-			return result;
+			int actionID = action.getActionID();
+			boolean result;
 
-		case 3:
-			CouncilPalaceAction councilPalaceAction = (CouncilPalaceAction) action;
-			CouncilPalacePerformerRoutine councilPalaceActionImpl = new CouncilPalacePerformerRoutine(
-					councilPalaceAction, this.board);
-			result = councilPalaceActionImpl.performAction();
-			return result;
-		case 4:
-			MarketAction marketAction = (MarketAction) action;
-			MarketActionPerformerRoutine marketActionImpl = new MarketActionPerformerRoutine(marketAction, this.board);
-			result = marketActionImpl.performAction();
-			return result;
-		case 5:
-			TowerAction towerAction = (TowerAction) action;
-			TowerActionPerformerRoutine towerActionImpl = new TowerActionPerformerRoutine(towerAction, this.board);
-			result = towerActionImpl.performAction();
-			return result;
-		case 6:
-			LeaderCardAction leaderCardAction = (LeaderCardAction) action;
-			LeaderCardActionPerformerRoutine leaderActionImpl = new LeaderCardActionPerformerRoutine(leaderCardAction,
-					this.board);
-			result = leaderActionImpl.performAction();
-			return result;
+			/*
+			 * System.out.
+			 * println("\nAttempting to perform the action submitted with ID: "
+			 * + action.getActionID() + "\n" + action.toString());
+			 */
+			switch (actionID) {
+			case 1:
+				ProductionAction productionAction = (ProductionAction) action;
+				ProductionActionPerformerRoutine productionActionImpl = new ProductionActionPerformerRoutine(
+						productionAction, this.board);
+				result = productionActionImpl.performAction();
+				return result;
+			case 2:
+				HarvestAction harvestAction = (HarvestAction) action;
+				HarvestActionPerformerRoutine harvestActionImpl = new HarvestActionPerformerRoutine(harvestAction,
+						this.board);
+				result = harvestActionImpl.performAction();
+				return result;
 
-		default:
+			case 3:
+				CouncilPalaceAction councilPalaceAction = (CouncilPalaceAction) action;
+				CouncilPalacePerformerRoutine councilPalaceActionImpl = new CouncilPalacePerformerRoutine(
+						councilPalaceAction, this.board);
+				result = councilPalaceActionImpl.performAction();
+				return result;
+			case 4:
+				MarketAction marketAction = (MarketAction) action;
+				MarketActionPerformerRoutine marketActionImpl = new MarketActionPerformerRoutine(marketAction,
+						this.board);
+				result = marketActionImpl.performAction();
+				return result;
+			case 5:
+				TowerAction towerAction = (TowerAction) action;
+				TowerActionPerformerRoutine towerActionImpl = new TowerActionPerformerRoutine(towerAction, this.board);
+				result = towerActionImpl.performAction();
+				return result;
+			case 6:
+				System.out.println("Executing Leader card action..");
+				LeaderCardAction leaderCardAction = (LeaderCardAction) action;
+				LeaderCardActionPerformerRoutine leaderActionImpl = new LeaderCardActionPerformerRoutine(
+						leaderCardAction, this.board);
+				result = leaderActionImpl.performAction();
+				return result;
+
+			default:
+				return false;
+			}
+		} else
 			return false;
-		}
 
 	}
 
