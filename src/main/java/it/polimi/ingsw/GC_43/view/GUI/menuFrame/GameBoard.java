@@ -7,11 +7,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
+import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
+import it.polimi.ingsw.GC_43.model.cards.VentureCard;
 import it.polimi.ingsw.GC_43.model.initialization.GlobalVariablesInit;
 import it.polimi.ingsw.GC_43.model.initialization.InitGame;
 import it.polimi.ingsw.GC_43.view.Client;
 import it.polimi.ingsw.GC_43.view.GUI.menuFrame.boardGamePanels.GUIActionSpaces;
 import it.polimi.ingsw.GC_43.view.GUI.menuFrame.boardGamePanels.GUIChat;
+import it.polimi.ingsw.GC_43.view.GUI.menuFrame.boardGamePanels.GUIPlayerBoard;
 import it.polimi.ingsw.GC_43.view.GUI.menuFrame.boardGamePanels.GUIPlayersStatistics;
 import it.polimi.ingsw.GC_43.view.GUI.menuFrame.menuPanels.CreateLobby;
 import it.polimi.ingsw.GC_43.view.GUI.menuFrame.menuPanels.JoinLobby;
@@ -47,6 +52,7 @@ public class GameBoard extends JFrame {
 	private GUIActionSpaces actionSpaces;
 	private GUIPlayersStatistics playersStatistics;
 	private GUIChat chatGUI;
+	private GUIPlayerBoard playerBoard;
 
 	/**
 	 * Launch the application.
@@ -62,7 +68,6 @@ public class GameBoard extends JFrame {
 					Board board = new Board(nomi);
 					new InitGame(board);
 					board.initialize();	
-
 					GameBoard frame = new GameBoard(board);
 					
 				} catch (Exception e) {
@@ -116,13 +121,17 @@ public class GameBoard extends JFrame {
 		menuExit.setPreferredSize(new Dimension(64, 22));		
 		
 		this.actionSpaces = new GUIActionSpaces(this, this.board);
-		contentPane.add(actionSpaces);
+		contentPane.add(this.actionSpaces);
 		
 		this.playersStatistics = new GUIPlayersStatistics(this);
-		contentPane.add(playersStatistics);
+		contentPane.add(this.playersStatistics);
 		
 		this.chatGUI = new GUIChat(this);
-		contentPane.add(chatGUI);
+		contentPane.add(this.chatGUI);
+		
+		this.playerBoard = new GUIPlayerBoard(this);
+		contentPane.add(this.playerBoard);
+		this.playerBoard.setVisible(false);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
@@ -160,5 +169,13 @@ public class GameBoard extends JFrame {
 	
 	public GUIPlayersStatistics getPlayersStatistics(){
 		return this.playersStatistics;
+	}
+	
+	public GUIChat getChat(){
+		return this.chatGUI;
+	}
+	
+	public GUIPlayerBoard getPlayerBoard(){
+		return this.playerBoard;
 	}
 }

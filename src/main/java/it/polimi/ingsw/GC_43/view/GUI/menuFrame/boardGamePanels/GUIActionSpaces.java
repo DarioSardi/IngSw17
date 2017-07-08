@@ -8,10 +8,19 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import it.polimi.ingsw.GC_43.model.Board;
+import it.polimi.ingsw.GC_43.model.cards.BuildingCard;
+import it.polimi.ingsw.GC_43.model.cards.CharacterCard;
+import it.polimi.ingsw.GC_43.model.cards.TerritoryCard;
+import it.polimi.ingsw.GC_43.model.cards.VentureCard;
 import it.polimi.ingsw.GC_43.view.GUI.menuFrame.GameBoard;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import javax.swing.ButtonGroup;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUIActionSpaces extends JPanel {
 	/**
@@ -20,6 +29,7 @@ public class GUIActionSpaces extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private Board board;
+	private ArrayList<JButton> buttonGroup = new ArrayList<>();
 	public GUIActionSpaces(GameBoard gameBoard, Board board) {
 		this.board = board;
 		setSize(700, gameBoard.getHeight());
@@ -53,6 +63,15 @@ public class GUIActionSpaces extends JPanel {
 		add(zoomLabel);
 		
 		JButton tower1floor4 = new JButton("");
+		buttonGroup.add(tower1floor4);
+		tower1floor4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower1floor4.setIcon(null);
+				tower1floor4.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addTerritoryCard((TerritoryCard)board.getTowers().get(0).getFloors().get(3).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower1floor4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -68,7 +87,18 @@ public class GUIActionSpaces extends JPanel {
 		tower1floor4.setBounds(10, 39, 64, 100);
 		add(tower1floor4);
 		
+		tower1floor4.setIcon(new ImageIcon(resizeCards(tower1floor4, developmentCardsIcons[0])));
+		
 		JButton tower1floor3 = new JButton("");
+		buttonGroup.add(tower1floor3);
+		tower1floor3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower1floor3.setIcon(null);
+				tower1floor3.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addTerritoryCard((TerritoryCard)board.getTowers().get(0).getFloors().get(2).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower1floor3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -84,6 +114,15 @@ public class GUIActionSpaces extends JPanel {
 		add(tower1floor3);
 		
 		JButton tower1floor2 = new JButton("");
+		buttonGroup.add(tower1floor2);
+		tower1floor2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower1floor2.setIcon(null);
+				tower1floor2.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addTerritoryCard((TerritoryCard)board.getTowers().get(0).getFloors().get(1).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower1floor2.setBounds(10, 259, 64, 100);
 		add(tower1floor2);
 		
@@ -100,6 +139,16 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower1floor1 = new JButton("");
+		buttonGroup.add(tower1floor1);
+		tower1floor1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower1floor1.setIcon(null);
+				tower1floor1.setVisible(false);
+				tower1floor1.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addTerritoryCard((TerritoryCard)board.getTowers().get(0).getFloors().get(0).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower1floor1.setBounds(10, 369, 64, 100);
 		add(tower1floor1);
 		
@@ -115,6 +164,15 @@ public class GUIActionSpaces extends JPanel {
 			}
 		});
 		JButton tower2floor4 = new JButton("");
+		buttonGroup.add(tower2floor4);
+		tower2floor4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower2floor4.setIcon(null);
+				tower2floor4.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addCharacterCard((CharacterCard)board.getTowers().get(1).getFloors().get(3).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower2floor4.setBounds(128, 39, 64, 100);
 		add(tower2floor4);
 		tower2floor4.addMouseListener(new MouseAdapter() {
@@ -129,6 +187,15 @@ public class GUIActionSpaces extends JPanel {
 			}
 		});
 		JButton tower2floor3 = new JButton("");
+		buttonGroup.add(tower2floor3);
+		tower2floor3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower2floor3.setIcon(null);
+				tower2floor3.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addCharacterCard((CharacterCard)board.getTowers().get(1).getFloors().get(2).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower2floor3.setBounds(128, 149, 64, 100);
 		add(tower2floor3);
 		tower2floor3.addMouseListener(new MouseAdapter() {
@@ -144,6 +211,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower2floor2 = new JButton("");
+		buttonGroup.add(tower2floor2);
+		tower2floor2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower2floor2.setIcon(null);
+				tower2floor2.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addCharacterCard((CharacterCard)board.getTowers().get(1).getFloors().get(1).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower2floor2.setBounds(128, 259, 64, 100);
 		add(tower2floor2);
 		tower2floor2.addMouseListener(new MouseAdapter() {
@@ -159,6 +235,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower2floor1 = new JButton("");
+		buttonGroup.add(tower2floor1);
+		tower2floor1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower2floor1.setIcon(null);
+				tower2floor1.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addCharacterCard((CharacterCard)board.getTowers().get(1).getFloors().get(0).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower2floor1.setBounds(128, 369, 64, 100);
 		add(tower2floor1);
 		tower2floor1.addMouseListener(new MouseAdapter() {
@@ -174,6 +259,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower3floor4 = new JButton("");
+		buttonGroup.add(tower3floor4);
+		tower3floor4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower3floor4.setIcon(null);
+				tower3floor4.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addBuildingCard((BuildingCard)board.getTowers().get(2).getFloors().get(3).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower3floor4.setBounds(246, 39, 64, 100);
 		add(tower3floor4);
 		tower3floor4.addMouseListener(new MouseAdapter() {
@@ -189,6 +283,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower3floor3 = new JButton("");
+		buttonGroup.add(tower3floor3);
+		tower3floor3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower3floor3.setIcon(null);
+				tower3floor3.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addBuildingCard((BuildingCard)board.getTowers().get(2).getFloors().get(2).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower3floor3.setBounds(246, 149, 64, 100);
 		add(tower3floor3);
 		tower3floor3.addMouseListener(new MouseAdapter() {
@@ -204,6 +307,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower3floor2 = new JButton("");
+		buttonGroup.add(tower3floor2);
+		tower3floor2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower3floor2.setIcon(null);
+				tower3floor2.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addBuildingCard((BuildingCard)board.getTowers().get(2).getFloors().get(1).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower3floor2.setBounds(246, 259, 64, 100);
 		add(tower3floor2);
 		tower3floor2.addMouseListener(new MouseAdapter() {
@@ -219,6 +331,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower3floor1 = new JButton("");
+		buttonGroup.add(tower3floor1);
+		tower3floor1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower3floor1.setIcon(null);
+				tower3floor1.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addBuildingCard((BuildingCard)board.getTowers().get(2).getFloors().get(0).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower3floor1.setBounds(246, 369, 64, 100);
 		add(tower3floor1);
 		tower3floor1.addMouseListener(new MouseAdapter() {
@@ -234,6 +355,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower4floor4 = new JButton("");
+		buttonGroup.add(tower4floor4);
+		tower4floor4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower4floor4.setIcon(null);
+				tower4floor4.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addVentureCard((VentureCard)board.getTowers().get(3).getFloors().get(3).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower4floor4.setBounds(364, 39, 64, 100);
 		add(tower4floor4);
 		tower4floor4.addMouseListener(new MouseAdapter() {
@@ -249,6 +379,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower4floor3 = new JButton("");
+		buttonGroup.add(tower4floor3);
+		tower4floor3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower4floor3.setIcon(null);
+				tower4floor3.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addVentureCard((VentureCard)board.getTowers().get(3).getFloors().get(2).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower4floor3.setBounds(364, 149, 64, 100);
 		add(tower4floor3);
 		tower4floor3.addMouseListener(new MouseAdapter() {
@@ -264,6 +403,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower4floor2 = new JButton("");
+		buttonGroup.add(tower4floor2);
+		tower4floor2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower4floor2.setIcon(null);
+				tower4floor2.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addVentureCard((VentureCard)board.getTowers().get(3).getFloors().get(1).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower4floor2.setBounds(364, 259, 64, 100);
 		add(tower4floor2);
 		tower4floor2.addMouseListener(new MouseAdapter() {
@@ -279,6 +427,15 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton tower4floor1 = new JButton("");
+		buttonGroup.add(tower4floor1);
+		tower4floor1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tower4floor1.setIcon(null);
+				tower4floor1.setVisible(false);
+				board.getPlayers().get(0).getPlayerCards().addVentureCard((VentureCard)board.getTowers().get(3).getFloors().get(0).getCard());
+				disableAllButons(buttonGroup);
+			}
+		});
 		tower4floor1.setBounds(364, 369, 64, 100);
 		add(tower4floor1);
 		tower4floor1.addMouseListener(new MouseAdapter() {
@@ -294,6 +451,7 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton productionButton = new JButton("");
+		buttonGroup.add(productionButton);
 		productionButton.setOpaque(false);
 		productionButton.setContentAreaFilled(false);
 		productionButton.setBounds(7, 604, 45, 54);
@@ -311,6 +469,7 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton harvestButton = new JButton("");
+		buttonGroup.add(harvestButton);
 		harvestButton.setOpaque(false);
 		harvestButton.setContentAreaFilled(false);
 		harvestButton.setBounds(7, 660, 45, 54);
@@ -328,6 +487,7 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton councilPalaceButton = new JButton("");
+		buttonGroup.add(councilPalaceButton);
 		councilPalaceButton.setOpaque(false);
 		councilPalaceButton.setContentAreaFilled(false);
 		councilPalaceButton.setBounds(252, 474, 154, 70);
@@ -345,6 +505,7 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton market1Button = new JButton("");
+		buttonGroup.add(market1Button);
 		market1Button.setOpaque(false);
 		market1Button.setContentAreaFilled(false);
 		market1Button.setBounds(295, 590, 45, 54);
@@ -362,6 +523,7 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton market2Button = new JButton("");
+		buttonGroup.add(market2Button);
 		market2Button.setOpaque(false);
 		market2Button.setContentAreaFilled(false);
 		market2Button.setBounds(350, 590, 45, 54);
@@ -379,6 +541,7 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton market3Button = new JButton("");
+		buttonGroup.add(market3Button);
 		market3Button.setOpaque(false);
 		market3Button.setContentAreaFilled(false);
 		market3Button.setBounds(401, 604, 45, 54);
@@ -396,6 +559,7 @@ public class GUIActionSpaces extends JPanel {
 		});
 		
 		JButton market4Button = new JButton("");
+		buttonGroup.add(market4Button);
 		market4Button.setOpaque(false);
 		market4Button.setContentAreaFilled(false);
 		market4Button.setBounds(441, 646, 45, 54);
@@ -539,8 +703,6 @@ public class GUIActionSpaces extends JPanel {
 				zoomLabel.setIcon(null);
 			}
 		});
-						
-		tower1floor4.setIcon(new ImageIcon(resizeCards(tower1floor4, developmentCardsIcons[0])));
 		tower1floor3.setIcon(new ImageIcon(resizeCards(tower1floor3, developmentCardsIcons[1])));
 		tower1floor2.setIcon(new ImageIcon(resizeCards(tower1floor3, developmentCardsIcons[2])));
 		tower1floor1.setIcon(new ImageIcon(resizeCards(tower1floor3, developmentCardsIcons[3])));
@@ -603,5 +765,11 @@ public class GUIActionSpaces extends JPanel {
 		developmentCardsIcons[13] = new ImageIcon(this.board.getTowers().get(3).getFloors().get(2).getCard().getCardIcon());
 		developmentCardsIcons[14] = new ImageIcon(this.board.getTowers().get(3).getFloors().get(1).getCard().getCardIcon());
 		developmentCardsIcons[15] = new ImageIcon(this.board.getTowers().get(3).getFloors().get(0).getCard().getCardIcon());
+	}
+	
+	private void disableAllButons(ArrayList<JButton> buttonGroup){
+//		for (JButton b : buttonGroup) {
+//		    b.setEnabled(false);
+//		}
 	}
 }
