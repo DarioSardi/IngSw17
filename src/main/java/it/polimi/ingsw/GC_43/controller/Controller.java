@@ -557,17 +557,16 @@ public class Controller implements IController {
 
 				System.out.println("Ongoing next round logic, round was number " + this.board.getRound());
 
+				this.board.nextRound();
 
 				// CHECKING EXCOMMUNICATION
-				if (this.board.getRound() + 1 % GlobalVariables.excommunicationRound == 0) {
+				if (currentPhase % roundTimePerPhases == 0) {
 					System.out.println("Excommunication time on round " + this.board.getRound() + " and period "
 							+ this.board.getPeriod());
 					this.isExcommunicationTime = true;
 					askPlayersForExcommunication();
-					// waitForAllResponses()
 				}
 				
-				this.board.nextRound();
 
 
 				// END GAME
@@ -648,15 +647,18 @@ public class Controller implements IController {
 		System.out.println("Entered in Excommunication logic function");
 
 		for (ClientHandler clientHandler : this.clientHandlers) {
+			System.out.println("Player "+clientHandler.getUsername()+" is online? "+this.matchClientHandlerStatus.get(clientHandler.getUsername()));
 			if (this.matchClientHandlerStatus.get(clientHandler.getUsername())
 					&& checkExcommunicationFaithPoints(clientHandler.getUsername())) {
+				System.out.println("Asking player "+clientHandler.getUsername()+" for excommunication");
 				clientHandler.sendMsgTo("excommunication_round");
-				// DARIO non devono poter fare azioni di altro tipo in questo
-				// periodo di scelta
-				clientHandler.setMyturn(true);
+
 			}
+			System.out.println("Checked player "+clientHandler.getUsername());
 
 		}
+		System.out.println("Finished excommunication time");
+
 		if (this.excommunicationSubmission == this.board.getPlayers().size()) {
 			this.board.setPhase(0);
 			System.out.println("Excommunication round finished, going for next player phase: " + this.board.getPhase()
@@ -671,9 +673,9 @@ public class Controller implements IController {
 	private boolean checkExcommunicationFaithPoints(String playerUsername) {
 		boolean result = true;
 		System.out.println("Entered in Excommunication logic, minimum faith points to avoid excommunication is: "
-				+ globalVariables.faithPointExcomRequired[this.board.getPeriod() - 1]);
+				+ globalVariables.faithPointExcomRequired[this.board.getPeriod()]);
 		if (!(this.matchPlayer.get(playerUsername).getPlayerResource(
-				"faithPoint") >= globalVariables.faithPointExcomRequired[this.board.getPeriod() - 1])) {
+				"faithPoint") >= globalVariables.faithPointExcomRequired[this.board.getPeriod()])) {
 			result = false;
 
 			System.out.println("Excommunicating player who has "
