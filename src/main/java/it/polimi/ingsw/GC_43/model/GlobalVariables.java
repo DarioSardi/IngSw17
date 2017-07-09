@@ -25,6 +25,7 @@ public class GlobalVariables implements Serializable{
    public static int initialStones;
    public static int initialServants;
    public static int initialFirstPlayerCoins;
+   public static int initialFifthPlayerCoins;
    public static int initialSecondPlayerCoins;	
    public static int initialThirdPlayerCoins;	
    public static int initialFourthPlayerCoins;	
@@ -78,6 +79,7 @@ public class GlobalVariables implements Serializable{
 	   copyVariables.initialSecondPlayerCoins = GlobalVariables.initialSecondPlayerCoins;	
 	   copyVariables.initialThirdPlayerCoins = GlobalVariables.initialThirdPlayerCoins;	
 	   copyVariables.initialFourthPlayerCoins = GlobalVariables.initialFourthPlayerCoins;	
+	   copyVariables.initialFifthPlayerCoins = GlobalVariables.initialFifthPlayerCoins;	
 	   copyVariables.initialVictoryPoints = GlobalVariables.initialVictoryPoints;
 	   copyVariables.initialMilitaryPoints = GlobalVariables.initialMilitaryPoints;
 	   copyVariables.initialFaithPoints = GlobalVariables.initialFaithPoints;

@@ -47,6 +47,7 @@ public class GlobalVariablesInit implements Serializable{
 		       	GlobalVariables.initialSecondPlayerCoins = Integer.valueOf((String)slides.get("initialSecondPlayerCoins"));
 		       	GlobalVariables.initialThirdPlayerCoins = Integer.valueOf((String)slides.get("initialThirdPlayerCoins"));
 		       	GlobalVariables.initialFourthPlayerCoins = Integer.valueOf((String)slides.get("initialFourthPlayerCoins"));
+		       	GlobalVariables.initialFifthPlayerCoins = Integer.valueOf((String)slides.get("initialFifthPlayerCoins"));
 		       	// Add here for add coins to another player   	
 		       	GlobalVariables.initialVictoryPoints = Integer.valueOf((String)slides.get("initialVictoryPoints"));
 		       	GlobalVariables.initialMilitaryPoints = Integer.valueOf((String)slides.get("initialMilitaryPoints"));

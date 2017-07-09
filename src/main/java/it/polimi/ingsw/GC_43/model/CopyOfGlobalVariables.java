@@ -28,6 +28,7 @@ public class CopyOfGlobalVariables implements Serializable{
 	   public int initialSecondPlayerCoins;	
 	   public int initialThirdPlayerCoins;	
 	   public int initialFourthPlayerCoins;	
+	   public int initialFifthPlayerCoins;	
 	   public int initialVictoryPoints;
 	   public int initialMilitaryPoints;
 	   public int initialFaithPoints;
