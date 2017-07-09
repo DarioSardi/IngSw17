@@ -8,6 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
 import it.polimi.ingsw.GC_43.controller.DefaultBonusChoiceMessage;
+import it.polimi.ingsw.GC_43.controller.ExcommunicationChoiceMsg;
 import it.polimi.ingsw.GC_43.controller.LeaderCardChoiceMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
@@ -190,7 +191,11 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 		}	
 		while(this.myClient.inGame){
 			    this.myClient.printMyData();
-				inGameCommandsPrint();
+				if(this.myClient.excommunicationRound){
+					excomunicationRound();
+					this.myClient.excommunicationRound=false;
+				}
+			    inGameCommandsPrint();
 				try {
 					String command=input.readLine().toString();
 					if	   ("help".equals(command)){
@@ -369,7 +374,27 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 
 	@Override
 	public void excomunicationRound() throws RemoteException {
-		// DARIO Auto-generated method stub
+		try {
+			boolean done=false;
+			while (!done) {
+				System.out.println("EXCOMUNICATION TIME! ALL PROCESS ABORTED");
+				String choice = input.readLine();
+				if ("yes".equals(choice)) {
+					System.out.println("good boy");
+					this.myClient.sendObj(new ExcommunicationChoiceMsg(true),this.ID);
+					done = true;
+
+				} else if ("no".equals(choice)) {
+					System.out.println("WTF DI U SAY ABOUT THE POPE?");
+					this.myClient.sendObj(new ExcommunicationChoiceMsg(false),this.ID);
+					done = true;
+				} else
+					System.out.println("Shame! Not even a yes or no answer...retry!");
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

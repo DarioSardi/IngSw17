@@ -120,16 +120,16 @@ public class InGameMessageParser {
 
 	public void printActionsMenu() {
 		System.out.println("MENU AZIONE!");
-		System.out.println("Seleziona l'area a cui vuoi accedere:");
-		System.out.println("1) mercato");
-		System.out.println("2) area produzione");
-		System.out.println("3) area raccolto");
-		System.out.println("4) palazzo del consiglio");
-		System.out.println("5) torri");
-		System.out.println("6) passa turno");
-		System.out.println("7) annulla azione");
+		System.out.println("Select the action that you want to do:");
+		System.out.println("1) market");
+		System.out.println("2) production area");
+		System.out.println("3) harvest area");
+		System.out.println("4) palace");
+		System.out.println("5) towers");
+		System.out.println("6) pass the turn");
+		System.out.println("7) return to main menu");
 		if (this.myClient.isAdvancedGame()) {
-			System.out.println("8) azione leader card");
+			System.out.println("8) leader card action");
 		} 
 	}
 }
