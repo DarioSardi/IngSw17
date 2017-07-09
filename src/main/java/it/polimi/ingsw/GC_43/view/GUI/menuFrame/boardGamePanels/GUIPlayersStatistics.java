@@ -24,6 +24,11 @@ public class GUIPlayersStatistics extends JPanel {
 
 	private GameBoard gameBoard;
 	private Board board;
+	
+	private JLabel player1Name;
+	private JLabel player2Name;
+	private JLabel player3Name;
+	private JLabel player4Name;
 	private JLabel coin1;
 	private JLabel coin2;
 	private JLabel coin3;
@@ -73,6 +78,10 @@ public class GUIPlayersStatistics extends JPanel {
 		add(playersStatsLabel);
 		playersStatsLabel.setIcon(playersStatsIcon);
 		
+		this.player1Name = new JLabel(board.getPlayers().get(0).getPlayerName());
+		player1Name.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		player1Name.setBounds(300, 50, 200, 35);
+		add(player1Name);
 		
 		this.coin1 = new JLabel("");
 		coin1.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -116,6 +125,11 @@ public class GUIPlayersStatistics extends JPanel {
 		militaryPoint1.setBounds(483, 112, 35, 28);
 		add(militaryPoint1);
 		
+		this.player2Name = new JLabel(board.getPlayers().get(1).getPlayerName());
+		player2Name.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		player2Name.setBounds(300, 153, 200, 35);
+		add(player2Name);
+		
 		this.coin2 = new JLabel("");
 		coin2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		coin2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,6 +171,11 @@ public class GUIPlayersStatistics extends JPanel {
 		militaryPoint2.setHorizontalAlignment(SwingConstants.CENTER);
 		militaryPoint2.setBounds(483, 215, 35, 28);
 		add(militaryPoint2);
+		
+		this.player3Name = new JLabel("");
+		player3Name.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		player3Name.setBounds(300, 256, 200, 35);
+		add(player3Name);
 		
 		this.coin3 = new JLabel("");
 		coin3.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -200,11 +219,16 @@ public class GUIPlayersStatistics extends JPanel {
 		militaryPoint3.setBounds(483, 318, 35, 28);
 		add(militaryPoint3);
 		
+		this.player4Name = new JLabel("");
+		player4Name.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		player4Name.setBounds(300, 359, 200, 35);
+		add(player4Name);
+		
 		this.coin4 = new JLabel("");
 		coin4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		coin4.setHorizontalAlignment(SwingConstants.CENTER);
 		coin4.setBounds(142, 421, 35, 28);
-		add(coin4);
+		add(coin4);		
 		
 		this.servant4 = new JLabel("");
 		servant4.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -348,6 +372,7 @@ public class GUIPlayersStatistics extends JPanel {
 		militaryPoint2.setText(""+board.getPlayers().get(1).getPlayerResource("militaryPoint"));
 		
 		if (this.board.getPlayers().size() > 2){
+			player3Name.setText(board.getPlayers().get(2).getPlayerName());
 			coin3.setText(""+board.getPlayers().get(2).getPlayerResource("coin"));
 			servant3.setText(""+board.getPlayers().get(2).getPlayerResource("servant"));
 			stone3.setText(""+board.getPlayers().get(2).getPlayerResource("stone"));
@@ -357,6 +382,7 @@ public class GUIPlayersStatistics extends JPanel {
 			militaryPoint3.setText(""+board.getPlayers().get(2).getPlayerResource("militaryPoint"));
 		}
 		if (this.board.getPlayers().size() > 3){
+			player4Name.setText(board.getPlayers().get(3).getPlayerName());
 			coin4.setText(""+board.getPlayers().get(3).getPlayerResource("coin"));
 			servant4.setText(""+board.getPlayers().get(3).getPlayerResource("servant"));
 			stone4.setText(""+board.getPlayers().get(3).getPlayerResource("stone"));

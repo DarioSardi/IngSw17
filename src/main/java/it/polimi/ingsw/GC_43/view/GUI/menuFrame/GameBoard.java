@@ -63,7 +63,8 @@ public class GameBoard extends JFrame {
 				try {						
 					ArrayList<String> nomi = new ArrayList<>();
 					nomi.add("Samuel");
-					nomi.add("Sasa");
+					nomi.add("Dario");
+					nomi.add("Francesco");
 					new GlobalVariablesInit().readGlobalVariables();
 					Board board = new Board(nomi);
 					new InitGame(board);
