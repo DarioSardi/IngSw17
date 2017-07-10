@@ -560,12 +560,12 @@ public class Controller implements IController {
 				this.board.nextRound();
 
 				// CHECKING EXCOMMUNICATION
-				if (currentPhase % roundTimePerPhases == 0) {
+			//	if (currentPhase % roundTimePerPhases == 0) {
 					System.out.println("Excommunication time on round " + this.board.getRound() + " and period "
 							+ this.board.getPeriod());
 					this.isExcommunicationTime = true;
 					askPlayersForExcommunication();
-				}
+			//	}
 				
 
 

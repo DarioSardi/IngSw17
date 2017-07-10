@@ -53,10 +53,9 @@ public class Board implements Serializable {
 	// PLAYERS
 	private ArrayList<String> playersID;
 	private ArrayList<Player> players;
-	
-	
-	//ADVANCED RULES
-	
+
+	// ADVANCED RULES
+
 	private boolean advancedGame;
 	private ArrayList<PlayerPersonalBonus> advancedPersonalBonus;
 	private PlayerPersonalBonus basePersonalBonus;
@@ -77,7 +76,7 @@ public class Board implements Serializable {
 		this.setPeriod(0);
 		this.setPhase(0);
 		this.setRound(0);
-		this.leaderCardsPlayed=new ArrayList<LeaderCard>();
+		this.leaderCardsPlayed = new ArrayList<LeaderCard>();
 
 		GlobalVariables.numberOfPlayers = playersID.size();
 
@@ -151,7 +150,7 @@ public class Board implements Serializable {
 		if (this.players == null) {
 			this.players = new ArrayList<Player>();
 		}
-		System.out.println("\nTotal players in game is " + this.getPlayersID().size() +"\n");
+		System.out.println("\nTotal players in game is " + this.getPlayersID().size() + "\n");
 
 		try {
 			int index = 0;
@@ -253,7 +252,7 @@ public class Board implements Serializable {
 
 	public String getPhasePlayer() {
 		System.out.println("Phase number on board is " + this.phase);
-		System.out.println("player of phase on board"
+		System.out.println("player of phase on board "
 				+ this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName());
 
 		return this.getPlayers().get(this.phase % this.getPlayers().size()).getPlayerName();
@@ -472,8 +471,6 @@ public class Board implements Serializable {
 	public void setLeaderCardsPlayed(ArrayList<LeaderCard> leaderCardsPlayed) {
 		this.leaderCardsPlayed = leaderCardsPlayed;
 	}
-	
-	
 
 	public boolean isAdvancedGame() {
 		return advancedGame;
@@ -483,9 +480,6 @@ public class Board implements Serializable {
 		this.advancedGame = advancedGame;
 	}
 
-	
-	
-	
 	public ArrayList<PlayerPersonalBonus> getAdvancedPersonalBonus() {
 		return advancedPersonalBonus;
 	}
@@ -504,8 +498,8 @@ public class Board implements Serializable {
 
 	public void excommunicatePlayer(Player player) {
 		int Period = this.getPeriod();
-		System.out.println("Message from board: Excommunicating player " + player.getPlayerName() + " during period "
-				+ Period);
+		System.out.println(
+				"Message from board: Excommunicating player " + player.getPlayerName() + " during period " + Period);
 
 		if (this.getExcommunicationTiles().get(Period) != null) {
 			System.out.println("Message from board: Attempting to execute:\n "
