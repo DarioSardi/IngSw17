@@ -169,10 +169,10 @@ public class Board implements Serializable {
 					this.getPlayers()
 							.add(new Player(this.getPlayersID().get(index), GlobalVariables.initialFourthPlayerCoins));
 				index++;
-				if (index < this.playersID.size())
+		/*		if (index < this.playersID.size())
 					this.getPlayers()
 							.add(new Player(this.getPlayersID().get(index), GlobalVariables.initialFifthPlayerCoins));
-				index++;
+				index++;*/
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
