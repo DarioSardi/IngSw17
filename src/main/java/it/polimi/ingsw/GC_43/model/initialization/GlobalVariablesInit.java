@@ -51,7 +51,7 @@ public class GlobalVariablesInit implements Serializable{
 		       	// Add here for add coins to another player   	
 		       	GlobalVariables.initialVictoryPoints = Integer.valueOf((String)slides.get("initialVictoryPoints"));
 		       	GlobalVariables.initialMilitaryPoints = Integer.valueOf((String)slides.get("initialMilitaryPoints"));
-		       	GlobalVariables.initialFaithPoints = Integer.valueOf((String)slides.get("initialFaithPoints"));
+		       	GlobalVariables.initialFaithPoints = 10; //Integer.valueOf((String)slides.get("initialFaithPoints"));
 		       	GlobalVariables.minDiceFirstHarvestArea = Integer.valueOf((String)slides.get("minDiceFirstHarvestArea"));
 		       	GlobalVariables.minDiceSecondHarvestArea = Integer.valueOf((String)slides.get("minDiceSecondHarvestArea"));
 		       	GlobalVariables.minDiceFirstProductionArea = Integer.valueOf((String)slides.get("minDiceFirstProductionArea"));
