@@ -10,6 +10,8 @@ import it.polimi.ingsw.GC_43.controller.SimpleMessage;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.actionCreations.CommonActionCreatorRoutine;
+import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.model.actions.ExtraAction;
 
 public class ClientInHandler implements Runnable {
 
@@ -71,6 +73,11 @@ public class ClientInHandler implements Runnable {
 			else if(o instanceof LeaderCardChoiceMessage){
 				this.myClient.setLeaderCardChoice((LeaderCardChoiceMessage)o);
 			}
+			else if(o instanceof Action){
+				System.out.println("extra action received!");
+				((Action)o).toString();
+			}
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -83,9 +90,7 @@ public class ClientInHandler implements Runnable {
 	public void readMsg(SimpleMessage s){
 		String line=s.getMsg();
 		if("system_ingame_switch".equals(line)){
-			this.myClient.inGame=true;
-			
-				
+			this.myClient.inGame=true;	
 			}
 		else if("system_outgame_switch".equals(line)){
 			this.myClient.inGame=false;
@@ -106,7 +111,8 @@ public class ClientInHandler implements Runnable {
 			this.myClient.myTurn=false;
 			}
 		else if("excommunication_round".equals(line)){
-			System.out.println("\n\n\nEXCOMMUNICATION ROUND PRESS ENTER OR FINISH THE MENU QUERY TO ANSWER THE CHOICE, YOU HAVE 2 MINUTES!\n\n");
+			System.out.println("\n\n\nEXCOMMUNICATION ROUND PRESS ENTER OR FINISH THE MENU QUERY");
+			System.out.println("TO ANSWER THE CHOICE, YOU HAVE 2 MINUTES!\n\n");
 			this.myClient.excommunicationRound=true;
 		}
 		else if("Paction_performed".equals(line)){

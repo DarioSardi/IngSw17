@@ -190,11 +190,11 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 			System.out.println("advanced setup phase finished,time to play!");
 		}	
 		while(this.myClient.inGame){
-			    this.myClient.printMyData();
 				if(this.myClient.excommunicationRound){
-					excomunicationRound();
-					this.myClient.excommunicationRound=false;
+				excomunicationRound();
+				this.myClient.excommunicationRound=false;
 				}
+				this.myClient.printMyData();
 			    inGameCommandsPrint();
 				try {
 					String command=input.readLine().toString();
@@ -377,15 +377,15 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 		try {
 			boolean done=false;
 			while (!done) {
-				System.out.println("EXCOMUNICATION TIME! ALL PROCESS ABORTED");
+				System.out.println("EXCOMUNICATION TIME! ALL PROCESS ABORTED,TYPE 'yes' or 'no' to choose");
 				String choice = input.readLine();
 				if ("yes".equals(choice)) {
-					System.out.println("good boy");
+					System.out.println("ok");
 					this.myClient.sendObj(new ExcommunicationChoiceMsg(true),this.ID);
 					done = true;
 
 				} else if ("no".equals(choice)) {
-					System.out.println("WTF DI U SAY ABOUT THE POPE?");
+					System.out.println("you will be excommunicated!");
 					this.myClient.sendObj(new ExcommunicationChoiceMsg(false),this.ID);
 					done = true;
 				} else
@@ -434,6 +434,13 @@ public class RmiView extends UnicastRemoteObject implements Serializable,UserRmi
 	@Override
 	public void setInAdvSetupPhase(boolean b) throws RemoteException {
 		this.myClient.isInAdvSetupPhase=b;
+		
+	}
+
+
+	@Override
+	public void setExcommunicationRound(boolean b) throws RemoteException {
+		this.myClient.excommunicationRound=b;
 		
 	}
 	

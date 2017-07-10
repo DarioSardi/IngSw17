@@ -79,6 +79,7 @@ public class Client {
 		isInAdvSetupPhase=false;
 		this.actionPerformed=true;
 		this.guiInterface=false;
+		this.excommunicationRound=false;
 	}
 
 	private void connectRMI() throws RemoteException, NotBoundException {

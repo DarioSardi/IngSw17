@@ -118,4 +118,10 @@ public class GuiView  implements Serializable,UserRmiInterface,Runnable{
 		return this.handler.tryToCreateLobby(ID, lobbyNumber, maxPlayers, false);
 	}
 
+	@Override
+	public void setExcommunicationRound(boolean b) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

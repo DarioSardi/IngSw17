@@ -45,10 +45,6 @@ public class ClientOutHandler implements Runnable {
 							inGameParser(userIn);
 							
 						}
-						if(this.myClient.excommunicationRound){
-							excomunicationRound(userIn);
-							this.myClient.excommunicationRound=false;
-						}
 					}
 				} catch (IOException e) {
 				
@@ -69,6 +65,10 @@ public class ClientOutHandler implements Runnable {
 			advGameSetupPhase(userIn);
 		}
 		while(this.myClient.inGame){
+			if(this.myClient.excommunicationRound){
+				excomunicationRound(userIn);
+				this.myClient.excommunicationRound=false;
+			}
 			this.myClient.printMyData();
 			inGameCommandsPrint();
 			try {
@@ -190,15 +190,15 @@ public class ClientOutHandler implements Runnable {
 		Boolean done=false;
 		try {
 			while (!done) {
-				System.out.println("EXCOMUNICATION TIME! ALL PROCESS ABORTED");
+				System.out.println("EXCOMUNICATION TIME! ALL PROCESS ABORTED,TYPE 'yes' or 'no' to choose");
 				String choice = userIn.readLine();
 				if ("yes".equals(choice)) {
-					System.out.println("good boy");
+					System.out.println("ok!");
 					sendObj(new ExcommunicationChoiceMsg(true));
 					done = true;
 
 				} else if ("no".equals(choice)) {
-					System.out.println("WTF DI U SAY ABOUT THE POPE?");
+					System.out.println("you will be excommunicated!");
 					sendObj(new ExcommunicationChoiceMsg(false));
 					done = true;
 				} else

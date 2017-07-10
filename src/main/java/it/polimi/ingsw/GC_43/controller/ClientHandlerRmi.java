@@ -127,8 +127,9 @@ public class ClientHandlerRmi implements ClientHandler{
 			this.client.setmyTurn(false);
 			}
 		else if("excommunication_round".equals(line)){
-			System.out.println("\n\n\nEXCOMMUNICATION ROUND PRESS ENTER OR FINISH THE MENU QUERY TO ANSWER THE CHOICE, YOU HAVE 2 MINUTES!\n\n");
-			this.client.excomunicationRound();
+			this.client.showMsg("\n\n\nEXCOMMUNICATION ROUND PRESS ENTER OR FINISH THE MENU QUERY");
+			this.client.showMsg("TO ANSWER THE CHOICE, YOU HAVE 2 MINUTES!\n\n");
+			this.client.setExcommunicationRound(true);
 		}
 		else if("Paction_performed".equals(line)){
 			this.client.setActionPerformed(true);
