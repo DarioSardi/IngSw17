@@ -269,7 +269,14 @@ public class BoardTest {
 		System.out.println("\nDECIDING FOR WINNER");
 		FinalCalculationVictoryPoints fc = new FinalCalculationVictoryPoints();
 		System.out.println(fc.decideForWinner(this.board.getPlayers()));
-
+		
+		this.board.nextPhase();
+		this.board.nextRound();
+		this.board.nextTurn();
+		
+		this.board.excommunicatePlayer(this.board.getPlayers().get(0));
+		this.board.nextPeriod();
+		this.board.excommunicatePlayer(this.board.getPlayers().get(1));
 		System.out.println("\n\n\nBOARD TEST FINISHED !");
 
 	}
