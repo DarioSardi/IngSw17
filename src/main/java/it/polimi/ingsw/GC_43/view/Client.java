@@ -18,6 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import it.polimi.ingsw.GC_43.controller.ClientaHandlerRmInterface;
 import it.polimi.ingsw.GC_43.controller.DefaultBonusChoiceMessage;
+import it.polimi.ingsw.GC_43.controller.ExcommunicationChoiceMsg;
 import it.polimi.ingsw.GC_43.controller.LeaderCardChoiceMessage;
 import it.polimi.ingsw.GC_43.controller.Lobby;
 import it.polimi.ingsw.GC_43.model.Board;
@@ -25,6 +26,7 @@ import it.polimi.ingsw.GC_43.model.CopyOfGlobalVariables;
 import it.polimi.ingsw.GC_43.model.GlobalVariables;
 import it.polimi.ingsw.GC_43.model.Player;
 import it.polimi.ingsw.GC_43.model.actions.Action;
+import it.polimi.ingsw.GC_43.model.actions.LeaderCardAction;
 import it.polimi.ingsw.GC_43.view.GUI.menuFrame.Game;
 
 public class Client {
@@ -203,20 +205,38 @@ public class Client {
 	}
 
 	public void sendObj(Object o, Integer ID) throws RemoteException {
-		System.out.println("sending");
+		//System.out.println("sending");
 		if (!rmi) {
 			this.outStream.sendObj(o);
 		}
-		else
+		else{
+			if(o instanceof ExcommunicationChoiceMsg){
+				Boolean answer=((ExcommunicationChoiceMsg) o).getChoice();
+				this.handler.submitEexommChoice(ID,answer);
+			}
+			else{
 			System.out.println("ehm...why you are here?");
+			}
+		}
+	
 	}
 	
 	public void submitAction(Action a, Integer ID) throws RemoteException{
 		System.out.println("submitting action");
 		if (!rmi) {
+			if(a instanceof LeaderCardAction){
+				System.out.println("leadercardAction sending...");
+				this.outStream.sendObj((LeaderCardAction)a);
+			}else{
 			this.outStream.sendObj(a);
+			}
 		} else if (rmi) {
+			if(a instanceof LeaderCardAction){
+				this.handler.submitAction(ID,(LeaderCardAction)a);
+			}
+			else{
 			this.handler.submitAction(ID, a);
+			}
 
 		} else{
 			System.out.println("ehm...why you are here?");}

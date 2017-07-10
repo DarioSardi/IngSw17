@@ -256,6 +256,11 @@ public class ClientHandlerRmi implements ClientHandler{
 		this.lobby.getController().submitLeaderCardChoice(o, this);
 		
 	}
+
+	public void submitExcommChoice(Boolean answer) throws RemoteException {
+		this.lobby.getController().submitExcommunicationChoice(this.getUsername(),answer);
+		
+	}
 	
 
 

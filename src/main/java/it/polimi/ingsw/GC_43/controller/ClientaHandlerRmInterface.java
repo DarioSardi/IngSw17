@@ -25,5 +25,6 @@ public interface ClientaHandlerRmInterface  extends Remote{
 	public void exitLobby(int id) throws RemoteException;
 	public void submitDefaultBonus(int id, DefaultBonusChoiceMessage o) throws RemoteException;
 	public void submitLeaderCardChoice(int id, LeaderCardChoiceMessage o)throws RemoteException;
+	public void submitEexommChoice(int id,Boolean answer)throws RemoteException;
 	
 }

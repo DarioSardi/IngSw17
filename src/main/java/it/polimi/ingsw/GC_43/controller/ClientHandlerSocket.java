@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import it.polimi.ingsw.GC_43.model.Board;
 import it.polimi.ingsw.GC_43.model.actions.Action;
 import it.polimi.ingsw.GC_43.model.actions.EndPhaseAction;
+import it.polimi.ingsw.GC_43.model.actions.LeaderCardAction;
 
 public class ClientHandlerSocket implements ClientHandler,Runnable{
 	/**
@@ -234,6 +235,10 @@ public class ClientHandlerSocket implements ClientHandler,Runnable{
 			else if(o instanceof EndPhaseAction){
 				this.lobby.getController().submitClientAction((EndPhaseAction)o);
 			}
+			else if(o instanceof LeaderCardAction){
+				this.lobby.getController().submitClientAction((LeaderCardAction)o);
+			}
+			
 			else if(o instanceof Action&&this.myturn){
 				System.out.println("action received!"+ o.toString());
 				Action action=(Action) o;

@@ -160,7 +160,7 @@ public class ClientOutHandler implements Runnable {
 					this.myClient.getDefaultBonusChoice().setChoice(choice);
 					this.myClient.sendObj(this.myClient.getDefaultBonusChoice(), this.ID);
 					this.myClient.setDefaultBonusChoice(null);
-					System.out.println("choice sent");
+					//System.out.println("choice sent");
 				}
 				else{
 					System.out.println("wrong answer");
@@ -174,7 +174,8 @@ public class ClientOutHandler implements Runnable {
 					this.actualLeaderChoice=this.myClient.getLeaderCardChoice();
 					this.myClient.setLeaderCardChoice(null);
 					this.myClient.sendObj(this.actualLeaderChoice, this.ID);
-					System.out.println("choice sent");}
+					//System.out.println("choice sent");
+					}
 				else{
 					System.out.println("wrong answer");
 				}

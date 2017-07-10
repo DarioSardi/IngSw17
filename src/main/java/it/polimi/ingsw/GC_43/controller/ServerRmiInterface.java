@@ -126,4 +126,10 @@ public class ServerRmiInterface implements ClientaHandlerRmInterface{
 		
 	}
 
+	@Override
+	public void submitEexommChoice(int id,Boolean answer) throws RemoteException {
+		this.clientHandlers.get(id).submitExcommChoice(answer);
+		
+	}
+
 }
