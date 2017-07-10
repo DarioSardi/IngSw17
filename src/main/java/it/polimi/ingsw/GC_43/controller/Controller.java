@@ -553,7 +553,6 @@ public class Controller implements IController {
 			int roundTimePerPhases=this.board.getPlayers().size() * GlobalVariables.numberOfFamilyMembers;
 			int currentPhase=this.board.getPhase();
 			System.out.println("module result is "+currentPhase % roundTimePerPhases );
-			if (currentPhase % roundTimePerPhases== 0) {
 
 				System.out.println("Ongoing next round logic, round was number " + this.board.getRound());
 
@@ -580,7 +579,7 @@ public class Controller implements IController {
 						.println("Resetting board spaces, getting ready for next round number" + this.board.getRound());
 				nextRoundLogic();
 
-			}
+		//	}
 
 			if (!this.matchClientHandlerStatus.get(this.board.getPhasePlayer())) {
 				nextPlayerPhase();
