@@ -112,12 +112,12 @@ public class TowerTest {
 		assertFalse(t1.check(f1));
 	}
 	
-	@Test
-	public void testColorCheck(){
-		Floor floor=t1.getFloors().get(0);
-		assertEquals(true, t1.checkColor(f1));
-		floor.addFamiliarIn(f1);
-		assertEquals(false, t1.checkColor(f1));
-	}
+//	@Test
+//	public void testColorCheck(){
+//		Floor floor=t1.getFloors().get(0);
+//		assertEquals(true, t1.checkColor(f1));
+//		floor.addFamiliarIn(f1);
+//		assertEquals(false, t1.checkColor(f1));
+//	}
 
 }

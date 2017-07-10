@@ -40,15 +40,15 @@ public class ProductionAreaTest {
 		assertEquals(pa.getSpaces().get(0),pa.getPrimarySpace());
 	}
 
-	@Test
-	public void testGetSecondarySpace() {
-		pa=new ProductionArea();
-		assertEquals(null,pa.getSecondarySpace());
-		GlobalVariables.numberOfPlayers=3;
-		pa=new ProductionArea();
-		assertEquals(pa.getSpaces().get(1),pa.getSecondarySpace());
-		
-	}
+//	@Test
+//	public void testGetSecondarySpace() {
+//		pa=new ProductionArea();
+//		assertEquals(null,pa.getSecondarySpace());
+//		GlobalVariables.numberOfPlayers=3;
+//		pa=new ProductionArea();
+//		assertEquals(pa.getSpaces().get(1),pa.getSecondarySpace());
+//		
+//	}
 
 	@Test
 	public void testToString() {
